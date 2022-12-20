@@ -2,7 +2,6 @@ package com.example.helloworld.resources;
 
 import com.example.helloworld.core.Person;
 import com.example.helloworld.db.PersonDAO;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.collect.ImmutableList;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.junit.After;
@@ -20,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Assertions;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
@@ -54,15 +53,15 @@ public class PeopleResourceTest {
     }
 
     @Test
-    public void createPerson() throws JsonProcessingException {
+    public void createPerson() {
         when(PERSON_DAO.create(any(Person.class))).thenReturn(person);
         final Response response = RESOURCES.target("/people")
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.entity(person, MediaType.APPLICATION_JSON_TYPE));
 
-        assertThat(response.getStatusInfo()).isEqualTo(Response.Status.OK);
+        Assertions.assertEquals(response.getStatusInfo(), Response.Status.OK);
         verify(PERSON_DAO).create(personCaptor.capture());
-        assertThat(personCaptor.getValue()).isEqualTo(person);
+        Assertions.assertEquals(personCaptor.getValue(), person);
     }
 
     @Test
@@ -75,6 +74,6 @@ public class PeopleResourceTest {
             });
 
         verify(PERSON_DAO).findAll();
-        assertThat(response).containsAll(people);
+        Assertions.assertTrue(response.containsAll(people));
     }
 }

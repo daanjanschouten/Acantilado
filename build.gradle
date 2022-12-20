@@ -1,13 +1,13 @@
 plugins {
   id 'java'
-  id 'maven'
   id 'idea'
+  id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'io.dropwizard'
 version = '1.2.0-SNAPSHOT'
 
-description = """Dropwizard Example Application"""
+description = "Dropwizard Example Application"
 
 sourceCompatibility = "$javaVersion"
 targetCompatibility = "$javaVersion"
@@ -17,42 +17,42 @@ tasks.withType(JavaCompile) {
 }
 
 repositories {
-     maven { url "http://repo1.maven.org/maven2" }
+    mavenCentral()
+    google()
 }
 
 configurations.all {
 }
 
 dependencies {
-    compile group: 'io.dropwizard', name: 'dropwizard-core', version: "$dropwizardVersion"
-    compile group: 'io.dropwizard', name: 'dropwizard-auth', version: "$dropwizardVersion"
-    compile group: 'io.dropwizard', name: 'dropwizard-assets', version: "$dropwizardVersion"
-    compile group: 'io.dropwizard', name: 'dropwizard-http2', version: "$dropwizardVersion"
-    compile group: 'io.dropwizard', name: 'dropwizard-hibernate', version: "$dropwizardVersion"
-    compile group: 'io.dropwizard', name: 'dropwizard-migrations', version: "$dropwizardVersion"
-    compile group: 'io.dropwizard', name: 'dropwizard-views-freemarker', version: "$dropwizardVersion"
-    compile group: 'io.dropwizard', name: 'dropwizard-views-mustache', version: "$dropwizardVersion"
-    compile group: 'io.dropwizard', name: 'dropwizard-metrics-graphite', version: "$dropwizardVersion"
-    compile group: 'com.h2database', name: 'h2', version: "$h2Version"
-    testCompile group: 'io.dropwizard', name: 'dropwizard-testing', version: "$dropwizardVersion"
-    testCompile group: 'org.mockito', name: 'mockito-core', version: "$mockitoVersion"
-    testCompile(group: 'org.glassfish.jersey.test-framework.providers',
+    implementation group: 'io.dropwizard', name: 'dropwizard-core', version: "$dropwizardVersion"
+    implementation group: 'io.dropwizard', name: 'dropwizard-auth', version: "$dropwizardVersion"
+    implementation group: 'io.dropwizard', name: 'dropwizard-assets', version: "$dropwizardVersion"
+    implementation group: 'io.dropwizard', name: 'dropwizard-http2', version: "$dropwizardVersion"
+    implementation group: 'io.dropwizard', name: 'dropwizard-hibernate', version: "$dropwizardVersion"
+    implementation group: 'io.dropwizard', name: 'dropwizard-migrations', version: "$dropwizardVersion"
+    implementation group: 'io.dropwizard', name: 'dropwizard-views-freemarker', version: "$dropwizardVersion"
+    implementation group: 'io.dropwizard', name: 'dropwizard-views-mustache', version: "$dropwizardVersion"
+    implementation group: 'io.dropwizard', name: 'dropwizard-metrics-graphite', version: "$dropwizardVersion"
+    implementation group: 'com.h2database', name: 'h2', version: "$h2Version"
+    testImplementation group: 'org.junit.jupiter', name:'junit-jupiter', version:'5.9.0'
+    testImplementation group: 'io.dropwizard', name: 'dropwizard-testing', version: "$dropwizardVersion"
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: "$mockitoVersion"
+    testImplementation(group: 'org.glassfish.jersey.test-framework.providers',
             name: 'jersey-test-framework-provider-inmemory', version: "$jerseyTestFrameworkProviderVersion") {
         exclude(module: 'javax.servlet-api')
         exclude(module: 'junit')
     }
-    testCompile(group: 'org.glassfish.jersey.test-framework.providers',
+    testImplementation(group: 'org.glassfish.jersey.test-framework.providers',
             name: 'jersey-test-framework-provider-grizzly2', version: "$jerseyTestFrameworkProviderVersion") {
         exclude(module: 'javax.servlet-api')
         exclude(module: 'junit')
     }
 }
 
-jar {
+shadowJar {
+    mergeServiceFiles()
     manifest {
-        attributes(
-            'Class-Path': configurations.compile.join(' '),
-            'Main-Class': 'com.example.helloworld.HelloWorldApplication'
-        )
+        attributes 'Main-Class': 'com.example.helloworld.HelloWorldApplication'
     }
 }
