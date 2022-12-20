@@ -1,28 +1,19 @@
 plugins {
-  id 'java'
-  id 'idea'
-  id 'com.github.johnrengelman.shadow' version '7.1.2'
-}
-
-group = 'io.dropwizard'
-version = '1.2.0-SNAPSHOT'
-
-description = "Dropwizard Example Application"
-
-sourceCompatibility = "$javaVersion"
-targetCompatibility = "$javaVersion"
-
-tasks.withType(JavaCompile) {
-	options.encoding = 'UTF-8'
+  id 'java' // core plugin dependency
+  id 'idea' // adds nice commands like 'openIdea'
+  id 'com.github.johnrengelman.shadow' version "$shadowJarVersion" // requirement for shadowJar task
 }
 
 repositories {
-    mavenCentral()
-    google()
+    mavenCentral() // where plugins in plugins{} block are retrieved, as well as dependencies.
 }
 
-configurations.all {
-}
+group = 'com.schouten'
+version = '1.0.0-SNAPSHOT'
+description = "Flight Delay Tracker"
+
+sourceCompatibility = "$javaVersion"
+targetCompatibility = "$javaVersion"
 
 dependencies {
     implementation group: 'io.dropwizard', name: 'dropwizard-core', version: "$dropwizardVersion"
@@ -35,9 +26,7 @@ dependencies {
     implementation group: 'io.dropwizard', name: 'dropwizard-views-mustache', version: "$dropwizardVersion"
     implementation group: 'io.dropwizard', name: 'dropwizard-metrics-graphite', version: "$dropwizardVersion"
     implementation group: 'com.h2database', name: 'h2', version: "$h2Version"
-    testImplementation group: 'org.junit.jupiter', name:'junit-jupiter', version:'5.9.0'
     testImplementation group: 'io.dropwizard', name: 'dropwizard-testing', version: "$dropwizardVersion"
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: "$mockitoVersion"
     testImplementation(group: 'org.glassfish.jersey.test-framework.providers',
             name: 'jersey-test-framework-provider-inmemory', version: "$jerseyTestFrameworkProviderVersion") {
         exclude(module: 'javax.servlet-api')
@@ -48,6 +37,8 @@ dependencies {
         exclude(module: 'javax.servlet-api')
         exclude(module: 'junit')
     }
+    testImplementation group: 'org.junit.jupiter', name:'junit-jupiter', version: "$jupiterVersion"
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: "$mockitoVersion"
 }
 
 shadowJar {
