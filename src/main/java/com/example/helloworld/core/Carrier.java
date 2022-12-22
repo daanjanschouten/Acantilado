@@ -1,26 +1,29 @@
 package com.example.helloworld.core;
 
+import com.example.helloworld.core.schedules.CarrierSchedule;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
-@Table(name = "carriers")
 @Entity
+@Table(name = "CARRIER")
 public class Carrier {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long carrier_id;
+    @Column(name="carrier_id")
+    private UUID carrierId;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "carrier")
+    private Set<CarrierSchedule> carrierSchedules = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "carrier")
+    private Set<CarrierSchedule> oepratorSchedules = new HashSet<>();
+
     @Column(name = "name", nullable = false)
     private String name;
 
     public Carrier(String name) {
         this.name = name;
-    }
-
-    public long getId() {
-        return carrier_id;
-    }
-
-    public void setId(long carrier_id) {
-        this.carrier_id = carrier_id;
     }
 }

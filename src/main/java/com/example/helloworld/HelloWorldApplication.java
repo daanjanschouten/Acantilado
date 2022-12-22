@@ -7,12 +7,10 @@ import com.example.helloworld.core.*;
 import com.example.helloworld.core.schedules.AircraftSchedule;
 import com.example.helloworld.core.schedules.AirportSchedule;
 import com.example.helloworld.core.schedules.CarrierSchedule;
-import com.example.helloworld.core.schedules.FlightSchedule;
-import com.example.helloworld.db.ArtistDao;
+import com.example.helloworld.core.schedules.TimeSchedule;
 import com.example.helloworld.db.FlightDao;
 import com.example.helloworld.db.PersonDAO;
 import com.example.helloworld.filter.DateRequiredFeature;
-import com.example.helloworld.health.TemplateHealthCheck;
 import com.example.helloworld.resources.*;
 import com.example.helloworld.tasks.EchoTask;
 import io.dropwizard.Application;
@@ -36,15 +34,18 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     public static void main(String[] args) throws Exception {
         new HelloWorldApplication().run(args);
     }
-
     private final HibernateBundle<HelloWorldConfiguration> hibernateBundle =
             new HibernateBundle<HelloWorldConfiguration>(
                     AircraftSchedule.class,
+                    Aircraft.class,
                     AirportSchedule.class,
+                    Airport.class,
+                    Carrier.class,
                     CarrierSchedule.class,
-                    Person.class,
                     Flight.class,
-                    FlightSchedule.class) {
+                    Location.class,
+                    Person.class,
+                    TimeSchedule.class) {
                 @Override
                 public DataSourceFactory getDataSourceFactory(HelloWorldConfiguration configuration) {
                     return configuration.getDataSourceFactory();
@@ -87,7 +88,6 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     public void run(HelloWorldConfiguration configuration, Environment environment) {
         final PersonDAO personDAO = new PersonDAO(hibernateBundle.getSessionFactory());
         final FlightDao flightDao = new FlightDao(hibernateBundle.getSessionFactory());
-        // final ArtistDao artistDao = new ArtistDao(hibernateBundle.getSessionFactory());
         final Template template = configuration.buildTemplate();
 
         // environment.healthChecks().register("template", new TemplateHealthCheck(template));

@@ -6,7 +6,7 @@ package com.example.helloworld.core;
 import com.example.helloworld.core.schedules.AircraftSchedule;
 import com.example.helloworld.core.schedules.AirportSchedule;
 import com.example.helloworld.core.schedules.CarrierSchedule;
-import com.example.helloworld.core.schedules.FlightSchedule;
+import com.example.helloworld.core.schedules.TimeSchedule;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -25,7 +25,7 @@ public class Flight {
     @OneToOne(mappedBy = "flight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private CarrierSchedule carrierSchedule;
     @OneToOne(mappedBy = "flight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private FlightSchedule flightSchedule;
+    private TimeSchedule timeSchedule;
     public Flight() {
     }
 }
