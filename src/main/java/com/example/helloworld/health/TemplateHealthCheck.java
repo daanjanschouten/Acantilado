@@ -13,7 +13,7 @@ public class TemplateHealthCheck extends HealthCheck {
     }
 
     @Override
-    protected Result check() throws Exception {
+    protected Result check() {
         template.render(Optional.of("woo"));
         template.render(Optional.empty());
         return Result.healthy();
