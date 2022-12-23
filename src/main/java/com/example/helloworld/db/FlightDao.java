@@ -21,7 +21,9 @@ public class FlightDao extends AbstractDAO<Flight> {
     }
 
     public List<Flight> findAll() {
-        return list(namedTypedQuery("com.example.helloworld.core.Flight.findAll"));
+        return list(
+                namedTypedQuery("com.example.helloworld.core.Flight.findAll")
+        );
     }
 }
 

@@ -13,7 +13,7 @@ public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "airport_id")
-    private UUID airportId;
+    private long airportId;
 
     @OneToOne(mappedBy = "airport", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Location location;

@@ -4,7 +4,6 @@ import com.example.helloworld.core.Flight;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.UUID;
 
 @Entity
 @Table(name = "FLIGHT_SCHEDULE")
@@ -12,7 +11,7 @@ public class TimeSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "time_schedule_id")
-    private UUID timeScheduleId;
+    private long timeScheduleId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "flight_id")
@@ -27,6 +26,45 @@ public class TimeSchedule {
     @Column(name = "actualArrival", nullable = false)
     private Instant actualArrival;
 
+    public TimeSchedule(Instant scheduledDeparture, Instant scheduledArrival, Instant actualDeparture, Instant actualArrival) {
+        this.scheduledDeparture = scheduledDeparture;
+        this.scheduledArrival = scheduledArrival;
+        this.actualDeparture = actualDeparture;
+        this.actualArrival = actualArrival;
+    }
+
     public TimeSchedule() {
+    }
+
+    public Instant getScheduledDeparture() {
+        return scheduledDeparture;
+    }
+
+    public Instant getScheduledArrival() {
+        return scheduledArrival;
+    }
+
+    public Instant getActualDeparture() {
+        return actualDeparture;
+    }
+
+    public Instant getActualArrival() {
+        return actualArrival;
+    }
+
+    public void setScheduledDeparture(Instant scheduledDeparture) {
+        this.scheduledDeparture = scheduledDeparture;
+    }
+
+    public void setScheduledArrival(Instant scheduledArrival) {
+        this.scheduledArrival = scheduledArrival;
+    }
+
+    public void setActualDeparture(Instant actualDeparture) {
+        this.actualDeparture = actualDeparture;
+    }
+
+    public void setActualArrival(Instant actualArrival) {
+        this.actualArrival = actualArrival;
     }
 }

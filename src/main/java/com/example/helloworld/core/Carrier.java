@@ -5,7 +5,6 @@ import com.example.helloworld.core.schedules.CarrierSchedule;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "CARRIER")
@@ -13,7 +12,7 @@ public class Carrier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="carrier_id")
-    private UUID carrierId;
+    private long carrierId;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "carrier")
     private Set<CarrierSchedule> carrierSchedules = new HashSet<>();
 

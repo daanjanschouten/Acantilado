@@ -16,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 @Path("/people/{personId}")
 @Produces(MediaType.APPLICATION_JSON)
 public class PersonResource {
-
     private final PersonDAO peopleDAO;
 
     public PersonResource(PersonDAO peopleDAO) {

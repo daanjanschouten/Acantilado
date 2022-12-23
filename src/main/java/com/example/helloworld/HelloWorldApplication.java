@@ -11,6 +11,7 @@ import com.example.helloworld.core.schedules.TimeSchedule;
 import com.example.helloworld.db.FlightDao;
 import com.example.helloworld.db.PersonDAO;
 import com.example.helloworld.filter.DateRequiredFeature;
+import com.example.helloworld.health.TemplateHealthCheck;
 import com.example.helloworld.resources.*;
 import com.example.helloworld.tasks.EchoTask;
 import io.dropwizard.Application;
@@ -27,8 +28,11 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
+import org.hibernate.tool.schema.TargetType;
 
-import java.util.Map;
+import java.util.*;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -82,6 +86,20 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
                 return configuration.getViewRendererConfiguration();
             }
         });
+        final Set<Class<?>> annotatedClasses = new HashSet<>(Arrays.asList(
+                AircraftSchedule.class,
+                Aircraft.class,
+                AirportSchedule.class,
+                Airport.class,
+                Carrier.class,
+                CarrierSchedule.class,
+                Flight.class,
+                Location.class,
+                Person.class,
+                TimeSchedule.class
+        ));
+        //
+        HibernateUtil.generateSchema(annotatedClasses);
     }
 
     @Override
@@ -90,7 +108,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         final FlightDao flightDao = new FlightDao(hibernateBundle.getSessionFactory());
         final Template template = configuration.buildTemplate();
 
-        // environment.healthChecks().register("template", new TemplateHealthCheck(template));
+        environment.healthChecks().register("template", new TemplateHealthCheck(template));
         environment.admin().addTask(new EchoTask());
         environment.jersey().register(DateRequiredFeature.class);
         environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
@@ -106,7 +124,6 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         environment.jersey().register(new PeopleResource(personDAO));
         environment.jersey().register(new PersonResource(personDAO));
         environment.jersey().register(new FlightResource(flightDao));
-        // environment.jersey().register(new ArtistResource(artistDao));
         environment.jersey().register(new FilteredResource());
     }
 }

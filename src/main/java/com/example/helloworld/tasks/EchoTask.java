@@ -12,7 +12,7 @@ public class EchoTask extends PostBodyTask {
     }
 
     @Override
-    public void execute(Map<String, List<String>> parameters, String body, PrintWriter output) throws Exception {
+    public void execute(Map<String, List<String>> parameters, String body, PrintWriter output) {
         output.print(body);
         output.flush();
     }

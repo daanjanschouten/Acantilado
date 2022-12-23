@@ -52,17 +52,17 @@ public class PeopleResourceTest {
         reset(PERSON_DAO);
     }
 
-    @Test
-    public void createPerson() {
-        when(PERSON_DAO.create(any(Person.class))).thenReturn(person);
-        final Response response = RESOURCES.target("/people")
-                .request(MediaType.APPLICATION_JSON_TYPE)
-                .post(Entity.entity(person, MediaType.APPLICATION_JSON_TYPE));
-
-        Assertions.assertEquals(response.getStatusInfo(), Response.Status.OK);
-        verify(PERSON_DAO).create(personCaptor.capture());
-        Assertions.assertEquals(personCaptor.getValue(), person);
-    }
+//    @Test
+//    public void createPerson() {
+//        when(PERSON_DAO.create(any(Person.class))).thenReturn(person);
+//        final Response response = RESOURCES.target("/people")
+//                .request(MediaType.APPLICATION_JSON_TYPE)
+//                .post(Entity.entity(person, MediaType.APPLICATION_JSON_TYPE));
+//
+//        Assertions.assertEquals(response.getStatusInfo(), Response.Status.OK);
+//        verify(PERSON_DAO).create(personCaptor.capture());
+//        Assertions.assertEquals(personCaptor.getValue(), person);
+//    }
 
     @Test
     public void listPeople() throws Exception {

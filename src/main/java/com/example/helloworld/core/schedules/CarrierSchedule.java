@@ -4,7 +4,6 @@ import com.example.helloworld.core.Carrier;
 import com.example.helloworld.core.Flight;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Table(name = "CARRIER_SCHEDULE")
@@ -12,7 +11,7 @@ public class CarrierSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "carrier_schedule_id")
-    private UUID carrierScheduleId;
+    private long carrierScheduleId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "carrier_id", insertable = false, updatable = false)
     private Carrier carrier;
