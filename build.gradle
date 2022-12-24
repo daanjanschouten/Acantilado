@@ -44,6 +44,6 @@ dependencies {
 shadowJar {
     mergeServiceFiles()
     manifest {
-        attributes 'Main-Class': 'com.example.helloworld.HelloWorldApplication'
+        attributes 'Main-Class': 'com.flightdelays.HelloWorldApplication'
     }
 }
