@@ -1,7 +1,9 @@
 package com.example.helloworld.resources;
 
+import com.example.helloworld.core.Aircraft;
+import com.example.helloworld.core.Runway;
+import com.example.helloworld.core.Carrier;
 import com.example.helloworld.core.Flight;
-import com.example.helloworld.core.schedules.TimeSchedule;
 import com.example.helloworld.db.FlightDao;
 import io.dropwizard.hibernate.UnitOfWork;
 
@@ -29,8 +31,39 @@ public class FlightResource {
         Instant aDeparture = Instant.now();
         Instant sArrival = Instant.now();
         Instant aArrival = Instant.now();
-        TimeSchedule timeSchedule = new TimeSchedule(sDeparture, sArrival, aDeparture, aArrival);
-        Flight flight = new Flight(timeSchedule);
+        Aircraft aircraft = new Aircraft(12345, "modelModern");
+        Runway runway1 = new Runway(
+                1234,
+                "countryA",
+                "countryB",
+                "airportName"
+        );
+        Runway runway2 = new Runway(
+                1233,
+                "countryA",
+                "countryB",
+                "airportName"
+        );
+        Runway runway3 = new Runway(
+                1232,
+                "countryA",
+                "countryB",
+                "airportName"
+        );
+        Carrier carrier = new Carrier(54, "myCarrier");
+        Carrier operator = new Carrier(55, "myOtherCarrier");
+        Flight flight = new Flight(
+                "flightNumber",
+                sDeparture,
+                aDeparture,
+                sArrival,
+                aArrival,
+                aircraft,
+                runway1,
+                runway2,
+                runway3,
+                carrier,
+                operator);
         return flightDao.create(flight);
     }
 

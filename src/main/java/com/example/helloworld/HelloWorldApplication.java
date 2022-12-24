@@ -4,10 +4,6 @@ import com.example.helloworld.auth.ExampleAuthenticator;
 import com.example.helloworld.auth.ExampleAuthorizer;
 import com.example.helloworld.cli.RenderCommand;
 import com.example.helloworld.core.*;
-import com.example.helloworld.core.schedules.AircraftSchedule;
-import com.example.helloworld.core.schedules.AirportSchedule;
-import com.example.helloworld.core.schedules.CarrierSchedule;
-import com.example.helloworld.core.schedules.TimeSchedule;
 import com.example.helloworld.db.FlightDao;
 import com.example.helloworld.db.PersonDAO;
 import com.example.helloworld.filter.DateRequiredFeature;
@@ -28,9 +24,6 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.tool.hbm2ddl.SchemaExport;
-import org.hibernate.tool.schema.TargetType;
 
 import java.util.*;
 
@@ -40,16 +33,11 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     }
     private final HibernateBundle<HelloWorldConfiguration> hibernateBundle =
             new HibernateBundle<HelloWorldConfiguration>(
-                    AircraftSchedule.class,
                     Aircraft.class,
-                    AirportSchedule.class,
-                    Airport.class,
+                    Runway.class,
                     Carrier.class,
-                    CarrierSchedule.class,
                     Flight.class,
-                    Location.class,
-                    Person.class,
-                    TimeSchedule.class) {
+                    Person.class) {
                 @Override
                 public DataSourceFactory getDataSourceFactory(HelloWorldConfiguration configuration) {
                     return configuration.getDataSourceFactory();
@@ -70,7 +58,6 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
                         new EnvironmentVariableSubstitutor(false)
                 )
         );
-
         bootstrap.addCommand(new RenderCommand());
         bootstrap.addBundle(new AssetsBundle());
         bootstrap.addBundle(hibernateBundle);
@@ -87,18 +74,12 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
             }
         });
         final Set<Class<?>> annotatedClasses = new HashSet<>(Arrays.asList(
-                AircraftSchedule.class,
                 Aircraft.class,
-                AirportSchedule.class,
-                Airport.class,
+                Runway.class,
                 Carrier.class,
-                CarrierSchedule.class,
                 Flight.class,
-                Location.class,
-                Person.class,
-                TimeSchedule.class
+                Person.class
         ));
-        //
         HibernateUtil.generateSchema(annotatedClasses);
     }
 
