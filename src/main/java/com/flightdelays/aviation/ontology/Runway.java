@@ -4,10 +4,18 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "RUNWAY")
+@NamedQueries(
+        {
+                @NamedQuery(
+                        name = "com.flightdelays.core.Runway.findAll",
+                        query = "SELECT r FROM Runway r"
+                )
+        }
+)
 public class Runway {
     @Id
     @Column(name = "runway_id")
-    private long runwayId;
+    private String runwayId;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "airport_id")
@@ -16,16 +24,16 @@ public class Runway {
     public Runway() {
     }
 
-    public Runway(long runwayId, Airport airport) {
+    public Runway(String runwayId, Airport airport) {
         this.runwayId = runwayId;
         this.airport = airport;
     }
 
-    public long getRunwayId() {
+    public String getRunwayId() {
         return runwayId;
     }
 
-    public void setRunwayId(long runwayId) {
+    public void setRunwayId(String runwayId) {
         this.runwayId = runwayId;
     }
 

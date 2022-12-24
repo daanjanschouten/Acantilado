@@ -13,11 +13,9 @@ import javax.persistence.*;
         }
 )
 public class Airport {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "airport_id")
-    private long airportId;
+    private String airportId;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -30,7 +28,8 @@ public class Airport {
     public Airport() {
     }
 
-    public Airport(String name, String country, String city) {
+    public Airport(String airportId, String name, String country, String city) {
+        this.airportId = airportId;
         this.name = name;
         this.country = country;
         this.city = city;
@@ -58,5 +57,13 @@ public class Airport {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getAirportId() {
+        return airportId;
+    }
+
+    public void setAirportId(String airportId) {
+        this.airportId = airportId;
     }
 }

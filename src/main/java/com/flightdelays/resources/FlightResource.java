@@ -28,22 +28,22 @@ public class FlightResource {
         Instant aDeparture = Instant.now();
         Instant sArrival = Instant.now();
         Instant aArrival = Instant.now();
-        Aircraft aircraft = new Aircraft(12345, "modelModern");
-        Airport airport = new Airport("City Airport", "The Hague", "Netherlands");
+        Aircraft aircraft = new Aircraft("12345", "modelModern");
+        Airport airport = new Airport("AMS", "City Airport", "The Hague", "Netherlands");
         Runway runway1 = new Runway(
-                1234,
+                "1234",
                 airport
         );
         Runway runway2 = new Runway(
-                1235,
+                "1235",
                 airport
         );
         Runway runway3 = new Runway(
-                1236,
+                "1236",
                 airport
         );
-        Carrier carrier = new Carrier(54, "myCarrier");
-        Carrier operator = new Carrier(55, "myOtherCarrier");
+        Carrier carrier = new Carrier("54", "myCarrier");
+        Carrier operator = new Carrier("55", "myOtherCarrier");
         Flight flight = new Flight(
                 "flightNumber",
                 sDeparture,

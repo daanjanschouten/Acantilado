@@ -7,9 +7,7 @@ import com.flightdelays.cli.RenderCommand;
 import com.flightdelays.core.Person;
 import com.flightdelays.core.Template;
 import com.flightdelays.core.User;
-import com.flightdelays.db.AirportDao;
-import com.flightdelays.db.FlightDao;
-import com.flightdelays.db.PersonDAO;
+import com.flightdelays.db.*;
 import com.flightdelays.filter.DateRequiredFeature;
 import com.flightdelays.health.TemplateHealthCheck;
 import com.flightdelays.resources.*;
@@ -39,10 +37,10 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
             new HibernateBundle<HelloWorldConfiguration>(
                     Aircraft.class,
                     Airport.class,
-                    Runway.class,
                     Carrier.class,
                     Flight.class,
-                    Person.class) {
+                    Person.class,
+                    Runway.class) {
                 @Override
                 public DataSourceFactory getDataSourceFactory(HelloWorldConfiguration configuration) {
                     return configuration.getDataSourceFactory();
@@ -81,19 +79,21 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         final Set<Class<?>> annotatedClasses = new HashSet<>(Arrays.asList(
                 Aircraft.class,
                 Airport.class,
-                Runway.class,
                 Carrier.class,
                 Flight.class,
-                Person.class
-        ));
+                Person.class,
+                Runway.class));
         HibernateUtil.generateSchema(annotatedClasses);
     }
 
     @Override
     public void run(HelloWorldConfiguration configuration, Environment environment) {
+        final AircraftDao aircraftDao = new AircraftDao(hibernateBundle.getSessionFactory());
         final PersonDAO personDAO = new PersonDAO(hibernateBundle.getSessionFactory());
         final FlightDao flightDao = new FlightDao(hibernateBundle.getSessionFactory());
         final AirportDao airportDao = new AirportDao(hibernateBundle.getSessionFactory());
+        final RunwayDao runwayDao = new RunwayDao(hibernateBundle.getSessionFactory());
+        final CarrierDao carrierDao = new CarrierDao(hibernateBundle.getSessionFactory());
         final Template template = configuration.buildTemplate();
 
         environment.healthChecks().register("template", new TemplateHealthCheck(template));
@@ -110,9 +110,12 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         environment.jersey().register(new ViewResource());
         environment.jersey().register(new ProtectedResource());
         environment.jersey().register(new PeopleResource(personDAO));
+        environment.jersey().register(new AircraftResource(aircraftDao));
         environment.jersey().register(new PersonResource(personDAO));
         environment.jersey().register(new FlightResource(flightDao));
         environment.jersey().register(new AirportResource(airportDao));
+        environment.jersey().register(new RunwayResource(runwayDao));
+        environment.jersey().register(new CarrierResource(carrierDao));
         environment.jersey().register(new FilteredResource());
     }
 }

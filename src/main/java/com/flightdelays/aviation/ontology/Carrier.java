@@ -4,10 +4,18 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "CARRIER")
+@NamedQueries(
+        {
+                @NamedQuery(
+                        name = "com.flightdelays.core.Carrier.findAll",
+                        query = "SELECT c FROM Carrier c"
+                )
+        }
+)
 public class Carrier {
     @Id
     @Column(name="carrier_id")
-    private long carrierId;
+    private String carrierId;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -15,16 +23,16 @@ public class Carrier {
     public Carrier() {
     }
 
-    public Carrier(long carrierId, String name) {
+    public Carrier(String carrierId, String name) {
         this.carrierId = carrierId;
         this.name = name;
     }
 
-    public long getCarrierId() {
+    public String getCarrierId() {
         return carrierId;
     }
 
-    public void setCarrierId(long carrierId) {
+    public void setCarrierId(String carrierId) {
         this.carrierId = carrierId;
     }
 
