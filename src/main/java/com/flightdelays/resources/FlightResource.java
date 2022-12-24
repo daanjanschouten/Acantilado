@@ -1,6 +1,6 @@
 package com.flightdelays.resources;
 
-import com.flightdelays.aviation.*;
+import com.flightdelays.aviation.ontology.*;
 import com.flightdelays.db.FlightDao;
 import io.dropwizard.hibernate.UnitOfWork;
 

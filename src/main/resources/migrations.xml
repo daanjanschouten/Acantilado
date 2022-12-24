@@ -8,8 +8,6 @@
 
     <changeSet id="seeding0001" author="daanschouten">
         <sql splitStatements="false">
-
-
             create table AIRCRAFT (
             aircraft_id bigint not null,
             model varchar(255),

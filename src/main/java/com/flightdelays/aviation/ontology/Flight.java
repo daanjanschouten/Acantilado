@@ -1,4 +1,4 @@
-package com.flightdelays.aviation;
+package com.flightdelays.aviation.ontology;
 
 import javax.persistence.*;
 import java.time.Instant;

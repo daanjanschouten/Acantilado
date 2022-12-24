@@ -1,9 +1,17 @@
-package com.flightdelays.aviation;
+package com.flightdelays.aviation.ontology;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "AIRPORT")
+@NamedQueries(
+        {
+                @NamedQuery(
+                        name = "com.flightdelays.core.Airport.findAll",
+                        query = "SELECT a FROM Airport a"
+                )
+        }
+)
 public class Airport {
 
     @Id

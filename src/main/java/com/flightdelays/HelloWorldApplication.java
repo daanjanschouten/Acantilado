@@ -2,11 +2,12 @@ package com.flightdelays;
 
 import com.flightdelays.auth.ExampleAuthenticator;
 import com.flightdelays.auth.ExampleAuthorizer;
-import com.flightdelays.aviation.*;
+import com.flightdelays.aviation.ontology.*;
 import com.flightdelays.cli.RenderCommand;
 import com.flightdelays.core.Person;
 import com.flightdelays.core.Template;
 import com.flightdelays.core.User;
+import com.flightdelays.db.AirportDao;
 import com.flightdelays.db.FlightDao;
 import com.flightdelays.db.PersonDAO;
 import com.flightdelays.filter.DateRequiredFeature;
@@ -92,6 +93,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     public void run(HelloWorldConfiguration configuration, Environment environment) {
         final PersonDAO personDAO = new PersonDAO(hibernateBundle.getSessionFactory());
         final FlightDao flightDao = new FlightDao(hibernateBundle.getSessionFactory());
+        final AirportDao airportDao = new AirportDao(hibernateBundle.getSessionFactory());
         final Template template = configuration.buildTemplate();
 
         environment.healthChecks().register("template", new TemplateHealthCheck(template));
@@ -110,6 +112,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         environment.jersey().register(new PeopleResource(personDAO));
         environment.jersey().register(new PersonResource(personDAO));
         environment.jersey().register(new FlightResource(flightDao));
+        environment.jersey().register(new AirportResource(airportDao));
         environment.jersey().register(new FilteredResource());
     }
 }
