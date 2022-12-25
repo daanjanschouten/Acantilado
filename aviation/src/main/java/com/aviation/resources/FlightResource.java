@@ -1,7 +1,7 @@
-package com.flightdelays.resources;
+package com.aviation.resources;
 
-import com.flightdelays.aviation.ontology.*;
-import com.flightdelays.db.FlightDao;
+import com.aviation.db.FlightDao;
+import com.aviation.ontology.*;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.GET;

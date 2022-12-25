@@ -1,0 +1,10 @@
+plugins {
+    id 'java-library'
+}
+
+group 'com.schouten.aviation'
+version '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}

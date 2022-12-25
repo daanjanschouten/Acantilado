@@ -1,6 +1,11 @@
-package com.flightdelays.aviation.ontology;
+package com.aviation.ontology;
+
+import io.dropwizard.hibernate.AbstractDAO;
+import org.hibernate.SessionFactory;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "AIRCRAFT")
@@ -40,5 +45,25 @@ public class Aircraft {
 
     public void setAircraftId(String aircraftId) {
         this.aircraftId = aircraftId;
+    }
+
+    public static class RunwayDao extends AbstractDAO<Runway> {
+        public RunwayDao(SessionFactory sessionFactory) {
+            super(sessionFactory);
+        }
+
+        public Optional<Runway> findById(String runwayId) {
+            return Optional.ofNullable(get(runwayId));
+        }
+
+        public Runway create(Runway runway) {
+            return persist(runway);
+        }
+
+        public List<Runway> findAll() {
+            return list(
+                    namedTypedQuery("com.flightdelays.core.Runway.findAll")
+            );
+        }
     }
 }

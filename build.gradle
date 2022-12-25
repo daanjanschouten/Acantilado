@@ -1,5 +1,5 @@
 plugins {
-  id 'java' // core plugin dependency
+  id 'java-library' // core plugin dependency
   id 'idea' // adds nice commands like 'openIdea'
   id 'com.github.johnrengelman.shadow' version "$shadowJarVersion" // requirement for shadowJar task
 }
@@ -8,38 +8,50 @@ repositories {
     mavenCentral() // where plugins in plugins{} block are retrieved, as well as dependencies.
 }
 
-group = 'com.schouten'
+group = 'com.schouten.core'
 version = '1.0.0-SNAPSHOT'
 description = "Flight Delay Tracker"
 
-sourceCompatibility = "$javaVersion"
-targetCompatibility = "$javaVersion"
+allprojects {
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+}
+
+allprojects {
+    plugins.withType(JavaPlugin) {
+        dependencies {
+            implementation group: 'io.dropwizard', name: 'dropwizard-core', version: "$dropwizardVersion"
+            implementation group: 'io.dropwizard', name: 'dropwizard-auth', version: "$dropwizardVersion"
+            implementation group: 'io.dropwizard', name: 'dropwizard-assets', version: "$dropwizardVersion"
+            implementation group: 'io.dropwizard', name: 'dropwizard-http2', version: "$dropwizardVersion"
+            implementation group: 'io.dropwizard', name: 'dropwizard-hibernate', version: "$dropwizardVersion"
+            implementation group: 'io.dropwizard', name: 'dropwizard-migrations', version: "$dropwizardVersion"
+            implementation group: 'io.dropwizard', name: 'dropwizard-views-freemarker', version: "$dropwizardVersion"
+            implementation group: 'io.dropwizard', name: 'dropwizard-views-mustache', version: "$dropwizardVersion"
+            implementation group: 'io.dropwizard', name: 'dropwizard-metrics-graphite', version: "$dropwizardVersion"
+            implementation group: 'com.h2database', name: 'h2', version: "$h2Version"
+            implementation group: 'com.google.guava', name: 'guava', version: "$guavaVersion"
+            testImplementation group: 'io.dropwizard', name: 'dropwizard-testing', version: "$dropwizardVersion"
+            testImplementation(group: 'org.glassfish.jersey.test-framework.providers',
+                    name: 'jersey-test-framework-provider-inmemory', version: "$jerseyTestFrameworkProviderVersion") {
+                exclude(module: 'javax.servlet-api')
+                exclude(module: 'junit')
+            }
+            testImplementation(group: 'org.glassfish.jersey.test-framework.providers',
+                    name: 'jersey-test-framework-provider-grizzly2', version: "$jerseyTestFrameworkProviderVersion") {
+                exclude(module: 'javax.servlet-api')
+                exclude(module: 'junit')
+            }
+            testImplementation group: 'org.junit.jupiter', name:'junit-jupiter', version: "$jupiterVersion"
+            testImplementation group: 'org.mockito', name: 'mockito-core', version: "$mockitoVersion"
+        }
+    }
+}
 
 dependencies {
-    implementation group: 'io.dropwizard', name: 'dropwizard-core', version: "$dropwizardVersion"
-    implementation group: 'io.dropwizard', name: 'dropwizard-auth', version: "$dropwizardVersion"
-    implementation group: 'io.dropwizard', name: 'dropwizard-assets', version: "$dropwizardVersion"
-    implementation group: 'io.dropwizard', name: 'dropwizard-http2', version: "$dropwizardVersion"
-    implementation group: 'io.dropwizard', name: 'dropwizard-hibernate', version: "$dropwizardVersion"
-    implementation group: 'io.dropwizard', name: 'dropwizard-migrations', version: "$dropwizardVersion"
-    implementation group: 'io.dropwizard', name: 'dropwizard-views-freemarker', version: "$dropwizardVersion"
-    implementation group: 'io.dropwizard', name: 'dropwizard-views-mustache', version: "$dropwizardVersion"
-    implementation group: 'io.dropwizard', name: 'dropwizard-metrics-graphite', version: "$dropwizardVersion"
-    implementation group: 'com.h2database', name: 'h2', version: "$h2Version"
-    implementation group: 'com.google.guava', name: 'guava', version: "$guavaVersion"
-    testImplementation group: 'io.dropwizard', name: 'dropwizard-testing', version: "$dropwizardVersion"
-    testImplementation(group: 'org.glassfish.jersey.test-framework.providers',
-            name: 'jersey-test-framework-provider-inmemory', version: "$jerseyTestFrameworkProviderVersion") {
-        exclude(module: 'javax.servlet-api')
-        exclude(module: 'junit')
-    }
-    testImplementation(group: 'org.glassfish.jersey.test-framework.providers',
-            name: 'jersey-test-framework-provider-grizzly2', version: "$jerseyTestFrameworkProviderVersion") {
-        exclude(module: 'javax.servlet-api')
-        exclude(module: 'junit')
-    }
-    testImplementation group: 'org.junit.jupiter', name:'junit-jupiter', version: "$jupiterVersion"
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: "$mockitoVersion"
+    implementation project(path: ':aviation')
 }
 
 shadowJar {

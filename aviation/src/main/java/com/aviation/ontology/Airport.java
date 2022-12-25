@@ -1,4 +1,4 @@
-package com.flightdelays.aviation.ontology;
+package com.aviation.ontology;
 
 import javax.persistence.*;
 

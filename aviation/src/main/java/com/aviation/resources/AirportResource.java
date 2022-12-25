@@ -1,7 +1,7 @@
-package com.flightdelays.resources;
+package com.aviation.resources;
 
-import com.flightdelays.aviation.ontology.Airport;
-import com.flightdelays.db.AirportDao;
+import com.aviation.db.AirportDao;
+import com.aviation.ontology.Airport;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 

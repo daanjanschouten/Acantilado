@@ -1,6 +1,6 @@
-package com.flightdelays.db;
+package com.aviation.db;
 
-import com.flightdelays.aviation.ontology.Flight;
+import com.aviation.ontology.Flight;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 

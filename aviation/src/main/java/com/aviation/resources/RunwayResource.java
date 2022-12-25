@@ -1,7 +1,7 @@
-package com.flightdelays.resources;
+package com.aviation.resources;
 
-import com.flightdelays.aviation.ontology.Runway;
-import com.flightdelays.db.RunwayDao;
+import com.aviation.ontology.Aircraft;
+import com.aviation.ontology.Runway;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.NonEmptyStringParam;
 
@@ -12,9 +12,9 @@ import java.util.List;
 @Path("/runways")
 @Produces(MediaType.APPLICATION_JSON)
 public class RunwayResource {
-    private final RunwayDao runwayDao;
+    private final Aircraft.RunwayDao runwayDao;
 
-    public RunwayResource(RunwayDao runwayDao) {
+    public RunwayResource(Aircraft.RunwayDao runwayDao) {
         this.runwayDao = runwayDao;
     }
 

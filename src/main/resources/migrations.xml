@@ -8,8 +8,6 @@
 
     <changeSet id="seeding0001" author="daanschouten">
         <sql splitStatements="false">
-
-
             create table AIRCRAFT (
             aircraft_id varchar(255) not null,
             model varchar(255),
@@ -93,8 +91,6 @@
             add constraint FKosimhbe50vvt97ihh6pochfsp
             foreign key (airport_id)
             references AIRPORT;
-
-
         </sql>
     </changeSet>
 </databaseChangeLog>
