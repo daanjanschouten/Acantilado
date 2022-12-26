@@ -1,7 +1,5 @@
 rootProject.name = 'flight-delays'
 
-include 'flight-delays'
-include 'model'
-include 'repository'
-include 'app'
-
+include 'delays-model'
+include 'delays-repository'
+include 'delays-app'

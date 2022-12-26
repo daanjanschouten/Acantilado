@@ -53,9 +53,9 @@ allprojects {
 }
 
 dependencies {
-    implementation project(path: ':model')
-    implementation project(path: ':repository')
-    implementation project(path: ':app')
+    implementation project(path: ':delays-app')
+    implementation project(path: ':delays-model')
+    implementation project(path: ':delays-repository')
 }
 
 shadowJar {
