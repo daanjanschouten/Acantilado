@@ -1,22 +1,19 @@
 package com.flightdelays;
 
-import com.aviation.db.AircraftDao;
-import com.aviation.db.AirportDao;
-import com.aviation.db.CarrierDao;
-import com.aviation.db.FlightDao;
-import com.aviation.ontology.*;
-import com.aviation.resources.*;
 import com.flightdelays.auth.ExampleAuthenticator;
 import com.flightdelays.auth.ExampleAuthorizer;
 import com.flightdelays.cli.RenderCommand;
-import com.flightdelays.core.Person;
-import com.flightdelays.core.Template;
-import com.flightdelays.core.User;
-import com.flightdelays.db.*;
-import com.flightdelays.filter.DateRequiredFeature;
+import com.schouten.core.aviation.other.PersonDAO;
+import com.schouten.core.other.Person;
+import com.schouten.core.other.Template;
+import com.schouten.core.other.User;
+import com.schouten.core.resources.other.filters.DateRequiredFeature;
 import com.flightdelays.health.TemplateHealthCheck;
-import com.flightdelays.resources.*;
 import com.flightdelays.tasks.EchoTask;
+import com.schouten.core.aviation.*;
+import com.schouten.core.aviation.db.*;
+import com.schouten.core.resources.aviation.*;
+import com.schouten.core.resources.other.*;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
@@ -97,7 +94,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         final PersonDAO personDAO = new PersonDAO(hibernateBundle.getSessionFactory());
         final FlightDao flightDao = new FlightDao(hibernateBundle.getSessionFactory());
         final AirportDao airportDao = new AirportDao(hibernateBundle.getSessionFactory());
-        final Aircraft.RunwayDao runwayDao = new Aircraft.RunwayDao(hibernateBundle.getSessionFactory());
+        final RunwayDao runwayDao = new RunwayDao(hibernateBundle.getSessionFactory());
         final CarrierDao carrierDao = new CarrierDao(hibernateBundle.getSessionFactory());
         final Template template = configuration.buildTemplate();
 

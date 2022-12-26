@@ -1,6 +1,6 @@
 package com.flightdelays.auth;
 
-import com.flightdelays.core.User;
+import com.schouten.core.other.User;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import io.dropwizard.auth.AuthenticationException;

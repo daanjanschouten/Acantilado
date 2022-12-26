@@ -1,6 +1,7 @@
 package com.flightdelays.db;
 
-import com.flightdelays.core.Person;
+import com.schouten.core.aviation.other.PersonDAO;
+import com.schouten.core.other.Person;
 import io.dropwizard.testing.junit.DAOTestRule;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Before;

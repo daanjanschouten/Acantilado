@@ -1,6 +1,6 @@
 package com.flightdelays;
 
-import com.flightdelays.core.Template;
+import com.schouten.core.other.Template;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableMap;
 import io.dropwizard.Configuration;

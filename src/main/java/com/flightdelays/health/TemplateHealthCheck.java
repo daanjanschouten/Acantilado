@@ -1,7 +1,7 @@
 package com.flightdelays.health;
 
 import com.codahale.metrics.health.HealthCheck;
-import com.flightdelays.core.Template;
+import com.schouten.core.other.Template;
 
 import java.util.Optional;
 

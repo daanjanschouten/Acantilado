@@ -1,7 +1,7 @@
 package com.flightdelays.cli;
 
 import com.flightdelays.HelloWorldConfiguration;
-import com.flightdelays.core.Template;
+import com.schouten.core.other.Template;
 import io.dropwizard.cli.ConfiguredCommand;
 import io.dropwizard.setup.Bootstrap;
 import net.sourceforge.argparse4j.impl.Arguments;

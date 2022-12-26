@@ -1,8 +1,9 @@
 package com.flightdelays.resources;
 
-import com.flightdelays.core.Person;
-import com.flightdelays.db.PersonDAO;
+import com.schouten.core.other.Person;
+import com.schouten.core.aviation.other.PersonDAO;
 import com.google.common.collect.ImmutableList;
+import com.schouten.core.resources.other.PeopleResource;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.junit.After;
 import org.junit.Before;

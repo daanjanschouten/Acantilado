@@ -1,7 +1,8 @@
 package com.flightdelays.resources;
 
-import com.flightdelays.core.Person;
-import com.flightdelays.db.PersonDAO;
+import com.schouten.core.other.Person;
+import com.schouten.core.aviation.other.PersonDAO;
+import com.schouten.core.resources.other.PersonResource;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.junit.After;

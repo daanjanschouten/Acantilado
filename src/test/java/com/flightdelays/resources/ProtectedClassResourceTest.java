@@ -2,7 +2,8 @@ package com.flightdelays.resources;
 
 import com.flightdelays.auth.ExampleAuthenticator;
 import com.flightdelays.auth.ExampleAuthorizer;
-import com.flightdelays.core.User;
+import com.schouten.core.other.User;
+import com.schouten.core.resources.other.ProtectedClassResource;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;

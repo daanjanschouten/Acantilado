@@ -1,6 +1,6 @@
 package com.flightdelays.auth;
 
-import com.flightdelays.core.User;
+import com.schouten.core.other.User;
 import io.dropwizard.auth.Authorizer;
 
 public class ExampleAuthorizer implements Authorizer<User> {
