@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "data": [
+    {
+      "GMT": "-10",
+      "airportId": 1,
+      "codeIataAirport": "AAA",
+      "codeIataCity": "AAA",
+      "codeIcaoAirport": "NTGA",
+      "codeIso2Country": "PF",
+      "geonameId": "6947726",
+      "latitudeAirport": -17.05,
+      "longitudeAirport": -145.41667,
+      "nameAirport": "Anaa",
+      "nameCountry": "French Polynesia",
+      "phone": "",
+      "timezone": "Pacific\/Tahiti"
+    },
+    {
+      "GMT": "10",
+      "airportId": 2
+    }
+  ]
+}

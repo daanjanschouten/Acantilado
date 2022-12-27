@@ -11,11 +11,10 @@ repositories {
 group = 'com.schouten.core'
 version = '1.0.0-SNAPSHOT'
 description = "Flight Delay Tracker"
-
 allprojects {
     tasks.withType(JavaCompile) {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
@@ -34,6 +33,7 @@ allprojects {
                 implementation group: 'io.dropwizard', name: 'dropwizard-metrics-graphite', version: "$dropwizardVersion"
                 implementation group: 'com.h2database', name: 'h2', version: "$h2Version"
                 implementation group: 'com.google.guava', name: 'guava', version: "$guavaVersion"
+                implementation group: 'org.json', name: 'json', version: '20220924'
                 testImplementation group: 'io.dropwizard', name: 'dropwizard-testing', version: "$dropwizardVersion"
                 testImplementation(group: 'org.glassfish.jersey.test-framework.providers',
                         name: 'jersey-test-framework-provider-inmemory', version: "$jerseyTestFrameworkProviderVersion") {
@@ -55,6 +55,7 @@ allprojects {
 dependencies {
     implementation project(path: ':delays-app')
     implementation project(path: ':delays-model')
+    implementation project(path: ':delays-seeder')
     implementation project(path: ':delays-repository')
 }
 
