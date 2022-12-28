@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -32,8 +33,8 @@ public final class AirportSeeder {
             JsonNode airportsJson = elements.next();
             Airport airport = new Airport(
                     airportsJson.get("codeIataAirport").textValue(),
+                    airportsJson.get("codeIso2Country").textValue(),
                     airportsJson.get("nameAirport").textValue(),
-                    airportsJson.get("nameCountry").textValue(),
                     airportsJson.get("latitudeAirport").doubleValue(),
                     airportsJson.get("longitudeAirport").doubleValue());
             LOGGER.info(airport.toString());
@@ -44,12 +45,12 @@ public final class AirportSeeder {
 
     private static JsonNode makeApiCall() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newBuilder().build();
-//        HttpResponse<InputStream> response =
-//                client.send(buildAirportsRequest(), HttpResponse.BodyHandlers.ofInputStream());
-//        try (InputStream inputStream = response.body()) {
-        InputStream inputStream = AirportSeeder.class.getClassLoader().getResourceAsStream("airports.json");
-        return new ObjectMapper().readTree(inputStream).get("data");
-//        }
+        HttpResponse<InputStream> response =
+                client.send(buildAirportsRequest(), HttpResponse.BodyHandlers.ofInputStream());
+        // InputStream inputStream = AirportSeeder.class.getClassLoader().getResourceAsStream("airports.json");
+        try (InputStream inputStream = response.body()) {
+            return new ObjectMapper().readTree(inputStream).get("data");
+        }
     }
 
     private static HttpRequest buildAirportsRequest() {

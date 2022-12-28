@@ -3,6 +3,7 @@ package com.schouten.core.resources.aviation;
 import com.schouten.core.aviation.Airport;
 import com.schouten.core.aviation.db.AirportDao;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.params.BooleanParam;
 import io.dropwizard.jersey.params.NonEmptyStringParam;
 
 import javax.ws.rs.*;
@@ -32,11 +33,11 @@ public class AirportResource {
         return airportDao.create(airport);
     }
 
-    @POST
-    @Path("/seed")
+    @GET
+    @Path("/seed/{complete}")
     @UnitOfWork
-    public long seedAirports() throws IOException, InterruptedException {
-        return airportDao.seed();
+    public long seedAirports(@PathParam("complete") BooleanParam complete) throws IOException, InterruptedException {
+        return airportDao.seed(complete.get().booleanValue());
     }
 
     @GET

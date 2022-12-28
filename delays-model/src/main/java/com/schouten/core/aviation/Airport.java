@@ -16,7 +16,7 @@ public class Airport {
     @Id
     @Column(name = "iata_id")
     private String iataId;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
     @Column(name = "country", nullable = false)
     private String country;

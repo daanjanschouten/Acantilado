@@ -28,19 +28,24 @@ public class AirportDao extends AbstractDAO<Airport> {
         return persist(airport);
     }
 
-    public long seed() throws IOException, InterruptedException {
+    public long seed(boolean complete) throws IOException, InterruptedException {
         Set<Airport> allAirports = AirportSeeder.seedAirports();
-        List<String> existingAirports = findAll().stream()
-                .map(Airport::getAirportId)
-                .collect(Collectors.toList());
-        List<Airport> newAirports = allAirports.stream()
-                .filter(a -> ! existingAirports.contains(a.getAirportId()))
-                .collect(Collectors.toList());
-        newAirports.forEach(this::create);
-        LOGGER.info(StringUtils.join(
-                "Retrieved ", allAirports.size(), " airports, of which ", existingAirports.size(),
-                " already exist. ", newAirports.size(), " were added: ", newAirports.toString()));
-        return newAirports.size();
+        if (!complete) {
+            List<String> existingAirports = findAll().stream()
+                    .map(Airport::getAirportId)
+                    .collect(Collectors.toList());
+            List<Airport> newAirports = allAirports.stream()
+                    .filter(a -> ! existingAirports.contains(a.getAirportId()))
+                    .collect(Collectors.toList());
+            newAirports.forEach(this::create);
+            LOGGER.info(StringUtils.join(
+                    "Retrieved ", allAirports.size(), " airports, of which ", existingAirports.size(),
+                    " already exist. ", newAirports.size(), " were added: ", newAirports.toString()));
+            return newAirports.size();
+        }
+        allAirports.forEach(this::create);
+        LOGGER.info(StringUtils.join("Completely reseeded and added ", allAirports.size(), " new airports."));
+        return allAirports.size();
     }
 
     public List<Airport> findAll() {
