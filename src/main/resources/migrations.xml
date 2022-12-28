@@ -8,6 +8,7 @@
 
     <changeSet id="seeding0001" author="daanschouten">
         <sql splitStatements="false">
+
             create table AIRCRAFT (
             aircraft_id varchar(255) not null,
             model varchar(255),
@@ -15,11 +16,12 @@
             );
 
             create table AIRPORT (
-            airport_id varchar(255) not null,
-            city varchar(255) not null,
+            iata_id varchar(255) not null,
             country varchar(255) not null,
+            latitude bigint not null,
+            longitude bigint not null,
             name varchar(255) not null,
-            primary key (airport_id)
+            primary key (iata_id)
             );
 
             create table CARRIER (
@@ -91,6 +93,7 @@
             add constraint FKosimhbe50vvt97ihh6pochfsp
             foreign key (airport_id)
             references AIRPORT;
+
         </sql>
     </changeSet>
 </databaseChangeLog>

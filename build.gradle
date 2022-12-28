@@ -33,7 +33,7 @@ allprojects {
                 implementation group: 'io.dropwizard', name: 'dropwizard-metrics-graphite', version: "$dropwizardVersion"
                 implementation group: 'com.h2database', name: 'h2', version: "$h2Version"
                 implementation group: 'com.google.guava', name: 'guava', version: "$guavaVersion"
-                implementation group: 'org.json', name: 'json', version: '20220924'
+                implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "$jacksonVersion"
                 testImplementation group: 'io.dropwizard', name: 'dropwizard-testing', version: "$dropwizardVersion"
                 testImplementation(group: 'org.glassfish.jersey.test-framework.providers',
                         name: 'jersey-test-framework-provider-inmemory', version: "$jerseyTestFrameworkProviderVersion") {

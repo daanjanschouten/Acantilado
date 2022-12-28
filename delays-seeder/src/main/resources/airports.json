@@ -17,8 +17,19 @@
       "timezone": "Pacific\/Tahiti"
     },
     {
-      "GMT": "10",
-      "airportId": 2
+      "codeIcaoAirport":"DABB",
+      "geonameId":"2570559",
+      "airportId":4,
+      "timezone":"Africa/Algiers",
+      "codeIso2Country":"DZ",
+      "latitudeAirport":36.821392,
+      "nameCountry":"",
+      "GMT":"1",
+      "nameAirport":"Les Salines",
+      "longitudeAirport":7.811857,
+      "phone":"",
+      "codeIataCity":"AAE",
+      "codeIataAirport":"AAE"
     }
   ]
 }

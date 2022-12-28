@@ -29,7 +29,7 @@ public class FlightResource {
         Instant sArrival = Instant.now();
         Instant aArrival = Instant.now();
         Aircraft aircraft = new Aircraft("12345", "modelModern");
-        Airport airport = new Airport("AMS", "City Airport", "The Hague", "Netherlands");
+        Airport airport = new Airport("AMS", "City Airport", "The Hague", 1234, 12345);
         Runway runway1 = new Runway(
                 "1234",
                 airport

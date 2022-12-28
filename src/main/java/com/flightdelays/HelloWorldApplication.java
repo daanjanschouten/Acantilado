@@ -4,7 +4,6 @@ import com.flightdelays.auth.ExampleAuthenticator;
 import com.flightdelays.auth.ExampleAuthorizer;
 import com.flightdelays.cli.RenderCommand;
 import com.schouten.core.aviation.other.PersonDAO;
-import com.schouten.core.external.AirportSeeder;
 import com.schouten.core.other.Person;
 import com.schouten.core.other.Template;
 import com.schouten.core.other.User;
@@ -98,14 +97,6 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         final AirportDao airportDao = new AirportDao(hibernateBundle.getSessionFactory());
         final RunwayDao runwayDao = new RunwayDao(hibernateBundle.getSessionFactory());
         final CarrierDao carrierDao = new CarrierDao(hibernateBundle.getSessionFactory());
-
-        final AirportSeeder airportSeeder = new AirportSeeder(airportDao);
-        try {
-            airportSeeder.makeApiCall();
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
         final Template template = configuration.buildTemplate();
         environment.healthChecks().register("template", new TemplateHealthCheck(template));
         environment.admin().addTask(new EchoTask());

@@ -14,23 +14,26 @@ import javax.persistence.*;
 )
 public class Airport {
     @Id
-    @Column(name = "airport_id")
-    private String airportId;
+    @Column(name = "iata_id")
+    private String iataId;
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "country", nullable = false)
     private String country;
-    @Column(name = "city", nullable = false)
-    private String city;
+    @Column(name = "latitude", nullable = false)
+    private double latitude;
+    @Column(name = "longitude", nullable = false)
+    private double longitude;
 
     public Airport() {
     }
 
-    public Airport(String airportId, String name, String country, String city) {
-        this.airportId = airportId;
+    public Airport(String iataId, String name, String country, double latitude, double longitude) {
+        this.iataId = iataId;
         this.name = name;
         this.country = country;
-        this.city = city;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getName() {
@@ -49,19 +52,38 @@ public class Airport {
         this.country = country;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getAirportId() {
-        return airportId;
+        return iataId;
     }
 
     public void setAirportId(String airportId) {
-        this.airportId = airportId;
+        this.iataId = airportId;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    @Override
+    public String toString() {
+        return "Airport{" +
+                "iataId='" + iataId + '\'' +
+                ", name='" + name + '\'' +
+                ", country='" + country + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
     }
 }

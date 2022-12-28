@@ -10,5 +10,5 @@ repositories {
 }
 
 dependencies {
-    implementation project(path: ':delays-repository')
+    implementation project(path: ':delays-model')
 }

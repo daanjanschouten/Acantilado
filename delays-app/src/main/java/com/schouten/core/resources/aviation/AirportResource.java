@@ -3,10 +3,11 @@ package com.schouten.core.resources.aviation;
 import com.schouten.core.aviation.Airport;
 import com.schouten.core.aviation.db.AirportDao;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.params.LongParam;
+import io.dropwizard.jersey.params.NonEmptyStringParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 import java.util.List;
 
 @Path("/airports")
@@ -21,8 +22,8 @@ public class AirportResource {
     @GET
     @Path("/getByIataId/{iataId}")
     @UnitOfWork
-    public Airport getByIataId(@PathParam("iataId") LongParam iataId) {
-        return findSafely(iataId.get());
+    public Airport getByIataId(@PathParam("iataId") NonEmptyStringParam iataId) {
+        return findSafely(iataId.get().get());
     }
 
     @POST
@@ -30,6 +31,14 @@ public class AirportResource {
     public Airport createAirport(Airport airport) {
         return airportDao.create(airport);
     }
+
+    @POST
+    @Path("/seed")
+    @UnitOfWork
+    public long seedAirports() throws IOException, InterruptedException {
+        return airportDao.seed();
+    }
+
     @GET
     @Path("/view")
     @UnitOfWork
@@ -37,9 +46,7 @@ public class AirportResource {
         return airportDao.findAll();
     }
 
-    private Airport findSafely(long iataId) {
+    private Airport findSafely(String iataId) {
         return airportDao.findById(iataId).orElseThrow(() -> new NotFoundException("No such airport."));
     }
-
-
 }

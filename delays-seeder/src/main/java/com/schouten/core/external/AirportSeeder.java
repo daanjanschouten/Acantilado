@@ -1,10 +1,11 @@
 package com.schouten.core.external;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.schouten.core.ApiConstants;
-import com.schouten.core.aviation.db.AirportDao;
+import com.schouten.core.aviation.Airport;
 import org.apache.commons.lang3.StringUtils;
-
-import org.json.*;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
@@ -12,36 +13,53 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public final class AirportSeeder {
-    private final AirportDao airportDao;
-    private final String airportParam = "airports";
+    private static final String airportParam = "airports";
+    private static final Logger LOGGER = LoggerFactory.getLogger(AirportSeeder.class);
 
-    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(AirportSeeder.class);
-
-    public AirportSeeder(AirportDao airportDao) {
-        this.airportDao = airportDao;
+    public static Set<Airport> seedAirports() throws IOException, InterruptedException {
+        return constructAirports(makeApiCall());
     }
 
-    private String getAirportsUrl() {
-        return StringUtils.join(ApiConstants.getApiBaseUrl(), airportParam, ApiConstants.getApiKeyPair());
+    private static Set<Airport> constructAirports(JsonNode jsonNode) {
+        Set<Airport> airports = new HashSet<>();
+        Iterator<JsonNode> elements = jsonNode.elements();
+        while (elements.hasNext()) {
+            JsonNode airportsJson = elements.next();
+            Airport airport = new Airport(
+                    airportsJson.get("codeIataAirport").textValue(),
+                    airportsJson.get("nameAirport").textValue(),
+                    airportsJson.get("nameCountry").textValue(),
+                    airportsJson.get("latitudeAirport").doubleValue(),
+                    airportsJson.get("longitudeAirport").doubleValue());
+            LOGGER.info(airport.toString());
+            airports.add(airport);
+        }
+        return airports;
     }
 
-    public JSONObject makeApiCall() throws IOException, InterruptedException {
-        LOGGER.info("Hello hello");
-//        HttpClient client = HttpClient.newBuilder().build();
-//        String uri = StringUtils.join(ApiConstants.getApiBaseUrl(), airportParam, ApiConstants.getApiKeyPair());
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .GET()
-//                .uri(URI.create(uri))
-//                .build();
-//
-//        HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
+    private static JsonNode makeApiCall() throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newBuilder().build();
+//        HttpResponse<InputStream> response =
+//                client.send(buildAirportsRequest(), HttpResponse.BodyHandlers.ofInputStream());
 //        try (InputStream inputStream = response.body()) {
-//            JSONObject json = new JSONObject(new JSONTokener(inputStream));
-//            LOGGER.info(json.toString());
-//            return json;
+        InputStream inputStream = AirportSeeder.class.getClassLoader().getResourceAsStream("airports.json");
+        return new ObjectMapper().readTree(inputStream).get("data");
 //        }
+    }
+
+    private static HttpRequest buildAirportsRequest() {
+        String uriString = StringUtils.join(
+                ApiConstants.getApiBaseUrl(),
+                airportParam,
+                ApiConstants.getApiKeyPair());
+        return HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(uriString))
+                .build();
     }
 }
