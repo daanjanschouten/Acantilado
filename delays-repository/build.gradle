@@ -13,3 +13,7 @@ dependencies {
     implementation project(path: ':delays-model')
     implementation project(path: ':delays-seeder')
 }
+
+test {
+    useJUnitPlatform()
+}

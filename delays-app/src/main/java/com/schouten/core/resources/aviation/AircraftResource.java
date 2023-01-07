@@ -31,6 +31,7 @@ public class AircraftResource {
     public Aircraft createAircraft(Aircraft aircraft) {
         return aircraftDao.create(aircraft);
     }
+
     @GET
     @Path("/view")
     @UnitOfWork

@@ -1,6 +1,7 @@
 package com.schouten.core.aviation;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "AIRPORT")
@@ -85,5 +86,18 @@ public class Airport {
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Airport airport = (Airport) o;
+        return Double.compare(airport.latitude, latitude) == 0 && Double.compare(airport.longitude, longitude) == 0 && iataId.equals(airport.iataId) && name.equals(airport.name) && country.equals(airport.country);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(iataId, name, country, latitude, longitude);
     }
 }

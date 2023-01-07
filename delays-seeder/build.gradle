@@ -12,3 +12,7 @@ repositories {
 dependencies {
     implementation project(path: ':delays-model')
 }
+
+test {
+    useJUnitPlatform()
+}
