@@ -67,13 +67,13 @@ public class PeopleResourceTest {
     }
 
     @Test
-    public void listPeople() throws Exception {
+    public void listPeople() {
         final ImmutableList<Person> people = ImmutableList.of(person);
         when(PERSON_DAO.findAll()).thenReturn(people);
 
         final List<Person> response = RESOURCES.target("/people")
-            .request().get(new GenericType<List<Person>>() {
-            });
+            .request().get(new GenericType<>() {
+                });
 
         verify(PERSON_DAO).findAll();
         Assertions.assertTrue(response.containsAll(people));

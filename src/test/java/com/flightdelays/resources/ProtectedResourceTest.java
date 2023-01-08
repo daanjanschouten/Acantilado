@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
@@ -66,17 +65,15 @@ public class ProtectedResourceTest {
 
     @Test
     public void testProtectedEndpointBadCredentials401() {
-        try {
-            RULE.target("/protected").request()
-                .header(HttpHeaders.AUTHORIZATION, "Basic c25lYWt5LWJhc3RhcmQ6YXNkZg==")
-                .get(String.class);
-            // failBecauseExceptionWasNotThrown(NotAuthorizedException.class);
-        } catch (NotAuthorizedException e) {
-            assertEquals(e.getResponse().getStatus(), 401);
-            assertTrue(e.getResponse().getHeaders()
-                    .get(HttpHeaders.WWW_AUTHENTICATE).contains("Basic realm=\"SUPER SECRET STUFF\""));
-        }
-
+        NotAuthorizedException exception = Assertions.assertThrows(
+                NotAuthorizedException.class,
+                () -> RULE.target("/protected").request()
+                        .header(HttpHeaders.AUTHORIZATION, "Basic c25lYWt5LWJhc3RhcmQ6YXNkZg==")
+                        .get(String.class)
+        );
+        Assertions.assertEquals(401, exception.getResponse().getStatus());
+        Assertions.assertTrue(exception.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE)
+                        .contains("Basic realm=\"SUPER SECRET STUFF\""));
     }
 
     @Test
@@ -89,14 +86,12 @@ public class ProtectedResourceTest {
 
     @Test
     public void testProtectedAdminEndpointPrincipalIsNotAuthorized403() {
-        try {
-            RULE.target("/protected/admin").request()
-                    .header(HttpHeaders.AUTHORIZATION, "Basic Z29vZC1ndXk6c2VjcmV0")
-                    .get(String.class);
-//            Assertions.
-//            failBecauseExceptionWasNotThrown(ForbiddenException.class);
-        } catch (ForbiddenException e) {
-            assertEquals(e.getResponse().getStatus(), 403);
-        }
+        ForbiddenException exception = Assertions.assertThrows(
+                ForbiddenException.class,
+                () -> RULE.target("/protected/admin").request()
+                        .header(HttpHeaders.AUTHORIZATION, "Basic Z29vZC1ndXk6c2VjcmV0")
+                        .get(String.class)
+        );
+        Assertions.assertEquals(403, exception.getResponse().getStatus());
     }
 }
