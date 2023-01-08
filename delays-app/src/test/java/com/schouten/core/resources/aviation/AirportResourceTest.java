@@ -31,18 +31,16 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class AirportResourceTest {
     private static final AirportDao AIRPORT_DAO = mock(AirportDao.class);
-
-    @Captor
-    private static ArgumentCaptor<Airport> airportArgumentCaptor;
-
-    @Captor
-    private static ArgumentCaptor<String> iataArgumentCaptor;
-
-    private static Airport airport;
-
     private static final ResourceExtension RESOURCE_EXTENSION = ResourceExtension.builder()
             .addResource(new AirportResource(AIRPORT_DAO))
             .build();
+    private static Airport airport;
+
+    @Captor
+    private ArgumentCaptor<Airport> airportArgumentCaptor;
+
+    @Captor
+    private ArgumentCaptor<String> iataArgumentCaptor;
 
     @BeforeAll
     public static void setUp() {

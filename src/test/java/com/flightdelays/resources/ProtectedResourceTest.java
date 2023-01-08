@@ -7,21 +7,25 @@ import com.schouten.core.resources.other.ProtectedResource;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
-import io.dropwizard.testing.junit.ResourceTestRule;
+import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
+import io.dropwizard.testing.junit5.ResourceExtension;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.HttpHeaders;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(MockitoExtension.class)
+@ExtendWith(DropwizardExtensionsSupport.class)
 public class ProtectedResourceTest {
     private static final BasicCredentialAuthFilter<User> BASIC_AUTH_HANDLER =
             new BasicCredentialAuthFilter.Builder<User>()
@@ -31,8 +35,7 @@ public class ProtectedResourceTest {
                     .setRealm("SUPER SECRET STUFF")
                     .buildAuthFilter();
 
-    @ClassRule
-    public static final ResourceTestRule RULE = ResourceTestRule.builder()
+    public static final ResourceExtension RULE = ResourceExtension.builder()
             .addProvider(RolesAllowedDynamicFeature.class)
             .addProvider(new AuthDynamicFeature(BASIC_AUTH_HANDLER))
             .addProvider(new AuthValueFactoryProvider.Binder<>(User.class))
@@ -53,9 +56,6 @@ public class ProtectedResourceTest {
         try {
             RULE.target("/protected").request()
                 .get(String.class);
-//            throw
-//            Assertions.assertThr
-//            failBecauseExceptionWasNotThrown(NotAuthorizedException.class);
         } catch (NotAuthorizedException e) {
             Assertions.assertEquals(e.getResponse().getStatus(), 401);
             assertTrue(e.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE)

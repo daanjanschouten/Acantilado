@@ -4,15 +4,12 @@ import com.schouten.core.other.Person;
 import com.schouten.core.aviation.other.PersonDAO;
 import com.google.common.collect.ImmutableList;
 import com.schouten.core.resources.other.PeopleResource;
-import io.dropwizard.testing.junit.ResourceTestRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
+import io.dropwizard.testing.junit5.ResourceExtension;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
@@ -20,7 +17,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-import org.junit.jupiter.api.Assertions;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
@@ -30,27 +28,29 @@ import static org.mockito.Mockito.when;
 /**
  * Unit tests for {@link PeopleResource}.
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
+@ExtendWith(DropwizardExtensionsSupport.class)
 public class PeopleResourceTest {
     private static final PersonDAO PERSON_DAO = mock(PersonDAO.class);
-    @ClassRule
-    public static final ResourceTestRule RESOURCES = ResourceTestRule.builder()
+
+    public static final ResourceExtension RESOURCES = ResourceExtension.builder()
             .addResource(new PeopleResource(PERSON_DAO))
             .build();
 
     @Captor
     private ArgumentCaptor<Person> personCaptor;
-    private Person person;
 
-    @Before
-    public void setUp() {
+    private static Person person;
+
+    @BeforeAll
+    public static void setUp() {
         person = new Person();
         person.setFullName("Full Name");
         person.setJobTitle("Job Title");
     }
 
-    @After
-    public void tearDown() {
+    @AfterAll
+    public static void tearDown() {
         reset(PERSON_DAO);
     }
 

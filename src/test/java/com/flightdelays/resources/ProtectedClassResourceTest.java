@@ -7,17 +7,21 @@ import com.schouten.core.resources.other.ProtectedClassResource;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
-import io.dropwizard.testing.junit.ResourceTestRule;
+import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
+import io.dropwizard.testing.junit5.ResourceExtension;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.core.HttpHeaders;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
+@ExtendWith(DropwizardExtensionsSupport.class)
 public final class ProtectedClassResourceTest {
 
     private static final BasicCredentialAuthFilter<User> BASIC_AUTH_HANDLER =
@@ -28,8 +32,7 @@ public final class ProtectedClassResourceTest {
             .setRealm("SUPER SECRET STUFF")
             .buildAuthFilter();
 
-    @ClassRule
-    public static final ResourceTestRule RULE = ResourceTestRule.builder()
+    public static final ResourceExtension RULE = ResourceExtension.builder()
         .addProvider(RolesAllowedDynamicFeature.class)
         .addProvider(new AuthDynamicFeature(BASIC_AUTH_HANDLER))
         .addProvider(new AuthValueFactoryProvider.Binder<>(User.class))
