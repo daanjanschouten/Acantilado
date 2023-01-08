@@ -3,17 +3,17 @@ package com.flightdelays;
 import com.flightdelays.auth.ExampleAuthenticator;
 import com.flightdelays.auth.ExampleAuthorizer;
 import com.flightdelays.cli.RenderCommand;
-import com.schouten.core.aviation.other.PersonDAO;
-import com.schouten.core.other.Person;
-import com.schouten.core.other.Template;
-import com.schouten.core.other.User;
-import com.schouten.core.resources.other.filters.DateRequiredFeature;
 import com.flightdelays.health.TemplateHealthCheck;
 import com.flightdelays.tasks.EchoTask;
 import com.schouten.core.aviation.*;
 import com.schouten.core.aviation.db.*;
+import com.schouten.core.aviation.other.PersonDAO;
+import com.schouten.core.other.Person;
+import com.schouten.core.other.Template;
+import com.schouten.core.other.User;
 import com.schouten.core.resources.aviation.*;
 import com.schouten.core.resources.other.*;
+import com.schouten.core.resources.other.filters.DateRequiredFeature;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
@@ -29,8 +29,10 @@ import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -114,10 +116,10 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         environment.jersey().register(new PeopleResource(personDAO));
         environment.jersey().register(new AircraftResource(aircraftDao));
         environment.jersey().register(new PersonResource(personDAO));
-        environment.jersey().register(new FlightResource(flightDao));
         environment.jersey().register(new AirportResource(airportDao));
         environment.jersey().register(new RunwayResource(runwayDao));
         environment.jersey().register(new CarrierResource(carrierDao));
+        environment.jersey().register(new FlightResource(flightDao, runwayDao, carrierDao, aircraftDao, airportDao));
         environment.jersey().register(new FilteredResource());
     }
 }

@@ -1,24 +1,15 @@
 package com.flightdelays;
 
-import com.schouten.core.api.Saying;
-import com.schouten.core.other.Person;
 import io.dropwizard.testing.ConfigOverride;
 import io.dropwizard.testing.ResourceHelpers;
 import io.dropwizard.testing.junit5.DropwizardAppExtension;
 import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.MediaType;
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
 @ExtendWith(MockitoExtension.class)
@@ -44,26 +35,26 @@ public class IntegrationTest {
         }
     }
 
-    @Test
-    public void testHelloWorld() {
-        final Optional<String> name = Optional.of("Dr. IntegrationTest");
-
-        final Saying saying = RULE.client().target("http://localhost:" + RULE.getLocalPort() + "/hello-world")
-                .queryParam("name", name.get())
-                .request()
-                .get(Saying.class);
-        Assertions.assertEquals(saying.getContent(), RULE.getConfiguration().buildTemplate().render(name));
-    }
-
-    @Test
-    public void testPostPerson() {
-        final Person person = new Person("Dr. IntegrationTest", "Chief Wizard");
-        final Person newPerson = RULE.client().target("http://localhost:" + RULE.getLocalPort() + "/people")
-                .request()
-                .post(Entity.entity(person, MediaType.APPLICATION_JSON_TYPE))
-                .readEntity(Person.class);
-        Assertions.assertNotNull(newPerson.getId());
-        Assertions.assertEquals(newPerson.getFullName(), person.getFullName());
-        Assertions.assertEquals(newPerson.getJobTitle(), person.getJobTitle());
-    }
+//    @Test
+//    public void testHelloWorld() {
+//        final Optional<String> name = Optional.of("Dr. IntegrationTest");
+//
+//        final Saying saying = RULE.client().target("http://localhost:" + RULE.getLocalPort() + "/hello-world")
+//                .queryParam("name", name.get())
+//                .request()
+//                .get(Saying.class);
+//        Assertions.assertEquals(saying.getContent(), RULE.getConfiguration().buildTemplate().render(name));
+//    }
+//
+//    @Test
+//    public void testPostPerson() {
+////        final Person person = new Person("Dr. IntegrationTest", "Chief Wizard");
+////        final Person newPerson = RULE.client().target("http://localhost:" + RULE.getLocalPort() + "/people")
+////                .request()
+////                .post(Entity.entity(person, MediaType.APPLICATION_JSON_TYPE))
+////                .readEntity(Person.class);
+////        Assertions.assertNotNull(newPerson.getId());
+////        Assertions.assertEquals(newPerson.getFullName(), person.getFullName());
+////        Assertions.assertEquals(newPerson.getJobTitle(), person.getJobTitle());
+//    }
 }

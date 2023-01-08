@@ -36,11 +36,12 @@
             scheduled_arrival timestamp,
             scheduled_departure timestamp,
             runway_actual_arrival varchar(255),
+            runway_actual_departure varchar(255),
             aircraft_id varchar(255),
             carrier varchar(255),
-            runway_departure varchar(255),
             operator varchar(255),
             runway_scheduled_arrival varchar(255),
+            runway_scheduled_departure varchar(255),
             primary key (flight_id)
             );
 
@@ -63,6 +64,11 @@
             references RUNWAY;
 
             alter table FLIGHT
+            add constraint FKb1yxstvv67fhlwgi2jismpay9
+            foreign key (runway_actual_departure)
+            references RUNWAY;
+
+            alter table FLIGHT
             add constraint FKe5wmmgbp4yrp4r9n3jhjr6lhl
             foreign key (aircraft_id)
             references AIRCRAFT;
@@ -71,11 +77,6 @@
             add constraint FKt9latawsy1ipguh2e1p8rox2v
             foreign key (carrier)
             references CARRIER;
-
-            alter table FLIGHT
-            add constraint FKgy97mw12k2v8fo80qaxai7w6g
-            foreign key (runway_departure)
-            references RUNWAY;
 
             alter table FLIGHT
             add constraint FKmu1shuighiugdjpmla7ju8b6w
@@ -87,11 +88,15 @@
             foreign key (runway_scheduled_arrival)
             references RUNWAY;
 
+            alter table FLIGHT
+            add constraint FKsynx9141yajm84uphbmyvyk73
+            foreign key (runway_scheduled_departure)
+            references RUNWAY;
+
             alter table RUNWAY
             add constraint FKosimhbe50vvt97ihh6pochfsp
             foreign key (airport_id)
             references AIRPORT;
-
         </sql>
     </changeSet>
 </databaseChangeLog>
