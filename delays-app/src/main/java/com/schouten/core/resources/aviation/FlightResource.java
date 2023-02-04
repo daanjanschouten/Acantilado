@@ -50,10 +50,7 @@ public class FlightResource {
 
         Optional<Aircraft> aircraft = aircraftDao.findById(flightDetails.getAircraftId()) ;
         if (aircraft.isEmpty()) {
-            aircraft = Optional.of(new Aircraft(
-                    "aircraft123",
-                    "boeing14"
-            ));
+            throw new BadRequestException("Aircraft not found");
         }
 
         Optional<Airport> airport = airportDao.findById(flightDetails.getAirportId());

@@ -4,10 +4,12 @@ package com.schouten.core.resources.aviation;
 import com.schouten.core.aviation.Aircraft;
 import com.schouten.core.aviation.db.AircraftDao;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.params.BooleanParam;
 import io.dropwizard.jersey.params.NonEmptyStringParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 import java.util.List;
 
 @Path("/aircraft")
@@ -30,6 +32,13 @@ public class AircraftResource {
     @UnitOfWork
     public Aircraft createAircraft(Aircraft aircraft) {
         return aircraftDao.create(aircraft);
+    }
+
+    @GET
+    @Path("/seed/{complete}")
+    @UnitOfWork
+    public long seedAircraft(@PathParam("complete") BooleanParam complete) throws IOException, InterruptedException {
+        return aircraftDao.seed(complete.get().booleanValue());
     }
 
     @GET

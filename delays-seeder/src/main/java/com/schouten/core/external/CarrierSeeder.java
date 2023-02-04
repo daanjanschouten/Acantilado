@@ -1,6 +1,7 @@
 package com.schouten.core.external;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.schouten.core.ApiConstants;
 import com.schouten.core.aviation.Carrier;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -11,13 +12,12 @@ import java.util.Optional;
 import java.util.Set;
 
 public class CarrierSeeder implements FlightLabsSeeder<Carrier> {
-    private static final String carrierParam = "airlines";
     private static final Logger LOGGER = LoggerFactory.getLogger(CarrierSeeder.class);
     final private static Set<String> blackList = new HashSet<>();
 
     @Override
     public String getParam() {
-        return carrierParam;
+        return ApiConstants.API_CARRIER;
     }
 
     @Override

@@ -19,6 +19,10 @@ import java.util.Set;
 public interface FlightLabsSeeder<T> {
     String getParam();
 
+    default Set<String> getAdditionalParams() {
+        return Set.of("");
+    }
+
     Optional<T> constructObject(JsonNode jsonNode);
 
     default Set<T> seed() throws IOException, InterruptedException {
@@ -27,32 +31,39 @@ public interface FlightLabsSeeder<T> {
 
     private Set<T> constructObjects() throws IOException, InterruptedException {
         Set<T> flightLabsObjects = new HashSet<>();
-        Iterator<JsonNode> elements = makeApiCall().elements();
-        while (elements.hasNext()) {
-            JsonNode flightLabsObjectsJson = elements.next();
-            Optional<T> flightLabsObject = constructObject(flightLabsObjectsJson);
-            if (flightLabsObject.isPresent()) {
-                flightLabsObjects.add(flightLabsObject.get());
+        makeApiCall().forEach(node -> {
+            Iterator<JsonNode> elements = node.elements();
+            while (elements.hasNext()) {
+                JsonNode flightLabsObjectsJson = elements.next();
+                Optional<T> flightLabsObject = constructObject(flightLabsObjectsJson);
+                flightLabsObject.ifPresent(flightLabsObjects::add);
             }
-        }
+        });
         return flightLabsObjects;
     }
 
-    private JsonNode makeApiCall() throws IOException, InterruptedException {
+    private Set<JsonNode> makeApiCall() throws IOException, InterruptedException {
+        Set<JsonNode> jsonNodes = new HashSet<>();
         HttpClient client = HttpClient.newBuilder().build();
-        HttpResponse<InputStream> response =
-                client.send(this.buildRequest(), HttpResponse.BodyHandlers.ofInputStream());
-        // InputStream inputStream = AirportSeeder.class.getClassLoader().getResourceAsStream("airports.json");
-        try (InputStream inputStream = response.body()) {
-            return new ObjectMapper().readTree(inputStream).get("data");
+        for (String p : getAdditionalParams()) {
+            HttpRequest request = StringUtils.isEmpty(p)
+                    ? buildRequest(p)
+                    : buildRequest(StringUtils.join("&", p));
+            HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
+            try (InputStream inputStream = response.body()) {
+                JsonNode node = new ObjectMapper().readTree(inputStream).get("data");
+                jsonNodes.add(node);
+            }
         }
+        return jsonNodes;
     }
 
-    private HttpRequest buildRequest() {
+    private HttpRequest buildRequest(String additionalParam) {
         String uriString = StringUtils.join(
                 ApiConstants.getApiBaseUrl(),
                 getParam(),
-                ApiConstants.getApiKeyPair());
+                ApiConstants.getApiKeyPair(),
+                additionalParam);
         return HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(uriString))

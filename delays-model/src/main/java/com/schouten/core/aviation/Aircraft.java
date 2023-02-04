@@ -1,11 +1,6 @@
 package com.schouten.core.aviation;
 
-import io.dropwizard.hibernate.AbstractDAO;
-import org.hibernate.SessionFactory;
-
 import javax.persistence.*;
-import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Table(name = "AIRCRAFT")
@@ -19,31 +14,67 @@ import java.util.Optional;
 )
 public class Aircraft {
     @Id
-    @Column(name="aircraft_id")
-    private String aircraftId;
+    @Column(name="hex_icao_id")
+    private String hexIcaoId;
 
-    private String model;
+    @Column(name = "iata_type", nullable = false)
+    private String iataType;
+
+    @Column(name = "registration_date", nullable = false)
+    private String registrationDate;
+
+    @Column(name = "owner_iata_id", nullable = false)
+    private String ownerIataId;
+
+    public Aircraft(String hexIcaoId, String iataType, String registrationDate, String ownerIataId) {
+        this.hexIcaoId = hexIcaoId;
+        this.iataType = iataType;
+        this.registrationDate = registrationDate;
+        this.ownerIataId = ownerIataId;
+    }
+
     public Aircraft() {
     }
 
-    public Aircraft(String aircraftId, String model) {
-        this.aircraftId = aircraftId;
-        this.model = model;
+    public String getHexIcaoId() {
+        return hexIcaoId;
     }
 
-    public String getModel() {
-        return model;
+    public void setHexIcaoId(String hexIcaoId) {
+        this.hexIcaoId = hexIcaoId;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public String getIataType() {
+        return iataType;
     }
 
-    public String getAircraftId() {
-        return aircraftId;
+    public void setIataType(String iataType) {
+        this.iataType = iataType;
     }
 
-    public void setAircraftId(String aircraftId) {
-        this.aircraftId = aircraftId;
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public String getOwnerIataId() {
+        return ownerIataId;
+    }
+
+    public void setOwnerIataId(String ownerIataId) {
+        this.ownerIataId = ownerIataId;
+    }
+
+    @Override
+    public String toString() {
+        return "Aircraft{" +
+                "hexIcaoId='" + hexIcaoId + '\'' +
+                ", iataType='" + iataType + '\'' +
+                ", registrationDate='" + registrationDate + '\'' +
+                ", ownerIataId='" + ownerIataId + '\'' +
+                '}';
     }
 }

@@ -36,7 +36,6 @@ public class CarrierDao extends AbstractDAO<Carrier> {
     }
 
     public long seed(boolean complete) throws IOException, InterruptedException {
-        LOGGER.info("How is it going");
         Set<Carrier> allCarriers = new CarrierSeeder().seed();
         if (!complete) {
             List<String> existingCarriers = findAll().stream()

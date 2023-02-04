@@ -1,6 +1,7 @@
 package com.schouten.core.external;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.schouten.core.ApiConstants;
 import com.schouten.core.aviation.Airport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,12 +9,11 @@ import org.slf4j.LoggerFactory;
 import java.util.Optional;
 
 public final class AirportSeeder implements FlightLabsSeeder<Airport> {
-    private static final String airportParam = "airports";
     private static final Logger LOGGER = LoggerFactory.getLogger(AirportSeeder.class);
 
     @Override
     public String getParam() {
-        return airportParam;
+        return ApiConstants.API_AIRPORT;
     }
 
     @Override
