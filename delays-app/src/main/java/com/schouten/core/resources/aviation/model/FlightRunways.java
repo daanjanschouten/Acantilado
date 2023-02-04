@@ -1,10 +1,13 @@
 package com.schouten.core.resources.aviation.model;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 public class FlightRunways {
-    private RunwayDetails scheduledDepartureRunway;
-    private RunwayDetails scheduledArrivalRunway;
-    private RunwayDetails actualDepartureRunway;
-    private RunwayDetails actualArrivalRunway;
+    @Valid @NotNull private RunwayDetails scheduledDepartureRunway;
+    @Valid @NotNull private RunwayDetails scheduledArrivalRunway;
+    @Valid @NotNull private RunwayDetails actualDepartureRunway;
+    @Valid @NotNull private RunwayDetails actualArrivalRunway;
 
     public FlightRunways(RunwayDetails scheduledDepartureRunway, RunwayDetails scheduledArrivalRunway, RunwayDetails actualDepartureRunway, RunwayDetails actualArrivalRunway) {
         this.scheduledDepartureRunway = scheduledDepartureRunway;
@@ -31,9 +34,6 @@ public class FlightRunways {
     public RunwayDetails getActualArrivalRunway() {
         return actualArrivalRunway;
     }
-
-    // com.schouten.core.resources.aviation.FlightResource: FlightRunways{
-    //      scheduledDepartureRunway=com.schouten.core.resources.aviation.model.RunwayDetails@44a97b43, scheduledArrivalRunway=com.schouten.core.resources.aviation.model.RunwayDetails@2d51ff04, actualDepartureRunway=com.schouten.core.resources.aviation.model.RunwayDetails@6e18ce1e, actualArrivalRunway=com.schouten.core.resources.aviation.model.RunwayDetails@48948553}
 
     @Override
     public String toString() {

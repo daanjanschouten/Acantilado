@@ -14,26 +14,33 @@ import javax.persistence.*;
 )
 public class Carrier {
     @Id
-    @Column(name="carrier_id")
-    private String carrierId;
+    @Column(name="iata_id")
+    private String iataId;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    public Carrier() {
+    @Column(name = "hub", nullable = false)
+    private String hub;
+
+    @Column(name = "country", nullable = false)
+    private String country;
+
+    public Carrier(String iataId, String name, String hub, String country) {
+        this.iataId = iataId;
+        this.name = name;
+        this.hub = hub;
+        this.country = country;
     }
 
-    public Carrier(String carrierId, String name) {
-        this.carrierId = carrierId;
-        this.name = name;
-    }
+    public Carrier() {}
 
     public String getCarrierId() {
-        return carrierId;
+        return iataId;
     }
 
     public void setCarrierId(String carrierId) {
-        this.carrierId = carrierId;
+        this.iataId = carrierId;
     }
 
     public String getName() {
@@ -42,5 +49,39 @@ public class Carrier {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIataId() {
+        return iataId;
+    }
+
+    public void setIataId(String iataId) {
+        this.iataId = iataId;
+    }
+
+    public String getHub() {
+        return hub;
+    }
+
+    public void setHub(String hub) {
+        this.hub = hub;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    @Override
+    public String toString() {
+        return "Carrier{" +
+                "iataId='" + iataId + '\'' +
+                ", name='" + name + '\'' +
+                ", hub='" + hub + '\'' +
+                ", country='" + country + '\'' +
+                '}';
     }
 }

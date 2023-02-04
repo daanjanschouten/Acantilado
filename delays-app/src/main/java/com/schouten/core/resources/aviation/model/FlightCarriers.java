@@ -1,7 +1,11 @@
 package com.schouten.core.resources.aviation.model;
 
+import javax.validation.constraints.NotBlank;
+
 public class FlightCarriers {
+    @NotBlank
     private String carrierId;
+    @NotBlank
     private String operatorId;
 
     public FlightCarriers(String carrierId, String operatorId) {

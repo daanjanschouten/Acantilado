@@ -35,38 +35,26 @@ public class Flight {
     @JoinColumn(name = "aircraft_id")
     private Aircraft aircraft;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "runway_scheduled_departure", referencedColumnName= "runway_id")
-    private Runway scheduledDepartureRunway;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "runway_scheduled_arrival", referencedColumnName= "runway_id")
-    private Runway scheduledArrivalRunway;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "runway_actual_departure", referencedColumnName= "runway_id")
-    private Runway actualDepartureRunway;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "runway_actual_arrival", referencedColumnName= "runway_id")
-    private Runway actualArrivalRunway;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "carrier", referencedColumnName= "carrier_id")
+    @JoinColumn(name = "carrier", referencedColumnName= "iata_id")
     private Carrier carrier;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "operator", referencedColumnName= "carrier_id")
+    @JoinColumn(name = "operator", referencedColumnName= "iata_id")
     private Carrier operator;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "airport")
+    private Airport airport;
 
     public Flight() {
     }
 
-    public Flight(String flightNumber, Instant scheduledDeparture, Instant scheduledArrival, Instant actualDeparture, Instant actualArrival, Aircraft aircraft, Runway scheduledDepartureRunway, Runway scheduledArrivalRunway, Runway actualDepartureRunway, Runway actualArrivalRunway, Carrier carrier, Carrier operator) {
+    public Flight(String flightNumber, Instant scheduledDeparture, Instant scheduledArrival, Instant actualDeparture, Instant actualArrival, Airport airport, Aircraft aircraft, Carrier carrier, Carrier operator) {
         this.flightNumber = flightNumber;
         this.scheduledDeparture = scheduledDeparture;
         this.scheduledArrival = scheduledArrival;
         this.actualDeparture = actualDeparture;
         this.actualArrival = actualArrival;
+        this.airport = airport;
         this.aircraft = aircraft;
-        this.scheduledDepartureRunway = scheduledDepartureRunway;
-        this.scheduledArrivalRunway = scheduledArrivalRunway;
-        this.actualDepartureRunway = actualDepartureRunway;
-        this.actualArrivalRunway = actualArrivalRunway;
         this.carrier = carrier;
         this.operator = operator;
     }
@@ -95,6 +83,14 @@ public class Flight {
         this.scheduledArrival = scheduledArrival;
     }
 
+    public Airport getAirport() {
+        return airport;
+    }
+
+    public void setAirport(Airport airport) {
+        this.airport = airport;
+    }
+
     public Instant getActualDeparture() {
         return actualDeparture;
     }
@@ -117,38 +113,6 @@ public class Flight {
 
     public void setAircraft(Aircraft aircraft) {
         this.aircraft = aircraft;
-    }
-
-    public Runway getScheduledDepartureRunway() {
-        return scheduledDepartureRunway;
-    }
-
-    public void setScheduledDepartureRunway(Runway scheduledDepartureRunway) {
-        this.scheduledDepartureRunway = scheduledDepartureRunway;
-    }
-
-    public Runway getScheduledArrivalRunway() {
-        return scheduledArrivalRunway;
-    }
-
-    public void setScheduledArrivalRunway(Runway scheduledArrivalRunway) {
-        this.scheduledArrivalRunway = scheduledArrivalRunway;
-    }
-
-    public Runway getActualDepartureRunway() {
-        return actualDepartureRunway;
-    }
-
-    public void setActualDepartureRunway(Runway actualDepartureRunway) {
-        this.actualDepartureRunway = actualDepartureRunway;
-    }
-
-    public Runway getActualArrivalRunway() {
-        return actualArrivalRunway;
-    }
-
-    public void setActualArrivalRunway(Runway actualArrivalRunway) {
-        this.actualArrivalRunway = actualArrivalRunway;
     }
 
     public Carrier getCarrier() {

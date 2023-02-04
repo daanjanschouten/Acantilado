@@ -7,4 +7,5 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <include file="schema/seed.xml"/>
     <include file="airports/seed.xml"/>
+    <include file="airlines/seed.xml"/>
 </databaseChangeLog>

@@ -1,8 +1,10 @@
 package com.schouten.core.resources.aviation.model;
 
+import javax.validation.constraints.NotBlank;
+
 public class RunwayDetails {
-    private String runwayId;
-    private String airportIataId;
+    @NotBlank private String runwayId;
+    @NotBlank private String airportIataId;
 
     public RunwayDetails(String runwayId, String airportIataId) {
         this.runwayId = runwayId;
