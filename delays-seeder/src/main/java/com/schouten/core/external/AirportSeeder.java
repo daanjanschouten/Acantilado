@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
-public final class AirportSeeder implements FlightLabsSeeder<Airport> {
+public class AirportSeeder extends FlightLabsSeeder<Airport> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AirportSeeder.class);
     private static final String API_IATA_AIRPORT = "codeIataAirport";
     private static final String API_NAME_AIRPORT = "nameAirport";

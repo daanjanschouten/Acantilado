@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-public class CarrierSeeder implements FlightLabsSeeder<Carrier> {
+public class CarrierSeeder extends FlightLabsSeeder<Carrier> {
     private static final Logger LOGGER = LoggerFactory.getLogger(CarrierSeeder.class);
     private static final String API_CODE_HUB = "codeHub";
     private static final String API_AIRLINE_NAME = "nameAirline";

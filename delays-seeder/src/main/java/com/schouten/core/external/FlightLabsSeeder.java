@@ -2,6 +2,7 @@ package com.schouten.core.external;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.annotations.VisibleForTesting;
 import com.schouten.core.ApiConstants;
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,23 +17,26 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
 
-public interface FlightLabsSeeder<T> {
+public abstract class FlightLabsSeeder<T> {
     String API_AIRLINE_IATA_ID = "codeIataAirline";
     String API_COUNTRY_ISO = "codeIso2Country";
     String API_DATA = "data";
-    String getApiPrefix();
 
-    default Set<String> getAdditionalParams() {
+    abstract String getApiPrefix();
+
+    abstract Optional<T> constructObject(JsonNode jsonNode);
+
+    Set<String> getAdditionalParams() {
         return Set.of("");
     }
 
-    Optional<T> constructObject(JsonNode jsonNode);
-
-    default Set<T> seed() {
+    public final Set<T> seed() {
         Set<T> flightLabsObjects = new HashSet<>();
-        this.getAdditionalParams().forEach(p -> {
+        this.getAdditionalParams().forEach(param -> {
             try {
-                Iterator<JsonNode> individualObjects = makeApiCall(p).elements();
+                String uriString = constructUriString(getApiPrefix(), param);
+                JsonNode node = makeApiCall(URI.create(uriString)).get(API_DATA);
+                Iterator<JsonNode> individualObjects = node.elements();
                 while (individualObjects.hasNext()) {
                     Optional<T> flightLabsObject = constructObject(individualObjects.next());
                     flightLabsObject.ifPresent(flightLabsObjects::add);
@@ -44,28 +48,32 @@ public interface FlightLabsSeeder<T> {
         return flightLabsObjects;
     }
 
-    private JsonNode makeApiCall(String additionalParam) throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newBuilder().build();
-        HttpResponse<InputStream> response = client.send(
-                buildRequest(additionalParam),
-                HttpResponse.BodyHandlers.ofInputStream());
+    @VisibleForTesting
+    String constructUriString(String prefix, String additionalParam) {
+        return StringUtils.join(
+                ApiConstants.getApiBaseUrl(),
+                prefix,
+                ApiConstants.getApiKeyPair(),
+                additionalParam);
+    }
+
+    @VisibleForTesting
+    JsonNode makeApiCall(URI uri) throws IOException, InterruptedException {
+        HttpClient httpClient = HttpClient.newBuilder().build();
+        HttpResponse<InputStream> response = httpClient.send(
+                constructGetHttpRequest(uri),
+                HttpResponse.BodyHandlers.ofInputStream());;
         try (InputStream inputStream = response.body()) {
-            return new ObjectMapper().readTree(inputStream).get(API_DATA);
+            return new ObjectMapper().readTree(inputStream);
         } catch (IOException ioException) {
             throw new RuntimeException("Failed to read data returned by FlightLabs", ioException);
         }
     }
 
-    private HttpRequest buildRequest(String additionalParam) {
-        String uriString = StringUtils.join(
-                ApiConstants.getApiBaseUrl(),
-                getApiPrefix(),
-                ApiConstants.getApiKeyPair(),
-                additionalParam);
+    private static HttpRequest constructGetHttpRequest(URI uri) {
         return HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(uriString))
+                .uri(uri)
                 .build();
     }
-
 }

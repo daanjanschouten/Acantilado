@@ -1,0 +1,19 @@
+{
+  "data": [
+      {
+        "GMT":"5",
+        "airportId":10347,
+        "codeIataAirport":"BKN",
+        "codeIataCity":null,
+        "codeIcaoAirport":"UT1H",
+        "codeIso2Country":"TKM",
+        "geonameId":"8581504",
+        "latitudeAirport":39.481389,
+        "longitudeAirport":54.362778,
+        "nameAirport":"Balkanabat Airport",
+        "nameCountry":"Turkmenistan",
+        "phone":null,
+        "timezone":null
+      }
+  ]
+}

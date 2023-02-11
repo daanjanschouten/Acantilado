@@ -10,10 +10,10 @@ public class ApiConstants {
     public static final String API_AIRPORT = "airports";
     public static final String API_AIRCRAFT = "airplanes";
 
-
     public static String getApiBaseUrl() {
         return API_BASE_URL;
     }
+
     public static String getApiKeyPair() {
         return StringUtils.join("?", API_KEY_PARAM, "=", API_KEY_VALUE);
     }

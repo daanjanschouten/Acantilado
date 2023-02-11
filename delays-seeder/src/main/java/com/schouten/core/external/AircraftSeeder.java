@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-public class AircraftSeeder implements FlightLabsSeeder<Aircraft> {
+public class AircraftSeeder extends FlightLabsSeeder<Aircraft> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AircraftSeeder.class);
     private static final String PARAM_SEPARATOR = "&";
     public static final String API_HEX_ICAO_AIRPLANE = "hexIcaoAirplane";
