@@ -13,10 +13,12 @@ import java.util.Set;
 
 public class AircraftSeeder implements FlightLabsSeeder<Aircraft> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AircraftSeeder.class);
+    private static final String PARAM_SEPARATOR = "&";
     public static final String API_HEX_ICAO_AIRPLANE = "hexIcaoAirplane";
     public static final String API_IATA_AIRLINE = "codeIataAirline";
     public static final String API_REGISTRATION_DATE = "registrationDate";
     public static final String API_PLANE_IATA = "codeIataPlaneLong";
+
 
     @Override
     public String getApiPrefix() {
@@ -26,39 +28,27 @@ public class AircraftSeeder implements FlightLabsSeeder<Aircraft> {
     @Override
     public Set<String> getAdditionalParams() {
         Set<String> params = new HashSet<>();
-        getCarriersToSeedFor().forEach(c -> params.add(StringUtils.join("codeIataAirline=", c)));
+        getCarriersToSeedFor().forEach(
+                c -> params.add(StringUtils.join(PARAM_SEPARATOR, "codeIataAirline=", c)));
         return params;
     }
 
     @Override
     public Optional<Aircraft> constructObject(JsonNode jsonNode) {
-        String aircraftId = jsonNode.get(API_HEX_ICAO_AIRPLANE).textValue();
-        if (StringUtils.isEmpty(aircraftId)) {
-            LOGGER.info("Empty ID");
+        final String aircraftId = jsonNode.get(API_HEX_ICAO_AIRPLANE).textValue();
+        final String ownerId = jsonNode.get(API_IATA_AIRLINE).textValue();
+        final String registrationDate = jsonNode.get(API_REGISTRATION_DATE).textValue();
+        final String type = jsonNode.get(API_PLANE_IATA).textValue();
+
+        if (StringUtils.isEmpty(aircraftId)
+                || StringUtils.isEmpty(ownerId)
+                || StringUtils.isEmpty(registrationDate)
+                || StringUtils.isEmpty(type)) {
+            LOGGER.info("One or more required fields were empty: " + jsonNode);
             return Optional.empty();
         }
-        String ownerId = jsonNode.get(API_IATA_AIRLINE).textValue();
-        if (StringUtils.isEmpty(ownerId)) {
-            LOGGER.info("Empty Owner");
-            return Optional.empty();
-        }
-        String registrationDate = jsonNode.get(API_REGISTRATION_DATE).textValue();
-        if (StringUtils.isEmpty(registrationDate)) {
-            LOGGER.info("Empty Registration");
-            return Optional.empty();
-        }
-        String type = jsonNode.get(API_PLANE_IATA).textValue();
-        if (StringUtils.isEmpty(type)) {
-            LOGGER.info("Empty Type");
-            return Optional.empty();
-        }
-        Aircraft aircraft = new Aircraft(
-                aircraftId,
-                type,
-                registrationDate,
-                ownerId);
-        LOGGER.info(aircraft.toString());
-        return Optional.of(aircraft);
+        return Optional.of(
+                new Aircraft(aircraftId, type, registrationDate, ownerId));
     }
 
     private static Set<String> getCarriersToSeedFor() {

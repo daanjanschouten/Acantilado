@@ -3,6 +3,7 @@ package com.schouten.core.external;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.schouten.core.ApiConstants;
 import com.schouten.core.aviation.Airport;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,13 +23,20 @@ public final class AirportSeeder implements FlightLabsSeeder<Airport> {
 
     @Override
     public Optional<Airport> constructObject(JsonNode jsonNode) {
-        Optional<Airport> airport = Optional.of(new Airport(
-            jsonNode.get(API_IATA_AIRPORT).textValue(),
-            jsonNode.get(API_NAME_AIRPORT).textValue(),
-            jsonNode.get(API_COUNTRY_ISO).textValue(),
-            jsonNode.get(API_AIRPORT_LATITUDE).doubleValue(),
-            jsonNode.get(API_AIRPORT_LONGITUDE).doubleValue()));
-        LOGGER.info(airport.toString());
-        return airport;
+        final String iataAirport = jsonNode.get(API_IATA_AIRPORT).textValue();
+        final String nameAirport = jsonNode.get(API_NAME_AIRPORT).textValue();
+        final String countryAirport = jsonNode.get(API_COUNTRY_ISO).textValue();
+        final double latitudeAirport = jsonNode.get(API_AIRPORT_LATITUDE).doubleValue();
+        final double longitudeAirport = jsonNode.get(API_AIRPORT_LONGITUDE).doubleValue();
+
+        if (StringUtils.isEmpty(iataAirport)
+                || StringUtils.isEmpty(nameAirport)
+                || StringUtils.isEmpty(countryAirport)) {
+            LOGGER.info("One or more required fields were empty: " + jsonNode);
+            return Optional.empty();
+        }
+
+        return Optional.of(
+                new Airport(iataAirport, nameAirport, countryAirport, latitudeAirport, longitudeAirport));
     }
 }

@@ -19,6 +19,7 @@ import java.util.Set;
 public interface FlightLabsSeeder<T> {
     String API_AIRLINE_IATA_ID = "codeIataAirline";
     String API_COUNTRY_ISO = "codeIso2Country";
+    String API_DATA = "data";
     String getApiPrefix();
 
     default Set<String> getAdditionalParams() {
@@ -31,11 +32,9 @@ public interface FlightLabsSeeder<T> {
         Set<T> flightLabsObjects = new HashSet<>();
         this.getAdditionalParams().forEach(p -> {
             try {
-                JsonNode node = makeApiCall(p);
-                Iterator<JsonNode> elements = node.elements();
-                while (elements.hasNext()) {
-                    JsonNode flightLabsObjectsJson = elements.next();
-                    Optional<T> flightLabsObject = constructObject(flightLabsObjectsJson);
+                Iterator<JsonNode> individualObjects = makeApiCall(p).elements();
+                while (individualObjects.hasNext()) {
+                    Optional<T> flightLabsObject = constructObject(individualObjects.next());
                     flightLabsObject.ifPresent(flightLabsObjects::add);
                 }
             } catch (IOException | InterruptedException e) {
@@ -51,7 +50,7 @@ public interface FlightLabsSeeder<T> {
                 buildRequest(additionalParam),
                 HttpResponse.BodyHandlers.ofInputStream());
         try (InputStream inputStream = response.body()) {
-            return new ObjectMapper().readTree(inputStream).get("data");
+            return new ObjectMapper().readTree(inputStream).get(API_DATA);
         } catch (IOException ioException) {
             throw new RuntimeException("Failed to read data returned by FlightLabs", ioException);
         }
