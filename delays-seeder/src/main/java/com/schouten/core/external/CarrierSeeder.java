@@ -13,16 +13,20 @@ import java.util.Set;
 
 public class CarrierSeeder implements FlightLabsSeeder<Carrier> {
     private static final Logger LOGGER = LoggerFactory.getLogger(CarrierSeeder.class);
-    final private static Set<String> blackList = new HashSet<>();
+    private static final String API_CODE_HUB = "codeHub";
+
+    private final static Set<String> blackList = new HashSet<>();
+
+
 
     @Override
-    public String getParam() {
+    public String getApiPrefix() {
         return ApiConstants.API_CARRIER;
     }
 
     @Override
     public Optional<Carrier> constructObject(JsonNode jsonNode) {
-        String id = jsonNode.get("codeIataAirline").textValue();
+        String id = jsonNode.get(API_AIRLINE_IATA_ID).textValue();
         if (StringUtils.isEmpty(id)) {
             return Optional.empty();
         }
@@ -32,9 +36,9 @@ public class CarrierSeeder implements FlightLabsSeeder<Carrier> {
         }
         Optional<Carrier> carrier = Optional.of(new Carrier(
                 id,
-                jsonNode.get("nameAirline").textValue(),
-                jsonNode.get("codeHub").textValue(),
-                jsonNode.get("codeIso2Country").textValue()));
+                jsonNode.get(API_AIRLINE_IATA_ID).textValue(),
+                jsonNode.get(API_CODE_HUB).textValue(),
+                jsonNode.get(API_COUNTRY_ISO).textValue()));
         LOGGER.info(carrier.toString());
         blackList.add(id);
         return carrier;

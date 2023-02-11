@@ -17,7 +17,9 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface FlightLabsSeeder<T> {
-    String getParam();
+    String API_AIRLINE_IATA_ID = "codeIataAirline";
+    String API_COUNTRY_ISO = "codeIso2Country";
+    String getApiPrefix();
 
     default Set<String> getAdditionalParams() {
         return Set.of("");
@@ -25,43 +27,40 @@ public interface FlightLabsSeeder<T> {
 
     Optional<T> constructObject(JsonNode jsonNode);
 
-    default Set<T> seed() throws IOException, InterruptedException {
-        return constructObjects();
-    }
-
-    private Set<T> constructObjects() throws IOException, InterruptedException {
+    default Set<T> seed() {
         Set<T> flightLabsObjects = new HashSet<>();
-        makeApiCall().forEach(node -> {
-            Iterator<JsonNode> elements = node.elements();
-            while (elements.hasNext()) {
-                JsonNode flightLabsObjectsJson = elements.next();
-                Optional<T> flightLabsObject = constructObject(flightLabsObjectsJson);
-                flightLabsObject.ifPresent(flightLabsObjects::add);
+        this.getAdditionalParams().forEach(p -> {
+            try {
+                JsonNode node = makeApiCall(p);
+                Iterator<JsonNode> elements = node.elements();
+                while (elements.hasNext()) {
+                    JsonNode flightLabsObjectsJson = elements.next();
+                    Optional<T> flightLabsObject = constructObject(flightLabsObjectsJson);
+                    flightLabsObject.ifPresent(flightLabsObjects::add);
+                }
+            } catch (IOException | InterruptedException e) {
+                throw new RuntimeException(e);
             }
         });
         return flightLabsObjects;
     }
 
-    private Set<JsonNode> makeApiCall() throws IOException, InterruptedException {
-        Set<JsonNode> jsonNodes = new HashSet<>();
+    private JsonNode makeApiCall(String additionalParam) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newBuilder().build();
-        for (String p : getAdditionalParams()) {
-            HttpRequest request = StringUtils.isEmpty(p)
-                    ? buildRequest(p)
-                    : buildRequest(StringUtils.join("&", p));
-            HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
-            try (InputStream inputStream = response.body()) {
-                JsonNode node = new ObjectMapper().readTree(inputStream).get("data");
-                jsonNodes.add(node);
-            }
+        HttpResponse<InputStream> response = client.send(
+                buildRequest(additionalParam),
+                HttpResponse.BodyHandlers.ofInputStream());
+        try (InputStream inputStream = response.body()) {
+            return new ObjectMapper().readTree(inputStream).get("data");
+        } catch (IOException ioException) {
+            throw new RuntimeException("Failed to read data returned by FlightLabs", ioException);
         }
-        return jsonNodes;
     }
 
     private HttpRequest buildRequest(String additionalParam) {
         String uriString = StringUtils.join(
                 ApiConstants.getApiBaseUrl(),
-                getParam(),
+                getApiPrefix(),
                 ApiConstants.getApiKeyPair(),
                 additionalParam);
         return HttpRequest.newBuilder()

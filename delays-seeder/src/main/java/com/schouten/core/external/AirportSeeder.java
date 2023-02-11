@@ -10,20 +10,24 @@ import java.util.Optional;
 
 public final class AirportSeeder implements FlightLabsSeeder<Airport> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AirportSeeder.class);
+    private static final String API_IATA_AIRPORT = "codeIataAirport";
+    private static final String API_NAME_AIRPORT = "nameAirport";
+    private static final String API_AIRPORT_LATITUDE = "latitudeAirport";
+    private static final String API_AIRPORT_LONGITUDE = "longitudeAirport";
 
     @Override
-    public String getParam() {
+    public String getApiPrefix() {
         return ApiConstants.API_AIRPORT;
     }
 
     @Override
     public Optional<Airport> constructObject(JsonNode jsonNode) {
         Optional<Airport> airport = Optional.of(new Airport(
-            jsonNode.get("codeIataAirport").textValue(),
-            jsonNode.get("nameAirport").textValue(),
-            jsonNode.get("codeIso2Country").textValue(),
-            jsonNode.get("latitudeAirport").doubleValue(),
-            jsonNode.get("longitudeAirport").doubleValue()));
+            jsonNode.get(API_IATA_AIRPORT).textValue(),
+            jsonNode.get(API_NAME_AIRPORT).textValue(),
+            jsonNode.get(API_COUNTRY_ISO).textValue(),
+            jsonNode.get(API_AIRPORT_LATITUDE).doubleValue(),
+            jsonNode.get(API_AIRPORT_LONGITUDE).doubleValue()));
         LOGGER.info(airport.toString());
         return airport;
     }

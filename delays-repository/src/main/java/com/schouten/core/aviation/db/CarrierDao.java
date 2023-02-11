@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -35,7 +34,7 @@ public class CarrierDao extends AbstractDAO<Carrier> {
         );
     }
 
-    public long seed(boolean complete) throws IOException, InterruptedException {
+    public long seed(boolean complete) {
         Set<Carrier> allCarriers = new CarrierSeeder().seed();
         if (!complete) {
             List<String> existingCarriers = findAll().stream()

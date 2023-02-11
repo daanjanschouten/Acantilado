@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -35,7 +34,7 @@ public class AircraftDao extends AbstractDAO<Aircraft> {
         );
     }
 
-    public long seed(boolean complete) throws IOException, InterruptedException {
+    public long seed(boolean complete) {
         Set<Aircraft> allAircraft = new AircraftSeeder().seed();
         if (!complete) {
             List<String> existingAircraft = findAll().stream()
