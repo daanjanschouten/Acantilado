@@ -29,6 +29,7 @@ public class AirportDao extends AbstractDAO<Airport> {
 
     public long seed(boolean complete) {
         Set<Airport> allAirports = new AirportSeeder().seed();
+
         if (!complete) {
             List<String> existingAirports = findAll().stream()
                     .map(Airport::getAirportId)

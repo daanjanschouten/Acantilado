@@ -17,12 +17,12 @@ public class AirportSeeder extends FlightLabsSeeder<Airport> {
     private static final String API_AIRPORT_LONGITUDE = "longitudeAirport";
 
     @Override
-    public String getApiPrefix() {
+    protected String getApiPrefix() {
         return ApiConstants.API_AIRPORT;
     }
 
     @Override
-    public Optional<Airport> constructObject(JsonNode jsonNode) {
+    protected Optional<Airport> constructObject(JsonNode jsonNode) {
         final String iataAirport = jsonNode.get(API_IATA_AIRPORT).textValue();
         final String nameAirport = jsonNode.get(API_NAME_AIRPORT).textValue();
         final String countryAirport = jsonNode.get(API_COUNTRY_ISO).textValue();

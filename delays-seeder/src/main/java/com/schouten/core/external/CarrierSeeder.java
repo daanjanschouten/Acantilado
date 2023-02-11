@@ -18,15 +18,13 @@ public class CarrierSeeder extends FlightLabsSeeder<Carrier> {
 
     private final static Set<String> blackList = new HashSet<>();
 
-
-
     @Override
-    public String getApiPrefix() {
+    protected String getApiPrefix() {
         return ApiConstants.API_CARRIER;
     }
 
     @Override
-    public Optional<Carrier> constructObject(JsonNode jsonNode) {
+    protected Optional<Carrier> constructObject(JsonNode jsonNode) {
         final String id = jsonNode.get(API_AIRLINE_IATA_ID).textValue();
         final String airlineName = jsonNode.get(API_AIRLINE_NAME).textValue();
         final String codeHub = jsonNode.get(API_CODE_HUB).textValue();

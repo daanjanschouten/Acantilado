@@ -22,9 +22,9 @@ public abstract class FlightLabsSeeder<T> {
     String API_COUNTRY_ISO = "codeIso2Country";
     String API_DATA = "data";
 
-    abstract String getApiPrefix();
+    abstract protected String getApiPrefix();
 
-    abstract Optional<T> constructObject(JsonNode jsonNode);
+    abstract protected Optional<T> constructObject(JsonNode jsonNode);
 
     Set<String> getAdditionalParams() {
         return Set.of("");

@@ -14,19 +14,18 @@ import java.util.Set;
 public class AircraftSeeder extends FlightLabsSeeder<Aircraft> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AircraftSeeder.class);
     private static final String PARAM_SEPARATOR = "&";
-    public static final String API_HEX_ICAO_AIRPLANE = "hexIcaoAirplane";
-    public static final String API_IATA_AIRLINE = "codeIataAirline";
-    public static final String API_REGISTRATION_DATE = "registrationDate";
-    public static final String API_PLANE_IATA = "codeIataPlaneLong";
-
+    private static final String API_HEX_ICAO_AIRPLANE = "hexIcaoAirplane";
+    private static final String API_IATA_AIRLINE = "codeIataAirline";
+    private static final String API_REGISTRATION_DATE = "registrationDate";
+    private static final String API_PLANE_IATA = "codeIataPlaneLong";
 
     @Override
-    public String getApiPrefix() {
+    protected String getApiPrefix() {
         return ApiConstants.API_AIRCRAFT;
     }
 
     @Override
-    public Set<String> getAdditionalParams() {
+    protected Set<String> getAdditionalParams() {
         Set<String> params = new HashSet<>();
         getCarriersToSeedFor().forEach(
                 c -> params.add(StringUtils.join(PARAM_SEPARATOR, "codeIataAirline=", c)));
@@ -34,7 +33,7 @@ public class AircraftSeeder extends FlightLabsSeeder<Aircraft> {
     }
 
     @Override
-    public Optional<Aircraft> constructObject(JsonNode jsonNode) {
+    protected Optional<Aircraft> constructObject(JsonNode jsonNode) {
         final String aircraftId = jsonNode.get(API_HEX_ICAO_AIRPLANE).textValue();
         final String ownerId = jsonNode.get(API_IATA_AIRLINE).textValue();
         final String registrationDate = jsonNode.get(API_REGISTRATION_DATE).textValue();
