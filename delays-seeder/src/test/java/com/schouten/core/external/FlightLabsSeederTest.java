@@ -126,7 +126,7 @@ class FlightLabsSeederTest {
         Set<String> expectedCarrierIds = Set.of("UJ", "RF", "KT*");
         Set<String> actualCarrierIds = carriersReturned
                 .stream()
-                .map(Carrier::getCarrierId)
+                .map(Carrier::getIataId)
                 .collect(Collectors.toSet());
         assertTrue(actualCarrierIds.containsAll(expectedCarrierIds));
     }
@@ -172,7 +172,7 @@ class FlightLabsSeederTest {
         Set<String> expectedCarrierIds = Set.of("RF", "KT*");
         Set<String> actualCarrierIds = carriersReturned
                 .stream()
-                .map(Carrier::getCarrierId)
+                .map(Carrier::getIataId)
                 .collect(Collectors.toSet());
         assertTrue(actualCarrierIds.containsAll(expectedCarrierIds));
     }

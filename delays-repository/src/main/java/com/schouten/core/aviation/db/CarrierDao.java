@@ -38,10 +38,10 @@ public class CarrierDao extends AbstractDAO<Carrier> {
         Set<Carrier> allCarriers = new CarrierSeeder().seed();
         if (!complete) {
             List<String> existingCarriers = findAll().stream()
-                    .map(Carrier::getCarrierId)
+                    .map(Carrier::getIataId)
                     .collect(Collectors.toList());
             List<Carrier> newCarriers = allCarriers.stream()
-                    .filter(c -> ! existingCarriers.contains(c.getCarrierId()))
+                    .filter(c -> ! existingCarriers.contains(c.getIataId()))
                     .collect(Collectors.toList());
             newCarriers.forEach(this::create);
             LOGGER.info(StringUtils.join(

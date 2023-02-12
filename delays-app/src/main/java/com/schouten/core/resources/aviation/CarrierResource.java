@@ -8,7 +8,6 @@ import io.dropwizard.jersey.params.NonEmptyStringParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
 import java.util.List;
 
 @Path("/carriers")
@@ -30,7 +29,7 @@ public class CarrierResource {
     @GET
     @Path("/seed/{complete}")
     @UnitOfWork
-    public long seedCarriers(@PathParam("complete") BooleanParam complete) throws IOException, InterruptedException {
+    public long seedCarriers(@PathParam("complete") BooleanParam complete) {
         return carrierDao.seed(complete.get().booleanValue());
     }
 

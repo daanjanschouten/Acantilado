@@ -35,14 +35,6 @@ public class Carrier {
 
     public Carrier() {}
 
-    public String getCarrierId() {
-        return iataId;
-    }
-
-    public void setCarrierId(String carrierId) {
-        this.iataId = carrierId;
-    }
-
     public String getName() {
         return name;
     }
