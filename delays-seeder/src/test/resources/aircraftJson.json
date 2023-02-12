@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "hexIcaoAirplane": "A11EB7",
+      "codeIataPlaneLong": "A321",
+      "registrationDate": "2001-04-04T22:00:00.000Z",
+      "codeIataAirline": "AA"
+    },
+    {
+      "hexIcaoAirplane": "AC2DEA",
+      "codeIataPlaneLong": "B738",
+      "registrationDate": "2012-02-09T23:00:00.000Z",
+      "codeIataAirline": "AA"
+    },
+    {
+      "hexIcaoAirplane": "A9942E",
+      "codeIataPlaneLong": "A319",
+      "registrationDate": "1999-07-28T22:00:00.000Z",
+      "codeIataAirline": "AA"
+    }
+  ]
+}

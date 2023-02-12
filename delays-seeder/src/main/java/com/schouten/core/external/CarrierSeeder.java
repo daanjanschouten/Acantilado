@@ -16,7 +16,7 @@ public class CarrierSeeder extends FlightLabsSeeder<Carrier> {
     private static final String API_CODE_HUB = "codeHub";
     private static final String API_AIRLINE_NAME = "nameAirline";
 
-    private final static Set<String> blackList = new HashSet<>();
+    private final Set<String> blackList = new HashSet<>();
 
     @Override
     protected String getApiPrefix() {
