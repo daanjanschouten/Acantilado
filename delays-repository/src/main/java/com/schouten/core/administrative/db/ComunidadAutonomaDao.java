@@ -16,7 +16,7 @@ public class ComunidadAutonomaDao extends AbstractDAO<ComunidadAutonoma> {
         super(sessionFactory);
     }
 
-    public Optional<ComunidadAutonoma> findById(String comunidadAutonomaId) {
+    public Optional<ComunidadAutonoma> findById(Long comunidadAutonomaId) {
         return Optional.ofNullable(get(comunidadAutonomaId));
     }
 
