@@ -10,7 +10,7 @@ repositories {
 
 group = 'com.schouten.core'
 version = '1.0.0-SNAPSHOT'
-description = "Flight Delay Tracker"
+description = "Vertigo"
 allprojects {
     tasks.withType(JavaCompile) {
         sourceCompatibility = JavaVersion.VERSION_11

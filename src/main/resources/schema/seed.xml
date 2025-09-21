@@ -8,11 +8,11 @@
     <changeSet id="seeding0001" author="daanschouten">
         <sql splitStatements="false">
             create table AIRCRAFT (
-            hex_icao_id varchar(255) not null,
-            iata_type varchar(255) not null,
-            owner_iata_id varchar(255) not null,
-            registration_date varchar(255) not null,
-            primary key (hex_icao_id)
+                hex_icao_id varchar(255) not null,
+                iata_type varchar(255) not null,
+                owner_iata_id varchar(255) not null,
+                registration_date varchar(255) not null,
+                primary key (hex_icao_id)
             );
 
             create table AIRPORT (
@@ -73,5 +73,69 @@
             foreign key (operator)
             references CARRIER;
         </sql>
+    </changeSet>
+    <changeSet id="create-comunidad-autonoma-table" author="your-name">
+        <createTable tableName="comunidad_autonoma">
+            <column name="comunidad_autonoma_id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create Provincia table -->
+    <changeSet id="create-provincia-table" author="dschouten">
+        <createTable tableName="provincia">
+            <column name="provincia_id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create Ayuntamiento table -->
+    <changeSet id="create-ayuntamiento-table" author="dschouten">
+        <createTable tableName="ayuntamiento">
+            <column name="ayuntamiento_id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="provincia" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="comunidad_autonoma" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Add foreign key constraints -->
+    <changeSet id="add-ayuntamiento-foreign-keys" author="dschouten">
+        <addForeignKeyConstraint
+                constraintName="fk_ayuntamiento_provincia"
+                baseTableName="ayuntamiento"
+                baseColumnNames="provincia"
+                referencedTableName="provincia"
+                referencedColumnNames="provincia_id"
+                onDelete="SET NULL"
+                onUpdate="CASCADE"/>
+
+        <addForeignKeyConstraint
+                constraintName="fk_ayuntamiento_comunidad_autonoma"
+                baseTableName="ayuntamiento"
+                baseColumnNames="comunidad_autonoma"
+                referencedTableName="comunidad_autonoma"
+                referencedColumnNames="comunidad_autonoma_id"
+                onDelete="SET NULL"
+                onUpdate="CASCADE"/>
     </changeSet>
 </databaseChangeLog>

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class FlightLabsSeederTest {
+class FlightLabsCollectorTest {
 
     @Test
     void when_io_or_interrupted_exception_thrown_during_api_call_runtime_exception_is_returned() throws IOException, InterruptedException {

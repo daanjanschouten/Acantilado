@@ -5,13 +5,31 @@ import com.flightdelays.auth.ExampleAuthorizer;
 import com.flightdelays.cli.RenderCommand;
 import com.flightdelays.health.TemplateHealthCheck;
 import com.flightdelays.tasks.EchoTask;
-import com.schouten.core.aviation.*;
-import com.schouten.core.aviation.db.*;
+import com.schouten.core.administrative.Ayuntamiento;
+import com.schouten.core.administrative.ComunidadAutonoma;
+import com.schouten.core.administrative.Provincia;
+import com.schouten.core.administrative.db.AyuntamientoDao;
+import com.schouten.core.administrative.db.ComunidadAutonomaDao;
+import com.schouten.core.administrative.db.ProvinciaDao;
+import com.schouten.core.aviation.Aircraft;
+import com.schouten.core.aviation.Airport;
+import com.schouten.core.aviation.Carrier;
+import com.schouten.core.aviation.Flight;
+import com.schouten.core.aviation.db.AircraftDao;
+import com.schouten.core.aviation.db.AirportDao;
+import com.schouten.core.aviation.db.CarrierDao;
+import com.schouten.core.aviation.db.FlightDao;
 import com.schouten.core.aviation.other.PersonDAO;
 import com.schouten.core.other.Person;
 import com.schouten.core.other.Template;
 import com.schouten.core.other.User;
-import com.schouten.core.resources.aviation.*;
+import com.schouten.core.resources.administrative.AyuntamientoResource;
+import com.schouten.core.resources.administrative.ComunidadAutonomaResource;
+import com.schouten.core.resources.administrative.ProvinciaResource;
+import com.schouten.core.resources.aviation.AircraftResource;
+import com.schouten.core.resources.aviation.AirportResource;
+import com.schouten.core.resources.aviation.CarrierResource;
+import com.schouten.core.resources.aviation.FlightResource;
 import com.schouten.core.resources.other.*;
 import com.schouten.core.resources.other.filters.DateRequiredFeature;
 import io.dropwizard.Application;
@@ -38,10 +56,14 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     public static void main(String[] args) throws Exception {
         new HelloWorldApplication().run(args);
     }
+
     private final HibernateBundle<HelloWorldConfiguration> hibernateBundle =
             new HibernateBundle<HelloWorldConfiguration>(
                     Aircraft.class,
                     Airport.class,
+                    Ayuntamiento.class,
+                    Provincia.class,
+                    ComunidadAutonoma.class,
                     Carrier.class,
                     Flight.class,
                     Person.class) {
@@ -53,7 +75,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
     @Override
     public String getName() {
-        return "Flight Delays";
+        return "Vertigo";
     }
 
     @Override
@@ -66,6 +88,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
                 )
         );
         bootstrap.addCommand(new RenderCommand());
+
         bootstrap.addBundle(new AssetsBundle());
         bootstrap.addBundle(hibernateBundle);
         bootstrap.addBundle(new MigrationsBundle<>() {
@@ -80,9 +103,13 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
                 return configuration.getViewRendererConfiguration();
             }
         });
+
         final Set<Class<?>> annotatedClasses = new HashSet<>(Arrays.asList(
                 Aircraft.class,
                 Airport.class,
+                Ayuntamiento.class,
+                Provincia.class,
+                ComunidadAutonoma.class,
                 Carrier.class,
                 Flight.class,
                 Person.class));
@@ -95,6 +122,9 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         final PersonDAO personDAO = new PersonDAO(hibernateBundle.getSessionFactory());
         final FlightDao flightDao = new FlightDao(hibernateBundle.getSessionFactory());
         final AirportDao airportDao = new AirportDao(hibernateBundle.getSessionFactory());
+        final AyuntamientoDao ayuntamientoDao = new AyuntamientoDao(hibernateBundle.getSessionFactory());
+        final ComunidadAutonomaDao comunidadAutonomaDao = new ComunidadAutonomaDao(hibernateBundle.getSessionFactory());
+        final ProvinciaDao provinciaDao = new ProvinciaDao(hibernateBundle.getSessionFactory());
         final CarrierDao carrierDao = new CarrierDao(hibernateBundle.getSessionFactory());
         final Template template = configuration.buildTemplate();
         environment.healthChecks().register("template", new TemplateHealthCheck(template));
@@ -115,6 +145,9 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         environment.jersey().register(new PersonResource(personDAO));
         environment.jersey().register(new AirportResource(airportDao));
         environment.jersey().register(new CarrierResource(carrierDao));
+        environment.jersey().register(new AyuntamientoResource(ayuntamientoDao));
+        environment.jersey().register(new ComunidadAutonomaResource(comunidadAutonomaDao));
+        environment.jersey().register(new ProvinciaResource(provinciaDao));
         environment.jersey().register(new FlightResource(flightDao, carrierDao, aircraftDao, airportDao));
         environment.jersey().register(new FilteredResource());
     }
