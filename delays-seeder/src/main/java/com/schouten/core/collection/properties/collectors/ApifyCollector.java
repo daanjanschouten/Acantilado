@@ -1,14 +1,18 @@
-package com.schouten.core.collectors.properties;
+package com.schouten.core.collection.properties.collectors;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.schouten.core.collectors.Collector;
+import com.schouten.core.collection.Collector;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.util.*;
 
 public abstract class ApifyCollector<T> extends Collector<T> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApifyCollector.class);
+
     private static final String AUTHORITY = "api.apify.com";
     private static final String DELIMITER = "/";
     private static final String RUN_FIELD = "id";
@@ -21,7 +25,13 @@ public abstract class ApifyCollector<T> extends Collector<T> {
 
     private static final String AUTH_HEADER = "";
 
-    public record ApifyRunDetails (String runId, String datasetId) {}
+    public enum PENDING_SEARCH_STATUS {
+        STARTED,
+        RUNNING,
+        SUCCEEDED
+    }
+
+    public record ApifyPendingSearch(String runId, String datasetId) {}
 
     protected abstract String getActorId();
 
@@ -34,24 +44,26 @@ public abstract class ApifyCollector<T> extends Collector<T> {
         throw new RuntimeException("Unsupported");
     }
 
-    public ApifyRunDetails startSearch(HttpRequest.BodyPublisher body) {
+    public ApifyPendingSearch startSearch(HttpRequest.BodyPublisher body) {
         JsonNode requestStarted = makePostHttpRequest(constructActsUri(""), body, AUTH_HEADER);
 
-        return new ApifyRunDetails(
+        return new ApifyPendingSearch(
                 requestStarted.get(DATA_FIELD).get(RUN_FIELD).textValue(),
                 requestStarted.get(DATA_FIELD).get(DATASET_FIELD).textValue());
     }
 
-    public String getSearchStatus(ApifyRunDetails runDetails) {
+    public PENDING_SEARCH_STATUS getSearchStatus(ApifyPendingSearch runDetails) {
         JsonNode requestStatus = makeGetHttpRequest(constructActsUri(runDetails.runId()), AUTH_HEADER);
-        return requestStatus.get(DATA_FIELD).get(STATUS_FIELD).textValue();
+        String status = requestStatus.get(DATA_FIELD).get(STATUS_FIELD).textValue();
+        return PENDING_SEARCH_STATUS.valueOf(status);
     }
 
-    public Set<T> getSearchResults(ApifyRunDetails runDetails) {
+    public Set<T> getSearchResults(ApifyPendingSearch runDetails) {
         Set<T> apifyObjects = new HashSet<>();
         JsonNode node = makeGetHttpRequest(constructDatasetsUri(runDetails.datasetId()), AUTH_HEADER);
 
         Iterator<JsonNode> individualObjects = node.elements();
+
         while (individualObjects.hasNext()) {
             Optional<T> translatedObject = constructObject(individualObjects.next());
             translatedObject.ifPresent(apifyObjects::add);

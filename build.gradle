@@ -31,6 +31,8 @@ allprojects {
                 implementation group: 'io.dropwizard', name: 'dropwizard-views-freemarker', version: "$dropwizardVersion"
                 implementation group: 'io.dropwizard', name: 'dropwizard-views-mustache', version: "$dropwizardVersion"
                 implementation group: 'io.dropwizard', name: 'dropwizard-metrics-graphite', version: "$dropwizardVersion"
+                implementation group: 'io.federecio', name: 'dropwizard-swagger', version: "0.7.0"
+                implementation group: 'com.smoketurner', name: 'dropwizard-swagger', version: "$dropwizardVersion"
                 implementation group: 'com.h2database', name: 'h2', version: "$h2Version"
                 implementation group: 'com.google.guava', name: 'guava', version: "$guavaVersion"
                 implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "$jacksonVersion"

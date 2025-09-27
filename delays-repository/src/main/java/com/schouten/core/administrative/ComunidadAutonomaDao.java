@@ -1,6 +1,5 @@
-package com.schouten.core.administrative.db;
+package com.schouten.core.administrative;
 
-import com.schouten.core.administrative.ComunidadAutonoma;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;

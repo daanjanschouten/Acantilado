@@ -1,7 +1,8 @@
-package com.schouten.core.collectors;
+package com.schouten.core.collection;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.schouten.core.collectors.utils.HttpUtils;
+import com.schouten.core.collection.utils.HttpUtils;
+import io.dropwizard.hibernate.UnitOfWork;
 import org.eclipse.jetty.http.HttpScheme;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +26,11 @@ public abstract class Collector<T> {
 
     protected abstract Iterator<Collection<T>> seed();
 
+    @UnitOfWork
     protected abstract Optional<T> constructObject(JsonNode jsonNode);
 
     protected final JsonNode makePostHttpRequest(URI uri, HttpRequest.BodyPublisher body, String authorizationHeader)  {
-        LOGGER.info("Constructing HTTP POST request for URI: {} with body: {}", uri, body);
+        LOGGER.debug("Constructing HTTP POST request for URI: {} with body: {}", uri, body);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(body)
@@ -45,7 +47,7 @@ public abstract class Collector<T> {
     }
 
     protected final JsonNode makeGetHttpRequest(URI uri, String authorizationHeader) {
-        LOGGER.info("Constructing HTTP GET request for URI: {}", uri);
+        LOGGER.debug("Constructing HTTP GET request for URI: {}", uri);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()

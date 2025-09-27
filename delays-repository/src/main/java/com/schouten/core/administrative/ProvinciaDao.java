@@ -1,4 +1,4 @@
-package com.schouten.core.administrative.db;
+package com.schouten.core.administrative;
 
 import com.schouten.core.administrative.Provincia;
 import io.dropwizard.hibernate.AbstractDAO;

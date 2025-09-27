@@ -1,4 +1,4 @@
-package com.schouten.core.collectors.properties.idealistaTypes;
+package com.schouten.core.collection.properties.idealistaTypes;
 
 public enum IdealistaSortBy {
     RELEVANCE("relevance"),

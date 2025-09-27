@@ -1,7 +1,7 @@
 package com.schouten.core.resources.administrative;
 
 import com.schouten.core.administrative.ComunidadAutonoma;
-import com.schouten.core.administrative.db.ComunidadAutonomaDao;
+import com.schouten.core.administrative.ComunidadAutonomaDao;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.*;

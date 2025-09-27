@@ -1,4 +1,4 @@
-package com.schouten.core.collectors.utils;
+package com.schouten.core.collection.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

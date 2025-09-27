@@ -1,7 +1,7 @@
 package com.schouten.core.resources.administrative;
 
 import com.schouten.core.administrative.Ayuntamiento;
-import com.schouten.core.administrative.db.AyuntamientoDao;
+import com.schouten.core.administrative.AyuntamientoDao;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.*;
@@ -40,12 +40,10 @@ public class AyuntamientoResource {
     private Ayuntamiento findSafely(Long ayuntamientoId) {
         return ayuntamientoDao.findById(ayuntamientoId).orElseThrow(() -> new NotFoundException("No such ayuntamiento." + ayuntamientoId));
     }
-
+}
 //    @GET
 //    @Path("/seed")
 //    @UnitOfWork
 //    public void seedAyuntamiento() {
 //        ayuntamientoDao.seed();
 //    }
-}
-

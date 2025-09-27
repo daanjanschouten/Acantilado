@@ -1,4 +1,4 @@
-package com.schouten.core.collectors.administration;
+package com.schouten.core.collection.administration;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.schouten.core.administrative.Ayuntamiento;

@@ -1,4 +1,4 @@
-package com.schouten.core.collectors;
+package com.schouten.core.collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

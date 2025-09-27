@@ -1,8 +1,8 @@
-package com.schouten.core.collectors.administration;
+package com.schouten.core.collection.administration;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.schouten.core.collectors.Collector;
-import com.schouten.core.collectors.CollectorIterator;
+import com.schouten.core.collection.Collector;
+import com.schouten.core.collection.CollectorIterator;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,8 +1,10 @@
 package com.schouten.core.properties.idealista;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -12,15 +14,17 @@ import java.util.Set;
                 @NamedQuery(
                         name = "com.schouten.core.properties.idealista.IdealistaContactInformation.findAll",
                         query = "SELECT c FROM IdealistaContactInformation c"
-                ),
-                @NamedQuery(
-                        name = "com.schouten.core.properties.idealista.IdealistaContactInformation.findByPropertyCode",
-                        query = "SELECT c FROM IdealistaContactInformation c WHERE c.propertyCode = :propertyCode"
                 )
         }
 )
 public class IdealistaContactInformation {
+    public record PhoneContact(long phonePrefix, long phoneNumber) {}
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private long id;
+
     @Column(name = "phone_number")
     private long phone_number;
 
@@ -33,19 +37,27 @@ public class IdealistaContactInformation {
     @Column(name = "user_type")
     private String userType;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "contactInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<IdealistaProperty> properties = new HashSet<>();
 
     public IdealistaContactInformation() {}
 
-    public IdealistaContactInformation(long phone_number, long prefix, String contactName, String userType) {
-        this.phone_number = phone_number;
-        this.prefix = prefix;
+    public IdealistaContactInformation(Optional<PhoneContact> phoneContact, String contactName, String userType) {
         this.contactName = contactName;
         this.userType = userType;
+
+        phoneContact.ifPresent(c -> {
+            this.prefix = c.phonePrefix;
+            this.phone_number = c.phoneNumber;
+        });
     }
 
     public long getId() {
+        return id;
+    }
+
+    public long getPhoneNumber() {
         return phone_number;
     }
 
@@ -65,7 +77,11 @@ public class IdealistaContactInformation {
         return properties;
     }
 
-    public void setId(long phone_number) {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setPhoneNumber(long phone_number) {
         this.phone_number = phone_number;
     }
 
@@ -86,15 +102,11 @@ public class IdealistaContactInformation {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(phone_number, prefix, contactName, userType, properties);
-    }
-
-    @Override
     public String toString() {
         return "IdealistaContactInformation{" +
-                "phone_number=" + phone_number +
-                ", prefix='" + prefix + '\'' +
+                "id=" + id +
+                ", phone_number=" + phone_number +
+                ", prefix=" + prefix +
                 ", contactName='" + contactName + '\'' +
                 ", userType='" + userType + '\'' +
                 ", properties=" + properties +

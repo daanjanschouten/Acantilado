@@ -1,7 +1,6 @@
 package com.schouten.core.properties.idealista;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class IdealistaProperty {
     private String description;
 
     @Column(name = "size")
-    private String size;
+    private long size;
 
     @Column(name = "sub_typology")
     private String subTypology;
@@ -53,26 +52,32 @@ public class IdealistaProperty {
     @Column(name = "location_id")
     private String locationId;
 
-    @Column(name = "latitude", precision = 10, scale = 8)
-    private BigDecimal latitude;
+    @Column(name = "latitude")
+    private Double latitude;
 
-    @Column(name = "longitude", precision = 11, scale = 8)
-    private BigDecimal longitude;
+    @Column(name = "longitude")
+    private Double longitude;
+
+    @Column(name = "first_seen", nullable = false)
+    private long firstSeen;
+
+    @Column(name = "last_seen", nullable = false)
+    private long lastSeen;
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderBy("recordedAt DESC")
     private List<IdealistaPriceRecord> priceRecords = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contact_phone_number", referencedColumnName = "phone_number")
+    @JoinColumn(name = "contact_phone_number", referencedColumnName = "id")
     private IdealistaContactInformation contactInfo;
 
     public IdealistaProperty() {}
 
-    public IdealistaProperty(Long propertyCode, String operation, String description,
-                             String size, String propertyType, String subTypology,
+    public IdealistaProperty(long propertyCode, String operation, String description,
+                             long size, String propertyType, String subTypology,
                              String address, String municipality, String locationId,
-                             String latitude, String longitude) {
+                             Double latitude, Double longitude, long firstSeen, long lastSeen) {
         this.propertyCode = propertyCode;
         this.operation = operation;
         this.description = description;
@@ -82,11 +87,13 @@ public class IdealistaProperty {
         this.address = address;
         this.municipality = municipality;
         this.locationId = locationId;
-        this.latitude = latitude != null ? new BigDecimal(latitude) : null;
-        this.longitude = longitude != null ? new BigDecimal(longitude) : null;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.firstSeen = firstSeen;
+        this.lastSeen = lastSeen;
     }
 
-    public Long getPropertyCode() { return propertyCode; }
+    public long getPropertyCode() { return propertyCode; }
     public void setPropertyCode(Long propertyCode) { this.propertyCode = propertyCode; }
 
     public String getOperation() { return operation; }
@@ -95,8 +102,8 @@ public class IdealistaProperty {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public String getSize() { return size; }
-    public void setSize(String size) { this.size = size; }
+    public long getSize() { return size; }
+    public void setSize(long size) { this.size = size; }
 
     public String getSubTypology() { return subTypology; }
     public void setSubTypology(String subTypology) { this.subTypology = subTypology; }
@@ -113,15 +120,42 @@ public class IdealistaProperty {
     public String getLocationId() { return locationId; }
     public void setLocationId(String locationId) { this.locationId = locationId; }
 
-    public BigDecimal getLatitude() { return latitude; }
-    public void setLatitude(BigDecimal latitude) { this.latitude = latitude; }
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
 
-    public BigDecimal getLongitude() { return longitude; }
-    public void setLongitude(BigDecimal longitude) { this.longitude = longitude; }
+    public Double getLongitude() { return longitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
+
+    public long getFirstSeen() { return firstSeen; }
+    public void setFirstSeen(long firstSeen) { this.firstSeen = firstSeen; }
+
+    public long getLastSeen() { return lastSeen; }
+    public void setLastSeen(long lastSeen) { this.lastSeen = lastSeen; }
 
     public List<IdealistaPriceRecord> getPriceRecords() { return priceRecords; }
     public void setPriceRecords(List<IdealistaPriceRecord> priceRecords) { this.priceRecords = priceRecords; }
 
     public IdealistaContactInformation getContactInfo() { return contactInfo; }
     public void setContactInfo(IdealistaContactInformation contactInfo) { this.contactInfo = contactInfo; }
+
+    @Override
+    public String toString() {
+        return "IdealistaProperty{" +
+                "propertyCode=" + propertyCode +
+                ", operation='" + operation + '\'' +
+                ", propertyType='" + propertyType + '\'' +
+                ", description='" + description + '\'' +
+                ", size=" + size +
+                ", subTypology='" + subTypology + '\'' +
+                ", address='" + address + '\'' +
+                ", municipality='" + municipality + '\'' +
+                ", locationId='" + locationId + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", firstSeen=" + firstSeen +
+                ", lastSeen=" + lastSeen +
+                ", priceRecords=" + priceRecords +
+                ", contactInfo=" + contactInfo +
+                '}';
+    }
 }

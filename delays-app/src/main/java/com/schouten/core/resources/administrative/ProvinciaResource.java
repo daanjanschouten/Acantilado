@@ -1,7 +1,7 @@
 package com.schouten.core.resources.administrative;
 
 import com.schouten.core.administrative.Provincia;
-import com.schouten.core.administrative.db.ProvinciaDao;
+import com.schouten.core.administrative.ProvinciaDao;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.*;

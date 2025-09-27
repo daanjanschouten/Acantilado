@@ -1,7 +1,8 @@
 package com.schouten.core.properties.idealista;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "idealista_price_records")
@@ -18,7 +19,6 @@ import java.time.LocalDateTime;
         }
 )
 public class IdealistaPriceRecord {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -31,15 +31,16 @@ public class IdealistaPriceRecord {
     private long price;
 
     @Column(name = "recorded_at", nullable = false)
-    private LocalDateTime recordedAt;
+    private long recordedAt;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "property_code", referencedColumnName = "property_code", insertable = false, updatable = false)
     private IdealistaProperty property;
 
     public IdealistaPriceRecord() {}
 
-    public IdealistaPriceRecord(Long propertyCode, Long price, LocalDateTime recordedAt) {
+    public IdealistaPriceRecord(Long propertyCode, Long price, long recordedAt) {
         this.propertyCode = propertyCode;
         this.price = price;
         this.recordedAt = recordedAt;
@@ -54,8 +55,8 @@ public class IdealistaPriceRecord {
     public Long getPrice() { return price; }
     public void setPrice(Long price) { this.price = price; }
 
-    public LocalDateTime getRecordedAt() { return recordedAt; }
-    public void setRecordedAt(LocalDateTime recordedAt) { this.recordedAt = recordedAt; }
+    public long getRecordedAt() { return recordedAt; }
+    public void setRecordedAt(long recordedAt) { this.recordedAt = recordedAt; }
 
     public IdealistaProperty getProperty() { return property; }
     public void setProperty(IdealistaProperty property) { this.property = property; }
