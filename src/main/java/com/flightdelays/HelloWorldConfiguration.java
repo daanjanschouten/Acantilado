@@ -1,6 +1,5 @@
 package com.flightdelays;
 
-import com.schouten.core.other.Template;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableMap;
 import io.dropwizard.Configuration;
@@ -46,9 +45,9 @@ public class HelloWorldConfiguration extends Configuration {
         this.defaultName = defaultName;
     }
 
-    public Template buildTemplate() {
-        return new Template(template, defaultName);
-    }
+//    public Template buildTemplate() {
+//        return new Template(template, defaultName);
+//    }
 
     @JsonProperty("database")
     public DataSourceFactory getDataSourceFactory() {

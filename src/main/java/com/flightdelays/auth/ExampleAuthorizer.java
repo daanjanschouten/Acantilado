@@ -1,12 +1,10 @@
 package com.flightdelays.auth;
 
-import com.schouten.core.other.User;
-import io.dropwizard.auth.Authorizer;
+//  implements Authorizer<User>
+public class ExampleAuthorizer {
 
-public class ExampleAuthorizer implements Authorizer<User> {
-
-    @Override
-    public boolean authorize(User user, String role) {
-        return user.getRoles() != null && user.getRoles().contains(role);
-    }
+//    @Override
+//    public boolean authorize(User user, String role) {
+//        return user.getRoles() != null && user.getRoles().contains(role);
+//    }
 }

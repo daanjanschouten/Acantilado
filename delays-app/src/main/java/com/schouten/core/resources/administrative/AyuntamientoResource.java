@@ -41,11 +41,11 @@ public class AyuntamientoResource {
         return ayuntamientoDao.findById(ayuntamientoId).orElseThrow(() -> new NotFoundException("No such ayuntamiento." + ayuntamientoId));
     }
 
-    @GET
-    @Path("/seed")
-    @UnitOfWork
-    public void seedAyuntamiento() {
-        ayuntamientoDao.seed();
-    }
+//    @GET
+//    @Path("/seed")
+//    @UnitOfWork
+//    public void seedAyuntamiento() {
+//        ayuntamientoDao.seed();
+//    }
 }
 

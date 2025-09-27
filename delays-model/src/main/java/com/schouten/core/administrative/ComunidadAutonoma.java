@@ -21,7 +21,6 @@ public class ComunidadAutonoma {
     @Column(name = "name", nullable = false)
     private String name;
 
-    // Default constructor (required by Hibernate)
     public ComunidadAutonoma() {}
 
     public ComunidadAutonoma(long comunidad_autonoma_id, String name) {
