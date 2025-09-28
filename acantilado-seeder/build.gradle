@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'com.acantilado'
+version '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(path: ':acantilado-model')
+    implementation project(path: ':acantilado-repository')
+
+}
+
+test {
+    useJUnitPlatform()
+}

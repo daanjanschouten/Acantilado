@@ -1,0 +1,78 @@
+package com.acantilado.collection.properties.idealistaTypes;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.acantilado.collection.properties.queries.DefaultIdealistaSearchQueries;
+import com.acantilado.collection.utils.RequestBodyData;
+
+import java.net.http.HttpRequest;
+
+public class IdealistaSearchRequest implements RequestBodyData<IdealistaSearchRequest> {
+    @JsonProperty("country")
+    private final String country;
+
+    @JsonProperty("location")
+    private final String location;
+
+    @JsonProperty("operation")
+    private final String operation;
+
+    @JsonProperty("propertyType")
+    private final String propertyType;
+
+    @JsonProperty("maxItems")
+    private final int maxItems;
+
+    @JsonProperty("sortBy")
+    private final String sortBy;
+
+    public IdealistaSearchRequest(
+            IdealistaCountry country,
+            IdealistaOperation operation,
+            IdealistaPropertyType propertyType,
+            IdealistaSortBy sortBy,
+            String location,
+            int maxItems) {
+        this.country = country.getName();
+        this.operation = operation.getName();
+        this.propertyType = propertyType.getName();
+        this.sortBy = sortBy.getName();
+
+        this.maxItems = maxItems;
+        this.location = location;
+    }
+
+    @Override
+    public HttpRequest.BodyPublisher toRequestBodyString(IdealistaSearchRequest data) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            return HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(data));
+        } catch (JsonProcessingException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    public static IdealistaSearchRequest fromSearch(DefaultIdealistaSearchQueries.IdealistaSearch search) {
+        return new IdealistaSearchRequest(
+                IdealistaCountry.SPAIN,
+                search.operation(),
+                search.type(),
+                IdealistaSortBy.PROXIMITY,
+                search.location(),
+                100);
+    }
+
+    @Override
+    public String toString() {
+        return "IdealistaSearchRequest{" +
+                "country='" + country + '\'' +
+                ", location='" + location + '\'' +
+                ", operation='" + operation + '\'' +
+                ", propertyType='" + propertyType + '\'' +
+                ", maxItems=" + maxItems +
+                ", sortBy='" + sortBy + '\'' +
+                '}';
+    }
+}

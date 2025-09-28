@@ -41,9 +41,13 @@ To test the example application run the following commands.
 
         java -jar target/dropwizard-example-1.2.0-SNAPSHOT.jar server example.yml
 
-* Actually running seems to require:
+* Running requires:
     
-        ./gradlew clean build && ./gradlew shadowJar  && java -jar /Users/daanschouten/JavaProjects/flight-delays/build/libs/flight-delays-1.0.0-SNAPSHOT-all.jar server ./example.yml
+        ./gradlew clean build shadowJar && java -jar /Users/daanschouten/JavaProjects/acantilado/build/libs/acantilado-1.0.0-SNAPSHOT-all.jar server ./example.yml
+
+* Dropping all data to start over:
+
+        java -jar /Users/daanschouten/JavaProjects/acantilado/build/libs/acantilado-1.0.0-SNAPSHOT-all.jar db drop-all --confirm-delete-everything example.yml
 
 * To hit the Hello World example (hit refresh a few times).
 

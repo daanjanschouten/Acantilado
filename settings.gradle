@@ -1,6 +1,6 @@
-rootProject.name = 'flight-delays'
+rootProject.name = 'acantilado'
 
-include 'delays-model'
-include 'delays-repository'
-include 'delays-app'
-include 'delays-seeder'
+include 'acantilado-model'
+include 'acantilado-repository'
+include 'acantilado-seeder'
+include 'acantilado-app'
