@@ -51,13 +51,6 @@ public class IdealistaPropertyResource {
     }
 
     @GET
-    @Path("/ayuntamiento/{ayuntamientoId}")
-    @UnitOfWork
-    public List<IdealistaProperty> getByAyuntamiento(@PathParam("ayuntamientoId") Long ayuntamientoId) {
-        return propertyDAO.findByAyuntamientoId(ayuntamientoId);
-    }
-
-    @GET
     @Path("/type/{propertyType}")
     @UnitOfWork
     public List<IdealistaProperty> getByPropertyType(@PathParam("propertyType") String propertyType) {

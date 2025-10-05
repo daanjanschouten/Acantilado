@@ -1,7 +1,7 @@
-package com.acantilado.collection;
+package com.acantilado.gathering;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.acantilado.collection.utils.HttpUtils;
+import com.acantilado.gathering.utils.HttpUtils;
 import io.dropwizard.hibernate.UnitOfWork;
 import org.eclipse.jetty.http.HttpScheme;
 import org.slf4j.Logger;

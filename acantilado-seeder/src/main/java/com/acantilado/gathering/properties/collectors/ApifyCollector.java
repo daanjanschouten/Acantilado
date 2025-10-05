@@ -1,13 +1,13 @@
-package com.acantilado.collection.properties.collectors;
+package com.acantilado.gathering.properties.collectors;
 
+import com.acantilado.gathering.Collector;
+import com.acantilado.gathering.properties.idealistaTypes.IdealistaSearchRequest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.acantilado.collection.Collector;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
-import java.net.http.HttpRequest;
 import java.util.*;
 
 public abstract class ApifyCollector<T> extends Collector<T> {
@@ -31,7 +31,7 @@ public abstract class ApifyCollector<T> extends Collector<T> {
         SUCCEEDED
     }
 
-    public record ApifyPendingSearch(String runId, String datasetId) {}
+    public record ApifyPendingSearch(IdealistaSearchRequest request, String runId, String datasetId) {}
 
     protected abstract String getActorId();
 
@@ -44,12 +44,22 @@ public abstract class ApifyCollector<T> extends Collector<T> {
         throw new RuntimeException("Unsupported");
     }
 
-    public ApifyPendingSearch startSearch(HttpRequest.BodyPublisher body) {
-        JsonNode requestStarted = makePostHttpRequest(constructActsUri(""), body, AUTH_HEADER);
+    public PendingSearchOrError startSearch(IdealistaSearchRequest request) {
+        JsonNode requestStarted = makePostHttpRequest(
+                constructActsUri(""), request.toRequestBodyString(), AUTH_HEADER);
 
-        return new ApifyPendingSearch(
-                requestStarted.get(DATA_FIELD).get(RUN_FIELD).textValue(),
-                requestStarted.get(DATA_FIELD).get(DATASET_FIELD).textValue());
+        if (Objects.isNull(requestStarted.get(DATA_FIELD))) {
+            String error = requestStarted.get("error").get("type").textValue();
+            return new PendingSearchOrError(Optional.empty(), Optional.of(error));
+        }
+
+        return new PendingSearchOrError(
+                Optional.of(new ApifyPendingSearch(
+                        request,
+                        requestStarted.get(DATA_FIELD).get(RUN_FIELD).textValue(),
+                        requestStarted.get(DATA_FIELD).get(DATASET_FIELD).textValue())),
+                Optional.empty()
+        );
     }
 
     public PENDING_SEARCH_STATUS getSearchStatus(ApifyPendingSearch runDetails) {

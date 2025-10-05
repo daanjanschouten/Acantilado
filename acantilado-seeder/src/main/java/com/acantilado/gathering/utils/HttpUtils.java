@@ -1,4 +1,4 @@
-package com.acantilado.collection.utils;
+package com.acantilado.gathering.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

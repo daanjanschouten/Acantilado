@@ -30,16 +30,6 @@ public class IdealistaPropertyDAO extends AbstractDAO<IdealistaProperty> {
                 .getResultList();
     }
 
-    public List<IdealistaProperty> findByAyuntamientoId(Long ayuntamientoId) {
-        CriteriaBuilder builder = currentSession().getCriteriaBuilder();
-        CriteriaQuery<IdealistaProperty> criteria = builder.createQuery(IdealistaProperty.class);
-        Root<IdealistaProperty> root = criteria.from(IdealistaProperty.class);
-
-        criteria.select(root).where(builder.equal(root.get("ayuntamientoId"), ayuntamientoId));
-
-        return currentSession().createQuery(criteria).getResultList();
-    }
-
     public List<IdealistaProperty> findByPropertyType(String propertyType) {
         CriteriaBuilder builder = currentSession().getCriteriaBuilder();
         CriteriaQuery<IdealistaProperty> criteria = builder.createQuery(IdealistaProperty.class);

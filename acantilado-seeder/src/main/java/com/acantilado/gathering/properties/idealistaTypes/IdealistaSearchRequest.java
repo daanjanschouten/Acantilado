@@ -1,14 +1,14 @@
-package com.acantilado.collection.properties.idealistaTypes;
+package com.acantilado.gathering.properties.idealistaTypes;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.acantilado.collection.properties.queries.DefaultIdealistaSearchQueries;
-import com.acantilado.collection.utils.RequestBodyData;
+import com.acantilado.gathering.properties.queries.DefaultIdealistaSearchQueries;
+import com.acantilado.gathering.utils.RequestBodyData;
 
 import java.net.http.HttpRequest;
 
-public class IdealistaSearchRequest implements RequestBodyData<IdealistaSearchRequest> {
+public class IdealistaSearchRequest implements RequestBodyData {
     @JsonProperty("country")
     private final String country;
 
@@ -44,11 +44,11 @@ public class IdealistaSearchRequest implements RequestBodyData<IdealistaSearchRe
     }
 
     @Override
-    public HttpRequest.BodyPublisher toRequestBodyString(IdealistaSearchRequest data) {
+    public HttpRequest.BodyPublisher toRequestBodyString() {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            return HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(data));
+            return HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(this));
         } catch (JsonProcessingException exception) {
             throw new RuntimeException(exception);
         }
@@ -61,7 +61,7 @@ public class IdealistaSearchRequest implements RequestBodyData<IdealistaSearchRe
                 search.type(),
                 IdealistaSortBy.PROXIMITY,
                 search.location(),
-                100);
+                1000);
     }
 
     @Override

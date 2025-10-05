@@ -1,4 +1,4 @@
-package com.acantilado.collection.properties.collectors;
+package com.acantilado.gathering.properties.collectors;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.acantilado.core.properties.idealista.IdealistaContactInformation;
@@ -70,7 +70,7 @@ public final class IdealistaCollector extends ApifyCollector<IdealistaProperty> 
         }
     }
 
-    private Optional<IdealistaContactInformation.PhoneContact> constructPhone(JsonNode contactJson) {
+    private static Optional<IdealistaContactInformation.PhoneContact> constructPhone(JsonNode contactJson) {
         if (! Objects.isNull(contactJson.get("phone1"))) {
             return Optional.of(new IdealistaContactInformation.PhoneContact(
                     contactJson.get("phone1").get("prefix").longValue(),

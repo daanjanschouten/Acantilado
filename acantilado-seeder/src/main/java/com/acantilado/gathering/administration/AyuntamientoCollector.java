@@ -1,4 +1,4 @@
-package com.acantilado.collection.administration;
+package com.acantilado.gathering.administration;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.acantilado.core.administrative.Ayuntamiento;
@@ -20,8 +20,9 @@ public final class AyuntamientoCollector extends OpenDataSoftCollector<Ayuntamie
     @Override
     protected Optional<Ayuntamiento> constructObject(JsonNode jsonNode) {
         try {
+            final long provinciaId = jsonNode.get("prov_code").asLong();
             Provincia provincia = new Provincia(
-                    jsonNode.get("prov_code").asLong(),
+                    provinciaId,
                     jsonNode.get("prov_name").textValue()
             );
 
@@ -33,24 +34,14 @@ public final class AyuntamientoCollector extends OpenDataSoftCollector<Ayuntamie
             Ayuntamiento ayuntamiento = new Ayuntamiento(
                     jsonNode.get("mun_code").asLong(),
                     jsonNode.get("mun_name").textValue(),
+                    provinciaId,
                     provincia,
                     comunidadAutonoma);
 
             return Optional.of(ayuntamiento);
-
         } catch (Exception e) {
             LOGGER.info("Failed to construct Ayuntamiento: {}", jsonNode);
             return Optional.empty();
         }
     }
 }
-
-
-//public void seed() {
-//    Iterator<Collection<Ayuntamiento>> iterator = new AyuntamientoCollector().seed();
-//
-//    while(iterator.hasNext()) {
-//        Collection<Ayuntamiento> collection = iterator.next();
-//        collection.forEach(this::create);
-//    }
-//}

@@ -1,8 +1,8 @@
-package com.acantilado.collection.administration;
+package com.acantilado.gathering.administration;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.acantilado.collection.Collector;
-import com.acantilado.collection.CollectorIterator;
+import com.acantilado.gathering.Collector;
+import com.acantilado.gathering.CollectorIterator;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

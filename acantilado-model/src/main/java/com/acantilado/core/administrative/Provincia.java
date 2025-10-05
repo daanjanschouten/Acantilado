@@ -9,6 +9,10 @@ import javax.persistence.*;
                 @NamedQuery(
                         name = "com.schouten.core.provincia.findAll",
                         query = "SELECT p FROM Provincia p"
+                ),
+                @NamedQuery(
+                        name = "com.acantilado.provincia.findByName",
+                        query = "SELECT p FROM Provincia p WHERE p.name = :name"
                 )
         }
 )
@@ -20,7 +24,6 @@ public class Provincia {
     @Column(name = "name", nullable = false)
     private String name;
 
-    // Default constructor (required by Hibernate)
     public Provincia() {}
 
     public Provincia(long provincia_id, String name) {

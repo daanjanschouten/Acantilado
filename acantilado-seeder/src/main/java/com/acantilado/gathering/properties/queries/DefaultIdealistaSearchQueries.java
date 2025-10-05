@@ -1,7 +1,7 @@
-package com.acantilado.collection.properties.queries;
+package com.acantilado.gathering.properties.queries;
 
-import com.acantilado.collection.properties.idealistaTypes.IdealistaOperation;
-import com.acantilado.collection.properties.idealistaTypes.IdealistaPropertyType;
+import com.acantilado.gathering.properties.idealistaTypes.IdealistaOperation;
+import com.acantilado.gathering.properties.idealistaTypes.IdealistaPropertyType;
 
 import java.util.Set;
 

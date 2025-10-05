@@ -32,6 +32,9 @@
             <column name="ayuntamiento_id" type="BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="provincia_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>

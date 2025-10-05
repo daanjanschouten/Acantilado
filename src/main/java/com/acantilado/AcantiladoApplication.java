@@ -2,13 +2,15 @@ package com.acantilado;
 
 import com.acantilado.core.administrative.*;
 import com.acantilado.core.properties.idealista.*;
-import com.acantilado.tasks.EchoTask;
-import com.acantilado.collection.properties.IdealistaCollectorScheduler;
-import com.acantilado.collection.properties.IdealistaCollectorService;
 import com.acantilado.core.resources.administrative.AyuntamientoResource;
 import com.acantilado.core.resources.administrative.ComunidadAutonomaResource;
 import com.acantilado.core.resources.administrative.ProvinciaResource;
 import com.acantilado.core.resources.properties.IdealistaPropertyResource;
+import com.acantilado.gathering.administration.AyuntamientoCollectorScheduler;
+import com.acantilado.gathering.administration.AyuntamientoCollectorService;
+import com.acantilado.gathering.properties.IdealistaCollectorScheduler;
+import com.acantilado.gathering.properties.IdealistaCollectorService;
+import com.acantilado.tasks.EchoTask;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
@@ -20,8 +22,6 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -29,8 +29,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class AcantiladoApplication extends Application<AcantiladoConfiguration> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AcantiladoApplication.class);
-
     public static void main(String[] args) throws Exception {
         new AcantiladoApplication().run(args);
     }
@@ -51,7 +49,7 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
 
     @Override
     public String getName() {
-        return "Vertigo";
+        return "Acantilado";
     }
 
     @Override
@@ -91,7 +89,6 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         final ComunidadAutonomaDao comunidadAutonomaDao = new ComunidadAutonomaDao(hibernateBundle.getSessionFactory());
         final ProvinciaDao provinciaDao = new ProvinciaDao(hibernateBundle.getSessionFactory());
 
-
         final IdealistaContactInformationDAO idealistaContactInformationDAO = new IdealistaContactInformationDAO(hibernateBundle.getSessionFactory());
         final IdealistaPriceRecordDAO idealistaPriceRecordDAO = new IdealistaPriceRecordDAO(hibernateBundle.getSessionFactory());
         final IdealistaPropertyDAO idealistaPropertyDAO = new IdealistaPropertyDAO(hibernateBundle.getSessionFactory());
@@ -100,7 +97,13 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                 idealistaContactInformationDAO,
                 idealistaPropertyDAO,
                 idealistaPriceRecordDAO,
+                provinciaDao,
+                ayuntamientoDao,
                 hibernateBundle.getSessionFactory());
+        final AyuntamientoCollectorService ayuntamientoCollectorService = new AyuntamientoCollectorService(
+                ayuntamientoDao,
+                hibernateBundle.getSessionFactory()
+        );
 
         environment.admin().addTask(new EchoTask());
         environment.jersey().register(RolesAllowedDynamicFeature.class);
@@ -109,6 +112,7 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         environment.jersey().register(new AyuntamientoResource(ayuntamientoDao));
         environment.jersey().register(new ComunidadAutonomaResource(comunidadAutonomaDao));
         environment.jersey().register(new ProvinciaResource(provinciaDao));
+        environment.lifecycle().manage(new AyuntamientoCollectorScheduler(ayuntamientoCollectorService));
 
         // Properties
         environment.jersey().register(new IdealistaPropertyResource(idealistaPropertyDAO, idealistaPriceRecordDAO));

@@ -25,7 +25,13 @@ public class AyuntamientoDao extends AbstractDAO<Ayuntamiento> {
 
     public List<Ayuntamiento> findAll() {
         return list(
-                namedTypedQuery("com.schouten.core.ayuntamiento.findAll")
+                namedTypedQuery("com.acantilado.ayuntamiento.findAll")
         );
+    }
+
+    public List<Ayuntamiento> findByProvinceId(long provinceId) {
+        return namedTypedQuery("com.acantilado.ayuntamiento.findByProvinceId")
+                .setParameter("provincia_id", provinceId)
+                .getResultList();
     }
 }

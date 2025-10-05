@@ -26,4 +26,10 @@ public class ProvinciaDao extends AbstractDAO<Provincia> {
                 namedTypedQuery("com.schouten.core.provincia.findAll")
         );
     }
+
+    public List<Provincia> findByName(String name) {
+        return namedTypedQuery("com.acantilado.provincia.findByName")
+                .setParameter("name", name)
+                .getResultList();
+    }
 }
