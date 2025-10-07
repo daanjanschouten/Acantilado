@@ -1,8 +1,8 @@
 package com.acantilado.gathering.properties.idealistaTypes;
 
 public enum IdealistaPropertyType {
-    LAND("lands"),
-    HOME("homes");
+    LANDS("lands"),
+    HOMES("homes");
 
     final String propertyType;
 

@@ -9,24 +9,26 @@ import com.acantilado.core.properties.idealista.*;
 import com.acantilado.gathering.properties.collectors.ApifyCollector;
 import com.acantilado.gathering.properties.collectors.IdealistaCollector;
 import com.acantilado.gathering.properties.collectors.PendingSearchOrError;
-import com.acantilado.gathering.properties.idealistaTypes.IdealistaOperation;
 import com.acantilado.gathering.properties.idealistaTypes.IdealistaPropertyType;
 import com.acantilado.gathering.properties.idealistaTypes.IdealistaSearchRequest;
-import com.acantilado.gathering.properties.queries.DefaultIdealistaSearchQueries.IdealistaSearch;
-import org.hibernate.Session;
+import com.acantilado.gathering.utils.HibernateUtils;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.context.internal.ManagedSessionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public final class IdealistaCollectorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaCollectorService.class);
+
+    private static final Optional<Integer> APIFY_ACTIVE_AGENTS = Optional.of(32);
 
     private final IdealistaContactInformationDAO contactDAO;
     private final IdealistaPropertyDAO propertyDAO;
@@ -35,15 +37,16 @@ public final class IdealistaCollectorService {
     private final AyuntamientoDao ayuntamientoDao;
     private final SessionFactory sessionFactory;
 
-    private final ExecutorService executorService = Executors.newFixedThreadPool(5);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(10);
     private final IdealistaCollector collector = new IdealistaCollector();
 
-    public IdealistaCollectorService(IdealistaContactInformationDAO contactDAO,
-                                  IdealistaPropertyDAO propertyDAO,
-                                  IdealistaPriceRecordDAO priceRecordDAO,
-                                  ProvinciaDao provinciaDao,
-                                  AyuntamientoDao ayuntamientoDao,
-                                  SessionFactory sessionFactory) {
+    public IdealistaCollectorService(
+            IdealistaContactInformationDAO contactDAO,
+            IdealistaPropertyDAO propertyDAO,
+            IdealistaPriceRecordDAO priceRecordDAO,
+            ProvinciaDao provinciaDao,
+            AyuntamientoDao ayuntamientoDao,
+            SessionFactory sessionFactory) {
         this.contactDAO = contactDAO;
         this.propertyDAO = propertyDAO;
         this.priceRecordDAO = priceRecordDAO;
@@ -52,66 +55,68 @@ public final class IdealistaCollectorService {
         this.sessionFactory = sessionFactory;
     }
 
-    public void collectPropertiesForProvinceName(String provinceName) {
-        Set<IdealistaSearchRequest> landSearchRequests = getAyuntamientosForProvince(provinceName)
+    public boolean collectPropertiesForProvinceName(String provinceName, Set<IdealistaPropertyType> propertyTypes) {
+        Set<String> ayuntamientosForProvince = getAyuntamientosForProvince(provinceName)
                 .stream()
                 .map(Ayuntamiento::getName)
-                .map(IdealistaCollectorService::landSaleSearch)
-                .collect(Collectors.toUnmodifiableSet());
+                .collect(Collectors.toSet());
 
-        LOGGER.info("About to trigger {} requests for province {}", landSearchRequests.size(), provinceName);
-        Set<ApifyCollector.ApifyPendingSearch> pendingSearches = triggerSearches(landSearchRequests);
-        LOGGER.info("Finished {} requests for province {}", pendingSearches.size(), provinceName);
+        Set<IdealistaSearchRequest> searchRequests = new HashSet<>();
+        propertyTypes.forEach(type -> {
+            Set<IdealistaSearchRequest> typeRequests = ayuntamientosForProvince
+                    .stream()
+                    .map(ayuntamiento -> IdealistaSearchRequest.saleSearch(ayuntamiento, type))
+                    .collect(Collectors.toSet());
+            searchRequests.addAll(typeRequests);
+        });
 
-        Queue<ApifyCollector.ApifyPendingSearch> pendingQueue = new ConcurrentLinkedQueue<>(pendingSearches);
-//
-//        while (!pendingQueue.isEmpty()) {
-//            int batchSize = pendingQueue.size();
-//            LOGGER.info("Processing batch of {} searches", batchSize);
-//
-//            List<CompletableFuture<Void>> futures = new ArrayList<>();
-//
-//            for (int i = 0; i < batchSize; i++) {
-//                ApifyCollector.ApifyPendingSearch search = pendingQueue.poll();
-//                if (search == null) break;
-//
-//                CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-//                    try {
-//                        if (searchHasFinished(search)) {
-//                            LOGGER.info("Search has finished {}", search);
-//                            executeRunnableInSessionWithTransaction(() -> {
-//                                processSearchResults(search);
-//                            });
-//                        } else {
-//                            LOGGER.info("Search has not finished yet {}", search);
-//                            pendingQueue.add(search);
-//                        }
-//                    } catch (Exception e) {
-//                        LOGGER.error("Error processing search {}", search, e);
-//                    }
-//                }, executorService);
-//                futures.add(future);
-//            }
-//
-//            CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-//
-//            // Always delay between batches to avoid hammering the service
-//            if (!pendingQueue.isEmpty()) {
-//                try {
-//                    LOGGER.info("Waiting before next batch, {} searches remaining", pendingQueue.size());
-//                    Thread.sleep(10000);
-//                } catch (InterruptedException e) {
-//                    Thread.currentThread().interrupt();
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        }
+        return startPropertyCollectionForProvince(searchRequests);
+    }
 
-        LOGGER.info("Finished processing all searches for province {}", provinceName);
+    public void shutdownExecutor() {
+        executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+        }
+    }
+
+    private boolean startPropertyCollectionForProvince(Set<IdealistaSearchRequest> searchRequests) {
+        LOGGER.info("Triggering {} search requests", searchRequests.size());
+        Set<ApifyCollector.ApifyPendingSearch> pendingSearches = triggerSearches(searchRequests);
+        LOGGER.info("Finished {} search requests", pendingSearches.size());
+
+        LOGGER.info("Sending {} status requests", pendingSearches.size());
+        Set<ApifyCollector.ApifyPendingSearch> finishedSearches = awaitSearchesFinishing(pendingSearches);
+        LOGGER.info("Confirmed {} requests have finished", finishedSearches.size());
+
+        LOGGER.info("Storing completed searches");
+        Set<IdealistaSearchRequest> requestsToBeFragmented = storeSearchResults(finishedSearches);
+
+        if (!requestsToBeFragmented.isEmpty()) {
+            Set<IdealistaSearchRequest> fragmentedRequests = IdealistaSearchRequest.fragment(requestsToBeFragmented);
+            if (fragmentedRequests.isEmpty()) {
+                LOGGER.error("Unable to (further) fragment {} requests - they exceeded limits but cannot be split",
+                        requestsToBeFragmented);
+                return false;
+            }
+
+            LOGGER.warn("Some searches {} exceeded Idealista limit and will need to be fragmented into {}",
+                    requestsToBeFragmented,
+                    fragmentedRequests.size());
+
+            startPropertyCollectionForProvince(fragmentedRequests);
+        } else {
+            LOGGER.info("No searches required fragmentation; collection complete");
+        }
+        return true;
     }
 
     private List<Ayuntamiento> getAyuntamientosForProvince(String provinceName) {
-        return executeCallableInSessionWithoutTransaction(() -> {
+        return HibernateUtils.executeCallableInSessionWithoutTransaction(sessionFactory, () -> {
             List<Provincia> provinces = provinciaDao.findByName(provinceName);
             if (provinces.size() != 1) {
                 LOGGER.error("Got 0 or >1 hits for a province name, this is unexpected {} {}", provinceName, provinces);
@@ -127,60 +132,55 @@ public final class IdealistaCollectorService {
     }
 
     private Set<ApifyCollector.ApifyPendingSearch> triggerSearches(Set<IdealistaSearchRequest> toRun) {
-        Queue<IdealistaSearchRequest> requestsToRun = new ConcurrentLinkedQueue<>(toRun);
-        Set<ApifyCollector.ApifyPendingSearch> requestsThatSucceeded = ConcurrentHashMap.newKeySet();
-
-        while (!requestsToRun.isEmpty()) {
-            Set<IdealistaSearchRequest> nextBatch = new HashSet<>();
-            for (int i = 0; i < 32 && !requestsToRun.isEmpty(); i++) {
-                nextBatch.add(requestsToRun.poll());
+        return executeIteratively(APIFY_ACTIVE_AGENTS, toRun, (IdealistaSearchRequest searchRequest) -> {
+            PendingSearchOrError result = collector.startSearch(searchRequest);
+            if (!result.isSucceeded()) {
+                LOGGER.debug("Request failed with error {}", result.getError().get());
+                return null;
             }
+            return result.getPendingSearch().get();
+        });
+    }
 
-            List<CompletableFuture<ApifyCollector.ApifyPendingSearch>> futures = nextBatch
-                    .stream()
-                    .map(request ->
-                            CompletableFuture.supplyAsync(() -> executeCallableInSessionWithoutTransaction(() -> {
-                                PendingSearchOrError result = collector.startSearch(request);
-                                if (!result.isSucceeded()) {
-                                    requestsToRun.add(request);
-                                    LOGGER.debug("Request failed with error {}", result.getError().get());
-                                    return null;
-                                }
+    private Set<ApifyCollector.ApifyPendingSearch> awaitSearchesFinishing(Set<ApifyCollector.ApifyPendingSearch> pendingSearches) {
+        return executeIteratively(APIFY_ACTIVE_AGENTS, pendingSearches, (ApifyCollector.ApifyPendingSearch pendingSearch) -> {
+            if (collector.getSearchStatus(pendingSearch) == ApifyCollector.PENDING_SEARCH_STATUS.SUCCEEDED) {
+                return pendingSearch;
+            }
+            return null;
+        });
+    }
 
-                                return result.getPendingSearch().get();
-                            }), executorService))
-                    .toList();
+    // This has to be single threaded to avoid deadlocks from storing identical properties from different batches.
+    private Set<IdealistaSearchRequest> storeSearchResults(Set<ApifyCollector.ApifyPendingSearch> finishedSearches) {
+        Set<IdealistaSearchRequest> requestsToFragment = ConcurrentHashMap.newKeySet();
 
-            Set<ApifyCollector.ApifyPendingSearch> successfulStarts = futures.stream()
-                    .map(CompletableFuture::join)
-                    .filter(Objects::nonNull)
-                    .peek(requestsThatSucceeded::add)
-                    .collect(Collectors.toSet());
-            requestsThatSucceeded.addAll(successfulStarts);
-
-            LOGGER.info("Successfully triggered {} requests, {} this run, {} remain",
-                    requestsThatSucceeded.size(),
-                    successfulStarts.size(),
-                    requestsToRun.size());
-
+        // Process sequentially to avoid deadlocks
+        for (ApifyCollector.ApifyPendingSearch search : finishedSearches) {
             try {
-                Thread.sleep(5000);
-            } catch (InterruptedException exception) {
-                throw new RuntimeException(exception);
+                HibernateUtils.executeRunnableInSessionWithTransaction(sessionFactory, () -> {
+                    Set<IdealistaProperty> properties = collector.getSearchResults(search);
+
+                    if (properties.size() > 2000) {
+                        requestsToFragment.add(search.request());
+                    }
+
+                    properties.forEach(this::processProperty);
+                });
+            } catch (Exception e) {
+                LOGGER.error("Failed to store search results for {}", search, e);
             }
         }
 
-        return requestsThatSucceeded;
+        LOGGER.info("Stored {} requests; {} have to be fragmented",
+                finishedSearches.size(),
+                requestsToFragment.size());
+
+        return requestsToFragment;
     }
 
-    private boolean searchHasFinished(ApifyCollector.ApifyPendingSearch pendingSearch) {
-        return executeCallableInSessionWithoutTransaction(() ->
-                collector.getSearchStatus(pendingSearch) == ApifyCollector.PENDING_SEARCH_STATUS.SUCCEEDED);
-    }
-
-    private void processSearchResults(ApifyCollector.ApifyPendingSearch finishedSearch) {
-        collector.getSearchResults(finishedSearch).forEach(this::processProperty);
-        LOGGER.info("Successfully completed search for request {}", finishedSearch);
+    private <S, T> Set<T> executeIteratively(Optional<Integer> batchSize, Set<S> toRun, Function<S, T> resultOrNullFunction) {
+        return HibernateUtils.executeUntilAllSuccessful(toRun, resultOrNullFunction, batchSize, executorService);
     }
 
     private void processProperty(IdealistaProperty property) {
@@ -221,7 +221,7 @@ public final class IdealistaCollectorService {
             } else {
                 final long newPrice = newProperty.getPriceRecords().get(0).getPrice();
                 if (maybePriceRecord.get().getPrice() != newPrice) {
-                    LOGGER.info("Price has changed! {}", propertyCode);
+                    LOGGER.debug("Price has changed! {}", propertyCode);
                     priceHasChanged = true;
                     IdealistaPriceRecord priceRecord = new IdealistaPriceRecord(
                             propertyCode, newPrice, currentTimestamp);
@@ -235,85 +235,11 @@ public final class IdealistaCollectorService {
         return new PropertyResult(newProperty, PropertyResult.Result.NEW);
     }
 
-    public void shutdownExecutor() {
-        executorService.shutdown();
-        try {
-            if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
-                executorService.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            executorService.shutdownNow();
-        }
-    }
-
-    private static IdealistaSearchRequest landSaleSearch(String location) {
-        return IdealistaSearchRequest.fromSearch(
-                new IdealistaSearch(IdealistaOperation.SALE, IdealistaPropertyType.LAND, location));
-    }
-
-    private static IdealistaSearchRequest homeSaleSearch(String location) {
-        return IdealistaSearchRequest.fromSearch(
-                new IdealistaSearch(IdealistaOperation.SALE, IdealistaPropertyType.HOME, location));
-    }
-
-    private static class PropertyResult {
-        private final IdealistaProperty idealistaProperty;
-        private final Result result;
-
+    private record PropertyResult(IdealistaProperty idealistaProperty, Result result) {
         public enum Result {
             EXISTING_IDENTICAL,
             PRICE_CHANGE,
             NEW
-        }
-
-        public PropertyResult(IdealistaProperty idealistaProperty, Result result) {
-            this.idealistaProperty = idealistaProperty;
-            this.result = result;
-        }
-    }
-
-    private <T> T executeCallableInSessionWithoutTransaction(Callable<T> callable) {
-        Session session = sessionFactory.openSession();
-        ManagedSessionContext.bind(session);
-
-        try {
-            return callable.call();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            ManagedSessionContext.unbind(sessionFactory);
-            session.close();
-        }
-    }
-
-    private void executeRunnableInSessionWithoutTransaction(Runnable runnable) {
-        Session session = sessionFactory.openSession();
-        ManagedSessionContext.bind(session);
-
-        try {
-            runnable.run();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            ManagedSessionContext.unbind(sessionFactory);
-            session.close();
-        }
-    }
-
-    private void executeRunnableInSessionWithTransaction(Runnable runnable) {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        ManagedSessionContext.bind(session);
-
-        try {
-            runnable.run();
-            transaction.commit();
-        } catch (Exception e) {
-            transaction.rollback();
-            throw new RuntimeException(e);
-        } finally {
-            ManagedSessionContext.unbind(sessionFactory);
-            session.close();
         }
     }
 }

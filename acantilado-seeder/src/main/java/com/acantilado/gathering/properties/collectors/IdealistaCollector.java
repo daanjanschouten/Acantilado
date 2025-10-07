@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public final class IdealistaCollector extends ApifyCollector<IdealistaProperty> {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaCollector.class);
-    private static final String SUB_TYPOLOGY_FALLABACK = "Indeterminate";
+    private static final String SUB_TYPOLOGY_FALLBACK = "Indeterminate";
 
     @Override
     protected String getActorId() {
@@ -29,11 +29,14 @@ public final class IdealistaCollector extends ApifyCollector<IdealistaProperty> 
             final long currentTimestamp = Instant.now().toEpochMilli();
 
             String subTypology = Objects.isNull(jsonNode.get("detailedType").get("subTypology"))
-                    ? SUB_TYPOLOGY_FALLABACK
+                    ? SUB_TYPOLOGY_FALLBACK
                     : jsonNode.get("detailedType").get("subTypology").textValue();
             String description = Objects.isNull(jsonNode.get("description"))
                     ? ""
                     : jsonNode.get("description").textValue();
+            String contactName = Objects.isNull(jsonNode.get("contactInfo").get("contactName"))
+                    ? ""
+                    : jsonNode.get("contactInfo").get("contactName").textValue();
 
             IdealistaProperty property = new IdealistaProperty(
                     propertyCode,
@@ -52,7 +55,7 @@ public final class IdealistaCollector extends ApifyCollector<IdealistaProperty> 
 
             IdealistaContactInformation contactInfo = new IdealistaContactInformation(
                     phoneContact,
-                    jsonNode.get("contactInfo").get("contactName").textValue(),
+                    contactName,
                     jsonNode.get("contactInfo").get("userType").textValue());
             property.setContactInfo(contactInfo);
 

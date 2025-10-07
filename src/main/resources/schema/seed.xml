@@ -5,7 +5,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <changeSet id="create-comunidad-autonoma-table" author="your-name">
+    <changeSet id="create-comunidad-autonoma-table" author="dschouten">
         <createTable tableName="comunidad_autonoma">
             <column name="comunidad_autonoma_id" type="BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
@@ -45,6 +45,10 @@
                 <constraints nullable="true"/>
             </column>
             <column name="comunidad_autonoma" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <!-- NEW: Geometry column for GeoJSON -->
+            <column name="geometry" type="CLOB">
                 <constraints nullable="true"/>
             </column>
         </createTable>

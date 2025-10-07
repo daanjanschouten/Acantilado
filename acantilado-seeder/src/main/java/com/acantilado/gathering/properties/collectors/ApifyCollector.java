@@ -49,7 +49,7 @@ public abstract class ApifyCollector<T> extends Collector<T> {
                 constructActsUri(""), request.toRequestBodyString(), AUTH_HEADER);
 
         if (Objects.isNull(requestStarted.get(DATA_FIELD))) {
-            String error = requestStarted.get("error").get("type").textValue();
+            String error = requestStarted.get("error").get("message").textValue();
             return new PendingSearchOrError(Optional.empty(), Optional.of(error));
         }
 

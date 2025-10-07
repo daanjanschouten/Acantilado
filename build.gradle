@@ -36,6 +36,9 @@ allprojects {
                 implementation group: 'com.h2database', name: 'h2', version: "$h2Version"
                 implementation group: 'com.google.guava', name: 'guava', version: "$guavaVersion"
                 implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "$jacksonVersion"
+                implementation group: 'org.locationtech.jts', name: 'jts-core', version: "$jtsVersion"
+                implementation group: 'org.locationtech.jts.io', name: 'jts-io-common', version: "$jtsVersion"
+
                 testImplementation group: 'io.dropwizard', name: 'dropwizard-testing', version: "$dropwizardVersion"
                 testImplementation(group: 'org.glassfish.jersey.test-framework.providers',
                         name: 'jersey-test-framework-provider-inmemory', version: "$jerseyTestFrameworkProviderVersion") {

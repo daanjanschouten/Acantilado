@@ -1,9 +1,12 @@
 package com.acantilado.gathering.administration;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.acantilado.core.administrative.Ayuntamiento;
 import com.acantilado.core.administrative.ComunidadAutonoma;
 import com.acantilado.core.administrative.Provincia;
+import com.fasterxml.jackson.databind.JsonNode;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.io.geojson.GeoJsonReader;
+import org.locationtech.jts.io.geojson.GeoJsonWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,12 +34,22 @@ public final class AyuntamientoCollector extends OpenDataSoftCollector<Ayuntamie
                     jsonNode.get("acom_name").textValue()
             );
 
+            JsonNode geoShape = jsonNode.get("geo_shape");
+            String geoJsonString = geoShape.toString();
+            GeoJsonReader reader = new GeoJsonReader();
+            Geometry geometry = reader.read(geoJsonString);
+
             Ayuntamiento ayuntamiento = new Ayuntamiento(
                     jsonNode.get("mun_code").asLong(),
                     jsonNode.get("mun_name").textValue(),
                     provinciaId,
                     provincia,
-                    comunidadAutonoma);
+                    comunidadAutonoma,
+                    geometry);
+
+            // Write here because merge() in Dao doesn't work with transient settings.
+            GeoJsonWriter writer = new GeoJsonWriter();
+            ayuntamiento.setGeometryJson(writer.write(geometry));
 
             return Optional.of(ayuntamiento);
         } catch (Exception e) {

@@ -10,7 +10,7 @@ public final class DefaultIdealistaSearchQueries {
 
     public static Set<IdealistaSearch> getSearchesForLocation(String location) {
         return Set.of(
-                new IdealistaSearch(IdealistaOperation.SALE, IdealistaPropertyType.LAND, location),
-                new IdealistaSearch(IdealistaOperation.SALE, IdealistaPropertyType.HOME, location));
+                new IdealistaSearch(IdealistaOperation.SALE, IdealistaPropertyType.LANDS, location),
+                new IdealistaSearch(IdealistaOperation.SALE, IdealistaPropertyType.HOMES, location));
     }
 }

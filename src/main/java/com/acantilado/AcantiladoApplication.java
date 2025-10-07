@@ -105,6 +105,10 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                 hibernateBundle.getSessionFactory()
         );
 
+        environment.servlets()
+                .addServlet("h2-console", new org.h2.server.web.WebServlet())
+                .addMapping("/console/*");
+
         environment.admin().addTask(new EchoTask());
         environment.jersey().register(RolesAllowedDynamicFeature.class);
 
