@@ -38,7 +38,6 @@ public class CollectorIterator<T> implements Iterator<Collection<T>> {
     @Override
     public Collection<T> next() {
         try {
-            LOGGER.info("Starting another iteration");
             Collection<T> collection = fetcher.apply(uri);
             if (collection.size() < maxBatchSize) {
                 LOGGER.info("Exhausted records, only received {}", collection.size());

@@ -1,7 +1,7 @@
 package com.acantilado.core.resources.administrative;
 
 import com.acantilado.core.administrative.Provincia;
-import com.acantilado.core.administrative.ProvinciaDao;
+import com.acantilado.core.administrative.ProvinciaDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.*;
@@ -11,9 +11,9 @@ import java.util.List;
 @Path("/provincias")
 @Produces(MediaType.APPLICATION_JSON)
 public class ProvinciaResource {
-    private final ProvinciaDao provinciaDao;
+    private final ProvinciaDAO provinciaDao;
 
-    public ProvinciaResource(ProvinciaDao provinciaDao) {
+    public ProvinciaResource(ProvinciaDAO provinciaDao) {
         this.provinciaDao = provinciaDao;
     }
 

@@ -25,11 +25,7 @@ public abstract class ApifyCollector<T> extends Collector<T> {
 
     private static final String AUTH_HEADER = "";
 
-    public enum PENDING_SEARCH_STATUS {
-        STARTED,
-        RUNNING,
-        SUCCEEDED
-    }
+    public enum PENDING_SEARCH_STATUS { STARTED, RUNNING, SUCCEEDED }
 
     public record ApifyPendingSearch(IdealistaSearchRequest request, String runId, String datasetId) {}
 
@@ -47,6 +43,7 @@ public abstract class ApifyCollector<T> extends Collector<T> {
     public PendingSearchOrError startSearch(IdealistaSearchRequest request) {
         JsonNode requestStarted = makePostHttpRequest(
                 constructActsUri(""), request.toRequestBodyString(), AUTH_HEADER);
+
 
         if (Objects.isNull(requestStarted.get(DATA_FIELD))) {
             String error = requestStarted.get("error").get("message").textValue();

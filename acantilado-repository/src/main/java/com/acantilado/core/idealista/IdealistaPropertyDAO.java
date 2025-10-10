@@ -1,6 +1,6 @@
-package com.acantilado.core.properties.idealista;
+package com.acantilado.core.idealista;
 
-import io.dropwizard.hibernate.AbstractDAO;
+import com.acantilado.core.idealista.realEstate.IdealistaProperty;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
@@ -10,20 +10,23 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
-public class IdealistaPropertyDAO extends AbstractDAO<IdealistaProperty> {
+public class IdealistaPropertyDAO extends IdealistaRealEstateDAO<IdealistaProperty> {
     public IdealistaPropertyDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 
+    @Override
     public Optional<IdealistaProperty> findByPropertyCode(Long propertyCode) {
         return Optional.ofNullable(get(propertyCode));
     }
 
+    @Override
     public List<IdealistaProperty> findAll() {
         return namedTypedQuery("com.schouten.core.properties.idealista.IdealistaProperty.findAll")
                 .getResultList();
     }
 
+    @Override
     public List<IdealistaProperty> findByMunicipality(String municipality) {
         return namedTypedQuery("com.schouten.core.properties.idealista.IdealistaProperty.findByMunicipality")
                 .setParameter("municipality", municipality)
@@ -40,6 +43,7 @@ public class IdealistaPropertyDAO extends AbstractDAO<IdealistaProperty> {
         return currentSession().createQuery(criteria).getResultList();
     }
 
+    @Override
     public List<IdealistaProperty> findByAyuntamientoIdIsNull() {
         Query<IdealistaProperty> query = currentSession().createQuery(
                 "SELECT p FROM IdealistaProperty p WHERE p.ayuntamientoId IS NULL",
@@ -47,19 +51,23 @@ public class IdealistaPropertyDAO extends AbstractDAO<IdealistaProperty> {
         return query.getResultList();
     }
 
+    @Override
     public IdealistaProperty create(IdealistaProperty property) {
         return persist(property);
     }
 
+    @Override
     public IdealistaProperty saveOrUpdate(IdealistaProperty property) {
         currentSession().saveOrUpdate(property);
         return property;
     }
 
+    @Override
     public void delete(IdealistaProperty property) {
         currentSession().delete(property);
     }
 
+    @Override
     public void deleteByPropertyCode(Long propertyCode) {
         Query<?> query = currentSession().createQuery(
                 "DELETE FROM IdealistaProperty p WHERE p.propertyCode = :propertyCode");

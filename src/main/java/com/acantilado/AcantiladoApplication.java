@@ -1,13 +1,15 @@
 package com.acantilado;
 
 import com.acantilado.core.administrative.*;
-import com.acantilado.core.properties.idealista.*;
-import com.acantilado.core.resources.administrative.AyuntamientoResource;
-import com.acantilado.core.resources.administrative.ComunidadAutonomaResource;
-import com.acantilado.core.resources.administrative.ProvinciaResource;
-import com.acantilado.core.resources.properties.IdealistaPropertyResource;
-import com.acantilado.gathering.administration.AyuntamientoCollectorScheduler;
-import com.acantilado.gathering.administration.AyuntamientoCollectorService;
+import com.acantilado.core.idealista.*;
+import com.acantilado.core.idealista.priceRecords.IdealistaPropertyPriceRecord;
+import com.acantilado.core.idealista.priceRecords.IdealistaTerrainPriceRecord;
+import com.acantilado.core.idealista.realEstate.IdealistaProperty;
+import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
+import com.acantilado.core.resources.administrative.*;
+import com.acantilado.core.resources.properties.IdealistaRealEstateResource;
+import com.acantilado.gathering.administration.AdministrativeCollectorScheduler;
+import com.acantilado.gathering.administration.AdministrativeCollectorService;
 import com.acantilado.gathering.properties.IdealistaCollectorScheduler;
 import com.acantilado.gathering.properties.IdealistaCollectorService;
 import com.acantilado.tasks.EchoTask;
@@ -38,9 +40,13 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                     Ayuntamiento.class,
                     Provincia.class,
                     ComunidadAutonoma.class,
+                    CodigoPostal.class,
+                    Barrio.class,
                     IdealistaProperty.class,
+                    IdealistaTerrain.class,
                     IdealistaContactInformation.class,
-                    IdealistaPriceRecord.class) {
+                    IdealistaPropertyPriceRecord.class,
+                    IdealistaTerrainPriceRecord.class) {
                 @Override
                 public DataSourceFactory getDataSourceFactory(AcantiladoConfiguration configuration) {
                     return configuration.getDataSourceFactory();
@@ -85,25 +91,31 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
 
     @Override
     public void run(AcantiladoConfiguration configuration, Environment environment) {
-        final AyuntamientoDao ayuntamientoDao = new AyuntamientoDao(hibernateBundle.getSessionFactory());
-        final ComunidadAutonomaDao comunidadAutonomaDao = new ComunidadAutonomaDao(hibernateBundle.getSessionFactory());
-        final ProvinciaDao provinciaDao = new ProvinciaDao(hibernateBundle.getSessionFactory());
+        final AyuntamientoDAO ayuntamientoDao = new AyuntamientoDAO(hibernateBundle.getSessionFactory());
+        final ComunidadAutonomaDAO comunidadAutonomaDao = new ComunidadAutonomaDAO(hibernateBundle.getSessionFactory());
+        final ProvinciaDAO provinciaDao = new ProvinciaDAO(hibernateBundle.getSessionFactory());
+        final CodigoPostalDAO codigoPostalDAO = new CodigoPostalDAO(hibernateBundle.getSessionFactory());
+        final BarrioDAO barrioDAO = new BarrioDAO(hibernateBundle.getSessionFactory());
 
         final IdealistaContactInformationDAO idealistaContactInformationDAO = new IdealistaContactInformationDAO(hibernateBundle.getSessionFactory());
-        final IdealistaPriceRecordDAO idealistaPriceRecordDAO = new IdealistaPriceRecordDAO(hibernateBundle.getSessionFactory());
+        final IdealistaPropertyPriceRecordDAO idealistaPropertyPriceRecordDAO = new IdealistaPropertyPriceRecordDAO(hibernateBundle.getSessionFactory());
+        final IdealistaTerrainPriceRecordDAO idealistaTerrainPriceRecordDAO = new IdealistaTerrainPriceRecordDAO(hibernateBundle.getSessionFactory());
+
+        final IdealistaTerrainDAO idealistaTerrainDAO = new IdealistaTerrainDAO(hibernateBundle.getSessionFactory());
         final IdealistaPropertyDAO idealistaPropertyDAO = new IdealistaPropertyDAO(hibernateBundle.getSessionFactory());
 
         final IdealistaCollectorService collectorService = new IdealistaCollectorService(
                 idealistaContactInformationDAO,
                 idealistaPropertyDAO,
-                idealistaPriceRecordDAO,
+                idealistaTerrainDAO,
                 provinciaDao,
                 ayuntamientoDao,
                 hibernateBundle.getSessionFactory());
-        final AyuntamientoCollectorService ayuntamientoCollectorService = new AyuntamientoCollectorService(
+        final AdministrativeCollectorService administrativeCollectorService = new AdministrativeCollectorService(
+                codigoPostalDAO,
                 ayuntamientoDao,
-                hibernateBundle.getSessionFactory()
-        );
+                barrioDAO,
+                hibernateBundle.getSessionFactory());
 
         environment.servlets()
                 .addServlet("h2-console", new org.h2.server.web.WebServlet())
@@ -116,10 +128,16 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         environment.jersey().register(new AyuntamientoResource(ayuntamientoDao));
         environment.jersey().register(new ComunidadAutonomaResource(comunidadAutonomaDao));
         environment.jersey().register(new ProvinciaResource(provinciaDao));
-        environment.lifecycle().manage(new AyuntamientoCollectorScheduler(ayuntamientoCollectorService));
+        environment.jersey().register(new CodigoPostalResource(codigoPostalDAO));
+        environment.jersey().register(new BarrioResource(barrioDAO));
+        environment.lifecycle().manage(new AdministrativeCollectorScheduler(administrativeCollectorService));
 
         // Properties
-        environment.jersey().register(new IdealistaPropertyResource(idealistaPropertyDAO, idealistaPriceRecordDAO));
+        environment.jersey().register(new IdealistaRealEstateResource(
+                idealistaTerrainDAO,
+                idealistaPropertyDAO,
+                idealistaPropertyPriceRecordDAO,
+                idealistaTerrainPriceRecordDAO));
         environment.lifecycle().manage(new IdealistaCollectorScheduler(collectorService));
     }
 }

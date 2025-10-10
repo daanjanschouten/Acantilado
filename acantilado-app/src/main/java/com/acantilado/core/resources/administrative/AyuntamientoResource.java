@@ -1,7 +1,7 @@
 package com.acantilado.core.resources.administrative;
 
 import com.acantilado.core.administrative.Ayuntamiento;
-import com.acantilado.core.administrative.AyuntamientoDao;
+import com.acantilado.core.administrative.AyuntamientoDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.*;
@@ -11,9 +11,9 @@ import java.util.List;
 @Path("/ayuntamientos")
 @Produces(MediaType.APPLICATION_JSON)
 public class AyuntamientoResource {
-    private final AyuntamientoDao ayuntamientoDao;
+    private final AyuntamientoDAO ayuntamientoDao;
 
-    public AyuntamientoResource(AyuntamientoDao ayuntamientoDao) {
+    public AyuntamientoResource(AyuntamientoDAO ayuntamientoDao) {
         this.ayuntamientoDao = ayuntamientoDao;
     }
 

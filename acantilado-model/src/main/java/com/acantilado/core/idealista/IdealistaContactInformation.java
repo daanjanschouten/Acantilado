@@ -1,5 +1,7 @@
-package com.acantilado.core.properties.idealista;
+package com.acantilado.core.idealista;
 
+import com.acantilado.core.idealista.realEstate.IdealistaProperty;
+import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -41,6 +43,10 @@ public class IdealistaContactInformation {
     @OneToMany(mappedBy = "contactInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<IdealistaProperty> properties = new HashSet<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "contactInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<IdealistaTerrain> terrains = new HashSet<>();
+
     public IdealistaContactInformation() {}
 
     public IdealistaContactInformation(Optional<PhoneContact> phoneContact, String contactName, String userType) {
@@ -77,6 +83,10 @@ public class IdealistaContactInformation {
         return properties;
     }
 
+    public Set<IdealistaTerrain> getTerrains() {
+        return terrains;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -101,6 +111,10 @@ public class IdealistaContactInformation {
         this.properties = properties;
     }
 
+    public void setTerrains(Set<IdealistaTerrain> terrains) {
+        this.terrains = terrains;
+    }
+
     @Override
     public String toString() {
         return "IdealistaContactInformation{" +
@@ -109,7 +123,8 @@ public class IdealistaContactInformation {
                 ", prefix=" + prefix +
                 ", contactName='" + contactName + '\'' +
                 ", userType='" + userType + '\'' +
-                ", properties=" + properties +
+                ", terrains='" + terrains + '\'' +
+                ", properties='" + properties + '\'' +
                 '}';
     }
 }

@@ -8,10 +8,10 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 
-public class ComunidadAutonomaDao extends AbstractDAO<ComunidadAutonoma> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ComunidadAutonomaDao.class);
+public class ComunidadAutonomaDAO extends AbstractDAO<ComunidadAutonoma> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ComunidadAutonomaDAO.class);
 
-    public ComunidadAutonomaDao(SessionFactory sessionFactory) {
+    public ComunidadAutonomaDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 

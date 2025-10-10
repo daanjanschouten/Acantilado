@@ -1,4 +1,4 @@
-package com.acantilado.core.properties.idealista;
+package com.acantilado.core.idealista;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;

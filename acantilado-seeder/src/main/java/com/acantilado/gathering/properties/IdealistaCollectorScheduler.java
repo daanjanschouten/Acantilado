@@ -16,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 public class IdealistaCollectorScheduler implements Managed {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaCollectorScheduler.class);
+    private static final Set<String> PROVINCES = Set.of("Granada", "Sevilla", "Madrid");
+    private static final Set<IdealistaPropertyType> PROPERTY_TYPES = Set.of(IdealistaPropertyType.HOMES);
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final IdealistaCollectorService collectorService;
@@ -48,21 +50,24 @@ public class IdealistaCollectorScheduler implements Managed {
     }
 
     private void collectProperties() {
-        Set<String> provinceNames = Set.of();
-        Set<IdealistaPropertyType> propertyTypes = Set.of(IdealistaPropertyType.LANDS, IdealistaPropertyType.HOMES);
+        PROVINCES.forEach(provinceName -> {
+            PROPERTY_TYPES.forEach(propertyType -> {
+                try {
+                    LOGGER.info("Start of scheduled real estate collection for province {} and property type {}",
+                            provinceName,
+                            propertyType);
 
-        provinceNames.forEach(provinceName -> {
-            try {
-                LOGGER.info("Start of scheduled collection for province {} and types {}", provinceName, propertyTypes);
-
-                if(collectorService.collectPropertiesForProvinceName(provinceName, propertyTypes)) {
-                    LOGGER.info("Completed scheduled property collection for province {}", provinceName);
-                } else {
-                    LOGGER.error("Partial completion of scheduled property collection for province {}", provinceName);
+                    if(collectorService.collectRealEstateForProvinceName(provinceName, propertyType)) {
+                        LOGGER.info("Completed scheduled real estate collection for province {} and property type {}",
+                                provinceName,
+                                propertyType);
+                    } else {
+                        LOGGER.error("Partial completion of scheduled real estate collection for province {}", provinceName);
+                    }
+                } catch (Exception e) {
+                    LOGGER.error("Error during scheduled real estate collection for province {}", provinceName, e);
                 }
-            } catch (Exception e) {
-                LOGGER.error("Error during scheduled property collection for province {}", provinceName, e);
-            }
+            });
         });
     }
 

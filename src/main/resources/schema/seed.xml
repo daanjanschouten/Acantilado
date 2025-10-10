@@ -5,6 +5,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
     <changeSet id="create-comunidad-autonoma-table" author="dschouten">
         <createTable tableName="comunidad_autonoma">
             <column name="comunidad_autonoma_id" type="BIGINT">
@@ -47,7 +48,6 @@
             <column name="comunidad_autonoma" type="BIGINT">
                 <constraints nullable="true"/>
             </column>
-            <!-- NEW: Geometry column for GeoJSON -->
             <column name="geometry" type="CLOB">
                 <constraints nullable="true"/>
             </column>
@@ -82,7 +82,7 @@
             <column name="phone_number" type="BIGINT">
                 <constraints nullable="true"/>
             </column>
-            <column name="prefix" type="VARCHAR(10)">
+            <column name="prefix" type="BIGINT">
                 <constraints nullable="true"/>
             </column>
             <column name="contact_name" type="VARCHAR(255)">
@@ -91,14 +91,106 @@
             <column name="user_type" type="VARCHAR(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="total_ads" type="INTEGER">
-                <constraints nullable="true"/>
-            </column>
         </createTable>
     </changeSet>
 
     <changeSet id="create-idealista-properties-table" author="dschouten">
         <createTable tableName="idealista_property">
+            <column name="property_code" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="operation" type="VARCHAR(20)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="property_type" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="size" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sub_typology" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="address" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="municipality" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ayuntamiento_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="location_id" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="latitude" type="DOUBLE">
+                <constraints nullable="true"/>
+            </column>
+            <column name="longitude" type="DOUBLE">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="new_development" type="BOOLEAN">
+                <constraints nullable="true"/>
+            </column>
+            <column name="new_property" type="BOOLEAN">
+                <constraints nullable="true"/>
+            </column>
+            <column name="rooms" type="INT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="bathrooms" type="INT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="floor" type="VARCHAR(20)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="has_lift" type="BOOLEAN">
+                <constraints nullable="true"/>
+            </column>
+            <column name="has_parking_space" type="BOOLEAN">
+                <constraints nullable="true"/>
+            </column>
+            <column name="parking_included_in_price" type="BOOLEAN">
+                <constraints nullable="true"/>
+            </column>
+            <column name="has_terrace" type="BOOLEAN">
+                <constraints nullable="true"/>
+            </column>
+            <column name="has_garden" type="BOOLEAN">
+                <constraints nullable="true"/>
+            </column>
+            <column name="has_pool" type="BOOLEAN">
+                <constraints nullable="true"/>
+            </column>
+            <column name="has_air_conditioning" type="BOOLEAN">
+                <constraints nullable="true"/>
+            </column>
+            <column name="has_box_room" type="BOOLEAN">
+                <constraints nullable="true"/>
+            </column>
+            <column name="energy_certificate" type="VARCHAR(10)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="contact_phone_number" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="first_seen" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_seen" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-idealista-terrain-table" author="dschouten">
+        <createTable tableName="idealista_terrain">
             <column name="property_code" type="BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -114,9 +206,6 @@
             <column name="sub_typology" type="VARCHAR(100)">
                 <constraints nullable="true"/>
             </column>
-            <column name="property_type" type="VARCHAR(50)">
-                <constraints nullable="true"/>
-            </column>
             <column name="address" type="VARCHAR(255)">
                 <constraints nullable="true"/>
             </column>
@@ -129,10 +218,10 @@
             <column name="location_id" type="VARCHAR(50)">
                 <constraints nullable="true"/>
             </column>
-            <column name="latitude" type="VARCHAR(100)">
+            <column name="latitude" type="DOUBLE">
                 <constraints nullable="true"/>
             </column>
-            <column name="longitude" type="VARCHAR(100)">
+            <column name="longitude" type="DOUBLE">
                 <constraints nullable="true"/>
             </column>
             <column name="contact_phone_number" type="BIGINT">
@@ -147,8 +236,25 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="create-idealista-price-records-table" author="dschouten">
-        <createTable tableName="idealista_price_records">
+    <changeSet id="create-idealista-property-price-records-table" author="dschouten">
+        <createTable tableName="idealista_property_price_records">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="property_code" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recorded_at" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-idealista-terrain-price-records-table" author="dschouten">
+        <createTable tableName="idealista_terrain_price_records">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -166,15 +272,6 @@
 
     <changeSet id="add-idealista-foreign-keys" author="dschouten">
         <addForeignKeyConstraint
-                constraintName="fk_property_ayuntamiento"
-                baseTableName="idealista_property"
-                baseColumnNames="ayuntamiento_id"
-                referencedTableName="ayuntamiento"
-                referencedColumnNames="ayuntamiento_id"
-                onDelete="SET NULL"
-                onUpdate="CASCADE"/>
-
-        <addForeignKeyConstraint
                 constraintName="fk_property_contact"
                 baseTableName="idealista_property"
                 baseColumnNames="contact_phone_number"
@@ -184,8 +281,8 @@
                 onUpdate="CASCADE"/>
 
         <addForeignKeyConstraint
-                constraintName="fk_price_record_property"
-                baseTableName="idealista_price_records"
+                constraintName="fk_property_price_record_property"
+                baseTableName="idealista_property_price_records"
                 baseColumnNames="property_code"
                 referencedTableName="idealista_property"
                 referencedColumnNames="property_code"
@@ -193,16 +290,176 @@
                 onUpdate="CASCADE"/>
     </changeSet>
 
+    <changeSet id="add-idealista-terrain-foreign-keys" author="dschouten">
+        <addForeignKeyConstraint
+                constraintName="fk_terrain_contact"
+                baseTableName="idealista_terrain"
+                baseColumnNames="contact_phone_number"
+                referencedTableName="idealista_contact_information"
+                referencedColumnNames="id"
+                onDelete="SET NULL"
+                onUpdate="CASCADE"/>
+
+        <addForeignKeyConstraint
+                constraintName="fk_terrain_price_record_terrain"
+                baseTableName="idealista_terrain_price_records"
+                baseColumnNames="property_code"
+                referencedTableName="idealista_terrain"
+                referencedColumnNames="property_code"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+    </changeSet>
+
     <changeSet id="add-idealista-indexes" author="dschouten">
-        <createIndex tableName="idealista_property" indexName="idx_municipality">
+        <createIndex tableName="idealista_property" indexName="idx_property_municipality">
             <column name="municipality"/>
         </createIndex>
-        <createIndex tableName="idealista_property" indexName="idx_ayuntamiento">
+        <createIndex tableName="idealista_property" indexName="idx_property_ayuntamiento">
             <column name="ayuntamiento_id"/>
         </createIndex>
-        <createIndex tableName="idealista_price_records" indexName="idx_property_recorded_at">
+        <createIndex tableName="idealista_property_price_records" indexName="idx_property_price_recorded_at">
             <column name="property_code"/>
             <column name="recorded_at"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="add-idealista-terrain-indexes" author="dschouten">
+        <createIndex tableName="idealista_terrain" indexName="idx_terrain_municipality">
+            <column name="municipality"/>
+        </createIndex>
+        <createIndex tableName="idealista_terrain" indexName="idx_terrain_ayuntamiento">
+            <column name="ayuntamiento_id"/>
+        </createIndex>
+        <createIndex tableName="idealista_terrain_price_records" indexName="idx_terrain_price_recorded_at">
+            <column name="property_code"/>
+            <column name="recorded_at"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="create-codigo-postal-table" author="dschouten">
+        <createTable tableName="codigo_postal">
+            <column name="codigo_postal" type="VARCHAR(5)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="geometry" type="CLOB">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-barrio-table" author="dschouten">
+        <createTable tableName="barrio">
+            <column name="barrio_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ayuntamiento_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="geometry" type="CLOB">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-barrio-ayuntamiento-foreign-key" author="dschouten">
+        <addForeignKeyConstraint
+                constraintName="fk_barrio_ayuntamiento"
+                baseTableName="barrio"
+                baseColumnNames="ayuntamiento_id"
+                referencedTableName="ayuntamiento"
+                referencedColumnNames="ayuntamiento_id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="create-codigo-postal-ayuntamiento-join-table" author="dschouten">
+        <createTable tableName="codigo_postal_ayuntamiento">
+            <column name="codigo_postal" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ayuntamiento_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey
+                tableName="codigo_postal_ayuntamiento"
+                columnNames="codigo_postal, ayuntamiento_id"
+                constraintName="pk_codigo_postal_ayuntamiento"/>
+
+        <addForeignKeyConstraint
+                constraintName="fk_cp_ayun_codigo_postal"
+                baseTableName="codigo_postal_ayuntamiento"
+                baseColumnNames="codigo_postal"
+                referencedTableName="codigo_postal"
+                referencedColumnNames="codigo_postal"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+
+        <addForeignKeyConstraint
+                constraintName="fk_cp_ayun_ayuntamiento"
+                baseTableName="codigo_postal_ayuntamiento"
+                baseColumnNames="ayuntamiento_id"
+                referencedTableName="ayuntamiento"
+                referencedColumnNames="ayuntamiento_id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="create-codigo-postal-barrio-join-table" author="dschouten">
+        <createTable tableName="codigo_postal_barrio">
+            <column name="codigo_postal" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="barrio_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey
+                tableName="codigo_postal_barrio"
+                columnNames="codigo_postal, barrio_id"
+                constraintName="pk_codigo_postal_barrio"/>
+
+        <addForeignKeyConstraint
+                constraintName="fk_cp_barrio_codigo_postal"
+                baseTableName="codigo_postal_barrio"
+                baseColumnNames="codigo_postal"
+                referencedTableName="codigo_postal"
+                referencedColumnNames="codigo_postal"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+
+        <addForeignKeyConstraint
+                constraintName="fk_cp_barrio_barrio"
+                baseTableName="codigo_postal_barrio"
+                baseColumnNames="barrio_id"
+                referencedTableName="barrio"
+                referencedColumnNames="barrio_id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="create-barrio-indexes" author="dschouten">
+        <createIndex indexName="idx_barrio_ayuntamiento" tableName="barrio">
+            <column name="ayuntamiento_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_barrio_name" tableName="barrio">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="create-join-table-indexes" author="dschouten">
+        <createIndex indexName="idx_cp_ayun_ayuntamiento" tableName="codigo_postal_ayuntamiento">
+            <column name="ayuntamiento_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_cp_barrio_barrio" tableName="codigo_postal_barrio">
+            <column name="barrio_id"/>
         </createIndex>
     </changeSet>
 

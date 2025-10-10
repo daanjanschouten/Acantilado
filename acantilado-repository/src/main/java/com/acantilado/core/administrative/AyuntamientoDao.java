@@ -6,8 +6,8 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 import java.util.Optional;
 
-public class AyuntamientoDao extends AbstractDAO<Ayuntamiento> {
-    public AyuntamientoDao(SessionFactory sessionFactory) {
+public class AyuntamientoDAO extends AbstractDAO<Ayuntamiento> {
+    public AyuntamientoDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 

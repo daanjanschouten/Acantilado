@@ -1,9 +1,9 @@
 package com.acantilado.gathering.properties.collectors;
 
+import com.acantilado.core.idealista.IdealistaContactInformation;
+import com.acantilado.core.idealista.priceRecords.IdealistaTerrainPriceRecord;
+import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.acantilado.core.properties.idealista.IdealistaContactInformation;
-import com.acantilado.core.properties.idealista.IdealistaPriceRecord;
-import com.acantilado.core.properties.idealista.IdealistaProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,8 +11,8 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.Optional;
 
-public final class IdealistaCollector extends ApifyCollector<IdealistaProperty> {
-    private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaCollector.class);
+public final class IdealistaTerrainCollector extends ApifyCollector<IdealistaTerrain> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaTerrainCollector.class);
     private static final String SUB_TYPOLOGY_FALLBACK = "Indeterminate";
 
     @Override
@@ -21,7 +21,7 @@ public final class IdealistaCollector extends ApifyCollector<IdealistaProperty> 
     }
 
     @Override
-    protected Optional<IdealistaProperty> constructObject(JsonNode jsonNode) {
+    protected Optional<IdealistaTerrain> constructObject(JsonNode jsonNode) {
         try {
             Optional<IdealistaContactInformation.PhoneContact> phoneContact = constructPhone(jsonNode.get("contactInfo"));
 
@@ -38,12 +38,11 @@ public final class IdealistaCollector extends ApifyCollector<IdealistaProperty> 
                     ? ""
                     : jsonNode.get("contactInfo").get("contactName").textValue();
 
-            IdealistaProperty property = new IdealistaProperty(
+            IdealistaTerrain terrain = new IdealistaTerrain(
                     propertyCode,
                     jsonNode.get("operation").textValue(),
                     description,
                     jsonNode.get("size").longValue(),
-                    jsonNode.get("propertyType").textValue(),
                     subTypology,
                     jsonNode.get("address").textValue(),
                     jsonNode.get("municipality").textValue(),
@@ -57,16 +56,16 @@ public final class IdealistaCollector extends ApifyCollector<IdealistaProperty> 
                     phoneContact,
                     contactName,
                     jsonNode.get("contactInfo").get("userType").textValue());
-            property.setContactInfo(contactInfo);
+            terrain.setContactInfo(contactInfo);
 
-            IdealistaPriceRecord priceRecord = new IdealistaPriceRecord(
+            IdealistaTerrainPriceRecord priceRecord = new IdealistaTerrainPriceRecord(
                     propertyCode,
                     jsonNode.get("price").longValue(),
                     currentTimestamp);
-            priceRecord.setProperty(property);
-            property.getPriceRecords().add(priceRecord);
+            priceRecord.setTerrain(terrain);
+            terrain.getPriceRecords().add(priceRecord);
 
-            return Optional.of(property);
+            return Optional.of(terrain);
         } catch (Exception e) {
             LOGGER.error("Failed to construct JSON object: {}", jsonNode, e);
             throw new RuntimeException(e);
@@ -83,5 +82,3 @@ public final class IdealistaCollector extends ApifyCollector<IdealistaProperty> 
         return Optional.empty();
     }
 }
-
-

@@ -1,4 +1,4 @@
-package com.acantilado.gathering.administration;
+package com.acantilado.gathering.administration.ayuntamiento;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.acantilado.gathering.Collector;
@@ -43,7 +43,7 @@ public abstract class OpenDataSoftCollector<T> extends Collector<T> {
         Set<T> openDataSoftObjects = new HashSet<>();
 
         JsonNode node = makeGetHttpRequest(uri).get(RESULTS);
-        LOGGER.info("Found {} records", node.size());
+        LOGGER.debug("Found {} records", node.size());
 
         Iterator<JsonNode> individualObjects = node.elements();
         while (individualObjects.hasNext()) {

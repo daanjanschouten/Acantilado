@@ -1,13 +1,16 @@
 package com.acantilado.gathering.properties;
 
-
 import com.acantilado.core.administrative.Ayuntamiento;
-import com.acantilado.core.administrative.AyuntamientoDao;
+import com.acantilado.core.administrative.AyuntamientoDAO;
 import com.acantilado.core.administrative.Provincia;
-import com.acantilado.core.administrative.ProvinciaDao;
-import com.acantilado.core.properties.idealista.*;
+import com.acantilado.core.administrative.ProvinciaDAO;
+import com.acantilado.core.idealista.*;
+import com.acantilado.core.idealista.realEstate.IdealistaProperty;
+import com.acantilado.core.idealista.realEstate.IdealistaRealEstate;
+import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
 import com.acantilado.gathering.properties.collectors.ApifyCollector;
-import com.acantilado.gathering.properties.collectors.IdealistaCollector;
+import com.acantilado.gathering.properties.collectors.IdealistaPropertyCollector;
+import com.acantilado.gathering.properties.collectors.IdealistaTerrainCollector;
 import com.acantilado.gathering.properties.collectors.PendingSearchOrError;
 import com.acantilado.gathering.properties.idealistaTypes.IdealistaPropertyType;
 import com.acantilado.gathering.properties.idealistaTypes.IdealistaSearchRequest;
@@ -16,14 +19,17 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Instant;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static com.acantilado.gathering.properties.IdealistaDeduplicationUtils.establishContactInformation;
 
 public final class IdealistaCollectorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaCollectorService.class);
@@ -32,45 +38,59 @@ public final class IdealistaCollectorService {
 
     private final IdealistaContactInformationDAO contactDAO;
     private final IdealistaPropertyDAO propertyDAO;
-    private final IdealistaPriceRecordDAO priceRecordDAO;
-    private final ProvinciaDao provinciaDao;
-    private final AyuntamientoDao ayuntamientoDao;
+    private final IdealistaTerrainDAO terrainDAO;
+    private final ProvinciaDAO provinciaDao;
+    private final AyuntamientoDAO ayuntamientoDao;
     private final SessionFactory sessionFactory;
 
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
-    private final IdealistaCollector collector = new IdealistaCollector();
+    private final ApifyCollector<IdealistaTerrain> terrainCollector = new IdealistaTerrainCollector();
+    private final ApifyCollector<IdealistaProperty> propertyCollector = new IdealistaPropertyCollector();
 
     public IdealistaCollectorService(
             IdealistaContactInformationDAO contactDAO,
             IdealistaPropertyDAO propertyDAO,
-            IdealistaPriceRecordDAO priceRecordDAO,
-            ProvinciaDao provinciaDao,
-            AyuntamientoDao ayuntamientoDao,
+            IdealistaTerrainDAO terrainDAO,
+            ProvinciaDAO provinciaDao,
+            AyuntamientoDAO ayuntamientoDao,
             SessionFactory sessionFactory) {
         this.contactDAO = contactDAO;
         this.propertyDAO = propertyDAO;
-        this.priceRecordDAO = priceRecordDAO;
+        this.terrainDAO = terrainDAO;
         this.provinciaDao = provinciaDao;
         this.ayuntamientoDao = ayuntamientoDao;
         this.sessionFactory = sessionFactory;
     }
 
-    public boolean collectPropertiesForProvinceName(String provinceName, Set<IdealistaPropertyType> propertyTypes) {
+    public record IdealistaRealEstateResult<T extends IdealistaRealEstate<?>>(T idealistaRealEstate, Result result) {
+        public enum Result { EXISTING_IDENTICAL, PRICE_CHANGE, NEW }
+    }
+
+    public record IdealistaCollectorAndDao<T extends IdealistaRealEstate<?>>(
+            ApifyCollector<T> collector,
+            IdealistaRealEstateDAO<T> realEstateDao
+    ) {}
+
+    public boolean collectRealEstateForProvinceName(String provinceName, IdealistaPropertyType propertyType) {
         Set<String> ayuntamientosForProvince = getAyuntamientosForProvince(provinceName)
                 .stream()
                 .map(Ayuntamiento::getName)
                 .collect(Collectors.toSet());
 
-        Set<IdealistaSearchRequest> searchRequests = new HashSet<>();
-        propertyTypes.forEach(type -> {
-            Set<IdealistaSearchRequest> typeRequests = ayuntamientosForProvince
-                    .stream()
-                    .map(ayuntamiento -> IdealistaSearchRequest.saleSearch(ayuntamiento, type))
-                    .collect(Collectors.toSet());
-            searchRequests.addAll(typeRequests);
-        });
+        IdealistaSearchRequest searchRequest = ayuntamientosForProvince
+                .stream()
+                .map(ayuntamiento -> IdealistaSearchRequest.saleSearch(ayuntamiento, propertyType))
+                .findFirst().get();
+        Set<IdealistaSearchRequest> searchRequests = Set.of(searchRequest);
 
-        return startPropertyCollectionForProvince(searchRequests);
+        return switch (propertyType) {
+            case HOMES -> startRealEstateCollectionForProvince(
+                    searchRequests,
+                    new IdealistaCollectorAndDao<>(propertyCollector, propertyDAO));
+            case LANDS -> startRealEstateCollectionForProvince(
+                    searchRequests,
+                    new IdealistaCollectorAndDao<>(terrainCollector, terrainDAO));
+        };
     }
 
     public void shutdownExecutor() {
@@ -84,17 +104,19 @@ public final class IdealistaCollectorService {
         }
     }
 
-    private boolean startPropertyCollectionForProvince(Set<IdealistaSearchRequest> searchRequests) {
+    private <T extends IdealistaRealEstate<?>> boolean startRealEstateCollectionForProvince(
+            Set<IdealistaSearchRequest> searchRequests,
+            IdealistaCollectorAndDao<T> collectorAndDao) {
         LOGGER.info("Triggering {} search requests", searchRequests.size());
-        Set<ApifyCollector.ApifyPendingSearch> pendingSearches = triggerSearches(searchRequests);
+        Set<ApifyCollector.ApifyPendingSearch> pendingSearches = triggerSearches(searchRequests, collectorAndDao);
         LOGGER.info("Finished {} search requests", pendingSearches.size());
 
         LOGGER.info("Sending {} status requests", pendingSearches.size());
-        Set<ApifyCollector.ApifyPendingSearch> finishedSearches = awaitSearchesFinishing(pendingSearches);
+        Set<ApifyCollector.ApifyPendingSearch> finishedSearches = awaitSearchesFinishing(pendingSearches, collectorAndDao);
         LOGGER.info("Confirmed {} requests have finished", finishedSearches.size());
 
         LOGGER.info("Storing completed searches");
-        Set<IdealistaSearchRequest> requestsToBeFragmented = storeSearchResults(finishedSearches);
+        Set<IdealistaSearchRequest> requestsToBeFragmented = storeSearchResults(finishedSearches, collectorAndDao);
 
         if (!requestsToBeFragmented.isEmpty()) {
             Set<IdealistaSearchRequest> fragmentedRequests = IdealistaSearchRequest.fragment(requestsToBeFragmented);
@@ -108,9 +130,9 @@ public final class IdealistaCollectorService {
                     requestsToBeFragmented,
                     fragmentedRequests.size());
 
-            startPropertyCollectionForProvince(fragmentedRequests);
+            startRealEstateCollectionForProvince(fragmentedRequests, collectorAndDao);
         } else {
-            LOGGER.info("No searches required fragmentation; collection complete");
+            LOGGER.info("Property collection complete");
         }
         return true;
     }
@@ -131,9 +153,11 @@ public final class IdealistaCollectorService {
         });
     }
 
-    private Set<ApifyCollector.ApifyPendingSearch> triggerSearches(Set<IdealistaSearchRequest> toRun) {
+    private <T extends IdealistaRealEstate<?>> Set<ApifyCollector.ApifyPendingSearch> triggerSearches(
+            Set<IdealistaSearchRequest> toRun,
+            IdealistaCollectorAndDao<T> collectorAndDao) {
         return executeIteratively(APIFY_ACTIVE_AGENTS, toRun, (IdealistaSearchRequest searchRequest) -> {
-            PendingSearchOrError result = collector.startSearch(searchRequest);
+            PendingSearchOrError result = collectorAndDao.collector.startSearch(searchRequest);
             if (!result.isSucceeded()) {
                 LOGGER.debug("Request failed with error {}", result.getError().get());
                 return null;
@@ -142,9 +166,11 @@ public final class IdealistaCollectorService {
         });
     }
 
-    private Set<ApifyCollector.ApifyPendingSearch> awaitSearchesFinishing(Set<ApifyCollector.ApifyPendingSearch> pendingSearches) {
+    private <T extends IdealistaRealEstate<?>> Set<ApifyCollector.ApifyPendingSearch> awaitSearchesFinishing(
+            Set<ApifyCollector.ApifyPendingSearch> pendingSearches,
+            IdealistaCollectorAndDao<T> collectorAndDao) {
         return executeIteratively(APIFY_ACTIVE_AGENTS, pendingSearches, (ApifyCollector.ApifyPendingSearch pendingSearch) -> {
-            if (collector.getSearchStatus(pendingSearch) == ApifyCollector.PENDING_SEARCH_STATUS.SUCCEEDED) {
+            if (collectorAndDao.collector.getSearchStatus(pendingSearch) == ApifyCollector.PENDING_SEARCH_STATUS.SUCCEEDED) {
                 return pendingSearch;
             }
             return null;
@@ -152,20 +178,24 @@ public final class IdealistaCollectorService {
     }
 
     // This has to be single threaded to avoid deadlocks from storing identical properties from different batches.
-    private Set<IdealistaSearchRequest> storeSearchResults(Set<ApifyCollector.ApifyPendingSearch> finishedSearches) {
+    private <T extends IdealistaRealEstate<?>> Set<IdealistaSearchRequest> storeSearchResults(
+            Set<ApifyCollector.ApifyPendingSearch> finishedSearches,
+            IdealistaCollectorAndDao<T> collectorAndDao) {
         Set<IdealistaSearchRequest> requestsToFragment = ConcurrentHashMap.newKeySet();
 
         // Process sequentially to avoid deadlocks
         for (ApifyCollector.ApifyPendingSearch search : finishedSearches) {
             try {
                 HibernateUtils.executeRunnableInSessionWithTransaction(sessionFactory, () -> {
-                    Set<IdealistaProperty> properties = collector.getSearchResults(search);
+                    Set<T> realEstates = collectorAndDao.collector.getSearchResults(search);
 
-                    if (properties.size() > 2000) {
+                    if (realEstates.size() > 2000) {
                         requestsToFragment.add(search.request());
                     }
 
-                    properties.forEach(this::processProperty);
+                    realEstates.forEach(realEstate -> {
+                        processProperty(realEstate, contactDAO, collectorAndDao);
+                    });
                 });
             } catch (Exception e) {
                 LOGGER.error("Failed to store search results for {}", search, e);
@@ -179,67 +209,31 @@ public final class IdealistaCollectorService {
         return requestsToFragment;
     }
 
+    public static <T extends IdealistaRealEstate<?>> IdealistaRealEstateResult<T> establishProperty(
+            T newRealEstate,
+            IdealistaCollectorService.IdealistaCollectorAndDao<T> collectorAndDao) {
+        final long code = newRealEstate.getPropertyCode();
+        Optional<T> maybeRealEstate = collectorAndDao.realEstateDao.findByPropertyCode(code);
+
+
+        return maybeRealEstate.map(
+                existingRealEstate -> IdealistaDeduplicationUtils.mergeRealEstate(newRealEstate, existingRealEstate, code))
+                .orElseGet(() -> new IdealistaRealEstateResult<>(newRealEstate, IdealistaRealEstateResult.Result.NEW));
+    }
+
+    public static <T extends IdealistaRealEstate<?>> void processProperty(
+            T realEstate,
+            IdealistaContactInformationDAO contactInformationDAO,
+            IdealistaCollectorService.IdealistaCollectorAndDao<T> collectorAndDao) {
+        IdealistaContactInformation definitiveContactInformation = establishContactInformation(realEstate.getContactInfo(), contactInformationDAO);
+        IdealistaRealEstateResult<T> idealistaRealEstateResult = establishProperty(realEstate, collectorAndDao);
+        T definitiveIdealistaRealEstate = idealistaRealEstateResult.idealistaRealEstate;
+
+        definitiveIdealistaRealEstate.setContactInfo(definitiveContactInformation);
+        collectorAndDao.realEstateDao.saveOrUpdate(definitiveIdealistaRealEstate);
+    }
+
     private <S, T> Set<T> executeIteratively(Optional<Integer> batchSize, Set<S> toRun, Function<S, T> resultOrNullFunction) {
         return HibernateUtils.executeUntilAllSuccessful(toRun, resultOrNullFunction, batchSize, executorService);
-    }
-
-    private void processProperty(IdealistaProperty property) {
-        IdealistaContactInformation definitiveContactInformation = establishContactInformation(property.getContactInfo());
-        PropertyResult propertyResult = establishProperty(property);
-        IdealistaProperty definitiveIdealistaProperty = propertyResult.idealistaProperty;
-
-        property.setContactInfo(definitiveContactInformation);
-        propertyDAO.saveOrUpdate(definitiveIdealistaProperty);
-    }
-
-    private IdealistaContactInformation establishContactInformation(IdealistaContactInformation newContactInformation) {
-        IdealistaContactInformation definitiveContactInformation;
-
-        if (newContactInformation.getPhoneNumber() == 0) {
-            definitiveContactInformation = contactDAO.create(newContactInformation);
-        } else {
-            definitiveContactInformation = contactDAO
-                    .findByPhoneNumber(newContactInformation.getPhoneNumber())
-                    .orElse(contactDAO.create(newContactInformation));
-        }
-        return definitiveContactInformation;
-    }
-
-    private PropertyResult establishProperty(IdealistaProperty newProperty) {
-        final long propertyCode = newProperty.getPropertyCode();
-        Optional<IdealistaProperty> maybeProperty = propertyDAO.findByPropertyCode(propertyCode);
-
-        if (maybeProperty.isPresent()) {
-            final long currentTimestamp = Instant.now().toEpochMilli();
-            IdealistaProperty existingProperty = maybeProperty.get();
-            existingProperty.setLastSeen(currentTimestamp);
-
-            boolean priceHasChanged = false;
-            Optional<IdealistaPriceRecord> maybePriceRecord = this.priceRecordDAO.findLatestByPropertyCode(propertyCode);
-            if (maybePriceRecord.isEmpty()) {
-                LOGGER.error("Found existing property but no existing price record {}", existingProperty);
-            } else {
-                final long newPrice = newProperty.getPriceRecords().get(0).getPrice();
-                if (maybePriceRecord.get().getPrice() != newPrice) {
-                    LOGGER.debug("Price has changed! {}", propertyCode);
-                    priceHasChanged = true;
-                    IdealistaPriceRecord priceRecord = new IdealistaPriceRecord(
-                            propertyCode, newPrice, currentTimestamp);
-                    existingProperty.getPriceRecords().add(priceRecord);
-                }
-            }
-            return new PropertyResult(existingProperty, priceHasChanged
-                    ? PropertyResult.Result.PRICE_CHANGE
-                    : PropertyResult.Result.EXISTING_IDENTICAL);
-        }
-        return new PropertyResult(newProperty, PropertyResult.Result.NEW);
-    }
-
-    private record PropertyResult(IdealistaProperty idealistaProperty, Result result) {
-        public enum Result {
-            EXISTING_IDENTICAL,
-            PRICE_CHANGE,
-            NEW
-        }
     }
 }

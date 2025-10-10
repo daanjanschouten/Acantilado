@@ -6,10 +6,10 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 import java.util.Optional;
 
-public class ProvinciaDao extends AbstractDAO<Provincia> {
+public class ProvinciaDAO extends AbstractDAO<Provincia> {
     // private static final Logger LOGGER = LoggerFactory.getLogger(ProvinciaDao.class);
 
-    public ProvinciaDao(SessionFactory sessionFactory) {
+    public ProvinciaDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 

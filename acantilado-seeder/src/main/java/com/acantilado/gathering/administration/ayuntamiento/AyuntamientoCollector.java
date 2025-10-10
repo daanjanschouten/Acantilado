@@ -1,4 +1,4 @@
-package com.acantilado.gathering.administration;
+package com.acantilado.gathering.administration.ayuntamiento;
 
 import com.acantilado.core.administrative.Ayuntamiento;
 import com.acantilado.core.administrative.ComunidadAutonoma;

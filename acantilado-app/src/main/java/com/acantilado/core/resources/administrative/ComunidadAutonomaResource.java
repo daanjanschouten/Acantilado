@@ -1,7 +1,7 @@
 package com.acantilado.core.resources.administrative;
 
 import com.acantilado.core.administrative.ComunidadAutonoma;
-import com.acantilado.core.administrative.ComunidadAutonomaDao;
+import com.acantilado.core.administrative.ComunidadAutonomaDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.ws.rs.*;
@@ -11,9 +11,9 @@ import java.util.List;
 @Path("/comunidades_autonomas")
 @Produces(MediaType.APPLICATION_JSON)
 public class ComunidadAutonomaResource {
-    private final ComunidadAutonomaDao comunidadAutonomaDao;
+    private final ComunidadAutonomaDAO comunidadAutonomaDao;
 
-    public ComunidadAutonomaResource(ComunidadAutonomaDao comunidadAutonomaDao) {
+    public ComunidadAutonomaResource(ComunidadAutonomaDAO comunidadAutonomaDao) {
         this.comunidadAutonomaDao = comunidadAutonomaDao;
     }
 
