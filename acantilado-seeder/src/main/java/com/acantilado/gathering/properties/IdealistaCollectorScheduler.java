@@ -30,12 +30,12 @@ public class IdealistaCollectorScheduler implements Managed {
     public void start() {
         LOGGER.info("Starting property seeder collection");
 
-        scheduler.scheduleAtFixedRate(
-                this::collectProperties,
-                10,
-                TimeUnit.DAYS.toSeconds(1),
-                TimeUnit.SECONDS
-        );
+//        scheduler.scheduleAtFixedRate(
+//                this::collectProperties,
+//                10,
+//                TimeUnit.DAYS.toSeconds(1),
+//                TimeUnit.SECONDS
+//        );
     }
 
     @Override

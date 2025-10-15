@@ -66,7 +66,7 @@ public class CodigoPostalCollector {
         while ((entry = zis.getNextEntry()) != null) {
             if (entry.getName().equals(GEOJSON_FILENAME) ||
                     entry.getName().endsWith(".geojson")) {
-                LOGGER.info("Found GeoJSON file in zip: {}", entry.getName());
+                LOGGER.debug("Found GeoJSON file in zip: {}", entry.getName());
                 return zis;
             }
             zis.closeEntry();

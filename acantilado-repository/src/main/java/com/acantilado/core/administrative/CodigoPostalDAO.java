@@ -31,7 +31,9 @@ public class CodigoPostalDAO extends AbstractDAO<CodigoPostal> {
         );
     }
 
-    public void delete(CodigoPostal codigoPostal) {
-        currentSession().delete(codigoPostal);
+    public List<String> findAllIds() {
+        return currentSession()
+                .createQuery("SELECT c.codigoPostal FROM CodigoPostal c", String.class)
+                .getResultList();
     }
 }

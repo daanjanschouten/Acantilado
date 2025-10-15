@@ -32,4 +32,10 @@ public class ProvinciaDAO extends AbstractDAO<Provincia> {
                 .setParameter("name", name)
                 .getResultList();
     }
+
+    public List<Long> findAllIds() {
+        return currentSession()
+                .createQuery("SELECT p.provincia_id FROM Provincia p", Long.class)
+                .getResultList();
+    }
 }

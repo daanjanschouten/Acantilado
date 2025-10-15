@@ -52,7 +52,7 @@ public class BarrioCollector {
                 barrio.ifPresent(barrios::add);
             }
 
-            LOGGER.info("Successfully parsed {} barrios from {}", barrios.size(), geoJsonPath);
+            LOGGER.debug("Successfully parsed {} barrios from {}", barrios.size(), geoJsonPath);
             return barrios;
 
         } catch (Exception e) {

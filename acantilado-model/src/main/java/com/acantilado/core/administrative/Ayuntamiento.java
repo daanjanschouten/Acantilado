@@ -1,19 +1,24 @@
 package com.acantilado.core.administrative;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.io.geojson.GeoJsonReader;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "AYUNTAMIENTO")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "ayuntamiento_id")
 @NamedQueries(
         {
                 @NamedQuery(
@@ -32,6 +37,7 @@ public class Ayuntamiento {
      * PP = Province code (2 digits)
      * MMM = Municipality code within the province (3 digits)
      */
+    @JsonProperty("ayuntamiento_id")
     @Column(name = "ayuntamiento_id")
     private long ayuntamiento_id;
 
@@ -59,6 +65,17 @@ public class Ayuntamiento {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "comunidad_autonoma", referencedColumnName= "comunidad_autonoma_id", nullable = false)
     private ComunidadAutonoma comunidadAutonoma;
+
+    @ManyToMany(mappedBy = "ayuntamientos", fetch = FetchType.LAZY)
+    private Set<CodigoPostal> codigosPostales = new HashSet<>();
+
+    public Set<CodigoPostal> getCodigosPostales() {
+        return codigosPostales;
+    }
+
+    public void setCodigosPostales(Set<CodigoPostal> codigosPostales) {
+        this.codigosPostales = codigosPostales;
+    }
 
     public Ayuntamiento() {}
 

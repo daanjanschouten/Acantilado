@@ -1,7 +1,9 @@
 package com.acantilado.core.administrative;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
@@ -9,14 +11,13 @@ import org.locationtech.jts.io.geojson.GeoJsonReader;
 import org.locationtech.jts.io.geojson.GeoJsonWriter;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 
 @Entity
 @Table(name = "BARRIO")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "barrio_id")
 @NamedQueries({
         @NamedQuery(
                 name = "com.acantilado.barrio.findAll",
@@ -39,13 +40,13 @@ public class Barrio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("barrio_id")
     @Column(name = "barrio_id")
     private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    // City/municipality this barrio belongs to
     @Column(name = "ayuntamiento_id", nullable = false)
     private Long ayuntamientoId;
 
@@ -57,17 +58,11 @@ public class Barrio {
     @JsonIgnore
     private Geometry geometry;
 
-    // Many-to-one with Ayuntamiento (a barrio belongs to one city)
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ayuntamiento_id", referencedColumnName = "ayuntamiento_id",
             insertable = false, updatable = false)
     private Ayuntamiento ayuntamiento;
-
-    // Many-to-many with CodigoPostal
-    @JsonIgnore
-    @ManyToMany(mappedBy = "barrios")
-    private Set<CodigoPostal> codigosPostales = new HashSet<>();
 
     public Barrio() {}
 
@@ -102,7 +97,6 @@ public class Barrio {
         }
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -150,14 +144,6 @@ public class Barrio {
 
     public void setAyuntamiento(Ayuntamiento ayuntamiento) {
         this.ayuntamiento = ayuntamiento;
-    }
-
-    public Set<CodigoPostal> getCodigosPostales() {
-        return codigosPostales;
-    }
-
-    public void setCodigosPostales(Set<CodigoPostal> codigosPostales) {
-        this.codigosPostales = codigosPostales;
     }
 
     @JsonProperty("bounds")

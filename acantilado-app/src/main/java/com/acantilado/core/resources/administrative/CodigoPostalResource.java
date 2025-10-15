@@ -51,4 +51,11 @@ public class CodigoPostalResource {
     public CodigoPostal create(CodigoPostal codigoPostal) {
         return codigoPostalDao.create(codigoPostal);
     }
+
+    @GET
+    @Path("/getAllIds")
+    @UnitOfWork
+    public List<String> findAllIds() {
+        return codigoPostalDao.findAllIds();
+    }
 }

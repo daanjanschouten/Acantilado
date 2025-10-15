@@ -40,5 +40,12 @@ public class AyuntamientoResource {
     private Ayuntamiento findSafely(Long ayuntamientoId) {
         return ayuntamientoDao.findById(ayuntamientoId).orElseThrow(() -> new NotFoundException("No such ayuntamiento." + ayuntamientoId));
     }
+
+    @GET
+    @Path("/getAllIds")
+    @UnitOfWork
+    public List<Long> findAllIds() {
+        return ayuntamientoDao.findAllIds();
+    }
 }
 

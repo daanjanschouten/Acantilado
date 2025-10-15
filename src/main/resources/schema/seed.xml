@@ -409,40 +409,6 @@
                 onUpdate="CASCADE"/>
     </changeSet>
 
-    <changeSet id="create-codigo-postal-barrio-join-table" author="dschouten">
-        <createTable tableName="codigo_postal_barrio">
-            <column name="codigo_postal" type="VARCHAR(5)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="barrio_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey
-                tableName="codigo_postal_barrio"
-                columnNames="codigo_postal, barrio_id"
-                constraintName="pk_codigo_postal_barrio"/>
-
-        <addForeignKeyConstraint
-                constraintName="fk_cp_barrio_codigo_postal"
-                baseTableName="codigo_postal_barrio"
-                baseColumnNames="codigo_postal"
-                referencedTableName="codigo_postal"
-                referencedColumnNames="codigo_postal"
-                onDelete="CASCADE"
-                onUpdate="CASCADE"/>
-
-        <addForeignKeyConstraint
-                constraintName="fk_cp_barrio_barrio"
-                baseTableName="codigo_postal_barrio"
-                baseColumnNames="barrio_id"
-                referencedTableName="barrio"
-                referencedColumnNames="barrio_id"
-                onDelete="CASCADE"
-                onUpdate="CASCADE"/>
-    </changeSet>
-
     <changeSet id="create-barrio-indexes" author="dschouten">
         <createIndex indexName="idx_barrio_ayuntamiento" tableName="barrio">
             <column name="ayuntamiento_id"/>
@@ -456,10 +422,6 @@
     <changeSet id="create-join-table-indexes" author="dschouten">
         <createIndex indexName="idx_cp_ayun_ayuntamiento" tableName="codigo_postal_ayuntamiento">
             <column name="ayuntamiento_id"/>
-        </createIndex>
-
-        <createIndex indexName="idx_cp_barrio_barrio" tableName="codigo_postal_barrio">
-            <column name="barrio_id"/>
         </createIndex>
     </changeSet>
 

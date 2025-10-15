@@ -34,4 +34,10 @@ public class AyuntamientoDAO extends AbstractDAO<Ayuntamiento> {
                 .setParameter("provincia_id", provinceId)
                 .getResultList();
     }
+
+    public List<Long> findAllIds() {
+        return currentSession()
+                .createQuery("SELECT a.ayuntamiento_id FROM Ayuntamiento a", Long.class)
+                .getResultList();
+    }
 }

@@ -1,7 +1,9 @@
 package com.acantilado.core.administrative;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
@@ -17,6 +19,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "CODIGO_POSTAL")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "codigoPostal")
 @NamedQueries({
         @NamedQuery(
                 name = "com.acantilado.codigopostal.findAll",
@@ -31,6 +34,7 @@ public class CodigoPostal {
 
     @Id
     @Column(name = "codigo_postal", length = 5)
+    @JsonProperty("codigoPostal")
     private String codigoPostal;  // Use String, not Long (postal codes can have leading zeros)
 
     @JsonIgnore
@@ -41,7 +45,6 @@ public class CodigoPostal {
     @JsonIgnore
     private Geometry geometry;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "CODIGO_POSTAL_AYUNTAMIENTO",
@@ -49,15 +52,6 @@ public class CodigoPostal {
             inverseJoinColumns = @JoinColumn(name = "ayuntamiento_id")
     )
     private Set<Ayuntamiento> ayuntamientos = new HashSet<>();
-
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "CODIGO_POSTAL_BARRIO",
-            joinColumns = @JoinColumn(name = "codigo_postal"),
-            inverseJoinColumns = @JoinColumn(name = "barrio_id")
-    )
-    private Set<Barrio> barrios = new HashSet<>();
 
     public CodigoPostal() {}
 
@@ -123,14 +117,6 @@ public class CodigoPostal {
 
     public void setAyuntamientos(Set<Ayuntamiento> ayuntamientos) {
         this.ayuntamientos = ayuntamientos;
-    }
-
-    public Set<Barrio> getBarrios() {
-        return barrios;
-    }
-
-    public void setBarrios(Set<Barrio> barrios) {
-        this.barrios = barrios;
     }
 
     @JsonProperty("bounds")

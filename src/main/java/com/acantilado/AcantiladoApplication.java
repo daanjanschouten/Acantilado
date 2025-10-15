@@ -85,7 +85,14 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         final Set<Class<?>> annotatedClasses = new HashSet<>(Arrays.asList(
                 Ayuntamiento.class,
                 Provincia.class,
-                ComunidadAutonoma.class));
+                ComunidadAutonoma.class,
+                CodigoPostal.class,
+                Barrio.class,
+                IdealistaProperty.class,
+                IdealistaTerrain.class,
+                IdealistaContactInformation.class,
+                IdealistaPropertyPriceRecord.class,
+                IdealistaTerrainPriceRecord.class));
         HibernateUtil.generateSchema(annotatedClasses);
     }
 
