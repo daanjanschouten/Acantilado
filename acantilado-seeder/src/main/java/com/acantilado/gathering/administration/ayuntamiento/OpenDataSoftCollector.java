@@ -47,8 +47,8 @@ public abstract class OpenDataSoftCollector<T> extends Collector<T> {
 
         Iterator<JsonNode> individualObjects = node.elements();
         while (individualObjects.hasNext()) {
-            Optional<T> translatedObject = constructObject(individualObjects.next());
-            translatedObject.ifPresent(openDataSoftObjects::add);
+            T translatedObject = constructObject(individualObjects.next());
+            openDataSoftObjects.add(translatedObject);
         }
 
         return openDataSoftObjects;

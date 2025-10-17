@@ -7,7 +7,6 @@ import com.acantilado.gathering.administration.ayuntamiento.AyuntamientoCollecto
 import com.acantilado.gathering.administration.barrio.BarrioCollectorService;
 import com.acantilado.gathering.administration.codigopostal.CodigoPostalCollectorService;
 import com.google.common.base.Stopwatch;
-import location.CodigoPostalToAyuntamientoLinkingService;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +34,9 @@ public class AdministrativeCollectorService extends CollectorService {
         boolean forAyuntamiento = ayuntamientoCollectorService.isSeedingNecessary();
         boolean forCodigoPostal = codigoPostalCollectorService.isSeedingNecessary();
         boolean forBarrio = barrioCollectorService.isSeedingNecessary();
+        boolean forCodigoPostalAyuntamientoLinks = codigoPostalToAyuntamientoLinkingService.isSeedingNecessary();
 
-        return forAyuntamiento || forCodigoPostal || forBarrio;
+        return forAyuntamiento || forCodigoPostal || forBarrio || forCodigoPostalAyuntamientoLinks;
     }
 
     public void seed() {
@@ -53,7 +53,7 @@ public class AdministrativeCollectorService extends CollectorService {
         barrioCollectorStopwatch.stop();
 
         Stopwatch codigoPostalLinkingStopwatch = Stopwatch.createStarted();
-        codigoPostalToAyuntamientoLinkingService.link();
+        codigoPostalToAyuntamientoLinkingService.seed();
         codigoPostalLinkingStopwatch.stop();
 
         LOGGER.info("Finished administrative unit collection with second durations: " +

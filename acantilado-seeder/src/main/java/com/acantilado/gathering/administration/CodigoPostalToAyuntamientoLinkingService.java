@@ -1,4 +1,4 @@
-package location;
+package com.acantilado.gathering.administration;
 
 import com.acantilado.core.administrative.*;
 import org.hibernate.Session;
@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public final class CodigoPostalToAyuntamientoLinkingService {
+public final class CodigoPostalToAyuntamientoLinkingService extends CollectorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CodigoPostalToAyuntamientoLinkingService.class);
     private static final double PROXIMITY_THRESHOLD = 0.005; // ~500 meters
 
@@ -29,7 +29,21 @@ public final class CodigoPostalToAyuntamientoLinkingService {
         this.sessionFactory = sessionFactory;
     }
 
-    public void link() {
+    @Override
+    public boolean isSeedingNecessary() {
+        Session session = sessionFactory.openSession();
+        ManagedSessionContext.bind(session);
+
+        try {
+            return codigoPostalDAO.findByAyuntamiento(28079L).isEmpty();
+        } finally {
+            ManagedSessionContext.unbind(sessionFactory);
+            session.close();
+        }
+    }
+
+    @Override
+    public void seed() {
         LOGGER.info("Linking  postal codes to ayuntamientos");
         collectPostCodesByProvinceIds(sessionFactory, codigoPostalDAO)
                 .forEach((provinciaId, postalCodes)
@@ -51,35 +65,37 @@ public final class CodigoPostalToAyuntamientoLinkingService {
             transaction = session.beginTransaction();
 
             List<Ayuntamiento> ayuntamientos = ayuntamientoDAO.findByProvinceId(provinciaId);
-            LOGGER.debug("Linking {} postcodes to {} ayuntamientos for provincia {}",
+            LOGGER.info("Linking {} postcodes to {} ayuntamientos for provincia {}",
                     postalCodeIds.size(),
                     ayuntamientos.size(),
                     provinciaId);
 
             for (String postalCodeId : postalCodeIds) {
                 int linksForThisPostalCode = 0;
-                CodigoPostal cp = getCodigoPostal(postalCodeId, codigoPostalDAO);
+                List<CodigoPostal> codigosPostales = getCodigosPostales(postalCodeId, codigoPostalDAO);
 
-                for (Ayuntamiento ayuntamiento : ayuntamientos) {
-                    try {
-                        double distance = cp.getGeometry().distance(ayuntamiento.getGeometry());
-                        if (distance > PROXIMITY_THRESHOLD) {
-                            continue;
+                for (CodigoPostal cp : codigosPostales) {
+                    for (Ayuntamiento ayuntamiento : ayuntamientos) {
+                        try {
+                            double distance = cp.getGeometry().distance(ayuntamiento.getGeometry());
+                            if (distance > PROXIMITY_THRESHOLD) {
+                                continue;
+                            }
+
+                            cp.getAyuntamientos().add(ayuntamiento);
+                            ayuntamiento.getCodigosPostales().add(cp);
+                            linksForThisPostalCode++;
+                        } catch (Exception e) {
+                            LOGGER.error("Error linking postal code {} to municipality {} ({})",
+                                    postalCodeId, ayuntamiento.getName(), ayuntamiento.getId(), e);
                         }
-
-                        cp.getAyuntamientos().add(ayuntamiento);
-                        ayuntamiento.getCodigosPostales().add(cp);
-                        linksForThisPostalCode++;
-                    } catch (Exception e) {
-                        LOGGER.error("Error linking postal code {} to municipality {} ({})",
-                                postalCodeId, ayuntamiento.getName(), ayuntamiento.getId(), e);
                     }
                 }
 
                 if (linksForThisPostalCode == 0) {
                     LOGGER.error("No ayuntamientos found for postal code {} at proximity setting {}",
                             postalCodeId, PROXIMITY_THRESHOLD);
-                    logClosestAyuntamiento(cp, ayuntamientos);
+                    logClosestAyuntamiento(codigosPostales.get(0), ayuntamientos);
                 }
                 totalLinksCreated += linksForThisPostalCode;
             }
@@ -112,21 +128,18 @@ public final class CodigoPostalToAyuntamientoLinkingService {
             }
         }
 
-        LOGGER.error("Postal code {} was not linked to any municipality. Closest is {} at distance {} (~{}m)",
-                codigoPostal.getCodigoPostal(), closestAyuntamiento, minDistance, (int) (minDistance * 111000));
+        throw new RuntimeException("Postal code " + codigoPostal.getCodigoPostal() + " was not linked to any " +
+                "municipality. Closest is " + closestAyuntamiento +
+                " at distance of " + (int) (minDistance * 111000) + ".");
     }
 
-    private static CodigoPostal getCodigoPostal(String postalCodeId, CodigoPostalDAO codigoPostalDAO) {
-        CodigoPostal cp = codigoPostalDAO.findById(postalCodeId).orElse(null);
-        if (cp == null) {
+    private static List<CodigoPostal> getCodigosPostales(String postalCodeId, CodigoPostalDAO codigoPostalDAO) {
+        List<CodigoPostal> codigosPostales = codigoPostalDAO.findByCodigoPostal(postalCodeId);
+        if (codigosPostales.isEmpty()) {
             throw new RuntimeException("Postal code not found" + postalCodeId);
         }
 
-        if (cp.getGeometry() == null) {
-            throw new RuntimeException("Postal code has no geometry" + postalCodeId);
-        }
-
-        return cp;
+        return codigosPostales;
     }
 
     private static long provinciaIdForPostalCode(String postalCodeId) {
@@ -138,8 +151,9 @@ public final class CodigoPostalToAyuntamientoLinkingService {
         ManagedSessionContext.bind(session);
 
         try {
-            return codigoPostalDAO.findAllIds()
+            return codigoPostalDAO.findAll()
                     .stream()
+                    .map(CodigoPostal::getCodigoPostal)
                     .collect(Collectors.groupingBy(
                             CodigoPostalToAyuntamientoLinkingService::provinciaIdForPostalCode,
                             Collectors.toSet()

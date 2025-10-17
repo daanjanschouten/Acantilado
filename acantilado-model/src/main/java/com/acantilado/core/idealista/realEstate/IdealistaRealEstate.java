@@ -29,6 +29,9 @@ public interface IdealistaRealEstate<T extends IdealistaPriceRecordBase> {
     String getLocationId();
     void setLocationId(String locationId);
 
+    String getAcantiladoLocationId();
+    void setAcantiladoLocationId(String locationId);
+
     Double getLatitude();
     void setLatitude(Double latitude);
 

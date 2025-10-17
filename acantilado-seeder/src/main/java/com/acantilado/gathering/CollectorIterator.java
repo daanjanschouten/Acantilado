@@ -40,7 +40,7 @@ public class CollectorIterator<T> implements Iterator<Collection<T>> {
         try {
             Collection<T> collection = fetcher.apply(uri);
             if (collection.size() < maxBatchSize) {
-                LOGGER.info("Exhausted records, only received {}", collection.size());
+                LOGGER.debug("Exhausted records, only received {}", collection.size());
                 moreRecordsRemain = false;
             }
 

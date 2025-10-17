@@ -1,7 +1,9 @@
 package com.acantilado.gathering.properties.collectors;
 
 import com.acantilado.gathering.Collector;
-import com.acantilado.gathering.properties.idealistaTypes.IdealistaSearchRequest;
+import com.acantilado.gathering.properties.idealista.IdealistaSearchRequest;
+import com.acantilado.gathering.properties.apify.ApifyRunningSearch;
+import com.acantilado.gathering.properties.apify.ApifySearchStatus;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -15,6 +17,8 @@ public abstract class ApifyCollector<T> extends Collector<T> {
 
     private static final String AUTHORITY = "api.apify.com";
     private static final String DELIMITER = "/";
+    private static final String ERROR = "error";
+    private static final String MESSAGE = "message";
     private static final String RUN_FIELD = "id";
     private static final String STATUS_FIELD = "status";
     private static final String DATASET_FIELD = "defaultDatasetId";
@@ -25,9 +29,7 @@ public abstract class ApifyCollector<T> extends Collector<T> {
 
     private static final String AUTH_HEADER = "";
 
-    public enum PENDING_SEARCH_STATUS { STARTED, RUNNING, SUCCEEDED }
-
-    public record ApifyPendingSearch(IdealistaSearchRequest request, String runId, String datasetId) {}
+    // Fix Double Ayuntamiento
 
     protected abstract String getActorId();
 
@@ -40,40 +42,38 @@ public abstract class ApifyCollector<T> extends Collector<T> {
         throw new RuntimeException("Unsupported");
     }
 
-    public PendingSearchOrError startSearch(IdealistaSearchRequest request) {
+    public ApifyRunningSearch startSearch(IdealistaSearchRequest request) {
         JsonNode requestStarted = makePostHttpRequest(
                 constructActsUri(""), request.toRequestBodyString(), AUTH_HEADER);
 
-
         if (Objects.isNull(requestStarted.get(DATA_FIELD))) {
-            String error = requestStarted.get("error").get("message").textValue();
-            return new PendingSearchOrError(Optional.empty(), Optional.of(error));
+            String error = requestStarted.get(ERROR).get(MESSAGE).textValue();
+            LOGGER.debug("Request start failed with error {}", error);
+            return null;
         }
 
-        return new PendingSearchOrError(
-                Optional.of(new ApifyPendingSearch(
-                        request,
-                        requestStarted.get(DATA_FIELD).get(RUN_FIELD).textValue(),
-                        requestStarted.get(DATA_FIELD).get(DATASET_FIELD).textValue())),
-                Optional.empty()
-        );
+        return new ApifyRunningSearch(
+                request,
+                ApifySearchStatus.TO_BE_SUBMITTED,
+                requestStarted.get(DATA_FIELD).get(RUN_FIELD).textValue(),
+                requestStarted.get(DATA_FIELD).get(DATASET_FIELD).textValue());
     }
 
-    public PENDING_SEARCH_STATUS getSearchStatus(ApifyPendingSearch runDetails) {
+    public ApifySearchStatus getSearchStatus(ApifyRunningSearch runDetails) {
         JsonNode requestStatus = makeGetHttpRequest(constructActsUri(runDetails.runId()), AUTH_HEADER);
         String status = requestStatus.get(DATA_FIELD).get(STATUS_FIELD).textValue();
-        return PENDING_SEARCH_STATUS.valueOf(status);
+        return ApifySearchStatus.valueOf(status);
     }
 
-    public Set<T> getSearchResults(ApifyPendingSearch runDetails) {
+    public Set<T> getSearchResults(ApifyRunningSearch runDetails) {
         Set<T> apifyObjects = new HashSet<>();
         JsonNode node = makeGetHttpRequest(constructDatasetsUri(runDetails.datasetId()), AUTH_HEADER);
 
         Iterator<JsonNode> individualObjects = node.elements();
 
         while (individualObjects.hasNext()) {
-            Optional<T> translatedObject = constructObject(individualObjects.next());
-            translatedObject.ifPresent(apifyObjects::add);
+            T translatedObject = constructObject(individualObjects.next());
+            apifyObjects.add(translatedObject);
         }
 
         return apifyObjects;

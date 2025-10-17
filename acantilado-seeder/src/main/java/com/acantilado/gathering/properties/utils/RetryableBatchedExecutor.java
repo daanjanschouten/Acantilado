@@ -1,4 +1,4 @@
-package com.acantilado.gathering.utils;
+package com.acantilado.gathering.properties.utils;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,8 +12,8 @@ import java.util.concurrent.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class HibernateUtils {
-    private static final Logger LOGGER = LoggerFactory.getLogger(HibernateUtils.class);
+public class RetryableBatchedExecutor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RetryableBatchedExecutor.class);
     private static final int INITIAL_RETRY_DELAY_MS = 10000;
 
     private record SingleRunStats(int totalToRun, int totalExecuted, int executedThisRun, int totalRetryCount, long waitTimeMs) {

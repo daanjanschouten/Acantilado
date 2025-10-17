@@ -42,6 +42,13 @@ public class AyuntamientoResource {
     }
 
     @GET
+    @Path("/getByName/{ayuntamientoName}")
+    @UnitOfWork
+    public List<Ayuntamiento> getByName(@PathParam("ayuntamientoName") String ayuntamientoName) {
+        return ayuntamientoDao.findByName(ayuntamientoName);
+    }
+
+    @GET
     @Path("/getAllIds")
     @UnitOfWork
     public List<Long> findAllIds() {

@@ -126,6 +126,9 @@
             <column name="location_id" type="VARCHAR(50)">
                 <constraints nullable="true"/>
             </column>
+            <column name="acantilado_location_id" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
             <column name="latitude" type="DOUBLE">
                 <constraints nullable="true"/>
             </column>
@@ -216,6 +219,9 @@
                 <constraints nullable="true"/>
             </column>
             <column name="location_id" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="acantilado_location_id" type="VARCHAR(100)">
                 <constraints nullable="true"/>
             </column>
             <column name="latitude" type="DOUBLE">
@@ -338,8 +344,11 @@
 
     <changeSet id="create-codigo-postal-table" author="dschouten">
         <createTable tableName="codigo_postal">
-            <column name="codigo_postal" type="VARCHAR(5)">
+            <column name="codigo_ine" type="VARCHAR(55)">
                 <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="codigo_postal" type="VARCHAR(5)">
+                <constraints nullable="false"/>
             </column>
             <column name="geometry" type="CLOB">
                 <constraints nullable="false"/>
@@ -377,7 +386,7 @@
 
     <changeSet id="create-codigo-postal-ayuntamiento-join-table" author="dschouten">
         <createTable tableName="codigo_postal_ayuntamiento">
-            <column name="codigo_postal" type="VARCHAR(5)">
+            <column name="codigo_ine" type="VARCHAR(20)">
                 <constraints nullable="false"/>
             </column>
             <column name="ayuntamiento_id" type="BIGINT">
@@ -387,15 +396,15 @@
 
         <addPrimaryKey
                 tableName="codigo_postal_ayuntamiento"
-                columnNames="codigo_postal, ayuntamiento_id"
+                columnNames="codigo_ine, ayuntamiento_id"
                 constraintName="pk_codigo_postal_ayuntamiento"/>
 
         <addForeignKeyConstraint
                 constraintName="fk_cp_ayun_codigo_postal"
                 baseTableName="codigo_postal_ayuntamiento"
-                baseColumnNames="codigo_postal"
+                baseColumnNames="codigo_ine"
                 referencedTableName="codigo_postal"
-                referencedColumnNames="codigo_postal"
+                referencedColumnNames="codigo_ine"
                 onDelete="CASCADE"
                 onUpdate="CASCADE"/>
 

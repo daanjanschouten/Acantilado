@@ -1,6 +1,6 @@
 package com.acantilado.gathering.properties;
 
-import com.acantilado.gathering.properties.idealistaTypes.IdealistaPropertyType;
+import com.acantilado.gathering.properties.idealista.IdealistaPropertyType;
 import io.dropwizard.lifecycle.Managed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,13 +10,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-/**
- * CONFIRM AYUNTAMIENTO MATCHING
- */
-
 public class IdealistaCollectorScheduler implements Managed {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaCollectorScheduler.class);
-    private static final Set<String> PROVINCES = Set.of("Granada", "Sevilla", "Madrid");
+    private static final Set<String> PROVINCES = Set.of("Sevilla");
     private static final Set<IdealistaPropertyType> PROPERTY_TYPES = Set.of(IdealistaPropertyType.HOMES);
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -30,12 +26,12 @@ public class IdealistaCollectorScheduler implements Managed {
     public void start() {
         LOGGER.info("Starting property seeder collection");
 
-//        scheduler.scheduleAtFixedRate(
-//                this::collectProperties,
-//                10,
-//                TimeUnit.DAYS.toSeconds(1),
-//                TimeUnit.SECONDS
-//        );
+        scheduler.scheduleAtFixedRate(
+                this::collectProperties,
+                10,
+                TimeUnit.DAYS.toSeconds(1),
+                TimeUnit.SECONDS
+        );
     }
 
     @Override
@@ -57,7 +53,7 @@ public class IdealistaCollectorScheduler implements Managed {
                             provinceName,
                             propertyType);
 
-                    if(collectorService.collectRealEstateForProvinceName(provinceName, propertyType)) {
+                    if (collectorService.collectRealEstateForProvinceName(provinceName, propertyType)) {
                         LOGGER.info("Completed scheduled real estate collection for province {} and property type {}",
                                 provinceName,
                                 propertyType);

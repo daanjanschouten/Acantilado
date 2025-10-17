@@ -29,6 +29,10 @@ import java.util.Set;
                         name = "com.acantilado.ayuntamiento.findByProvinceId",
                         query = "SELECT a FROM Ayuntamiento a WHERE a.provincia_id = :provincia_id"
                 ),
+                @NamedQuery(
+                        name = "com.acantilado.ayuntamiento.findByName",
+                        query = "SELECT a FROM Ayuntamiento a WHERE a.name = :name"
+                ),
         }
 )
 public class Ayuntamiento {

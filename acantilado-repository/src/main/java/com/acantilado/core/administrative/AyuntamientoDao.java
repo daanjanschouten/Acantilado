@@ -35,6 +35,12 @@ public class AyuntamientoDAO extends AbstractDAO<Ayuntamiento> {
                 .getResultList();
     }
 
+    public List<Ayuntamiento> findByName(String name) {
+        return namedTypedQuery("com.acantilado.ayuntamiento.findByName")
+                .setParameter("name", name)
+                .getResultList();
+    }
+
     public List<Long> findAllIds() {
         return currentSession()
                 .createQuery("SELECT a.ayuntamiento_id FROM Ayuntamiento a", Long.class)

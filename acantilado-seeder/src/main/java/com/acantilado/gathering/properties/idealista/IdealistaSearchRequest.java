@@ -1,6 +1,5 @@
-package com.acantilado.gathering.properties.idealistaTypes;
+package com.acantilado.gathering.properties.idealista;
 
-import com.acantilado.gathering.properties.queries.DefaultIdealistaSearchQueries;
 import com.acantilado.gathering.utils.RequestBodyData;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,6 +15,35 @@ public class IdealistaSearchRequest implements RequestBodyData {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaSearchRequest.class);
     private static final int MAX_SURFACE_AREA = 300;
 
+    public record IdealistaQueryParams(String provinceName, String ayuntamientoName) {}
+
+    public record BaseIdealistaSearch(
+            IdealistaOperation operation,
+            IdealistaPropertyType type,
+            String provinceName,
+            String ayuntamientoName) {}
+
+    public static class ProxyConfiguration {
+        @JsonProperty("useApifyProxy")
+        private final boolean useApifyProxy;
+
+        @JsonProperty("apifyProxyGroups")
+        private final List<String> apifyProxyGroups;
+
+        public ProxyConfiguration(boolean useApifyProxy, List<String> apifyProxyGroups) {
+            this.useApifyProxy = useApifyProxy;
+            this.apifyProxyGroups = apifyProxyGroups;
+        }
+
+        public static ProxyConfiguration datacenter() {
+            return new ProxyConfiguration(true, List.of());  // Empty list = datacenter
+        }
+
+        public static ProxyConfiguration residential() {
+            return new ProxyConfiguration(true, List.of("RESIDENTIAL"));
+        }
+    }
+
     private static List<Pair<Integer, Integer>> PERMITTED_SIZE_VALUES() {
         List<Integer> values = Arrays.asList(0, 60, 80, 100, 140, 160, 180, 200, 220, 240, 260, 280, 300);
         List<Pair<Integer, Integer>> pairs = new ArrayList<>();
@@ -24,6 +52,8 @@ public class IdealistaSearchRequest implements RequestBodyData {
         }
         return pairs;
     }
+
+    IdealistaQueryParams queryParams;
 
     @JsonProperty("country")
     private final String country;
@@ -49,15 +79,20 @@ public class IdealistaSearchRequest implements RequestBodyData {
     @JsonProperty("maxSize")
     private final String maxSize;
 
+    @JsonProperty("proxyConfiguration")
+    private final ProxyConfiguration proxyConfiguration;
+
     public IdealistaSearchRequest(
             IdealistaCountry country,
             IdealistaOperation operation,
             IdealistaPropertyType propertyType,
             IdealistaSortBy sortBy,
+            String provinceName,
             String location,
             int maxItems,
             String minSize,
-            String maxSize) {
+            String maxSize,
+            ProxyConfiguration proxyConfiguration) {
         this.country = country.getName();
         this.operation = operation.getName();
         this.propertyType = propertyType.getName();
@@ -68,6 +103,13 @@ public class IdealistaSearchRequest implements RequestBodyData {
 
         this.minSize = minSize;
         this.maxSize = maxSize;
+
+        this.queryParams = new IdealistaQueryParams(provinceName, location);
+        this.proxyConfiguration = proxyConfiguration;
+    }
+
+    public IdealistaQueryParams getQueryParams() {
+        return queryParams;
     }
 
     @Override
@@ -81,16 +123,18 @@ public class IdealistaSearchRequest implements RequestBodyData {
         }
     }
 
-    public static IdealistaSearchRequest fromSearch(DefaultIdealistaSearchQueries.IdealistaSearch search) {
+    public static IdealistaSearchRequest fromSearch(BaseIdealistaSearch search) {
         return new IdealistaSearchRequest(
                 IdealistaCountry.SPAIN,
                 search.operation(),
                 search.type(),
                 IdealistaSortBy.PROXIMITY,
-                search.location(),
+                search.provinceName(),
+                search.ayuntamientoName(),
                 2400,
                 String.valueOf(0),
-                String.valueOf(0));
+                String.valueOf(0),
+                ProxyConfiguration.datacenter());
     }
 
     public static Set<IdealistaSearchRequest> fragment(Set<IdealistaSearchRequest> requests) {
@@ -121,16 +165,19 @@ public class IdealistaSearchRequest implements RequestBodyData {
                 IdealistaOperation.valueOf(request.operation.toUpperCase(Locale.ROOT)),
                 IdealistaPropertyType.valueOf(request.propertyType.toUpperCase(Locale.ROOT)),
                 IdealistaSortBy.PROXIMITY,
-                request.location,
+                request.getQueryParams().provinceName,
+                request.getQueryParams().ayuntamientoName,
                 2400,
                 String.valueOf(minSize),
-                String.valueOf(maxSize));
+                String.valueOf(maxSize),
+                request.proxyConfiguration);
     }
 
     @Override
     public String toString() {
         return "IdealistaSearchRequest{" +
-                "country='" + country + '\'' +
+                "queryParams=" + queryParams +
+                ", country='" + country + '\'' +
                 ", location='" + location + '\'' +
                 ", operation='" + operation + '\'' +
                 ", propertyType='" + propertyType + '\'' +
@@ -138,11 +185,16 @@ public class IdealistaSearchRequest implements RequestBodyData {
                 ", sortBy='" + sortBy + '\'' +
                 ", minSize='" + minSize + '\'' +
                 ", maxSize='" + maxSize + '\'' +
+                ", proxyConfiguration=" + proxyConfiguration +
                 '}';
     }
 
-    public static IdealistaSearchRequest saleSearch(String location, IdealistaPropertyType propertyType) {
-        return IdealistaSearchRequest.fromSearch(
-                new DefaultIdealistaSearchQueries.IdealistaSearch(IdealistaOperation.SALE, propertyType, location));
+    public static IdealistaSearchRequest saleSearch(String provinceName, String ayuntamientoName, IdealistaPropertyType propertyType) {
+        BaseIdealistaSearch search = new BaseIdealistaSearch(
+                IdealistaOperation.SALE,
+                propertyType,
+                provinceName,
+                ayuntamientoName);
+        return IdealistaSearchRequest.fromSearch(search);
     }
 }

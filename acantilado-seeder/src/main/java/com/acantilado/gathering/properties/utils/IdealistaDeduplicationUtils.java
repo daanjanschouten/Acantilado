@@ -1,4 +1,4 @@
-package com.acantilado.gathering.properties;
+package com.acantilado.gathering.properties.utils;
 
 import com.acantilado.core.idealista.IdealistaContactInformation;
 import com.acantilado.core.idealista.IdealistaContactInformationDAO;
@@ -8,6 +8,7 @@ import com.acantilado.core.idealista.priceRecords.IdealistaTerrainPriceRecord;
 import com.acantilado.core.idealista.realEstate.IdealistaProperty;
 import com.acantilado.core.idealista.realEstate.IdealistaRealEstate;
 import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
+import com.acantilado.gathering.properties.IdealistaCollectorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

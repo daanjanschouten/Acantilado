@@ -19,7 +19,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "CODIGO_POSTAL")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "codigoPostal")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "codigoIne")
 @NamedQueries({
         @NamedQuery(
                 name = "com.acantilado.codigopostal.findAll",
@@ -28,14 +28,21 @@ import java.util.Set;
         @NamedQuery(
                 name = "com.acantilado.codigopostal.findByAyuntamiento",
                 query = "SELECT c FROM CodigoPostal c JOIN c.ayuntamientos a WHERE a.ayuntamiento_id = :ayuntamiento_id"
+        ),
+        @NamedQuery(
+                name = "com.acantilado.codigopostal.findByCodigoPostal",
+                query = "SELECT c FROM CodigoPostal c WHERE c.codigoPostal = :codigo_postal"
         )
 })
 public class CodigoPostal {
 
     @Id
-    @Column(name = "codigo_postal", length = 5)
-    @JsonProperty("codigoPostal")
-    private String codigoPostal;  // Use String, not Long (postal codes can have leading zeros)
+    @Column(name="codigo_ine")
+    @JsonProperty("codigoIne")
+    private String codigoIne;
+
+    @Column(name = "codigo_postal", length = 5, nullable = false)
+    private String codigoPostal;
 
     @JsonIgnore
     @Column(name = "geometry", columnDefinition = "CLOB", nullable = false)
@@ -48,14 +55,15 @@ public class CodigoPostal {
     @ManyToMany
     @JoinTable(
             name = "CODIGO_POSTAL_AYUNTAMIENTO",
-            joinColumns = @JoinColumn(name = "codigo_postal"),
+            joinColumns = @JoinColumn(name = "codigo_ine"),
             inverseJoinColumns = @JoinColumn(name = "ayuntamiento_id")
     )
     private Set<Ayuntamiento> ayuntamientos = new HashSet<>();
 
     public CodigoPostal() {}
 
-    public CodigoPostal(String codigoPostal, Geometry geometry) {
+    public CodigoPostal(String codigoIne, String codigoPostal, Geometry geometry) {
+        this.codigoIne = codigoIne;
         this.codigoPostal = codigoPostal;
         this.geometry = geometry;
     }
@@ -85,39 +93,20 @@ public class CodigoPostal {
         }
     }
 
+
     // Getters and setters
-    public String getCodigoPostal() {
-        return codigoPostal;
-    }
+    public String getCodigoIne() { return codigoIne; }
+    public void setCodigoIne(String codigoIne) { this.codigoIne = codigoIne; }
+    public String getCodigoPostal() { return codigoPostal; }
+    public void setCodigoPostal(String codigoPostal) { this.codigoPostal = codigoPostal; }
 
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
-    }
+    public Geometry getGeometry() {return geometry; }
+    public void setGeometry(Geometry geometry) { this.geometry = geometry; }
+    public String getGeometryJson() { return geometryJson; }
+    public void setGeometryJson(String geometryJson) { this.geometryJson = geometryJson; this.geometry = null; }
 
-    public Geometry getGeometry() {
-        return geometry;
-    }
-
-    public void setGeometry(Geometry geometry) {
-        this.geometry = geometry;
-    }
-
-    public String getGeometryJson() {
-        return geometryJson;
-    }
-
-    public void setGeometryJson(String geometryJson) {
-        this.geometryJson = geometryJson;
-        this.geometry = null;
-    }
-
-    public Set<Ayuntamiento> getAyuntamientos() {
-        return ayuntamientos;
-    }
-
-    public void setAyuntamientos(Set<Ayuntamiento> ayuntamientos) {
-        this.ayuntamientos = ayuntamientos;
-    }
+    public Set<Ayuntamiento> getAyuntamientos() { return ayuntamientos; }
+    public void setAyuntamientos(Set<Ayuntamiento> ayuntamientos) { this.ayuntamientos = ayuntamientos; }
 
     @JsonProperty("bounds")
     public Map<String, Double> getBounds() {
@@ -143,22 +132,24 @@ public class CodigoPostal {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CodigoPostal that = (CodigoPostal) o;
-        return Objects.equals(codigoPostal, that.codigoPostal);
+        return Objects.equals(codigoIne, that.codigoIne) && Objects.equals(codigoPostal, that.codigoPostal) && Objects.equals(geometryJson, that.geometryJson) && Objects.equals(geometry, that.geometry) && Objects.equals(ayuntamientos, that.ayuntamientos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigoPostal);
+        return Objects.hash(codigoIne, codigoPostal, geometryJson, geometry, ayuntamientos);
     }
 
     @Override
     public String toString() {
         return "CodigoPostal{" +
-                "codigoPostal='" + codigoPostal + '\'' +
-                ", hasGeometry=" + (geometry != null) +
+                "codigoIne='" + codigoIne + '\'' +
+                ", codigoPostal='" + codigoPostal + '\'' +
+                ", geometryJson='" + geometryJson + '\'' +
+                ", geometry=" + geometry +
+                ", ayuntamientos=" + ayuntamientos +
                 '}';
     }
 }

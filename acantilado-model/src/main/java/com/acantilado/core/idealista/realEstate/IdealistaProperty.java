@@ -55,10 +55,13 @@ public class IdealistaProperty implements IdealistaRealEstate<IdealistaPropertyP
     @Column(name = "location_id")
     private String locationId;
 
-    @Column(name = "latitude")
+    @Column(name = "acantilado_location_id", nullable = false)
+    private String acantiladoLocationId;
+
+    @Column(name = "latitude", nullable = false)
     private Double latitude;
 
-    @Column(name = "longitude")
+    @Column(name = "longitude", nullable = false)
     private Double longitude;
 
     @Column(name = "status")
@@ -125,7 +128,7 @@ public class IdealistaProperty implements IdealistaRealEstate<IdealistaPropertyP
 
     public IdealistaProperty(long propertyCode, String operation, String description,
                              long size, String propertyType, String subTypology,
-                             String address, String municipality, String locationId,
+                             String address, String municipality, String locationId, String acantiladoLocationId,
                              Double latitude, Double longitude, long firstSeen, long lastSeen) {
         this.propertyCode = propertyCode;
         this.operation = operation;
@@ -136,6 +139,7 @@ public class IdealistaProperty implements IdealistaRealEstate<IdealistaPropertyP
         this.address = address;
         this.municipality = municipality;
         this.locationId = locationId;
+        this.acantiladoLocationId = acantiladoLocationId;
         this.latitude = latitude;
         this.longitude = longitude;
         this.firstSeen = firstSeen;
@@ -169,6 +173,9 @@ public class IdealistaProperty implements IdealistaRealEstate<IdealistaPropertyP
 
     public String getLocationId() { return locationId; }
     public void setLocationId(String locationId) { this.locationId = locationId; }
+
+    public String getAcantiladoLocationId() { return acantiladoLocationId; }
+    public void setAcantiladoLocationId(String locationId) { this.acantiladoLocationId = locationId; }
 
     public Double getLatitude() { return latitude; }
     public void setLatitude(Double latitude) { this.latitude = latitude; }

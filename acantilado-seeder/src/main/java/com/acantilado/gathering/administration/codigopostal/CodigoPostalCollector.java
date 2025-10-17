@@ -19,40 +19,31 @@ public class CodigoPostalCollector {
     private static final String GEOJSON_ZIP_FILE = "/postcodes/codigos_postales.zip";
     private static final String GEOJSON_FILENAME = "codigos_postales.geojson";
 
+    public record CodigoIneAndPostalCode(String codigoIne, String codigoPostal, Geometry geometry) {};
+
     public Iterator<Set<CodigoPostal>> seed() {
         try {
+            Set<CodigoPostal> codigosPostales = new HashSet<>();
+
             InputStream inputStream = getClass().getResourceAsStream(GEOJSON_ZIP_FILE);
             if (inputStream == null) {
                 throw new RuntimeException("Could not find " + GEOJSON_ZIP_FILE);
             }
-
-            // Unzip and read the GeoJSON file
             InputStream geoJsonStream = extractGeoJsonFromZip(inputStream);
-
-            JsonNode root = MAPPER.readTree(geoJsonStream);
-            JsonNode features = root.get("features");
-
-            if (features == null || !features.isArray()) {
-                throw new RuntimeException("Invalid GeoJSON: no features array found");
-            }
+            JsonNode features = MAPPER.readTree(geoJsonStream).get("features");
 
             LOGGER.info("Found {} postal code features", features.size());
-
-            Set<CodigoPostal> codigosPostales = new HashSet<>();
             GeoJsonReader geoJsonReader = new GeoJsonReader();
 
             Iterator<JsonNode> featureIterator = features.elements();
             while (featureIterator.hasNext()) {
-                JsonNode feature = featureIterator.next();
-                Optional<CodigoPostal> codigoPostal = parseFeature(feature, geoJsonReader);
-                codigoPostal.ifPresent(codigosPostales::add);
+                CodigoIneAndPostalCode feature = parseFeature(featureIterator.next(), geoJsonReader);
+                codigosPostales.add(
+                        new CodigoPostal(feature.codigoIne, feature.codigoPostal, feature.geometry));
             }
 
-            LOGGER.info("Successfully parsed {} postal codes", codigosPostales.size());
-
-            // Return as single collection
+            LOGGER.info("Successfully parsed {} postal codes from {} features", codigosPostales.size(), features.size());
             return Collections.singleton(codigosPostales).iterator();
-
         } catch (Exception e) {
             LOGGER.error("Failed to load postal codes", e);
             throw new RuntimeException("Failed to load postal codes", e);
@@ -75,25 +66,24 @@ public class CodigoPostalCollector {
         throw new RuntimeException("No .geojson file found in zip archive");
     }
 
-    private Optional<CodigoPostal> parseFeature(JsonNode feature, GeoJsonReader reader) {
+    private CodigoIneAndPostalCode parseFeature(JsonNode feature, GeoJsonReader reader) {
         try {
             JsonNode properties = feature.get("properties");
             JsonNode geometry = feature.get("geometry");
 
             if (properties == null || geometry == null) {
-                LOGGER.warn("Feature missing properties or geometry: {}", feature);
-                return Optional.empty();
+                throw new RuntimeException("Feature missing properties or geometry" + feature);
             }
 
-            String codigoPostal = properties.get("COD_POSTAL").asText();
             String geometryJson = geometry.toString();
             Geometry geom = reader.read(geometryJson);
 
-            return Optional.of(new CodigoPostal(codigoPostal, geom));
-
+            return new CodigoIneAndPostalCode (
+                    properties.get("CODIGO_INE").asText(),
+                    properties.get("COD_POSTAL").asText(),
+                    geom);
         } catch (Exception e) {
-            LOGGER.warn("Failed to parse postal code feature: {}", feature, e);
-            return Optional.empty();
+            throw new RuntimeException("Failed to parse postal code feature" + feature, e);
         }
     }
 }

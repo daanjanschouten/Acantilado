@@ -29,10 +29,10 @@ public class CodigoPostalResource {
     }
 
     @GET
-    @Path("/{codigoPostal}")
+    @Path("/{codigoIne}")
     @UnitOfWork
-    public Response getById(@PathParam("codigoPostal") String codigoPostal) {
-        Optional<CodigoPostal> result = codigoPostalDao.findById(codigoPostal);
+    public Response getById(@PathParam("codigoIne") String codigoIne) {
+        Optional<CodigoPostal> result = codigoPostalDao.findById(codigoIne);
         if (result.isPresent()) {
             return Response.ok(result.get()).build();
         }
@@ -44,6 +44,13 @@ public class CodigoPostalResource {
     @UnitOfWork
     public List<CodigoPostal> getByAyuntamiento(@PathParam("ayuntamientoId") Long ayuntamientoId) {
         return codigoPostalDao.findByAyuntamiento(ayuntamientoId);
+    }
+
+    @GET
+    @Path("/codigoPostal/{codigoPostal}")
+    @UnitOfWork
+    public List<CodigoPostal> getByCodigoPostal(@PathParam("codigoPostal") String codigoPostal) {
+        return codigoPostalDao.findByCodigoPostal(codigoPostal);
     }
 
     @POST

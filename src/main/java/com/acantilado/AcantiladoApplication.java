@@ -116,7 +116,9 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                 idealistaPropertyDAO,
                 idealistaTerrainDAO,
                 provinciaDao,
+                codigoPostalDAO,
                 ayuntamientoDao,
+                barrioDAO,
                 hibernateBundle.getSessionFactory());
         final AdministrativeCollectorService administrativeCollectorService = new AdministrativeCollectorService(
                 codigoPostalDAO,

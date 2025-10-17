@@ -27,7 +27,7 @@ public abstract class Collector<T> {
     protected abstract Iterator<Collection<T>> seed();
 
     @UnitOfWork
-    protected abstract Optional<T> constructObject(JsonNode jsonNode);
+    protected abstract T constructObject(JsonNode jsonNode);
 
     protected final JsonNode makePostHttpRequest(URI uri, HttpRequest.BodyPublisher body, String authorizationHeader)  {
         LOGGER.debug("Constructing HTTP POST request for URI: {} with body: {}", uri, body);

@@ -3,7 +3,9 @@ package com.acantilado.gathering.properties.collectors;
 import com.acantilado.core.idealista.IdealistaContactInformation;
 import com.acantilado.core.idealista.priceRecords.IdealistaTerrainPriceRecord;
 import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
+import com.acantilado.gathering.location.AcantiladoLocation;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.acantilado.gathering.location.AcantiladoLocationEstablisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,13 +17,19 @@ public final class IdealistaTerrainCollector extends ApifyCollector<IdealistaTer
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaTerrainCollector.class);
     private static final String SUB_TYPOLOGY_FALLBACK = "Indeterminate";
 
+    private final AcantiladoLocationEstablisher locationEstablisher;
+
+    public IdealistaTerrainCollector(AcantiladoLocationEstablisher locationEstablisher) {
+        this.locationEstablisher = locationEstablisher;
+    }
+
     @Override
     protected String getActorId() {
         return "REcGj6dyoIJ9Z7aE6";
     }
 
     @Override
-    protected Optional<IdealistaTerrain> constructObject(JsonNode jsonNode) {
+    protected IdealistaTerrain constructObject(JsonNode jsonNode) {
         try {
             Optional<IdealistaContactInformation.PhoneContact> phoneContact = constructPhone(jsonNode.get("contactInfo"));
 
@@ -38,6 +46,12 @@ public final class IdealistaTerrainCollector extends ApifyCollector<IdealistaTer
                     ? ""
                     : jsonNode.get("contactInfo").get("contactName").textValue();
 
+            double latitude = jsonNode.get("latitude").asDouble();
+            double longitude = jsonNode.get("longitude").asDouble();
+            String ayuntamiento = jsonNode.get("municipality").textValue();
+
+            AcantiladoLocation location = locationEstablisher.establish(ayuntamiento, latitude, longitude, propertyCode);
+
             IdealistaTerrain terrain = new IdealistaTerrain(
                     propertyCode,
                     jsonNode.get("operation").textValue(),
@@ -45,10 +59,11 @@ public final class IdealistaTerrainCollector extends ApifyCollector<IdealistaTer
                     jsonNode.get("size").longValue(),
                     subTypology,
                     jsonNode.get("address").textValue(),
-                    jsonNode.get("municipality").textValue(),
+                    ayuntamiento,
                     jsonNode.get("locationId").textValue(),
-                    jsonNode.get("latitude").asDouble(),
-                    jsonNode.get("longitude").asDouble(),
+                    location.getIdentifier(),
+                    latitude,
+                    longitude,
                     currentTimestamp,
                     currentTimestamp);
 
@@ -65,9 +80,9 @@ public final class IdealistaTerrainCollector extends ApifyCollector<IdealistaTer
             priceRecord.setTerrain(terrain);
             terrain.getPriceRecords().add(priceRecord);
 
-            return Optional.of(terrain);
+            return terrain;
         } catch (Exception e) {
-            LOGGER.error("Failed to construct JSON object: {}", jsonNode, e);
+            // LOGGER.error("Failed to construct JSON object: {}", jsonNode, e);
             throw new RuntimeException(e);
         }
     }

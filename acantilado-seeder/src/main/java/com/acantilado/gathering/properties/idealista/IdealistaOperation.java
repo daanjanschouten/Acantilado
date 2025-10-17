@@ -1,4 +1,4 @@
-package com.acantilado.gathering.properties.idealistaTypes;
+package com.acantilado.gathering.properties.idealista;
 
 public enum IdealistaOperation {
     SALE("sale"),

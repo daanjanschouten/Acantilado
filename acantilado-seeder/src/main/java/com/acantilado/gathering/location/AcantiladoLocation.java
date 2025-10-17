@@ -1,4 +1,4 @@
-package location;
+package com.acantilado.gathering.location;
 
 import com.acantilado.core.administrative.*;
 import org.apache.commons.lang3.StringUtils;
@@ -50,7 +50,7 @@ public class AcantiladoLocation {
 
     public String getIdentifier() {
         long ayuntamientoId = ayuntamiento.getId();
-        String codigoPostalId = codigoPostal.getCodigoPostal();
+        String codigoPostalId = codigoPostal.getCodigoIne();
         String barrioId = maybeBarrio.map(value -> value.getId().toString()).orElse(ABSENT_BARRIO);
 
         return StringUtils.joinWith(JOIN, ayuntamientoId, codigoPostalId, barrioId);
@@ -88,5 +88,10 @@ public class AcantiladoLocation {
         } catch (NumberFormatException numberFormatException) {
             throw new IllegalArgumentException("Unable to parse codigo postal long from String " + identifierSlice);
         }
+    }
+
+    @Override
+    public String toString() {
+        return getIdentifier();
     }
 }

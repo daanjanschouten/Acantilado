@@ -31,9 +31,16 @@ public class CodigoPostalDAO extends AbstractDAO<CodigoPostal> {
         );
     }
 
+    public List<CodigoPostal> findByCodigoPostal(String codigoPostal) {
+        return list(
+                namedTypedQuery("com.acantilado.codigopostal.findByCodigoPostal")
+                        .setParameter("codigo_postal", codigoPostal)
+        );
+    }
+
     public List<String> findAllIds() {
         return currentSession()
-                .createQuery("SELECT c.codigoPostal FROM CodigoPostal c", String.class)
+                .createQuery("SELECT c.codigoIne FROM CodigoPostal c", String.class)
                 .getResultList();
     }
 }

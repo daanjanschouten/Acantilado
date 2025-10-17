@@ -21,7 +21,7 @@ public final class AyuntamientoCollector extends OpenDataSoftCollector<Ayuntamie
     }
 
     @Override
-    protected Optional<Ayuntamiento> constructObject(JsonNode jsonNode) {
+    protected Ayuntamiento constructObject(JsonNode jsonNode) {
         try {
             final long provinciaId = jsonNode.get("prov_code").asLong();
             Provincia provincia = new Provincia(
@@ -51,10 +51,9 @@ public final class AyuntamientoCollector extends OpenDataSoftCollector<Ayuntamie
             GeoJsonWriter writer = new GeoJsonWriter();
             ayuntamiento.setGeometryJson(writer.write(geometry));
 
-            return Optional.of(ayuntamiento);
+            return ayuntamiento;
         } catch (Exception e) {
-            LOGGER.info("Failed to construct Ayuntamiento: {}", jsonNode);
-            return Optional.empty();
+            throw new RuntimeException("Failed to construct ayuntamiento" + jsonNode);
         }
     }
 }
