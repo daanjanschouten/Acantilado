@@ -19,7 +19,7 @@ public class ProvinciaResource {
 
     @POST
     @UnitOfWork
-    public Provincia createAyuntamiento(Provincia provincia) {
+    public Provincia createProvincia(Provincia provincia) {
         return provinciaDao.create(provincia);
     }
 

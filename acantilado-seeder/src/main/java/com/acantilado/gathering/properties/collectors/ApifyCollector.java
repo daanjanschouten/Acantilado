@@ -29,9 +29,11 @@ public abstract class ApifyCollector<T> extends Collector<T> {
 
     private static final String AUTH_HEADER = "";
 
-    // Fix Double Ayuntamiento
+    protected final String getActorId() {
+        return "REcGj6dyoIJ9Z7aE6";
+    }
 
-    protected abstract String getActorId();
+    public abstract void storeResult(T result);
 
     public ApifyCollector() {
         super(AUTHORITY);
@@ -59,18 +61,17 @@ public abstract class ApifyCollector<T> extends Collector<T> {
                 requestStarted.get(DATA_FIELD).get(DATASET_FIELD).textValue());
     }
 
-    public ApifySearchStatus getSearchStatus(ApifyRunningSearch runDetails) {
-        JsonNode requestStatus = makeGetHttpRequest(constructActsUri(runDetails.runId()), AUTH_HEADER);
+    public ApifySearchStatus getSearchStatus(ApifyRunningSearch runningSearch) {
+        JsonNode requestStatus = makeGetHttpRequest(constructActsUri(runningSearch.runId()), AUTH_HEADER);
         String status = requestStatus.get(DATA_FIELD).get(STATUS_FIELD).textValue();
         return ApifySearchStatus.valueOf(status);
     }
 
-    public Set<T> getSearchResults(ApifyRunningSearch runDetails) {
+    public Set<T> getSearchResults(ApifyRunningSearch finishedSearch) {
         Set<T> apifyObjects = new HashSet<>();
-        JsonNode node = makeGetHttpRequest(constructDatasetsUri(runDetails.datasetId()), AUTH_HEADER);
+        JsonNode node = makeGetHttpRequest(constructDatasetsUri(finishedSearch.datasetId()), AUTH_HEADER);
 
         Iterator<JsonNode> individualObjects = node.elements();
-
         while (individualObjects.hasNext()) {
             T translatedObject = constructObject(individualObjects.next());
             apifyObjects.add(translatedObject);

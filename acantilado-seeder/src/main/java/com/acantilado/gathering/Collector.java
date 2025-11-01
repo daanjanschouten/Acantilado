@@ -1,8 +1,7 @@
 package com.acantilado.gathering;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.acantilado.gathering.utils.HttpUtils;
-import io.dropwizard.hibernate.UnitOfWork;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.eclipse.jetty.http.HttpScheme;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +25,6 @@ public abstract class Collector<T> {
 
     protected abstract Iterator<Collection<T>> seed();
 
-    @UnitOfWork
     protected abstract T constructObject(JsonNode jsonNode);
 
     protected final JsonNode makePostHttpRequest(URI uri, HttpRequest.BodyPublisher body, String authorizationHeader)  {

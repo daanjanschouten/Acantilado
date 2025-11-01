@@ -29,6 +29,10 @@ public class AcantiladoLocation {
         this.maybeBarrio = Optional.of(barrio);
     }
 
+    public Ayuntamiento getAyuntamiento() {
+        return ayuntamiento;
+    }
+
     public static AcantiladoLocation fromLocationIdentifier(
             String identifier,
             AyuntamientoDAO ayuntamientoDAO,

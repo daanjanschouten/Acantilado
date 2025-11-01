@@ -12,7 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 public class IdealistaCollectorScheduler implements Managed {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaCollectorScheduler.class);
-    private static final Set<String> PROVINCES = Set.of("Sevilla");
+
+    private static final Set<String> PROVINCES = Set.of("Granada");
     private static final Set<IdealistaPropertyType> PROPERTY_TYPES = Set.of(IdealistaPropertyType.HOMES);
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -53,7 +54,7 @@ public class IdealistaCollectorScheduler implements Managed {
                             provinceName,
                             propertyType);
 
-                    if (collectorService.collectRealEstateForProvinceName(provinceName, propertyType)) {
+                    if (collectorService.collectRealEstateForProvince(provinceName, propertyType)) {
                         LOGGER.info("Completed scheduled real estate collection for province {} and property type {}",
                                 provinceName,
                                 propertyType);
@@ -61,7 +62,7 @@ public class IdealistaCollectorScheduler implements Managed {
                         LOGGER.error("Partial completion of scheduled real estate collection for province {}", provinceName);
                     }
                 } catch (Exception e) {
-                    LOGGER.error("Error during scheduled real estate collection for province {}", provinceName, e);
+                    LOGGER.error("Error during collection", e);
                 }
             });
         });

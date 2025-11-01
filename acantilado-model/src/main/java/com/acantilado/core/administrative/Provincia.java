@@ -39,6 +39,10 @@ public class Provincia {
         return name;
     }
 
+    public String getIdealistaLocationId() {
+        return String.format("0-EU-ES-%02d", provincia_id);
+    }
+
     public void setProvincia_id(long provincia_id) {
         this.provincia_id = provincia_id;
     }

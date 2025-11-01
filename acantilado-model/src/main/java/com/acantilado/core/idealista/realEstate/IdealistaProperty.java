@@ -2,10 +2,12 @@ package com.acantilado.core.idealista.realEstate;
 
 import com.acantilado.core.idealista.IdealistaContactInformation;
 import com.acantilado.core.idealista.priceRecords.IdealistaPropertyPriceRecord;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "IDEALISTA_PROPERTY")
@@ -25,7 +27,7 @@ import java.util.List;
                 )
         }
 )
-public class IdealistaProperty implements IdealistaRealEstate<IdealistaPropertyPriceRecord> {
+public class IdealistaProperty extends IdealistaRealEstate<IdealistaPropertyPriceRecord, IdealistaProperty>  {
 
     @Id
     @Column(name = "property_code")
@@ -127,16 +129,16 @@ public class IdealistaProperty implements IdealistaRealEstate<IdealistaPropertyP
     public IdealistaProperty() {}
 
     public IdealistaProperty(long propertyCode, String operation, String description,
-                             long size, String propertyType, String subTypology,
-                             String address, String municipality, String locationId, String acantiladoLocationId,
+                             long size, String subTypology,
+                             String address, IdealistaContactInformation contactInformation, String municipality, String locationId, String acantiladoLocationId,
                              Double latitude, Double longitude, long firstSeen, long lastSeen) {
         this.propertyCode = propertyCode;
         this.operation = operation;
         this.description = description;
         this.size = size;
-        this.propertyType = propertyType;
         this.subTypology = subTypology;
         this.address = address;
+        this.contactInfo = contactInformation;
         this.municipality = municipality;
         this.locationId = locationId;
         this.acantiladoLocationId = acantiladoLocationId;
@@ -144,6 +146,62 @@ public class IdealistaProperty implements IdealistaRealEstate<IdealistaPropertyP
         this.longitude = longitude;
         this.firstSeen = firstSeen;
         this.lastSeen = lastSeen;
+    }
+
+    public static IdealistaProperty constructFromJson(JsonNode jsonNode) {
+        IdealistaRealEstateBase base = IdealistaRealEstate.construct(jsonNode);
+
+        IdealistaProperty property = new IdealistaProperty(
+                base.propertyCode(),
+                base.operation(),
+                base.description(),
+                base.size(),
+                base.subTypology(),
+                base.address(),
+                base.contactInformation(),
+                base.municipality(),
+                base.locationId(),
+                base.acantiladoLocationId(),
+                base.latitude(),
+                base.longitude(),
+                base.firstSeen(),
+                base.lastSeen());
+
+        property.setPropertyType(jsonNode.get("propertyType").textValue());
+        property.setStatus(getTextValue(jsonNode, "status"));
+        property.setNewDevelopment(getBooleanValue(jsonNode, "newDevelopment"));
+        property.setNewProperty(getBooleanValue(jsonNode, "newProperty"));
+
+        property.setRooms(getIntValue(jsonNode, "rooms"));
+        property.setBathrooms(getIntValue(jsonNode, "bathrooms"));
+        property.setFloor(getTextValue(jsonNode, "floor"));
+
+        JsonNode features = jsonNode.get("features");
+        if (!Objects.isNull(features)) {
+            property.setHasPool(getBooleanValue(features, "hasSwimmingPool"));
+            property.setHasTerrace(getBooleanValue(features, "hasTerrace"));
+            property.setHasAirConditioning(getBooleanValue(features, "hasAirConditioning"));
+            property.setHasBoxRoom(getBooleanValue(features, "hasBoxRoom"));
+            property.setHasGarden(getBooleanValue(features, "hasGarden"));
+        }
+
+        JsonNode parkingSpace = jsonNode.get("parkingSpace");
+        if (!Objects.isNull(parkingSpace)) {
+            property.setHasParkingSpace(getBooleanValue(parkingSpace, "hasParkingSpace"));
+            property.setParkingIncludedInPrice(getBooleanValue(parkingSpace, "isParkingSpaceIncludedInPrice"));
+        }
+
+        property.setHasLift(getBooleanValue(jsonNode, "hasLift"));
+        property.setEnergyCertificate(getTextValue(jsonNode, "energyCertificate"));
+
+        IdealistaPropertyPriceRecord priceRecord = new IdealistaPropertyPriceRecord(
+                base.propertyCode(),
+                jsonNode.get("price").longValue(),
+                base.firstSeen());
+        priceRecord.setProperty(property);
+        property.getPriceRecords().add(priceRecord);
+
+        return property;
     }
 
     // Getters and Setters
@@ -251,5 +309,20 @@ public class IdealistaProperty implements IdealistaRealEstate<IdealistaPropertyP
                 ", rooms=" + rooms +
                 ", bathrooms=" + bathrooms +
                 '}';
+    }
+
+    private static String getTextValue(JsonNode node, String fieldName) {
+        JsonNode field = node.get(fieldName);
+        return Objects.isNull(field) || field.isNull() ? null : field.textValue();
+    }
+
+    private static Integer getIntValue(JsonNode node, String fieldName) {
+        JsonNode field = node.get(fieldName);
+        return Objects.isNull(field) || field.isNull() ? null : field.asInt();
+    }
+
+    private static Boolean getBooleanValue(JsonNode node, String fieldName) {
+        JsonNode field = node.get(fieldName);
+        return Objects.isNull(field) || field.isNull() ? null : field.asBoolean();
     }
 }

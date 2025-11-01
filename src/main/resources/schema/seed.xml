@@ -434,4 +434,74 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="create-idealista-location-mapping-table" author="dschouten">
+        <createTable tableName="idealista_location_mapping">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="idealista_location_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="idealista_municipality_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="acantilado_ayuntamiento_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="acantilado_municipality_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="confidence_score" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-idealista-location-mapping-foreign-keys" author="dschouten">
+        <addForeignKeyConstraint
+                constraintName="fk_location_mapping_ayuntamiento"
+                baseTableName="idealista_location_mapping"
+                baseColumnNames="acantilado_ayuntamiento_id"
+                referencedTableName="ayuntamiento"
+                referencedColumnNames="ayuntamiento_id"
+                onDelete="CASCADE"
+                onUpdate="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="add-idealista-location-mapping-indexes" author="dschouten">
+        <createIndex indexName="idx_location_mapping_idealista_id" tableName="idealista_location_mapping">
+            <column name="idealista_location_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_location_mapping_ayuntamiento_id" tableName="idealista_location_mapping">
+            <column name="acantilado_ayuntamiento_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_location_mapping_idealista_muni" tableName="idealista_location_mapping">
+            <column name="idealista_municipality_name"/>
+        </createIndex>
+
+        <createIndex indexName="idx_location_mapping_acantilado_muni" tableName="idealista_location_mapping">
+            <column name="acantilado_municipality_name"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="create-idealista-ayuntamiento-location-table" author="your-name">
+        <createTable tableName="IDEALISTA_AYUNTAMIENTO_LOCATION">
+            <column name="idealista_ayuntamiento_location_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="provincia_id" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-index-idealista-ayuntamiento-location-provincia" author="your-name">
+        <createIndex indexName="idx_idealista_ayuntamiento_provincia_id"
+                     tableName="IDEALISTA_AYUNTAMIENTO_LOCATION">
+            <column name="provincia_id"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>

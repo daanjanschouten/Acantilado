@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public final class CodigoPostalToAyuntamientoLinkingService extends CollectorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CodigoPostalToAyuntamientoLinkingService.class);
-    private static final double PROXIMITY_THRESHOLD = 0.005; // ~500 meters
+    private static final double PROXIMITY_THRESHOLD = 0.015; // ~500 meters
 
     private final AyuntamientoDAO ayuntamientoDAO;
     private final CodigoPostalDAO codigoPostalDAO;

@@ -2,6 +2,7 @@ package com.acantilado.core.idealista.realEstate;
 
 import com.acantilado.core.idealista.IdealistaContactInformation;
 import com.acantilado.core.idealista.priceRecords.IdealistaTerrainPriceRecord;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,8 +26,7 @@ import java.util.List;
                 )
         }
 )
-public class IdealistaTerrain implements IdealistaRealEstate<IdealistaTerrainPriceRecord> {
-
+public class IdealistaTerrain extends IdealistaRealEstate<IdealistaTerrainPriceRecord, IdealistaTerrain> {
     @Id
     @Column(name = "property_code")
     private Long propertyCode;
@@ -78,7 +78,7 @@ public class IdealistaTerrain implements IdealistaRealEstate<IdealistaTerrainPri
     public IdealistaTerrain() {}
 
     public IdealistaTerrain(long propertyCode, String operation, String description, long size, String subTypology,
-                            String address, String municipality, String locationId, String acantiladoLocationId,
+                            String address, IdealistaContactInformation contactInformation, String municipality, String locationId, String acantiladoLocationId,
                             Double latitude, Double longitude, long firstSeen, long lastSeen) {
         this.propertyCode = propertyCode;
         this.operation = operation;
@@ -86,6 +86,7 @@ public class IdealistaTerrain implements IdealistaRealEstate<IdealistaTerrainPri
         this.size = size;
         this.subTypology = subTypology;
         this.address = address;
+        this.contactInfo = contactInformation;
         this.municipality = municipality;
         this.locationId = locationId;
         this.acantiladoLocationId = acantiladoLocationId;
@@ -94,6 +95,38 @@ public class IdealistaTerrain implements IdealistaRealEstate<IdealistaTerrainPri
         this.firstSeen = firstSeen;
         this.lastSeen = lastSeen;
     }
+
+    public static IdealistaTerrain constructFromJson(JsonNode jsonNode) {
+        IdealistaRealEstateBase base = IdealistaRealEstate.construct(jsonNode);
+
+        IdealistaTerrain terrain = new IdealistaTerrain(
+                base.propertyCode(),
+                base.operation(),
+                base.description(),
+                base.size(),
+                base.subTypology(),
+                base.address(),
+                base.contactInformation(),
+                base.municipality(),
+                base.locationId(),
+                base.acantiladoLocationId(),
+                base.latitude(),
+                base.longitude(),
+                base.firstSeen(),
+                base.lastSeen());
+
+        terrain.setContactInfo(base.contactInformation());
+
+        IdealistaTerrainPriceRecord priceRecord = new IdealistaTerrainPriceRecord(
+                base.propertyCode(),
+                base.price(),
+                base.firstSeen());
+        priceRecord.setTerrain(terrain);
+        terrain.getPriceRecords().add(priceRecord);
+
+        return terrain;
+    }
+
 
     // Getters and Setters
     public Long getPropertyCode() { return propertyCode; }

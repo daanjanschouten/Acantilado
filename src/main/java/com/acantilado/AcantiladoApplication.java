@@ -4,6 +4,7 @@ import com.acantilado.core.administrative.*;
 import com.acantilado.core.idealista.*;
 import com.acantilado.core.idealista.priceRecords.IdealistaPropertyPriceRecord;
 import com.acantilado.core.idealista.priceRecords.IdealistaTerrainPriceRecord;
+import com.acantilado.core.idealista.realEstate.IdealistaAyuntamientoLocation;
 import com.acantilado.core.idealista.realEstate.IdealistaProperty;
 import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
 import com.acantilado.core.resources.administrative.*;
@@ -42,8 +43,10 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                     ComunidadAutonoma.class,
                     CodigoPostal.class,
                     Barrio.class,
+                    IdealistaLocationMapping.class,
                     IdealistaProperty.class,
                     IdealistaTerrain.class,
+                    IdealistaAyuntamientoLocation.class,
                     IdealistaContactInformation.class,
                     IdealistaPropertyPriceRecord.class,
                     IdealistaTerrainPriceRecord.class) {
@@ -88,8 +91,10 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                 ComunidadAutonoma.class,
                 CodigoPostal.class,
                 Barrio.class,
+                IdealistaLocationMapping.class,
                 IdealistaProperty.class,
                 IdealistaTerrain.class,
+                IdealistaAyuntamientoLocation.class,
                 IdealistaContactInformation.class,
                 IdealistaPropertyPriceRecord.class,
                 IdealistaTerrainPriceRecord.class));
@@ -110,15 +115,19 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
 
         final IdealistaTerrainDAO idealistaTerrainDAO = new IdealistaTerrainDAO(hibernateBundle.getSessionFactory());
         final IdealistaPropertyDAO idealistaPropertyDAO = new IdealistaPropertyDAO(hibernateBundle.getSessionFactory());
+        final IdealistaLocationDAO locationDAO = new IdealistaLocationDAO(hibernateBundle.getSessionFactory());
 
+        final IdealistaLocationMappingDAO idealistaAyuntamientoMappingDAO = new IdealistaLocationMappingDAO(hibernateBundle.getSessionFactory());
         final IdealistaCollectorService collectorService = new IdealistaCollectorService(
                 idealistaContactInformationDAO,
                 idealistaPropertyDAO,
                 idealistaTerrainDAO,
+                locationDAO,
                 provinciaDao,
                 codigoPostalDAO,
                 ayuntamientoDao,
                 barrioDAO,
+                idealistaAyuntamientoMappingDAO,
                 hibernateBundle.getSessionFactory());
         final AdministrativeCollectorService administrativeCollectorService = new AdministrativeCollectorService(
                 codigoPostalDAO,
