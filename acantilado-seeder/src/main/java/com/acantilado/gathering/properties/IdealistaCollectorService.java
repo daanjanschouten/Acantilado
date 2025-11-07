@@ -24,10 +24,7 @@ import org.hibernate.context.internal.ManagedSessionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -39,7 +36,7 @@ public final class IdealistaCollectorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaCollectorService.class);
     private static final Optional<Integer> APIFY_ACTIVE_AGENTS = Optional.of(32);
 
-    private final ProvinciaDAO provinciaDao;
+    private final ProvinciaDAO provinciaDAO;
     private final AyuntamientoDAO ayuntamientoDAO;
     private final IdealistaLocationMappingDAO mappingDAO;
     private final IdealistaLocationDAO locationDAO;
@@ -58,13 +55,13 @@ public final class IdealistaCollectorService {
             IdealistaPropertyDAO propertyDAO,
             IdealistaTerrainDAO terrainDAO,
             IdealistaLocationDAO locationDAO,
-            ProvinciaDAO provinciaDao,
+            ProvinciaDAO provinciaDAO,
             CodigoPostalDAO codigoPostalDAO,
             AyuntamientoDAO ayuntamientoDAO,
             BarrioDAO barrioDAO,
             IdealistaLocationMappingDAO mappingDAO,
             SessionFactory sessionFactory) {
-        this.provinciaDao = provinciaDao;
+        this.provinciaDAO = provinciaDAO;
         this.ayuntamientoDAO = ayuntamientoDAO;
         this.mappingDAO = mappingDAO;
         this.locationDAO = locationDAO;
@@ -72,7 +69,7 @@ public final class IdealistaCollectorService {
 
         locationEstablisher = new AcantiladoLocationEstablisher(
                 getMappedLocationIds(),
-                provinciaDao,
+                provinciaDAO,
                 ayuntamientoDAO,
                 barrioDAO,
                 codigoPostalDAO,
@@ -107,47 +104,21 @@ public final class IdealistaCollectorService {
     }
 
     public boolean collectRealEstateForProvince(String provinceName, IdealistaPropertyType propertyType) {
-        Provincia provincia = getProvinceFromName(provinciaDao, sessionFactory, provinceName);
-        Set<Ayuntamiento> ayuntamientosForProvince = getAyuntamientosForProvince(ayuntamientoDAO, sessionFactory, provincia.getId());
-        Set<IdealistaAyuntamientoLocation> locationsForProvince = getLocationsForProvince(locationDAO, sessionFactory, provincia.getId());
+        Set<String> locationIdsToPopulate = locationMappingsToPopulate(provinceName);
 
-        if (ayuntamientosForProvince.size() > locationsForProvince.size()) {
-            LOGGER.info("Insufficient location IDs {} found for ayuntamientos {} in province {}; seeding location IDs",
-                    locationsForProvince.size(),
-                    ayuntamientosForProvince.size(),
-                    provincia.getIdealistaLocationId());
+        if (!locationIdsToPopulate.isEmpty()) {
+            locationEstablisher.setBootstrapMode(true);
+            bootstrapProvince(locationIdsToPopulate, propertyCollector);
+            RetryableBatchedExecutor.executeRunnableInSessionWithTransaction(sessionFactory, locationEstablisher::storeMappings);
         }
 
-        bootstrapProvince(Set.of(provincia.getIdealistaLocationId()));
-        locationsForProvince = getLocationsForProvince(locationDAO, sessionFactory, provincia.getId());
-        if (ayuntamientosForProvince.size() > locationsForProvince.size()) {
-            LOGGER.info("Still insufficient location IDs {} for ayuntamientos {} for province {}. Ones found: {}",
-                    locationsForProvince.size(),
-                    ayuntamientosForProvince.size(),
-                    provincia.getIdealistaLocationId(),
-                    locationsForProvince);
-        }
-
-        return true;
+        return collectForProvinceAyuntamientos(provinceName, propertyType);
 
         /* TODO
         * Save a set of properties instead of one by one, for a single search batch
-        * Reintroduce location establisher
-        * Reorchestrate logic for locations/mappings/listings
-         */
-
-//        Set<String> locationIdsToPopulate = locationEstablisher.locationsToPopulate(sessionFactory, provinceName);
-//
-//        if (!locationIdsToPopulate.isEmpty()) {
-//            locationEstablisher.setBootstrapMode(true);
-//            boolean success = bootstrapProvince(locationIdsToPopulate);
-//
-//            RetryableBatchedExecutor.executeRunnableInSessionWithTransaction(sessionFactory, locationEstablisher::storeMappings);
-//
-//            return success;
-//        }
-//
-//        return collectForProvinceAyuntamientos(provinceName, propertyType);
+        * Reorchestrate logic for locations/mappings/listings (the missingMappings method does checks that should exist in the schema)
+        * Keep geographic areas (postcodes, barrios) in memory, and only the ones for this province + adjacent
+        */
     }
 
     private Set<String> getMappedLocationIds() {
@@ -167,6 +138,96 @@ public final class IdealistaCollectorService {
         }
     }
 
+    private Set<String> locationMappingsToPopulate(String provinceName) {
+        Provincia provincia = getProvinceFromName(provinceName);
+        Set<Long> ayuntamientoIdsForProvince = getAyuntamientosForProvince(provincia).stream()
+                .map(Ayuntamiento::getId)
+                .collect(Collectors.toSet());
+        Set<String> locationIds = getLocationsForProvince(provincia)
+                .stream()
+                .map(IdealistaAyuntamientoLocation::getAyuntamientoLocationId)
+                .collect(Collectors.toSet());
+
+        // First ensure we have all location IDs from Idealista for this province.
+        if (locationIds.size() < ayuntamientoIdsForProvince.size()) {
+            LOGGER.info("Insufficient location IDs {} found for ayuntamientos {} in province {}; seeding location IDs",
+                    locationIds.size(),
+                    ayuntamientoIdsForProvince.size(),
+                    provincia.getIdealistaLocationId());
+
+            bootstrapProvince(Set.of(provincia.getIdealistaLocationId()), locationCollector);
+            Set<IdealistaAyuntamientoLocation> locations = getLocationsForProvince(provincia);
+
+            if (ayuntamientoIdsForProvince.size() > locations.size()) {
+                LOGGER.info("Still insufficient location IDs {} for ayuntamientos {} for province {}. Ones found: {}",
+                        locations.size(),
+                        ayuntamientoIdsForProvince.size(),
+                        provincia.getIdealistaLocationId(),
+                        locations);
+                throw new RuntimeException("Require manual location ID additions before proceeding for province "
+                        + provincia.getIdealistaLocationId());
+            }
+            LOGGER.info("Successfully seeded Idealista location IDs");
+        }
+
+        // Check if each ayuntamiento is associated with an Idealista location ID. If not, populate missing ones.
+        Set<String> ayuntamientosMissing = findMissingMappings(
+                locationIds,
+                getMappingsForProvince(locationIds).keySet());
+
+        if (!ayuntamientosMissing.isEmpty()) {
+            LOGGER.warn("Mappings for province are incomplete, populating missing ones");
+            return ayuntamientosMissing;
+        }
+
+        LOGGER.info("Mappings complete - can do per-ayuntamiento search");
+        return Set.of();
+    }
+
+    private static Set<String> findMissingMappings(Set<String> ayuntamientoIds, Set<String> mappedAyuntamientoIds) {
+        Set<String> missingIds = new HashSet<>(ayuntamientoIds);
+        missingIds.removeAll(mappedAyuntamientoIds);
+
+        Set<String> extraIds = new HashSet<>(mappedAyuntamientoIds);
+        extraIds.removeAll(ayuntamientoIds);
+
+        if (!missingIds.isEmpty() || !extraIds.isEmpty()) {
+            if (!missingIds.isEmpty()) {
+                LOGGER.error("Missing mappings for ayuntamiento IDs: {}", missingIds);
+                return missingIds;
+            }
+
+            LOGGER.error("Unexpected mappings for ayuntamiento IDs: {}", extraIds);
+            throw new RuntimeException();
+        }
+        return Set.of();
+    }
+
+    private Map<String, IdealistaLocationMapping> getMappingsForProvince(Set<String> idealistaLocationIdsForProvince) {
+        Map<String, List<IdealistaLocationMapping>> mappings =
+                RetryableBatchedExecutor.executeCallableInSessionWithoutTransaction(sessionFactory,
+                        () -> mappingDAO.findAll()
+                                .stream()
+                                .filter(mapped ->
+                                        idealistaLocationIdsForProvince.contains(mapped.getIdealistaLocationId()))
+                                .collect(Collectors.groupingBy(IdealistaLocationMapping::getIdealistaLocationId)));
+
+         return mappings.entrySet()
+                .stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> {
+                            List<IdealistaLocationMapping> list = entry.getValue();
+                            if (list.size() != 1) {
+                                LOGGER.error("Found more than one mapping for an ayuntamiento ID: {} {}",
+                                        entry.getKey(), list);
+                                throw new RuntimeException("Invalid mapping size");
+                            }
+                            return list.get(0);
+                        }
+                ));
+    }
+
     private boolean collectForProvinceAyuntamientos(String provinceName, IdealistaPropertyType propertyType) {
         List<Ayuntamiento> ayuntamientos = getAyuntamientosForProvince(provinceName);
         Set<IdealistaSearchRequest> searchRequests = ayuntamientos
@@ -180,14 +241,14 @@ public final class IdealistaCollectorService {
         };
     }
 
-    private boolean bootstrapProvince(Set<String> locations) {
+    private boolean bootstrapProvince(Set<String> locations, ApifyCollector<?> collector) {
         Set<IdealistaSearchRequest> searchRequests = new HashSet<>();
         locations.forEach(location -> {
             // Homes are more productive because of request fragmentation based on surface area.
             searchRequests.add(IdealistaSearchRequest.locationBasedSaleSearch(location, IdealistaPropertyType.HOMES));
         });
 
-        return startRealEstateCollectionForProvince(searchRequests, locationCollector);
+        return startRealEstateCollectionForProvince(searchRequests, collector);
     }
 
     private IdealistaSearchRequest createSearchRequest(Ayuntamiento ayuntamiento, IdealistaPropertyType propertyType) {
@@ -272,7 +333,7 @@ public final class IdealistaCollectorService {
 
     private List<Ayuntamiento> getAyuntamientosForProvince(String provinceName) {
         return RetryableBatchedExecutor.executeCallableInSessionWithoutTransaction(sessionFactory, () -> {
-            List<Provincia> provinces = provinciaDao.findByName(provinceName);
+            List<Provincia> provinces = provinciaDAO.findByName(provinceName);
             if (provinces.size() != 1) {
                 LOGGER.error("Got 0 or >1 hits for a province name, this is unexpected {} {}", provinceName, provinces);
                 return List.of();
@@ -317,6 +378,7 @@ public final class IdealistaCollectorService {
                 RetryableBatchedExecutor.executeRunnableInSessionWithTransaction(sessionFactory, () -> {
                     Set<T> realEstates = collector.getSearchResults(search);
                     if (realEstates.isEmpty()) {
+                        // make these failures also bubble up
                         LOGGER.error("No results for search {}", search.request().getLocation());
                     }
 
@@ -342,9 +404,9 @@ public final class IdealistaCollectorService {
         return RetryableBatchedExecutor.executeUntilAllSuccessful(toRun, resultOrNullFunction, batchSize, executorService);
     }
 
-    private static Provincia getProvinceFromName(ProvinciaDAO provinciaDao, SessionFactory sessionFactory, String name) {
+    private Provincia getProvinceFromName(String name) {
         return RetryableBatchedExecutor.executeCallableInSessionWithoutTransaction(sessionFactory, () -> {
-            List<Provincia> provincias = provinciaDao.findByName(name);
+            List<Provincia> provincias = provinciaDAO.findByName(name);
             if (provincias.size() != 1) {
                 throw new RuntimeException("More than 1 or 0 provinces found for province " + name);
             }
@@ -352,13 +414,13 @@ public final class IdealistaCollectorService {
         });
     }
 
-    private static Set<Ayuntamiento> getAyuntamientosForProvince(AyuntamientoDAO ayuntamientoDAO, SessionFactory sessionFactory, long provinceId) {
+    private Set<Ayuntamiento> getAyuntamientosForProvince(Provincia provincia) {
         return RetryableBatchedExecutor.executeCallableInSessionWithoutTransaction(sessionFactory,
-                () -> new HashSet<>(ayuntamientoDAO.findByProvinceId(provinceId)));
+                () -> new HashSet<>(ayuntamientoDAO.findByProvinceId(provincia.getId())));
     }
 
-    private static Set<IdealistaAyuntamientoLocation> getLocationsForProvince(IdealistaLocationDAO locationDAO, SessionFactory sessionFactory, long provinceId) {
+    private Set<IdealistaAyuntamientoLocation> getLocationsForProvince(Provincia provincia) {
         return RetryableBatchedExecutor.executeCallableInSessionWithoutTransaction(sessionFactory,
-                () -> new HashSet<>(locationDAO.findByProvinceId(provinceId)));
+                () -> new HashSet<>(locationDAO.findByProvinceId(provincia.getId())));
     }
 }

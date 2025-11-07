@@ -9,8 +9,11 @@ import com.acantilado.core.idealista.priceRecords.IdealistaTerrainPriceRecord;
 import com.acantilado.core.idealista.realEstate.IdealistaProperty;
 import com.acantilado.core.idealista.realEstate.IdealistaRealEstate;
 import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
+import com.acantilado.gathering.location.AcantiladoLocation;
 import com.acantilado.gathering.location.AcantiladoLocationEstablisher;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +24,8 @@ import java.util.function.Function;
 
 public class IdealistaRealEstateCollector<T extends IdealistaRealEstate<? extends IdealistaPriceRecordBase, ?>> extends ApifyCollector<T> {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaRealEstateCollector.class);
+    private static final GeometryFactory GEOMETRY_FACTORY = new GeometryFactory();
+
 
     private final AcantiladoLocationEstablisher locationEstablisher;
     private final IdealistaContactInformationDAO contactInformationDAO;
@@ -50,9 +55,17 @@ public class IdealistaRealEstateCollector<T extends IdealistaRealEstate<? extend
 
     @Override
     public void storeResult(T realEstate) {
+        Coordinate coordinate = new Coordinate(realEstate.getLongitude(), realEstate.getLatitude());
+        AcantiladoLocation location = locationEstablisher.establishAndRecordMapping(
+                realEstate.getMunicipality(),
+                realEstate.getLocationId(),
+                GEOMETRY_FACTORY.createPoint(coordinate),
+                realEstate.getPropertyCode());
+
+        realEstate.setAcantiladoLocationId(location.getIdentifier());
+
         IdealistaContactInformation definitiveContactInformation =
                 establishContactInformation(realEstate.getContactInfo(), contactInformationDAO);
-
         IdealistaRealEstateResult<T> idealistaRealEstateResult = establishProperty(realEstate, realEstateDAO);
 
         T definitiveIdealistaRealEstate = idealistaRealEstateResult.idealistaRealEstate();

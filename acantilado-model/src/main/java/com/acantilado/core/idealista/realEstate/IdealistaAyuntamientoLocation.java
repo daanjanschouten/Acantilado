@@ -31,8 +31,7 @@ public class IdealistaAyuntamientoLocation {
         this.provinciaId = getProvinciaId(locationId);
     }
 
-    public IdealistaAyuntamientoLocation() {
-    }
+    public IdealistaAyuntamientoLocation() {}
 
     public String getAyuntamientoLocationId() { return ayuntamientoLocationId; }
     public void setAyuntamientoLocationId(String ayuntamientoLocationId) { this.ayuntamientoLocationId = ayuntamientoLocationId; }
@@ -56,5 +55,13 @@ public class IdealistaAyuntamientoLocation {
         }
 
         return String.join("-", Arrays.copyOfRange(parts, 0, 4));
+    }
+
+    @Override
+    public String toString() {
+        return "IdealistaAyuntamientoLocation{" +
+                "ayuntamientoLocationId='" + ayuntamientoLocationId + '\'' +
+                ", provinciaId='" + provinciaId + '\'' +
+                '}';
     }
 }

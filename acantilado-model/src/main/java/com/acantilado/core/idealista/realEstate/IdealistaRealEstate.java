@@ -2,9 +2,6 @@ package com.acantilado.core.idealista.realEstate;
 
 import com.acantilado.core.idealista.IdealistaContactInformation;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
 
 import java.time.Instant;
 import java.util.List;
@@ -13,7 +10,6 @@ import java.util.Optional;
 
 public abstract class IdealistaRealEstate<P, T> {
     private static final String SUB_TYPOLOGY_FALLBACK = "Indeterminate";
-    private static final GeometryFactory GEOMETRY_FACTORY = new GeometryFactory();
 
     public abstract Long getPropertyCode();
     public abstract void setPropertyCode(Long propertyCode);
@@ -70,7 +66,6 @@ public abstract class IdealistaRealEstate<P, T> {
             String address,
             String municipality,
             String locationId,
-            String acantiladoLocationId,
             Double latitude,
             Double longitude,
             Long firstSeen,
@@ -110,7 +105,6 @@ public abstract class IdealistaRealEstate<P, T> {
                 contactName,
                 jsonNode.get("contactInfo").get("userType").textValue());
 
-        Point locationPoint = GEOMETRY_FACTORY.createPoint(new Coordinate(longitude, latitude));
         return new IdealistaRealEstateBase(
                 jsonNode.get("price").longValue(),
                 propertyCode,
@@ -121,7 +115,6 @@ public abstract class IdealistaRealEstate<P, T> {
                 jsonNode.get("address").textValue(),
                 ayuntamiento,
                 idealistaLocationId,
-                "a", // acantiladoLocation.getIdentifier(),
                 latitude,
                 longitude,
                 currentTimestamp,

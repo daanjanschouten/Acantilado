@@ -8,7 +8,8 @@ public enum ApifySearchStatus {
     RUNNING(false),
     SUCCEEDED(true),
     FAILED(true),
-    ABORTED(true);
+    ABORTED(true),
+    TIMED_OUT(true);
 
     private final boolean finished;
 

@@ -43,7 +43,7 @@ public class IdealistaLocationMapping implements Serializable {
     @Column(name = "acantilado_municipality_name", nullable = false)
     private String acantiladoMunicipalityName;
 
-    @Column(name = "confidence_score", nullable = false)
+    @Transient
     private Integer confidenceScore;
 
     // Constructors
@@ -79,7 +79,6 @@ public class IdealistaLocationMapping implements Serializable {
 
     public String getAcantiladoMunicipalityName() { return acantiladoMunicipalityName; }
     public void setAcantiladoMunicipalityName(String acantiladoMunicipalityName) { this.acantiladoMunicipalityName = acantiladoMunicipalityName; }
-
 
     @Override
     public String toString() {

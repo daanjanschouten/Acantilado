@@ -451,9 +451,6 @@
             <column name="acantilado_municipality_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="confidence_score" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
     </changeSet>
 

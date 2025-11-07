@@ -120,10 +120,10 @@ public class IdealistaSearchRequest implements RequestBodyData {
                 search.type(),
                 IdealistaSortBy.PROXIMITY,
                 search.location,
-                100,
+                2400,
                 String.valueOf(0),
                 String.valueOf(0),
-                ProxyConfiguration.datacenter());
+                ProxyConfiguration.residential());
     }
 
     public static Set<IdealistaSearchRequest> fragment(Set<IdealistaSearchRequest> requests) {
@@ -131,7 +131,7 @@ public class IdealistaSearchRequest implements RequestBodyData {
         Set<IdealistaSearchRequest> cannotFragment = new HashSet<>();
 
         requests.forEach(request -> {
-            if (!request.minSize.equals(String.valueOf(MAX_SURFACE_AREA))) {
+            if (isFragmentable(request)) {
                 PERMITTED_SIZE_VALUES().forEach(pair -> {
                     fragmentedRequests.add(IdealistaSearchRequest.withSurfaceAreaBounds(request, pair.getLeft(), pair.getRight()));
                 });
@@ -182,6 +182,13 @@ public class IdealistaSearchRequest implements RequestBodyData {
                 propertyType,
                 location);
         return IdealistaSearchRequest.fromSearch(search);
+    }
+
+    public static boolean isFragmentable(IdealistaSearchRequest searchRequest) {
+        boolean minIsZero = Objects.equals(searchRequest.minSize, "0");
+        boolean maxIsZero = Objects.equals(searchRequest.maxSize, "0");
+
+        return minIsZero && maxIsZero;
     }
 
     public static IdealistaSearchRequest locationBasedSaleSearch(String location, IdealistaPropertyType propertyType) {

@@ -1,8 +1,6 @@
 package com.acantilado.gathering.location;
 
 import com.acantilado.core.administrative.*;
-import com.acantilado.gathering.properties.utils.RetryableBatchedExecutor;
-import org.hibernate.SessionFactory;
 import org.locationtech.jts.geom.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public class AcantiladoLocationEstablisher {
     private static final Logger LOGGER = LoggerFactory.getLogger(AcantiladoLocationEstablisher.class);
@@ -46,11 +43,11 @@ public class AcantiladoLocationEstablisher {
 
     public AcantiladoLocation establishAndRecordMapping(String idealistaAyuntamiento, String idealistaLocationId, Point locationPoint, long propertyCode) {
         String normalizedLocationId = normalizeLocationId(idealistaLocationId);
-//        Optional<Ayuntamiento> maybeAyuntamiento = establishAyuntamientoFromExistingMapping(normalizedLocationId);
-//        if (maybeAyuntamiento.isPresent()) {
-//            Ayuntamiento ayuntamiento = maybeAyuntamiento.get();
-//            return buildAcantiladoLocation(ayuntamiento, locationPoint, propertyCode);
-//        }
+        Optional<Ayuntamiento> maybeAyuntamiento = establishAyuntamientoFromExistingMapping(normalizedLocationId);
+        if (maybeAyuntamiento.isPresent()) {
+            Ayuntamiento ayuntamiento = maybeAyuntamiento.get();
+            return buildAcantiladoLocation(ayuntamiento, locationPoint, propertyCode);
+        }
 
         Ayuntamiento ayuntamiento = establishAyuntamientoByCoordinates(locationPoint);
         if (bootstrapMode.get()) {
@@ -62,92 +59,6 @@ public class AcantiladoLocationEstablisher {
         }
 
         return buildAcantiladoLocation(ayuntamiento, locationPoint, propertyCode);
-    }
-
-
-    public Set<String> locationsToPopulate(SessionFactory sessionFactory, String provinceName) {
-//        Provincia province = getProvinceFromName(provinciaDAO, sessionFactory, provinceName);
-//        Set<Ayuntamiento> ayuntamientosForProvince = getAyuntamientosForProvince(ayuntamientoDAO, sessionFactory, province.getId());
-//        Set<Long> ayuntamientoIdsForProvince = ayuntamientosForProvince.stream().map(Ayuntamiento::getId).collect(Collectors.toSet());
-//
-//        Map<Long, IdealistaLocationMapping> mappings = getMappingsForProvince(mappingDAO, sessionFactory, ayuntamientoIdsForProvince);
-//
-//        // Check if each ayuntamiento is associated with an Idealista location ID. If not, populate missing ones.
-//        Set<Long> ayuntamientosMissing = findMissingMappings(ayuntamientoIdsForProvince, mappings.keySet());
-//        if (!ayuntamientosMissing.isEmpty()) {
-//            if ((double) ayuntamientosMissing.size() / ayuntamientoIdsForProvince.size() > 0.2) {
-//                LOGGER.warn("Not enough existing mappings found, populating from scratch");
-//                return Set.of(province.getIdealistaLocationId());
-//            }
-//
-//            LOGGER.warn("Many ayuntamientos had mappings, only repopulating missing ones");
-//            return ayuntamientosForProvince
-//                    .stream()
-//                    .filter(a -> ayuntamientosMissing.contains(a.getId()))
-//                    .map(Ayuntamiento::getName)
-//                    .collect(Collectors.toSet());
-//        }
-//
-//        // Check if each mapping has enough confidence to rely on for regular collection
-//        Set<String> ayuntamientosWithInsufficientConfidence = mappings.values()
-//                .stream()
-//                .filter(idealistaLocationMapping -> idealistaLocationMapping.getConfidenceScore() < 10)
-//                .map(IdealistaLocationMapping::getIdealistaLocationId)
-//                .collect(Collectors.toSet());
-//        if (!ayuntamientosWithInsufficientConfidence.isEmpty()) {
-//            LOGGER.warn("Some ayuntamientos had insufficient confidence scores, repopulating those");
-//            return ayuntamientosWithInsufficientConfidence;
-//        }
-
-        LOGGER.info("Mappings complete - can do per-ayuntamiento search");
-        return Set.of();
-    }
-
-    private static Map<Long, IdealistaLocationMapping> getMappingsForProvince(
-            IdealistaLocationMappingDAO mappingDAO,
-            SessionFactory sessionFactory,
-            Set<Long> ayuntamientoIdsForProvince) {
-        Map<Long, List<IdealistaLocationMapping>> mappings =
-                RetryableBatchedExecutor.executeCallableInSessionWithoutTransaction(sessionFactory,
-                        () -> mappingDAO.findAll()
-                                .stream()
-                                .filter(mapped ->
-                                        ayuntamientoIdsForProvince.contains(mapped.getAcantiladoAyuntamientoId()))
-                                .collect(Collectors.groupingBy(IdealistaLocationMapping::getAcantiladoAyuntamientoId)));
-
-        return mappings.entrySet()
-                .stream()
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        entry -> {
-                            List<IdealistaLocationMapping> list = entry.getValue();
-                            if (list.size() != 1) {
-                                LOGGER.error("Found more than one mapping for an ayuntamiento ID: {} {}",
-                                        entry.getKey(), list);
-                                throw new RuntimeException("Invalid mapping size");
-                            }
-                            return list.get(0);
-                        }
-                ));
-    }
-
-    private static Set<Long> findMissingMappings(Set<Long> ayuntamientoIds, Set<Long> mappedAyuntamientoIds) {
-        Set<Long> missingIds = new HashSet<>(ayuntamientoIds);
-        missingIds.removeAll(mappedAyuntamientoIds);
-
-        Set<Long> extraIds = new HashSet<>(mappedAyuntamientoIds);
-        extraIds.removeAll(ayuntamientoIds);
-
-        if (!missingIds.isEmpty() || !extraIds.isEmpty()) {
-            if (!missingIds.isEmpty()) {
-                LOGGER.error("Missing mappings for ayuntamiento IDs: {}", missingIds);
-                return missingIds;
-            }
-
-            LOGGER.error("Unexpected mappings for ayuntamiento IDs: {}", extraIds);
-            throw new RuntimeException();
-        }
-        return Set.of();
     }
 
     private AcantiladoLocation buildAcantiladoLocation(Ayuntamiento ayuntamiento, Point locationPoint, long propertyCode) {

@@ -130,7 +130,7 @@ public class IdealistaProperty extends IdealistaRealEstate<IdealistaPropertyPric
 
     public IdealistaProperty(long propertyCode, String operation, String description,
                              long size, String subTypology,
-                             String address, IdealistaContactInformation contactInformation, String municipality, String locationId, String acantiladoLocationId,
+                             String address, IdealistaContactInformation contactInformation, String municipality, String locationId,
                              Double latitude, Double longitude, long firstSeen, long lastSeen) {
         this.propertyCode = propertyCode;
         this.operation = operation;
@@ -141,7 +141,6 @@ public class IdealistaProperty extends IdealistaRealEstate<IdealistaPropertyPric
         this.contactInfo = contactInformation;
         this.municipality = municipality;
         this.locationId = locationId;
-        this.acantiladoLocationId = acantiladoLocationId;
         this.latitude = latitude;
         this.longitude = longitude;
         this.firstSeen = firstSeen;
@@ -161,7 +160,6 @@ public class IdealistaProperty extends IdealistaRealEstate<IdealistaPropertyPric
                 base.contactInformation(),
                 base.municipality(),
                 base.locationId(),
-                base.acantiladoLocationId(),
                 base.latitude(),
                 base.longitude(),
                 base.firstSeen(),
