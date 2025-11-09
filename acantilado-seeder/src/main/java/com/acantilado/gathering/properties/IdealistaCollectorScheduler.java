@@ -5,6 +5,7 @@ import io.dropwizard.lifecycle.Managed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -17,22 +18,23 @@ public class IdealistaCollectorScheduler implements Managed {
     private static final Set<IdealistaPropertyType> PROPERTY_TYPES = Set.of(IdealistaPropertyType.HOMES);
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private final IdealistaCollectorService collectorService;
+    private final IdealistaCollectorServiceFactory collectorServiceFactory;
+    private final Set<IdealistaProvinceCollectorService> provinceCollectorServices = new HashSet<>();
 
-    public IdealistaCollectorScheduler(IdealistaCollectorService collectorService) {
-        this.collectorService = collectorService;
+    public IdealistaCollectorScheduler(IdealistaCollectorServiceFactory collectorServiceFactory) {
+        this.collectorServiceFactory = collectorServiceFactory;
     }
 
     @Override
     public void start() {
         LOGGER.info("Starting property seeder collection");
-//
-//        scheduler.scheduleAtFixedRate(
-//                this::collectProperties,
-//                10,
-//                TimeUnit.DAYS.toSeconds(1),
-//                TimeUnit.SECONDS
-//        );
+
+        scheduler.scheduleAtFixedRate(
+                this::collectProperties,
+                10,
+                TimeUnit.DAYS.toSeconds(1),
+                TimeUnit.SECONDS
+        );
     }
 
     @Override
@@ -40,7 +42,7 @@ public class IdealistaCollectorScheduler implements Managed {
         LOGGER.info("Stopping property seeder collection");
 
         scheduler.shutdown();
-        collectorService.shutdownExecutor();
+        provinceCollectorServices.forEach(IdealistaProvinceCollectorService::shutdownExecutor);
         if (!scheduler.awaitTermination(10, TimeUnit.SECONDS)) {
             scheduler.shutdownNow();
         }
@@ -48,13 +50,15 @@ public class IdealistaCollectorScheduler implements Managed {
 
     private void collectProperties() {
         PROVINCES.forEach(provinceName -> {
+            IdealistaProvinceCollectorService collectorService = collectorServiceFactory.getCollectorService(provinceName);
+            provinceCollectorServices.add(collectorService);
             PROPERTY_TYPES.forEach(propertyType -> {
                 try {
                     LOGGER.info("Start of scheduled real estate collection for province {} and property type {}",
                             provinceName,
                             propertyType);
 
-                    if (collectorService.collectRealEstateForProvince(provinceName, propertyType)) {
+                    if (collectorService.collectRealEstateForProvince(propertyType)) {
                         LOGGER.info("Completed scheduled real estate collection for province {} and property type {}",
                                 provinceName,
                                 propertyType);
@@ -65,6 +69,7 @@ public class IdealistaCollectorScheduler implements Managed {
                     LOGGER.error("Error during collection", e);
                 }
             });
+            provinceCollectorServices.remove(collectorService);
         });
     }
 

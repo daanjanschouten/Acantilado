@@ -11,11 +11,9 @@ import java.util.Optional;
 
 public class IdealistaLocationDAO extends AbstractDAO<IdealistaAyuntamientoLocation> {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaAyuntamientoLocation.class);
-    private final SessionFactory sessionFactory;
 
     public IdealistaLocationDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
-        this.sessionFactory = sessionFactory;
     }
 
     public Optional<IdealistaAyuntamientoLocation> findByLocationId(String locationId) {
@@ -30,7 +28,6 @@ public class IdealistaLocationDAO extends AbstractDAO<IdealistaAyuntamientoLocat
 
     public List<IdealistaAyuntamientoLocation> findByProvinceId(Long provinceId) {
         String provinceString = String.join("-", "0-EU-ES", provinceId.toString());
-        LOGGER.info("Constructed province string {} for ID {}", provinceString, provinceId);
 
         return namedTypedQuery("com.schouten.core.properties.idealista.IdealistaAyuntamientoLocation.findByProvinciaId")
                 .setParameter("provinciaId", provinceString)

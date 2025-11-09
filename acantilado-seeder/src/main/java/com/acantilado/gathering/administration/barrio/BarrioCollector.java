@@ -24,7 +24,7 @@ public class BarrioCollector {
 
     public BarrioCollector(BarrioCollectorService.CityBarrioConfig cityBarrioConfig) {
         this.geoJsonPath = cityBarrioConfig.geoJsonPath();
-        this.ayuntamientoId = cityBarrioConfig.ayuntamientoId();
+        this.ayuntamientoId = cityBarrioConfig.ayuntamientoCode().getCityCode();
         this.barrioTitle = cityBarrioConfig.barrioTitle();
     }
 

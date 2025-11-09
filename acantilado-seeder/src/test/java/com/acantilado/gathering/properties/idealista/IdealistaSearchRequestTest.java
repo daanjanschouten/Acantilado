@@ -12,9 +12,6 @@ class IdealistaSearchRequestTest {
                 IdealistaPropertyType.HOMES,
                 "someLocation"));
 
-//    private final Set<IdealistaSearchRequest> unfragmentableIdealistaSearchRequests =
-//            IdealistaSearchRequest.fragment(fragmentableIdealistaSearchRequests);
-
     @Test
     void fragmentableRequestsAreFragmented() {
         Set<IdealistaSearchRequest> fragmentableIdealistaSearchRequests =
@@ -30,6 +27,7 @@ class IdealistaSearchRequestTest {
         Set<IdealistaSearchRequest> fragmentableIdealistaSearchRequests =
                 IdealistaSearchRequest.fragment(Set.of(baseSearch));
 
+        // None of these can be fragmented further
         Set<IdealistaSearchRequest> unfragmentableIdealistaSearchRequests =
                 IdealistaSearchRequest.fragment(fragmentableIdealistaSearchRequests);
 

@@ -20,7 +20,7 @@ public class LocationMappingResource {
 
     @POST
     @UnitOfWork
-    public IdealistaLocationMapping createMapping( IdealistaLocationMapping mapping) {
+    public IdealistaLocationMapping createMapping(IdealistaLocationMapping mapping) {
         return mappingDAO.create(mapping);
     }
 

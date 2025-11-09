@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -58,6 +59,22 @@ public class AcantiladoLocation {
         String barrioId = maybeBarrio.map(value -> value.getId().toString()).orElse(ABSENT_BARRIO);
 
         return StringUtils.joinWith(JOIN, ayuntamientoId, codigoPostalId, barrioId);
+    }
+
+    public static String normalizeIdealistaLocationId(String idealistaLocationId) {
+        // Idealista location ID structure:
+        // 0-EU-ES-{province}-{comarca}-{subgroup}-{ayuntamiento} = 7 segments (ayuntamiento level - keep as-is)
+        // 0-EU-ES-{province}-{comarca}-{subgroup}-{ayuntamiento}-{district} = 8 segments (truncate to 7)
+        // 0-EU-ES-{province}-{comarca}-{subgroup}-{ayuntamiento}-{district}-{subdistrict} = 9 segments (truncate to 7)
+
+        String[] parts = idealistaLocationId.split("-");
+
+        if (parts.length <= 7) {
+            return idealistaLocationId;
+        }
+
+        // Has 8+ segments (includes district/neighborhood info) - keep only first 7
+        return String.join("-", Arrays.copyOfRange(parts, 0, 7));
     }
 
     private static Barrio getBarrio(String identifierSlice, BarrioDAO barrioDAO) {

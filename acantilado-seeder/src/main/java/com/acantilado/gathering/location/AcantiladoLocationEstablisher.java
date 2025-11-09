@@ -5,258 +5,131 @@ import org.locationtech.jts.geom.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class AcantiladoLocationEstablisher {
     private static final Logger LOGGER = LoggerFactory.getLogger(AcantiladoLocationEstablisher.class);
+    public record CollectionStats(
+            int locationsEstablished,
+            int locationsMissed,
+            int barriosEstablished,
+            int barriosMissed) {}
 
-    private final ProvinciaDAO provinciaDAO;
-    private final AyuntamientoDAO ayuntamientoDAO;
-    private final BarrioDAO barrioDAO;
-    private final CodigoPostalDAO codigoPostalDAO;
-    private final IdealistaLocationMappingDAO mappingDAO;
+    private final ExistingLocationEstablisher existingLocationEstablisher;
+    private final NovelLocationEstablisher novelLocationEstablisher;
 
     private final AtomicInteger locationsEstablished = new AtomicInteger();
-    private final AtomicInteger bruteForceCodigoPostalMatches = new AtomicInteger();
+    private final AtomicInteger locationsMissed = new AtomicInteger();
     private final AtomicInteger barriosEstablished = new AtomicInteger();
     private final AtomicInteger barrioMisses = new AtomicInteger();
 
-    private final AtomicBoolean bootstrapMode = new AtomicBoolean(false);
+    private final Set<Barrio> barriosForProvince;
+    private final Set<Long> ayuntamientosWithBarrios;
+    private final Map<Long, Set<CodigoPostal>> postCodesForProvince;
 
-    private final Map<Long, Map<IdealistaLocationMapping, Integer>> ayuntamientoIdsByCountOfIdealistaLocationIds = new HashMap<>();
-    private final Set<String> mappedLocationIds;
+    private final AtomicBoolean isBootstrapMode = new AtomicBoolean(false);
 
-    public AcantiladoLocationEstablisher(Set<String> mappedLocationIds, ProvinciaDAO provinciaDao, AyuntamientoDAO ayuntamientoDAO, BarrioDAO barrioDAO, CodigoPostalDAO codigoPostalDAO, IdealistaLocationMappingDAO mappingDAO) {
-        this.mappedLocationIds = mappedLocationIds;
-        this.provinciaDAO = provinciaDao;
-        this.ayuntamientoDAO = ayuntamientoDAO;
-        this.barrioDAO = barrioDAO;
-        this.codigoPostalDAO = codigoPostalDAO;
-        this.mappingDAO = mappingDAO;
+    public AcantiladoLocationEstablisher(
+            Set<Barrio> barriosForProvince,
+            Set<Ayuntamiento> ayuntamientosForProvince,
+            Map<Long, Set<CodigoPostal>> postCodesForProvince,
+            AyuntamientoDAO ayuntamientoDAO,
+            IdealistaLocationMappingDAO mappingDAO) {
+
+        this.barriosForProvince = barriosForProvince;
+        this.postCodesForProvince = postCodesForProvince;
+
+        this.ayuntamientosWithBarrios = barriosForProvince
+                .stream()
+                .map(Barrio::getAyuntamientoId)
+                .collect(Collectors.toSet());
+
+        this.existingLocationEstablisher = new ExistingLocationEstablisher(
+                ayuntamientoDAO,
+                mappingDAO,
+                this::buildAcantiladoLocation);
+
+        this.novelLocationEstablisher = new NovelLocationEstablisher(
+                mappingDAO,
+                ayuntamientosForProvince,
+                this::buildAcantiladoLocation);
+    }
+
+    public Optional<AcantiladoLocation> establish(String idealistaAyuntamiento, String idealistaLocationId, Point locationPoint) {
+        Optional<AcantiladoLocation> maybeLocation;
+        if (isBootstrapMode.get()) {
+            maybeLocation = novelLocationEstablisher.establish(idealistaAyuntamiento, idealistaLocationId, locationPoint);
+        } else {
+            maybeLocation = existingLocationEstablisher.establish(idealistaLocationId, locationPoint);
+        }
+
+        if (maybeLocation.isEmpty()) {
+            this.locationsMissed.incrementAndGet();
+        } else {
+            this.locationsEstablished.incrementAndGet();
+        }
+        return maybeLocation;
+    }
+
+    public void storeInMemoryMappings() {
+        this.novelLocationEstablisher.storeInMemoryMappings();
     }
 
     public void setBootstrapMode(boolean shouldBootstrap) {
-        this.bootstrapMode.getAndSet(shouldBootstrap);
+        this.isBootstrapMode.set(shouldBootstrap);
     }
 
-    public AcantiladoLocation establishAndRecordMapping(String idealistaAyuntamiento, String idealistaLocationId, Point locationPoint, long propertyCode) {
-        String normalizedLocationId = normalizeLocationId(idealistaLocationId);
-        Optional<Ayuntamiento> maybeAyuntamiento = establishAyuntamientoFromExistingMapping(normalizedLocationId);
-        if (maybeAyuntamiento.isPresent()) {
-            Ayuntamiento ayuntamiento = maybeAyuntamiento.get();
-            return buildAcantiladoLocation(ayuntamiento, locationPoint, propertyCode);
-        }
+    private Optional<AcantiladoLocation> buildAcantiladoLocation(Ayuntamiento ayuntamiento, Point locationPoint) {
+        Optional<CodigoPostal> maybeCodigoPostal = findCodigoPostal(ayuntamiento, locationPoint);
+        Optional<Barrio> maybeBarrio = findBarrio(ayuntamiento, locationPoint);
 
-        Ayuntamiento ayuntamiento = establishAyuntamientoByCoordinates(locationPoint);
-        if (bootstrapMode.get()) {
-            updateInMemoryMapping(
-                    ayuntamiento.getId(),
-                    new IdealistaLocationMapping(normalizedLocationId, idealistaAyuntamiento, ayuntamiento.getId(), ayuntamiento.getName()));
-        } else {
-            LOGGER.error("Not in bootstrap mode but unable to find ayuntamiento for listing from existing mappings");
-        }
-
-        return buildAcantiladoLocation(ayuntamiento, locationPoint, propertyCode);
-    }
-
-    private AcantiladoLocation buildAcantiladoLocation(Ayuntamiento ayuntamiento, Point locationPoint, long propertyCode) {
-        CodigoPostal codigoPostal = findCodigoPostal(ayuntamiento, locationPoint);
-        Barrio barrio = findBarrio(ayuntamiento, locationPoint, propertyCode);
-
-        locationsEstablished.incrementAndGet();
-        return Objects.isNull(barrio)
-                ? new AcantiladoLocation(ayuntamiento, codigoPostal)
-                : new AcantiladoLocation(ayuntamiento, codigoPostal, barrio);
-    }
-
-    private Ayuntamiento establishAyuntamientoByCoordinates(Point locationPoint) {
-        List<Ayuntamiento> allAyuntamientos = ayuntamientoDAO.findAll();
-
-        for (Ayuntamiento ayuntamiento : allAyuntamientos) {
-            if (ayuntamiento.getGeometry().contains(locationPoint)) {
-                LOGGER.debug("Point is inside ayuntamiento {}", ayuntamiento.getName());
-                return ayuntamiento;
-            }
-        }
-
-        LOGGER.debug("Point not contained in any ayuntamiento, using closest match");
-        Optional<Ayuntamiento> maybeClosestAyuntamiento = allAyuntamientos.stream()
-                .min(Comparator.comparingDouble(a -> a.getGeometry().distance(locationPoint)))
-                .map(closest -> {
-                    LOGGER.debug("Selecting closest ayuntamiento {}", closest.getName());
-                    return closest;
-                });
-
-        return maybeClosestAyuntamiento.orElseThrow();
-    }
-
-    private Optional<Ayuntamiento> establishAyuntamientoFromExistingMapping(String locationId) {
-        if (!mappedLocationIds.contains(locationId)) {
+        if (maybeCodigoPostal.isEmpty()) {
+            LOGGER.error("Unable to establish postcode for point {} in ayuntamiento {}", locationPoint, ayuntamiento);
             return Optional.empty();
         }
 
-        // If the idealistaLocationId is present in our mapping table, we should just use that.
-        LOGGER.info("Found location ID in mapping table {}", locationId);
-        Optional<IdealistaLocationMapping> maybeMapping =
-                mappingDAO.findByIdealistaLocationId(locationId);
+        AcantiladoLocation location = maybeBarrio
+                .map(barrio -> new AcantiladoLocation(ayuntamiento, maybeCodigoPostal.get(), barrio))
+                .orElseGet(() -> new AcantiladoLocation(ayuntamiento, maybeCodigoPostal.get()));
 
-        if (maybeMapping.isPresent()) {
-            long ayuntamientoId = maybeMapping.get().getAcantiladoAyuntamientoId();
-            return ayuntamientoDAO.findById(ayuntamientoId);
+        return Optional.of(location);
+    }
+
+    public CollectionStats getCollectionStats() {
+        return new CollectionStats(
+                locationsEstablished.get(),
+                locationsMissed.get(),
+                barriosEstablished.get(),
+                barrioMisses.get()
+        );
+    }
+
+    private Optional<CodigoPostal> findCodigoPostal(Ayuntamiento ayuntamiento, Point point) {
+        Set<CodigoPostal> postcodesForAyuntamiento = this.postCodesForProvince.get(ayuntamiento.getId());
+        for (CodigoPostal codigoPostal : postcodesForAyuntamiento) {
+            if (codigoPostal.getGeometry().covers(point)) {
+                return Optional.of(codigoPostal);
+            }
         }
         return Optional.empty();
     }
 
-    private void updateInMemoryMapping(Long ayuntamientoId, IdealistaLocationMapping mapping) {
-        if (ayuntamientoIdsByCountOfIdealistaLocationIds.containsKey(ayuntamientoId)) {
-            Map<IdealistaLocationMapping, Integer> locationIdByCounts = ayuntamientoIdsByCountOfIdealistaLocationIds.get(ayuntamientoId);
-            if (locationIdByCounts.containsKey(mapping)) {
-                locationIdByCounts.compute(mapping, (k, existingCount) -> existingCount + 1);
-            } else {
-                locationIdByCounts.put(mapping, 1);
-            }
-        } else {
-            Map<IdealistaLocationMapping, Integer> newMap = new HashMap<>();
-            newMap.put(mapping, 1);
-            ayuntamientoIdsByCountOfIdealistaLocationIds.put(ayuntamientoId, newMap);
-        }
-    }
-
-    private static int confidenceScore(long hits, double portion) {
-        return (int) (hits * (portion * portion));
-    }
-
-    public void storeMappings() {
-        Set<IdealistaLocationMapping> locationMappings = new HashSet<>();
-
-        ayuntamientoIdsByCountOfIdealistaLocationIds.forEach((ayuntamientoId, countsByLocation) -> {
-            if (countsByLocation.size() == 1) {
-                countsByLocation.forEach((location, count) -> {
-                    location.setConfidenceScore(confidenceScore(count, 1));
-                    locationMappings.add(location);
-                    LOGGER.debug("SUCCESS: found a single entry for ayuntamiento ID {}: {} with {} hits",
-                            ayuntamientoId, location, count);
-                });
-            } else {
-                countsByLocation.entrySet().stream()
-                        .max(Map.Entry.comparingByValue())
-                        .ifPresent(maxEntry -> {
-                            IdealistaLocationMapping winningLocation = maxEntry.getKey();
-                            int winningCount = maxEntry.getValue();
-                            int totalCount = countsByLocation.values().stream().mapToInt(Integer::intValue).sum();
-                            double portion = ((double) winningCount / totalCount);
-
-                            winningLocation.setConfidenceScore(confidenceScore(winningCount, portion));
-                            locationMappings.add(winningLocation);
-
-                            LOGGER.debug("CONFLICT: Multiple locations for ayuntamiento {}, using most common: {} ({}/{} properties, {}%)",
-                                    ayuntamientoId,
-                                    winningLocation,
-                                    winningCount,
-                                    totalCount,
-                                    portion);
-
-                            countsByLocation.forEach((location, count) -> {
-                                if (!location.equals(winningLocation)) {
-                                    LOGGER.debug("  Rejected: {} ({} properties)", location, count);
-                                }
-                            });
-                        });
-            }
-        });
-
-        LOGGER.info("Final in-memory mapping: {}.", locationMappings);
-
-        locationMappings.forEach(mapping -> {
-            List<IdealistaLocationMapping> existingMappings = mappingDAO.findByAyuntamientoId(mapping.getAcantiladoAyuntamientoId());
-            if (!existingMappings.isEmpty()) {
-                LOGGER.error("Found an existing mapping {} for mapping {}, skipping", existingMappings, mapping);
-            } else {
-                mappingDAO.saveOrUpdate(mapping);
-                LOGGER.info("Created new mapping: {} {} → {} ({}) with score {}",
-                        mapping.getAcantiladoAyuntamientoId(),
-                        mapping.getAcantiladoMunicipalityName(),
-                        mapping.getIdealistaMunicipalityName(),
-                        mapping.getIdealistaLocationId(),
-                        mapping.getConfidenceScore());
-            }
-        });
-    }
-
-    private static String normalizeLocationId(String idealistaLocationId) {
-        // Idealista location ID structure:
-        // 0-EU-ES-{province}-{comarca}-{subgroup}-{ayuntamiento} = 7 segments (ayuntamiento level - keep as-is)
-        // 0-EU-ES-{province}-{comarca}-{subgroup}-{ayuntamiento}-{district} = 8 segments (truncate to 7)
-        // 0-EU-ES-{province}-{comarca}-{subgroup}-{ayuntamiento}-{district}-{subdistrict} = 9 segments (truncate to 7)
-
-        String[] parts = idealistaLocationId.split("-");
-
-        if (parts.length <= 7) {
-            return idealistaLocationId;
-        }
-
-        // Has 8+ segments (includes district/neighborhood info) - keep only first 7
-        return String.join("-", Arrays.copyOfRange(parts, 0, 7));
-    }
-
-    public int getBruteForceCodigoPostalMatches() {
-        return bruteForceCodigoPostalMatches.get();
-    }
-
-    public int getLocationsEstablished() {
-        return locationsEstablished.get();
-    }
-
-    public AtomicInteger getBarriosEstablished() {
-        return barriosEstablished;
-    }
-
-    public AtomicInteger getBarrioMisses() {
-        return barrioMisses;
-    }
-
-    private CodigoPostal findCodigoPostal(Ayuntamiento ayuntamiento, Point point) {
-        for (CodigoPostal codigoPostal : ayuntamiento.getCodigosPostales()) {
-            if (codigoPostal.getGeometry().covers(point)) {
-                return codigoPostal;
-            }
-        }
-
-        double minDistance = Double.MAX_VALUE;
-        CodigoPostal closest = null;
-        for (CodigoPostal codigoPostal : codigoPostalDAO.findAll()) {
-            double distance = point.distance(codigoPostal.getGeometry());
-            if (distance < minDistance) {
-                minDistance = distance;
-                closest = codigoPostal;
-            }
-        }
-
-        LOGGER.debug("Found codigo postal {} by proximity of ~{}m", closest.getCodigoPostal(), (int) (minDistance * 111000));
-        bruteForceCodigoPostalMatches.incrementAndGet();
-        return closest;
-    }
-
-    private Barrio findBarrio(Ayuntamiento ayuntamiento, Point point, long propertyCode) {
-        Set<Long> codesOfCitiesWithBarrios = new HashSet<>();
-        for (CityAyuntamientoCodes code : CityAyuntamientoCodes.values()) {
-            codesOfCitiesWithBarrios.add(code.cityCode);
-        }
-
-        if (codesOfCitiesWithBarrios.contains(ayuntamiento.getId())) {
-            for (Barrio barrio : barrioDAO.findByAyuntamiento(ayuntamiento.getId())) {
+    private Optional<Barrio> findBarrio(Ayuntamiento ayuntamiento, Point point) {
+        if (ayuntamientosWithBarrios.contains(ayuntamiento.getId())) {
+            for (Barrio barrio : barriosForProvince) {
                 if (barrio.getGeometry().contains(point)) {
-                    LOGGER.debug("Successfully found barrio for ayuntamiento {} and {}", ayuntamiento.getId(), propertyCode);
                     barriosEstablished.incrementAndGet();
-                    return barrio;
+                    return Optional.of(barrio);
                 }
             }
             barrioMisses.incrementAndGet();
-            LOGGER.debug("Expected a barrio but none found for {} and {}", ayuntamiento.getId(), propertyCode);
         }
 
-        return null;
+        return Optional.empty();
     }
 }

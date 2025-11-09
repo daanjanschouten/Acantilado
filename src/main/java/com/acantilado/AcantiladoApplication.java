@@ -12,7 +12,7 @@ import com.acantilado.core.resources.properties.IdealistaRealEstateResource;
 import com.acantilado.gathering.administration.AdministrativeCollectorScheduler;
 import com.acantilado.gathering.administration.AdministrativeCollectorService;
 import com.acantilado.gathering.properties.IdealistaCollectorScheduler;
-import com.acantilado.gathering.properties.IdealistaCollectorService;
+import com.acantilado.gathering.properties.IdealistaCollectorServiceFactory;
 import com.acantilado.tasks.EchoTask;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -118,7 +118,7 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         final IdealistaLocationDAO locationDAO = new IdealistaLocationDAO(hibernateBundle.getSessionFactory());
 
         final IdealistaLocationMappingDAO idealistaAyuntamientoMappingDAO = new IdealistaLocationMappingDAO(hibernateBundle.getSessionFactory());
-        final IdealistaCollectorService collectorService = new IdealistaCollectorService(
+        final IdealistaCollectorServiceFactory collectorServiceFactory = new IdealistaCollectorServiceFactory(
                 idealistaContactInformationDAO,
                 idealistaPropertyDAO,
                 idealistaTerrainDAO,
@@ -156,6 +156,6 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                 idealistaPropertyDAO,
                 idealistaPropertyPriceRecordDAO,
                 idealistaTerrainPriceRecordDAO));
-        environment.lifecycle().manage(new IdealistaCollectorScheduler(collectorService));
+        environment.lifecycle().manage(new IdealistaCollectorScheduler(collectorServiceFactory));
     }
 }

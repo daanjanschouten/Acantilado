@@ -201,6 +201,6 @@ public class IdealistaSearchRequest implements RequestBodyData {
                 2400,
                 String.valueOf(0),
                 String.valueOf(0),
-                ProxyConfiguration.datacenter());
+                ProxyConfiguration.residential());
     }
 }

@@ -56,13 +56,14 @@ public class IdealistaRealEstateCollector<T extends IdealistaRealEstate<? extend
     @Override
     public void storeResult(T realEstate) {
         Coordinate coordinate = new Coordinate(realEstate.getLongitude(), realEstate.getLatitude());
-        AcantiladoLocation location = locationEstablisher.establishAndRecordMapping(
+        Optional<AcantiladoLocation> maybeLocation = locationEstablisher.establish(
                 realEstate.getMunicipality(),
-                realEstate.getLocationId(),
-                GEOMETRY_FACTORY.createPoint(coordinate),
-                realEstate.getPropertyCode());
+                AcantiladoLocation.normalizeIdealistaLocationId(realEstate.getLocationId()),
+                GEOMETRY_FACTORY.createPoint(coordinate));
 
-        realEstate.setAcantiladoLocationId(location.getIdentifier());
+        realEstate.setAcantiladoLocationId(maybeLocation
+                .map(AcantiladoLocation::getIdentifier)
+                .orElse("INDETERMINATE"));
 
         IdealistaContactInformation definitiveContactInformation =
                 establishContactInformation(realEstate.getContactInfo(), contactInformationDAO);

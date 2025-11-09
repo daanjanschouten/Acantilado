@@ -199,8 +199,6 @@ public class Ayuntamiento {
                 "ayuntamiento_id=" + ayuntamiento_id +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
-                ", provincia=" + provincia +
-                ", comunidadAutonoma=" + comunidadAutonoma +
                 '}';
     }
 }

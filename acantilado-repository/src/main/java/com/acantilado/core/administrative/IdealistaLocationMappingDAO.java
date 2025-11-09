@@ -3,9 +3,7 @@ package com.acantilado.core.administrative;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 
-import javax.persistence.NoResultException;
 import java.util.List;
-import java.util.Optional;
 
 public class IdealistaLocationMappingDAO extends AbstractDAO<IdealistaLocationMapping> {
 
@@ -13,14 +11,9 @@ public class IdealistaLocationMappingDAO extends AbstractDAO<IdealistaLocationMa
         super(sessionFactory);
     }
 
-    public Optional<IdealistaLocationMapping> findByIdealistaLocationId(String idealistaLocationId) {
-        try {
-            return Optional.of(namedTypedQuery("com.acantilado.core.administrative.IdealistaLocationMapping.findByIdealistaLocationId")
-                    .setParameter("idealistaLocationId", idealistaLocationId)
-                    .getSingleResult());
-        } catch (NoResultException e) {
-            return Optional.empty();
-        }
+    public List<IdealistaLocationMapping> findByIdealistaLocationId(String idealistaLocationId) {
+        return list(namedTypedQuery("com.acantilado.core.administrative.IdealistaLocationMapping.findByIdealistaLocationId")
+                    .setParameter("idealistaLocationId", idealistaLocationId));
     }
 
     public List<IdealistaLocationMapping> findByAyuntamientoId(Long ayuntamientoId) {
