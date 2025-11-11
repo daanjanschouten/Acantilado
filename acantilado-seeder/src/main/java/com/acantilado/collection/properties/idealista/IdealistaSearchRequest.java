@@ -103,10 +103,10 @@ public class IdealistaSearchRequest implements RequestBodyData {
 
     private static IdealistaSearchRequest withResidentialProxy(IdealistaSearchRequest request) {
         return new IdealistaSearchRequest(
-                IdealistaCountry.valueOf(request.country),
-                IdealistaOperation.valueOf(request.operation),
-                IdealistaPropertyType.valueOf(request.propertyType),
-                IdealistaSortBy.valueOf(request.sortBy),
+                IdealistaCountry.fromCountryCode(request.country),
+                IdealistaOperation.fromOperationCode(request.operation),
+                IdealistaPropertyType.fromTypeCode(request.propertyType),
+                IdealistaSortBy.fromSortBy(request.sortBy),
                 request.location,
                 request.maxItems,
                 request.minSize,

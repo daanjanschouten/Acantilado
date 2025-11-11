@@ -47,7 +47,16 @@ public class ProvinceCollectionUtils {
     public static Set<Ayuntamiento> getAyuntamientosForProvince(
             SessionFactory sessionFactory, AyuntamientoDAO ayuntamientoDAO, Provincia provincia) {
         return executeCallableInSessionWithoutTransaction(sessionFactory,
-                () -> new HashSet<>(ayuntamientoDAO.findByProvinceId(provincia.getId())));
+                () -> {
+                    List<Ayuntamiento> ayuntamientos = ayuntamientoDAO.findByProvinceId(provincia.getId());
+
+                    return ayuntamientos.stream()
+                            .filter(a -> {
+                                String ayuntamientoProvinceCode = String.valueOf(a.getId() / 1000);
+                                return ayuntamientoProvinceCode.equals(String.valueOf(provincia.getId()));
+                            })
+                            .collect(Collectors.toSet());
+                });
     }
 
     public static Set<IdealistaAyuntamientoLocation> getLocationsForProvince(

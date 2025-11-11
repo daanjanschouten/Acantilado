@@ -14,4 +14,13 @@ public enum IdealistaSortBy {
     IdealistaSortBy(String sortBy) {
         this.sortBy = sortBy;
     }
+
+    public static IdealistaSortBy fromSortBy(String sortBy) {
+        for (IdealistaSortBy s : values()) {
+            if (s.sortBy.equals(sortBy)) {
+                return s;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
 }

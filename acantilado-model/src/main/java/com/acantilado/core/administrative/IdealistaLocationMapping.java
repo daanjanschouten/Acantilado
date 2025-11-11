@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "idealista_location_mapping")
+@Table(name = "IDEALISTA_LOCATION_MAPPING")
 @NamedQueries({
         @NamedQuery(
                 name = "com.acantilado.core.administrative.IdealistaLocationMapping.findAll",

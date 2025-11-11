@@ -13,4 +13,13 @@ public enum IdealistaOperation {
     IdealistaOperation(String operation) {
         this.operation = operation;
     }
+
+    public static IdealistaOperation fromOperationCode(String operationCode) {
+        for (IdealistaOperation o : values()) {
+            if (o.operation.equals(operationCode)) {
+                return o;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
 }

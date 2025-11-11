@@ -78,11 +78,18 @@ public class NovelLocationEstablisher {
 
         AtomicInteger mappingsStored = new AtomicInteger();
         locationMappings.forEach(mapping -> {
-            List<IdealistaLocationMapping> existingMappings = mappingDAO.findByAyuntamientoId(mapping.getAcantiladoAyuntamientoId());
             if (mapping.getConfidenceScore() < 5) {
-                LOGGER.info("Property count is insufficient for storage for mapping {} with score {}",
-                        mapping, mapping.getConfidenceScore());
-            } else if (!existingMappings.isEmpty()) {
+                if (isEffectiveNamingMatch(mapping.getAcantiladoMunicipalityName(), mapping.getIdealistaMunicipalityName())) {
+                    LOGGER.debug("Allowing mapping {} due to naming match despite low listing count {}", mapping, mapping.getConfidenceScore());
+                } else {
+                    LOGGER.info("Property count is insufficient for storage for mapping {} with score {}",
+                            mapping, mapping.getConfidenceScore());
+                    return;
+                }
+            }
+
+            List<IdealistaLocationMapping> existingMappings = mappingDAO.findByAyuntamientoId(mapping.getAcantiladoAyuntamientoId());
+            if (!existingMappings.isEmpty()) {
                 for (IdealistaLocationMapping eMapping : existingMappings) {
                     boolean locationIdMatches =
                             Objects.equals(eMapping.getIdealistaLocationId(), mapping.getIdealistaLocationId());
@@ -92,10 +99,10 @@ public class NovelLocationEstablisher {
                         LOGGER.info("Skipping mapping that was already stored");
                     } else {
                         LOGGER.info("Created additional mapping for ayuntamiento: {} with score {}", mapping, mapping.getConfidenceScore());
+                        mappingsStored.incrementAndGet();
                         mappingDAO.saveOrUpdate(mapping);
                     }
                 }
-                LOGGER.info("Found an existing mapping {} for mapping {}, skipping", existingMappings, mapping);
             } else {
                 mappingDAO.saveOrUpdate(mapping);
                 LOGGER.info("Created new mapping: {} with score {}", mapping, mapping.getConfidenceScore());
@@ -137,5 +144,28 @@ public class NovelLocationEstablisher {
             newMap.put(mapping, 1);
             ayuntamientoIdsByCountOfIdealistaLocationIds.put(ayuntamientoId, newMap);
         }
+    }
+
+    private static boolean isEffectiveNamingMatch(String acantiladoName, String idealistaName) {
+        return Objects.equals(normalizeMunicipalityName(acantiladoName), normalizeMunicipalityName(idealistaName));
+    }
+
+    private static String normalizeMunicipalityName(String name) {
+        return name.toLowerCase()
+                // Remove accents
+                .replace("á", "a")
+                .replace("é", "e")
+                .replace("í", "i")
+                .replace("ó", "o")
+                .replace("ú", "u")
+                .replace("ñ", "n")
+                // Remove common Spanish articles that might differ
+                .replaceAll("^el ", "")
+                .replaceAll("^la ", "")
+                .replaceAll("^los ", "")
+                .replaceAll("^las ", "")
+                // Remove extra whitespace
+                .replaceAll("\\s+", " ")
+                .trim();
     }
 }

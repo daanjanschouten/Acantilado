@@ -13,4 +13,13 @@ public enum IdealistaPropertyType {
     IdealistaPropertyType(String propertyType) {
         this.propertyType = propertyType;
     }
+
+    public static IdealistaPropertyType fromTypeCode(String typeCode) {
+        for (IdealistaPropertyType t : values()) {
+            if (t.propertyType.equals(typeCode)) {
+                return t;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
 }
