@@ -26,7 +26,7 @@ import java.util.List;
                 )
         }
 )
-public class IdealistaTerrain extends IdealistaRealEstate<IdealistaTerrainPriceRecord, IdealistaTerrain> {
+public class IdealistaTerrain extends IdealistaRealEstate<IdealistaTerrainPriceRecord> {
     @Id
     @Column(name = "property_code")
     private Long propertyCode;

@@ -1,7 +1,7 @@
 package location;
 
 import com.acantilado.core.administrative.*;
-import com.acantilado.gathering.location.AcantiladoLocation;
+import com.acantilado.collection.location.AcantiladoLocation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

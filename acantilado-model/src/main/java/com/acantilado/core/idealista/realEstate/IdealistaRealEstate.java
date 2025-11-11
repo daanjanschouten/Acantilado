@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class IdealistaRealEstate<P, T> {
+public abstract class IdealistaRealEstate<P> {
     private static final String SUB_TYPOLOGY_FALLBACK = "Indeterminate";
 
     public abstract Long getPropertyCode();

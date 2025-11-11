@@ -82,14 +82,8 @@ public class IdealistaLocationMapping implements Serializable {
 
     @Override
     public String toString() {
-        return "IdealistaLocationMapping{" +
-                "id=" + id +
-                ", idealistaLocationId='" + idealistaLocationId + '\'' +
-                ", idealistaMunicipalityName='" + idealistaMunicipalityName + '\'' +
-                ", acantiladoAyuntamientoId=" + acantiladoAyuntamientoId +
-                ", acantiladoMunicipalityName='" + acantiladoMunicipalityName + '\'' +
-                ", confidenceScore=" + confidenceScore +
-                '}';
+        return acantiladoAyuntamientoId + " " + acantiladoMunicipalityName +
+                " -> " + idealistaLocationId + " " + idealistaMunicipalityName;
     }
 
     @Override
