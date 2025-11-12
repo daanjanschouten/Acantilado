@@ -116,6 +116,10 @@ public class AcantiladoLocationEstablisher {
                 return Optional.of(codigoPostal);
             }
         }
+        LOGGER.error("Point not found in any postcode {} associated with this ayuntamiento {}",
+                postcodesForAyuntamiento.stream().map(CodigoPostal::getCodigoPostal).collect(Collectors.toSet()),
+                ayuntamiento.getId());
+
         return Optional.empty();
     }
 

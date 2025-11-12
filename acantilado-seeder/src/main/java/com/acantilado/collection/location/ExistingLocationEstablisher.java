@@ -8,6 +8,7 @@ import org.locationtech.jts.geom.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -33,15 +34,17 @@ public class ExistingLocationEstablisher {
     }
 
     protected Optional<AcantiladoLocation> establish(String locationId, Point locationPoint) {
-        Optional<Ayuntamiento> maybeAyuntamiento = establishAyuntamiento(locationId, locationPoint);
-        return maybeAyuntamiento.flatMap(a -> locationProducer.apply(a, locationPoint));
+        return locationProducer.apply(
+                establishAyuntamiento(locationId, locationPoint),
+                locationPoint
+        );
     }
 
-    private Optional<Ayuntamiento> establishAyuntamiento(String locationId, Point locationPoint) {
+    private Ayuntamiento establishAyuntamiento(String locationId, Point locationPoint) {
         List<IdealistaLocationMapping> mappingsForLocationId = mappingDAO.findByIdealistaLocationId(locationId);
         if (mappingsForLocationId.isEmpty()) {
             LOGGER.error("No mapping found for location ID {}", locationId);
-            return Optional.empty();
+            throw new IllegalStateException();
         }
 
         if (mappingsForLocationId.size() > 1) {
@@ -50,27 +53,33 @@ public class ExistingLocationEstablisher {
                     .map(IdealistaLocationMapping::getAcantiladoAyuntamientoId)
                     .collect(Collectors.toSet());
 
-            Optional<Ayuntamiento> maybeAyuntamiento = selectFromAyuntamientos(ayuntamientoIds, locationPoint);
-            LOGGER.info("More than one mapping found for location ID {}", locationId);
-            return maybeAyuntamiento;
+            return selectFromAyuntamientos(ayuntamientoIds, locationPoint);
         }
 
         long ayuntamientoId = mappingsForLocationId.get(0).getAcantiladoAyuntamientoId();
-        return ayuntamientoDAO.findById(ayuntamientoId);
+        return ayuntamientoDAO.findById(ayuntamientoId).orElseThrow();
     }
 
-    private Optional<Ayuntamiento> selectFromAyuntamientos(Set<Long> ayuntamientoIds, Point locationPoint) {
+    private Ayuntamiento selectFromAyuntamientos(Set<Long> ayuntamientoIds, Point locationPoint) {
         Optional<Ayuntamiento> maybeAyuntamiento = ayuntamientoIds.stream()
                 .map(ayuntamientoDAO::findById)
                 .flatMap(Optional::stream)
                 .filter(a -> a.getGeometry().contains(locationPoint))
                 .findFirst();
 
-        maybeAyuntamiento.ifPresentOrElse(
-                a -> LOGGER.info("Found point {} inside of ayuntamiento {} based on mappings", locationPoint, a),
-                () -> LOGGER.info("No ayuntamiento found among linked mappings {} for location {}", ayuntamientoIds, locationPoint)
-        );
+        if (maybeAyuntamiento.isPresent()) {
+            return maybeAyuntamiento.get();
+        }
 
-        return maybeAyuntamiento;
+        Optional<Ayuntamiento> maybeClosestAyuntamiento = ayuntamientoIds.stream()
+                .map(ayuntamientoDAO::findById)
+                .flatMap(Optional::stream)
+                .min(Comparator.comparingDouble(a -> a.getGeometry().distance(locationPoint)))
+                .map(closest -> {
+                    LOGGER.info("Selecting closest ayuntamiento {} for location {}", closest.getName(), locationPoint);
+                    return closest;
+                });
+
+        return maybeClosestAyuntamiento.orElseThrow();
     }
 }

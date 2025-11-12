@@ -1,0 +1,1261 @@
+[ {
+  "id" : 546,
+  "idealistaLocationId" : "0-EU-ES-18-06-001-020",
+  "idealistaMunicipalityName" : "Arenas del Rey",
+  "acantiladoAyuntamientoId" : 18020,
+  "acantiladoMunicipalityName" : "Arenas del Rey",
+  "confidenceScore" : null
+}, {
+  "id" : 395,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-176",
+  "idealistaMunicipalityName" : "Soportujar",
+  "acantiladoAyuntamientoId" : 18176,
+  "acantiladoMunicipalityName" : "Soportújar",
+  "confidenceScore" : null
+}, {
+  "id" : 542,
+  "idealistaLocationId" : "0-EU-ES-18-05-020-079",
+  "idealistaMunicipalityName" : "Fuente Vaqueros",
+  "acantiladoAyuntamientoId" : 18079,
+  "acantiladoMunicipalityName" : "Fuente Vaqueros",
+  "confidenceScore" : null
+}, {
+  "id" : 507,
+  "idealistaLocationId" : "0-EU-ES-18-01-003-017",
+  "idealistaMunicipalityName" : "Almuñécar",
+  "acantiladoAyuntamientoId" : 18017,
+  "acantiladoMunicipalityName" : "Almuñécar",
+  "confidenceScore" : null
+}, {
+  "id" : 472,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-043",
+  "idealistaMunicipalityName" : "Carataunas",
+  "acantiladoAyuntamientoId" : 18043,
+  "acantiladoMunicipalityName" : "Carataunas",
+  "confidenceScore" : null
+}, {
+  "id" : 383,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-181",
+  "idealistaMunicipalityName" : "Turon",
+  "acantiladoAyuntamientoId" : 18181,
+  "acantiladoMunicipalityName" : "Turón",
+  "confidenceScore" : null
+}, {
+  "id" : 458,
+  "idealistaLocationId" : "0-EU-ES-18-01-010-177",
+  "idealistaMunicipalityName" : "Sorvilan",
+  "acantiladoAyuntamientoId" : 18177,
+  "acantiladoMunicipalityName" : "Sorvilán",
+  "confidenceScore" : null
+}, {
+  "id" : 411,
+  "idealistaLocationId" : "0-EU-ES-18-01-001-140",
+  "idealistaMunicipalityName" : "Motril",
+  "acantiladoAyuntamientoId" : 18140,
+  "acantiladoMunicipalityName" : "Motril",
+  "confidenceScore" : null
+}, {
+  "id" : 451,
+  "idealistaLocationId" : "0-EU-ES-18-03-002-056",
+  "idealistaMunicipalityName" : "Cullar",
+  "acantiladoAyuntamientoId" : 18056,
+  "acantiladoMunicipalityName" : "Cúllar",
+  "confidenceScore" : null
+}, {
+  "id" : 522,
+  "idealistaLocationId" : "0-EU-ES-18-08-001-098",
+  "idealistaMunicipalityName" : "Huéscar",
+  "acantiladoAyuntamientoId" : 18098,
+  "acantiladoMunicipalityName" : "Huéscar",
+  "confidenceScore" : null
+}, {
+  "id" : 431,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-089",
+  "idealistaMunicipalityName" : "Guadix",
+  "acantiladoAyuntamientoId" : 18089,
+  "acantiladoMunicipalityName" : "Guadix",
+  "confidenceScore" : null
+}, {
+  "id" : 541,
+  "idealistaLocationId" : "0-EU-ES-18-01-002-906",
+  "idealistaMunicipalityName" : "Los Guajares",
+  "acantiladoAyuntamientoId" : 18906,
+  "acantiladoMunicipalityName" : "Los Guájares",
+  "confidenceScore" : null
+}, {
+  "id" : 385,
+  "idealistaLocationId" : "0-EU-ES-18-05-003-095",
+  "idealistaMunicipalityName" : "Güevéjar",
+  "acantiladoAyuntamientoId" : 18095,
+  "acantiladoMunicipalityName" : "Güevéjar",
+  "confidenceScore" : null
+}, {
+  "id" : 551,
+  "idealistaLocationId" : "0-EU-ES-18-05-013-134",
+  "idealistaMunicipalityName" : "Monachil",
+  "acantiladoAyuntamientoId" : 18134,
+  "acantiladoMunicipalityName" : "Monachil",
+  "confidenceScore" : null
+}, {
+  "id" : 387,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-163",
+  "idealistaMunicipalityName" : "Portugos",
+  "acantiladoAyuntamientoId" : 18163,
+  "acantiladoMunicipalityName" : "Pórtugos",
+  "confidenceScore" : null
+}, {
+  "id" : 391,
+  "idealistaLocationId" : "0-EU-ES-18-06-005-001",
+  "idealistaMunicipalityName" : "Agron",
+  "acantiladoAyuntamientoId" : 18001,
+  "acantiladoMunicipalityName" : "Agrón",
+  "confidenceScore" : null
+}, {
+  "id" : 392,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-085",
+  "idealistaMunicipalityName" : "Gor",
+  "acantiladoAyuntamientoId" : 18085,
+  "acantiladoMunicipalityName" : "Gor",
+  "confidenceScore" : null
+}, {
+  "id" : 420,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-179",
+  "idealistaMunicipalityName" : "Torvizcon",
+  "acantiladoAyuntamientoId" : 18179,
+  "acantiladoMunicipalityName" : "Torvizcón",
+  "confidenceScore" : null
+}, {
+  "id" : 467,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-903",
+  "idealistaMunicipalityName" : "Nevada",
+  "acantiladoAyuntamientoId" : 18903,
+  "acantiladoMunicipalityName" : "Nevada",
+  "confidenceScore" : null
+}, {
+  "id" : 382,
+  "idealistaLocationId" : "0-EU-ES-18-05-024-165",
+  "idealistaMunicipalityName" : "Pulianas",
+  "acantiladoAyuntamientoId" : 18165,
+  "acantiladoMunicipalityName" : "Pulianas",
+  "confidenceScore" : null
+}, {
+  "id" : 412,
+  "idealistaLocationId" : "0-EU-ES-18-05-003-144",
+  "idealistaMunicipalityName" : "Nivar",
+  "acantiladoAyuntamientoId" : 18144,
+  "acantiladoMunicipalityName" : "Nívar",
+  "confidenceScore" : null
+}, {
+  "id" : 421,
+  "idealistaLocationId" : "0-EU-ES-18-05-003-189",
+  "idealistaMunicipalityName" : "Viznar",
+  "acantiladoAyuntamientoId" : 18189,
+  "acantiladoMunicipalityName" : "Víznar",
+  "confidenceScore" : null
+}, {
+  "id" : 406,
+  "idealistaLocationId" : "0-EU-ES-18-08-001-146",
+  "idealistaMunicipalityName" : "Orce",
+  "acantiladoAyuntamientoId" : 18146,
+  "acantiladoMunicipalityName" : "Orce",
+  "confidenceScore" : null
+}, {
+  "id" : 418,
+  "idealistaLocationId" : "0-EU-ES-18-08-001-046",
+  "idealistaMunicipalityName" : "Castril",
+  "acantiladoAyuntamientoId" : 18046,
+  "acantiladoMunicipalityName" : "Castril",
+  "confidenceScore" : null
+}, {
+  "id" : 410,
+  "idealistaLocationId" : "0-EU-ES-18-01-004-124",
+  "idealistaMunicipalityName" : "Lujar",
+  "acantiladoAyuntamientoId" : 18124,
+  "acantiladoMunicipalityName" : "Lújar",
+  "confidenceScore" : null
+}, {
+  "id" : 386,
+  "idealistaLocationId" : "0-EU-ES-18-05-019-175",
+  "idealistaMunicipalityName" : "Santa Fe",
+  "acantiladoAyuntamientoId" : 18175,
+  "acantiladoMunicipalityName" : "Santa Fe",
+  "confidenceScore" : null
+}, {
+  "id" : 548,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-035",
+  "idealistaMunicipalityName" : "Cadiar",
+  "acantiladoAyuntamientoId" : 18035,
+  "acantiladoMunicipalityName" : "Cádiar",
+  "confidenceScore" : null
+}, {
+  "id" : 416,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-086",
+  "idealistaMunicipalityName" : "Gorafe",
+  "acantiladoAyuntamientoId" : 18086,
+  "acantiladoMunicipalityName" : "Gorafe",
+  "confidenceScore" : null
+}, {
+  "id" : 405,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-112",
+  "idealistaMunicipalityName" : "Juviles",
+  "acantiladoAyuntamientoId" : 18112,
+  "acantiladoMunicipalityName" : "Juviles",
+  "confidenceScore" : null
+}, {
+  "id" : 413,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-016",
+  "idealistaMunicipalityName" : "Almegijar",
+  "acantiladoAyuntamientoId" : 18016,
+  "acantiladoMunicipalityName" : "Almegíjar",
+  "confidenceScore" : null
+}, {
+  "id" : 424,
+  "idealistaLocationId" : "0-EU-ES-18-01-004-170",
+  "idealistaMunicipalityName" : "Rubite",
+  "acantiladoAyuntamientoId" : 18170,
+  "acantiladoMunicipalityName" : "Rubite",
+  "confidenceScore" : null
+}, {
+  "id" : 444,
+  "idealistaLocationId" : "0-EU-ES-18-05-010-905",
+  "idealistaMunicipalityName" : "Las Gabias",
+  "acantiladoAyuntamientoId" : 18905,
+  "acantiladoMunicipalityName" : "Las Gabias",
+  "confidenceScore" : null
+}, {
+  "id" : 455,
+  "idealistaLocationId" : "0-EU-ES-18-06-004-138",
+  "idealistaMunicipalityName" : "Moraleda de Zafayona",
+  "acantiladoAyuntamientoId" : 18138,
+  "acantiladoMunicipalityName" : "Moraleda de Zafayona",
+  "confidenceScore" : null
+}, {
+  "id" : 434,
+  "idealistaLocationId" : "0-EU-ES-18-07-004-007",
+  "idealistaMunicipalityName" : "Albuñuelas",
+  "acantiladoAyuntamientoId" : 18007,
+  "acantiladoMunicipalityName" : "Albuñuelas",
+  "confidenceScore" : null
+}, {
+  "id" : 560,
+  "idealistaLocationId" : "0-EU-ES-18-05-008-610",
+  "idealistaMunicipalityName" : "Purchil",
+  "acantiladoAyuntamientoId" : 18911,
+  "acantiladoMunicipalityName" : "Vegas del Genil",
+  "confidenceScore" : null
+}, {
+  "id" : 539,
+  "idealistaLocationId" : "0-EU-ES-18-03-002-023",
+  "idealistaMunicipalityName" : "Baza",
+  "acantiladoAyuntamientoId" : 18023,
+  "acantiladoMunicipalityName" : "Baza",
+  "confidenceScore" : null
+}, {
+  "id" : 466,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-116",
+  "idealistaMunicipalityName" : "Lanjaron",
+  "acantiladoAyuntamientoId" : 18116,
+  "acantiladoMunicipalityName" : "Lanjarón",
+  "confidenceScore" : null
+}, {
+  "id" : 425,
+  "idealistaLocationId" : "0-EU-ES-18-05-022-047",
+  "idealistaMunicipalityName" : "Cenes de la Vega",
+  "acantiladoAyuntamientoId" : 18047,
+  "acantiladoMunicipalityName" : "Cenes de la Vega",
+  "confidenceScore" : null
+}, {
+  "id" : 559,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-915",
+  "idealistaMunicipalityName" : "Domingo Pérez de Granada",
+  "acantiladoAyuntamientoId" : 18915,
+  "acantiladoMunicipalityName" : "Domingo Pérez de Granada",
+  "confidenceScore" : null
+}, {
+  "id" : 404,
+  "idealistaLocationId" : "0-EU-ES-18-01-010-004",
+  "idealistaMunicipalityName" : "Albondon",
+  "acantiladoAyuntamientoId" : 18004,
+  "acantiladoMunicipalityName" : "Albondón",
+  "confidenceScore" : null
+}, {
+  "id" : 422,
+  "idealistaLocationId" : "0-EU-ES-18-06-001-106",
+  "idealistaMunicipalityName" : "Játar",
+  "acantiladoAyuntamientoId" : 18106,
+  "acantiladoMunicipalityName" : "Játar",
+  "confidenceScore" : null
+}, {
+  "id" : 419,
+  "idealistaLocationId" : "0-EU-ES-18-06-002-913",
+  "idealistaMunicipalityName" : "Zagra",
+  "acantiladoAyuntamientoId" : 18913,
+  "acantiladoMunicipalityName" : "Zagra",
+  "confidenceScore" : null
+}, {
+  "id" : 448,
+  "idealistaLocationId" : "0-EU-ES-18-08-001-164",
+  "idealistaMunicipalityName" : "Puebla de Don Fadrique",
+  "acantiladoAyuntamientoId" : 18164,
+  "acantiladoMunicipalityName" : "Puebla de Don Fadrique",
+  "confidenceScore" : null
+}, {
+  "id" : 510,
+  "idealistaLocationId" : "0-EU-ES-18-01-008-173",
+  "idealistaMunicipalityName" : "Salobreña",
+  "acantiladoAyuntamientoId" : 18173,
+  "acantiladoMunicipalityName" : "Salobreña",
+  "confidenceScore" : null
+}, {
+  "id" : 402,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-909",
+  "idealistaMunicipalityName" : "Morelabor",
+  "acantiladoAyuntamientoId" : 18909,
+  "acantiladoMunicipalityName" : "Morelábor",
+  "confidenceScore" : null
+}, {
+  "id" : 506,
+  "idealistaLocationId" : "0-EU-ES-18-05-012-062",
+  "idealistaMunicipalityName" : "Churriana de la Vega",
+  "acantiladoAyuntamientoId" : 18062,
+  "acantiladoMunicipalityName" : "Churriana de la Vega",
+  "confidenceScore" : null
+}, {
+  "id" : 521,
+  "idealistaLocationId" : "0-EU-ES-18-05-016-127",
+  "idealistaMunicipalityName" : "Maracena",
+  "acantiladoAyuntamientoId" : 18127,
+  "acantiladoMunicipalityName" : "Maracena",
+  "confidenceScore" : null
+}, {
+  "id" : 527,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-030",
+  "idealistaMunicipalityName" : "Bérchules",
+  "acantiladoAyuntamientoId" : 18030,
+  "acantiladoMunicipalityName" : "Bérchules",
+  "confidenceScore" : null
+}, {
+  "id" : 528,
+  "idealistaLocationId" : "0-EU-ES-18-05-014-014",
+  "idealistaMunicipalityName" : "Alhendin",
+  "acantiladoAyuntamientoId" : 18014,
+  "acantiladoMunicipalityName" : "Alhendín",
+  "confidenceScore" : null
+}, {
+  "id" : 399,
+  "idealistaLocationId" : "0-EU-ES-18-05-009-145",
+  "idealistaMunicipalityName" : "Ogijares",
+  "acantiladoAyuntamientoId" : 18145,
+  "acantiladoMunicipalityName" : "Ogíjares",
+  "confidenceScore" : null
+}, {
+  "id" : 435,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-002",
+  "idealistaMunicipalityName" : "Alamedilla",
+  "acantiladoAyuntamientoId" : 18002,
+  "acantiladoMunicipalityName" : "Alamedilla",
+  "confidenceScore" : null
+}, {
+  "id" : 503,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-028",
+  "idealistaMunicipalityName" : "Benalua de las Villas",
+  "acantiladoAyuntamientoId" : 18028,
+  "acantiladoMunicipalityName" : "Benalúa de las Villas",
+  "confidenceScore" : null
+}, {
+  "id" : 441,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-074",
+  "idealistaMunicipalityName" : "Ferreira",
+  "acantiladoAyuntamientoId" : 18074,
+  "acantiladoMunicipalityName" : "Ferreira",
+  "confidenceScore" : null
+}, {
+  "id" : 447,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-018",
+  "idealistaMunicipalityName" : "Alquife",
+  "acantiladoAyuntamientoId" : 18018,
+  "acantiladoMunicipalityName" : "Alquife",
+  "confidenceScore" : null
+}, {
+  "id" : 442,
+  "idealistaLocationId" : "0-EU-ES-18-06-001-077",
+  "idealistaMunicipalityName" : "Fornes",
+  "acantiladoAyuntamientoId" : 18077,
+  "acantiladoMunicipalityName" : "Fornes",
+  "confidenceScore" : null
+}, {
+  "id" : 430,
+  "idealistaLocationId" : "0-EU-ES-18-06-004-188",
+  "idealistaMunicipalityName" : "Villanueva Mesia",
+  "acantiladoAyuntamientoId" : 18188,
+  "acantiladoMunicipalityName" : "Villanueva Mesía",
+  "confidenceScore" : null
+}, {
+  "id" : 432,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-178",
+  "idealistaMunicipalityName" : "Torre-Cardela",
+  "acantiladoAyuntamientoId" : 18178,
+  "acantiladoMunicipalityName" : "Torre-Cardela",
+  "confidenceScore" : null
+}, {
+  "id" : 519,
+  "idealistaLocationId" : "0-EU-ES-18-03-002-053",
+  "idealistaMunicipalityName" : "Cortes de Baza",
+  "acantiladoAyuntamientoId" : 18053,
+  "acantiladoMunicipalityName" : "Cortes de Baza",
+  "confidenceScore" : null
+}, {
+  "id" : 557,
+  "idealistaLocationId" : "0-EU-ES-18-05-015-037",
+  "idealistaMunicipalityName" : "Calicasas",
+  "acantiladoAyuntamientoId" : 18037,
+  "acantiladoMunicipalityName" : "Calicasas",
+  "confidenceScore" : null
+}, {
+  "id" : 456,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-159",
+  "idealistaMunicipalityName" : "Piñar",
+  "acantiladoAyuntamientoId" : 18159,
+  "acantiladoMunicipalityName" : "Píñar",
+  "confidenceScore" : null
+}, {
+  "id" : 461,
+  "idealistaLocationId" : "0-EU-ES-18-05-022-157",
+  "idealistaMunicipalityName" : "Pinos-Genil",
+  "acantiladoAyuntamientoId" : 18157,
+  "acantiladoMunicipalityName" : "Pinos Genil",
+  "confidenceScore" : null
+}, {
+  "id" : 443,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-088",
+  "idealistaMunicipalityName" : "Guadahortuna",
+  "acantiladoAyuntamientoId" : 18088,
+  "acantiladoMunicipalityName" : "Guadahortuna",
+  "confidenceScore" : null
+}, {
+  "id" : 558,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-015",
+  "idealistaMunicipalityName" : "Alicun de Ortega",
+  "acantiladoAyuntamientoId" : 18015,
+  "acantiladoMunicipalityName" : "Alicún de Ortega",
+  "confidenceScore" : null
+}, {
+  "id" : 439,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-032",
+  "idealistaMunicipalityName" : "Bubion",
+  "acantiladoAyuntamientoId" : 18032,
+  "acantiladoMunicipalityName" : "Bubión",
+  "confidenceScore" : null
+}, {
+  "id" : 401,
+  "idealistaLocationId" : "0-EU-ES-18-05-017-168",
+  "idealistaMunicipalityName" : "Quéntar",
+  "acantiladoAyuntamientoId" : 18168,
+  "acantiladoMunicipalityName" : "Quéntar",
+  "confidenceScore" : null
+}, {
+  "id" : 417,
+  "idealistaLocationId" : "0-EU-ES-18-05-024-111",
+  "idealistaMunicipalityName" : "Jun",
+  "acantiladoAyuntamientoId" : 18111,
+  "acantiladoMunicipalityName" : "Jun",
+  "confidenceScore" : null
+}, {
+  "id" : 555,
+  "idealistaLocationId" : "0-EU-ES-18-05-008-911",
+  "idealistaMunicipalityName" : "Vegas del Genil",
+  "acantiladoAyuntamientoId" : 18911,
+  "acantiladoMunicipalityName" : "Vegas del Genil",
+  "confidenceScore" : null
+}, {
+  "id" : 390,
+  "idealistaLocationId" : "0-EU-ES-18-01-002-148",
+  "idealistaMunicipalityName" : "Otivar",
+  "acantiladoAyuntamientoId" : 18148,
+  "acantiladoMunicipalityName" : "Otívar",
+  "confidenceScore" : null
+}, {
+  "id" : 429,
+  "idealistaLocationId" : "0-EU-ES-18-05-021-048",
+  "idealistaMunicipalityName" : "Cijuela",
+  "acantiladoAyuntamientoId" : 18048,
+  "acantiladoMunicipalityName" : "Cijuela",
+  "confidenceScore" : null
+}, {
+  "id" : 398,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-904",
+  "idealistaMunicipalityName" : "Alpujarra de la Sierra",
+  "acantiladoAyuntamientoId" : 18904,
+  "acantiladoMunicipalityName" : "Alpujarra de la Sierra",
+  "confidenceScore" : null
+}, {
+  "id" : 465,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-010",
+  "idealistaMunicipalityName" : "Aldeire",
+  "acantiladoAyuntamientoId" : 18010,
+  "acantiladoMunicipalityName" : "Aldeire",
+  "confidenceScore" : null
+}, {
+  "id" : 473,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-067",
+  "idealistaMunicipalityName" : "Diezma",
+  "acantiladoAyuntamientoId" : 18067,
+  "acantiladoMunicipalityName" : "Diezma",
+  "confidenceScore" : null
+}, {
+  "id" : 459,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-117",
+  "idealistaMunicipalityName" : "Lantéira",
+  "acantiladoAyuntamientoId" : 18117,
+  "acantiladoMunicipalityName" : "Lanteira",
+  "confidenceScore" : null
+}, {
+  "id" : 462,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-114",
+  "idealistaMunicipalityName" : "La Calahorra",
+  "acantiladoAyuntamientoId" : 18114,
+  "acantiladoMunicipalityName" : "La Calahorra",
+  "confidenceScore" : null
+}, {
+  "id" : 393,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-180",
+  "idealistaMunicipalityName" : "Trevélez",
+  "acantiladoAyuntamientoId" : 18180,
+  "acantiladoMunicipalityName" : "Trevélez",
+  "confidenceScore" : null
+}, {
+  "id" : 452,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-054",
+  "idealistaMunicipalityName" : "Cortes y Graena",
+  "acantiladoAyuntamientoId" : 18054,
+  "acantiladoMunicipalityName" : "Cortes y Graena",
+  "confidenceScore" : null
+}, {
+  "id" : 494,
+  "idealistaLocationId" : "0-EU-ES-18-01-002-109",
+  "idealistaMunicipalityName" : "Jete",
+  "acantiladoAyuntamientoId" : 18109,
+  "acantiladoMunicipalityName" : "Jete",
+  "confidenceScore" : null
+}, {
+  "id" : 457,
+  "idealistaLocationId" : "0-EU-ES-18-01-002-120",
+  "idealistaMunicipalityName" : "Lenteji",
+  "acantiladoAyuntamientoId" : 18120,
+  "acantiladoMunicipalityName" : "Lentegí",
+  "confidenceScore" : null
+}, {
+  "id" : 409,
+  "idealistaLocationId" : "0-EU-ES-18-06-002-122",
+  "idealistaMunicipalityName" : "Loja",
+  "acantiladoAyuntamientoId" : 18122,
+  "acantiladoMunicipalityName" : "Loja",
+  "confidenceScore" : null
+}, {
+  "id" : 470,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-096",
+  "idealistaMunicipalityName" : "Huélago",
+  "acantiladoAyuntamientoId" : 18096,
+  "acantiladoMunicipalityName" : "Huélago",
+  "confidenceScore" : null
+}, {
+  "id" : 475,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-063",
+  "idealistaMunicipalityName" : "Darro",
+  "acantiladoAyuntamientoId" : 18063,
+  "acantiladoMunicipalityName" : "Darro",
+  "confidenceScore" : null
+}, {
+  "id" : 445,
+  "idealistaLocationId" : "0-EU-ES-18-08-001-045",
+  "idealistaMunicipalityName" : "Castilléjar",
+  "acantiladoAyuntamientoId" : 18045,
+  "acantiladoMunicipalityName" : "Castilléjar",
+  "confidenceScore" : null
+}, {
+  "id" : 446,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-901",
+  "idealistaMunicipalityName" : "La Taha",
+  "acantiladoAyuntamientoId" : 18901,
+  "acantiladoMunicipalityName" : "La Taha",
+  "confidenceScore" : null
+}, {
+  "id" : 556,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-161",
+  "idealistaMunicipalityName" : "Policar",
+  "acantiladoAyuntamientoId" : 18161,
+  "acantiladoMunicipalityName" : "Polícar",
+  "confidenceScore" : null
+}, {
+  "id" : 464,
+  "idealistaLocationId" : "0-EU-ES-18-05-023-914",
+  "idealistaMunicipalityName" : "Valderrubio",
+  "acantiladoAyuntamientoId" : 18914,
+  "acantiladoMunicipalityName" : "Valderrubio",
+  "confidenceScore" : null
+}, {
+  "id" : 460,
+  "idealistaLocationId" : "0-EU-ES-18-07-003-119",
+  "idealistaMunicipalityName" : "Lecrin",
+  "acantiladoAyuntamientoId" : 18119,
+  "acantiladoMunicipalityName" : "Lecrín",
+  "confidenceScore" : null
+}, {
+  "id" : 491,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-069",
+  "idealistaMunicipalityName" : "Dolar",
+  "acantiladoAyuntamientoId" : 18069,
+  "acantiladoMunicipalityName" : "Dólar",
+  "confidenceScore" : null
+}, {
+  "id" : 437,
+  "idealistaLocationId" : "0-EU-ES-18-05-015-153",
+  "idealistaMunicipalityName" : "Peligros",
+  "acantiladoAyuntamientoId" : 18153,
+  "acantiladoMunicipalityName" : "Peligros",
+  "confidenceScore" : null
+}, {
+  "id" : 463,
+  "idealistaLocationId" : "0-EU-ES-18-01-010-006",
+  "idealistaMunicipalityName" : "Albuñol",
+  "acantiladoAyuntamientoId" : 18006,
+  "acantiladoMunicipalityName" : "Albuñol",
+  "confidenceScore" : null
+}, {
+  "id" : 505,
+  "idealistaLocationId" : "0-EU-ES-18-01-011-916",
+  "idealistaMunicipalityName" : "Torrenueva Costa",
+  "acantiladoAyuntamientoId" : 18916,
+  "acantiladoMunicipalityName" : "Torrenueva Costa",
+  "confidenceScore" : null
+}, {
+  "id" : 389,
+  "idealistaLocationId" : "0-EU-ES-18-05-005-606",
+  "idealistaMunicipalityName" : "Sierra Nevada",
+  "acantiladoAyuntamientoId" : 18134,
+  "acantiladoMunicipalityName" : "Monachil",
+  "confidenceScore" : null
+}, {
+  "id" : 488,
+  "idealistaLocationId" : "0-EU-ES-18-06-001-107",
+  "idealistaMunicipalityName" : "Jayena",
+  "acantiladoAyuntamientoId" : 18107,
+  "acantiladoMunicipalityName" : "Jayena",
+  "confidenceScore" : null
+}, {
+  "id" : 504,
+  "idealistaLocationId" : "0-EU-ES-18-05-008-611",
+  "idealistaMunicipalityName" : "Belicena",
+  "acantiladoAyuntamientoId" : 18911,
+  "acantiladoMunicipalityName" : "Vegas del Genil",
+  "confidenceScore" : null
+}, {
+  "id" : 509,
+  "idealistaLocationId" : "0-EU-ES-18-06-005-034",
+  "idealistaMunicipalityName" : "Cacin",
+  "acantiladoAyuntamientoId" : 18034,
+  "acantiladoMunicipalityName" : "Cacín",
+  "confidenceScore" : null
+}, {
+  "id" : 450,
+  "idealistaLocationId" : "0-EU-ES-18-06-004-100",
+  "idealistaMunicipalityName" : "Huétor-Tajar",
+  "acantiladoAyuntamientoId" : 18100,
+  "acantiladoMunicipalityName" : "Huétor Tájar",
+  "confidenceScore" : null
+}, {
+  "id" : 499,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-097",
+  "idealistaMunicipalityName" : "Huéneja",
+  "acantiladoAyuntamientoId" : 18097,
+  "acantiladoMunicipalityName" : "Huéneja",
+  "confidenceScore" : null
+}, {
+  "id" : 478,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-064",
+  "idealistaMunicipalityName" : "Dehesas de Guadix",
+  "acantiladoAyuntamientoId" : 18064,
+  "acantiladoMunicipalityName" : "Dehesas de Guadix",
+  "confidenceScore" : null
+}, {
+  "id" : 483,
+  "idealistaLocationId" : "0-EU-ES-18-06-005-072",
+  "idealistaMunicipalityName" : "Escuzar",
+  "acantiladoAyuntamientoId" : 18072,
+  "acantiladoMunicipalityName" : "Escúzar",
+  "confidenceScore" : null
+}, {
+  "id" : 480,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-005",
+  "idealistaMunicipalityName" : "Albuñan",
+  "acantiladoAyuntamientoId" : 18005,
+  "acantiladoMunicipalityName" : "Albuñán",
+  "confidenceScore" : null
+}, {
+  "id" : 512,
+  "idealistaLocationId" : "0-EU-ES-18-05-003-024",
+  "idealistaMunicipalityName" : "Beas de Granada",
+  "acantiladoAyuntamientoId" : 18024,
+  "acantiladoMunicipalityName" : "Beas de Granada",
+  "confidenceScore" : null
+}, {
+  "id" : 485,
+  "idealistaLocationId" : "0-EU-ES-18-07-003-143",
+  "idealistaMunicipalityName" : "Nigüelas",
+  "acantiladoAyuntamientoId" : 18143,
+  "acantiladoMunicipalityName" : "Nigüelas",
+  "confidenceScore" : null
+}, {
+  "id" : 511,
+  "idealistaLocationId" : "0-EU-ES-18-07-003-910",
+  "idealistaMunicipalityName" : "El Pinar",
+  "acantiladoAyuntamientoId" : 18910,
+  "acantiladoMunicipalityName" : "El Pinar",
+  "confidenceScore" : null
+}, {
+  "id" : 550,
+  "idealistaLocationId" : "0-EU-ES-18-08-001-082",
+  "idealistaMunicipalityName" : "Galera",
+  "acantiladoAyuntamientoId" : 18082,
+  "acantiladoMunicipalityName" : "Galera",
+  "confidenceScore" : null
+}, {
+  "id" : 486,
+  "idealistaLocationId" : "0-EU-ES-18-06-005-185",
+  "idealistaMunicipalityName" : "Ventas de Huelma",
+  "acantiladoAyuntamientoId" : 18185,
+  "acantiladoMunicipalityName" : "Ventas de Huelma",
+  "confidenceScore" : null
+}, {
+  "id" : 414,
+  "idealistaLocationId" : "0-EU-ES-18-07-001-150",
+  "idealistaMunicipalityName" : "Padul",
+  "acantiladoAyuntamientoId" : 18150,
+  "acantiladoMunicipalityName" : "Padul",
+  "confidenceScore" : null
+}, {
+  "id" : 482,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-033",
+  "idealistaMunicipalityName" : "Busquistar",
+  "acantiladoAyuntamientoId" : 18033,
+  "acantiladoMunicipalityName" : "Busquístar",
+  "confidenceScore" : null
+}, {
+  "id" : 537,
+  "idealistaLocationId" : "0-EU-ES-18-06-003-132",
+  "idealistaMunicipalityName" : "Moclin",
+  "acantiladoAyuntamientoId" : 18132,
+  "acantiladoMunicipalityName" : "Moclín",
+  "confidenceScore" : null
+}, {
+  "id" : 484,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-121",
+  "idealistaMunicipalityName" : "Lobras",
+  "acantiladoAyuntamientoId" : 18121,
+  "acantiladoMunicipalityName" : "Lobras",
+  "confidenceScore" : null
+}, {
+  "id" : 497,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-076",
+  "idealistaMunicipalityName" : "Fonelas",
+  "acantiladoAyuntamientoId" : 18076,
+  "acantiladoMunicipalityName" : "Fonelas",
+  "confidenceScore" : null
+}, {
+  "id" : 433,
+  "idealistaLocationId" : "0-EU-ES-18-05-002-022",
+  "idealistaMunicipalityName" : "Atarfe",
+  "acantiladoAyuntamientoId" : 18022,
+  "acantiladoMunicipalityName" : "Atarfe",
+  "confidenceScore" : null
+}, {
+  "id" : 552,
+  "idealistaLocationId" : "0-EU-ES-18-01-004-093",
+  "idealistaMunicipalityName" : "Gualchos",
+  "acantiladoAyuntamientoId" : 18093,
+  "acantiladoMunicipalityName" : "Gualchos",
+  "confidenceScore" : null
+}, {
+  "id" : 384,
+  "idealistaLocationId" : "0-EU-ES-18-01-002-133",
+  "idealistaMunicipalityName" : "Molvizar",
+  "acantiladoAyuntamientoId" : 18133,
+  "acantiladoMunicipalityName" : "Molvízar",
+  "confidenceScore" : null
+}, {
+  "id" : 514,
+  "idealistaLocationId" : "0-EU-ES-18-05-017-070",
+  "idealistaMunicipalityName" : "Dudar",
+  "acantiladoAyuntamientoId" : 18070,
+  "acantiladoMunicipalityName" : "Dúdar",
+  "confidenceScore" : null
+}, {
+  "id" : 468,
+  "idealistaLocationId" : "0-EU-ES-18-05-003-011",
+  "idealistaMunicipalityName" : "Alfacar",
+  "acantiladoAyuntamientoId" : 18011,
+  "acantiladoMunicipalityName" : "Alfacar",
+  "confidenceScore" : null
+}, {
+  "id" : 381,
+  "idealistaLocationId" : "0-EU-ES-18-06-003-135",
+  "idealistaMunicipalityName" : "Montefrio",
+  "acantiladoAyuntamientoId" : 18135,
+  "acantiladoMunicipalityName" : "Montefrío",
+  "confidenceScore" : null
+}, {
+  "id" : 508,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-136",
+  "idealistaMunicipalityName" : "Montejicar",
+  "acantiladoAyuntamientoId" : 18136,
+  "acantiladoMunicipalityName" : "Montejícar",
+  "confidenceScore" : null
+}, {
+  "id" : 403,
+  "idealistaLocationId" : "0-EU-ES-18-05-001-087",
+  "idealistaMunicipalityName" : "Granada",
+  "acantiladoAyuntamientoId" : 18087,
+  "acantiladoMunicipalityName" : "Granada",
+  "confidenceScore" : null
+}, {
+  "id" : 436,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-907",
+  "idealistaMunicipalityName" : "Valle del Zalabi",
+  "acantiladoAyuntamientoId" : 18907,
+  "acantiladoMunicipalityName" : "Valle del Zalabí",
+  "confidenceScore" : null
+}, {
+  "id" : 500,
+  "idealistaLocationId" : "0-EU-ES-18-06-005-126",
+  "idealistaMunicipalityName" : "La Malaha",
+  "acantiladoAyuntamientoId" : 18126,
+  "acantiladoMunicipalityName" : "La Malahá",
+  "confidenceScore" : null
+}, {
+  "id" : 479,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-051",
+  "idealistaMunicipalityName" : "Colomera",
+  "acantiladoAyuntamientoId" : 18051,
+  "acantiladoMunicipalityName" : "Colomera",
+  "confidenceScore" : null
+}, {
+  "id" : 520,
+  "idealistaLocationId" : "0-EU-ES-18-03-002-912",
+  "idealistaMunicipalityName" : "Cuevas del Campo",
+  "acantiladoAyuntamientoId" : 18912,
+  "acantiladoMunicipalityName" : "Cuevas del Campo",
+  "confidenceScore" : null
+}, {
+  "id" : 476,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-187",
+  "idealistaMunicipalityName" : "Villanueva de las Torres",
+  "acantiladoAyuntamientoId" : 18187,
+  "acantiladoMunicipalityName" : "Villanueva de las Torres",
+  "confidenceScore" : null
+}, {
+  "id" : 516,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-049",
+  "idealistaMunicipalityName" : "Cogollos de Guadix",
+  "acantiladoAyuntamientoId" : 18049,
+  "acantiladoMunicipalityName" : "Cogollos de Guadix",
+  "confidenceScore" : null
+}, {
+  "id" : 493,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-183",
+  "idealistaMunicipalityName" : "Valor",
+  "acantiladoAyuntamientoId" : 18183,
+  "acantiladoMunicipalityName" : "Válor",
+  "confidenceScore" : null
+}, {
+  "id" : 502,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-154",
+  "idealistaMunicipalityName" : "La Peza",
+  "acantiladoAyuntamientoId" : 18154,
+  "acantiladoMunicipalityName" : "La Peza",
+  "confidenceScore" : null
+}, {
+  "id" : 481,
+  "idealistaLocationId" : "0-EU-ES-18-06-001-174",
+  "idealistaMunicipalityName" : "Santa Cruz del Comercio",
+  "acantiladoAyuntamientoId" : 18174,
+  "acantiladoMunicipalityName" : "Santa Cruz del Comercio",
+  "confidenceScore" : null
+}, {
+  "id" : 518,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-025",
+  "idealistaMunicipalityName" : "Beas de Guadix",
+  "acantiladoAyuntamientoId" : 18025,
+  "acantiladoMunicipalityName" : "Beas de Guadix",
+  "confidenceScore" : null
+}, {
+  "id" : 517,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-065",
+  "idealistaMunicipalityName" : "Dehesas Viejas",
+  "acantiladoAyuntamientoId" : 18065,
+  "acantiladoMunicipalityName" : "Dehesas Viejas",
+  "confidenceScore" : null
+}, {
+  "id" : 397,
+  "idealistaLocationId" : "0-EU-ES-18-05-025-084",
+  "idealistaMunicipalityName" : "Gojar",
+  "acantiladoAyuntamientoId" : 18084,
+  "acantiladoMunicipalityName" : "Gójar",
+  "confidenceScore" : null
+}, {
+  "id" : 513,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-038",
+  "idealistaMunicipalityName" : "Campotéjar",
+  "acantiladoAyuntamientoId" : 18038,
+  "acantiladoMunicipalityName" : "Campotéjar",
+  "confidenceScore" : null
+}, {
+  "id" : 501,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-152",
+  "idealistaMunicipalityName" : "Pedro-Martinez",
+  "acantiladoAyuntamientoId" : 18152,
+  "acantiladoMunicipalityName" : "Pedro Martínez",
+  "confidenceScore" : null
+}, {
+  "id" : 540,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-105",
+  "idealistaMunicipalityName" : "Iznalloz",
+  "acantiladoAyuntamientoId" : 18105,
+  "acantiladoMunicipalityName" : "Iznalloz",
+  "confidenceScore" : null
+}, {
+  "id" : 498,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-128",
+  "idealistaMunicipalityName" : "Marchal",
+  "acantiladoAyuntamientoId" : 18128,
+  "acantiladoMunicipalityName" : "Marchal",
+  "confidenceScore" : null
+}, {
+  "id" : 428,
+  "idealistaLocationId" : "0-EU-ES-18-03-002-039",
+  "idealistaMunicipalityName" : "Caniles",
+  "acantiladoAyuntamientoId" : 18039,
+  "acantiladoMunicipalityName" : "Caniles",
+  "confidenceScore" : null
+}, {
+  "id" : 438,
+  "idealistaLocationId" : "0-EU-ES-18-05-003-050",
+  "idealistaMunicipalityName" : "Cogollos Vega",
+  "acantiladoAyuntamientoId" : 18050,
+  "acantiladoMunicipalityName" : "Cogollos de la Vega",
+  "confidenceScore" : null
+}, {
+  "id" : 515,
+  "idealistaLocationId" : "0-EU-ES-18-06-005-061",
+  "idealistaMunicipalityName" : "Chimeneas",
+  "acantiladoAyuntamientoId" : 18061,
+  "acantiladoMunicipalityName" : "Chimeneas",
+  "confidenceScore" : null
+}, {
+  "id" : 471,
+  "idealistaLocationId" : "0-EU-ES-18-06-001-013",
+  "idealistaMunicipalityName" : "Alhama de Granada",
+  "acantiladoAyuntamientoId" : 18013,
+  "acantiladoMunicipalityName" : "Alhama de Granada",
+  "confidenceScore" : null
+}, {
+  "id" : 440,
+  "idealistaLocationId" : "0-EU-ES-18-05-008-057",
+  "idealistaMunicipalityName" : "Cullar-Vega",
+  "acantiladoAyuntamientoId" : 18057,
+  "acantiladoMunicipalityName" : "Cúllar Vega",
+  "confidenceScore" : null
+}, {
+  "id" : 490,
+  "idealistaLocationId" : "0-EU-ES-18-05-018-036",
+  "idealistaMunicipalityName" : "Cajar",
+  "acantiladoAyuntamientoId" : 18036,
+  "acantiladoMunicipalityName" : "Cájar",
+  "confidenceScore" : null
+}, {
+  "id" : 549,
+  "idealistaLocationId" : "0-EU-ES-18-07-002-071",
+  "idealistaMunicipalityName" : "Durcal",
+  "acantiladoAyuntamientoId" : 18071,
+  "acantiladoMunicipalityName" : "Dúrcal",
+  "confidenceScore" : null
+}, {
+  "id" : 496,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-147",
+  "idealistaMunicipalityName" : "Orgiva",
+  "acantiladoAyuntamientoId" : 18147,
+  "acantiladoMunicipalityName" : "Órgiva",
+  "confidenceScore" : null
+}, {
+  "id" : 538,
+  "idealistaLocationId" : "0-EU-ES-18-03-002-194",
+  "idealistaMunicipalityName" : "Zujar",
+  "acantiladoAyuntamientoId" : 18194,
+  "acantiladoMunicipalityName" : "Zújar",
+  "confidenceScore" : null
+}, {
+  "id" : 408,
+  "idealistaLocationId" : "0-EU-ES-18-03-002-029",
+  "idealistaMunicipalityName" : "Benamaurel",
+  "acantiladoAyuntamientoId" : 18029,
+  "acantiladoMunicipalityName" : "Benamaurel",
+  "confidenceScore" : null
+}, {
+  "id" : 524,
+  "idealistaLocationId" : "0-EU-ES-18-06-001-192",
+  "idealistaMunicipalityName" : "Zafarraya",
+  "acantiladoAyuntamientoId" : 18192,
+  "acantiladoMunicipalityName" : "Zafarraya",
+  "confidenceScore" : null
+}, {
+  "id" : 553,
+  "idealistaLocationId" : "0-EU-ES-18-06-003-607",
+  "idealistaMunicipalityName" : "Olivares",
+  "acantiladoAyuntamientoId" : 18132,
+  "acantiladoMunicipalityName" : "Moclín",
+  "confidenceScore" : null
+}, {
+  "id" : 454,
+  "idealistaLocationId" : "0-EU-ES-18-01-009-184",
+  "idealistaMunicipalityName" : "Vélez de Benaudalla",
+  "acantiladoAyuntamientoId" : 18184,
+  "acantiladoMunicipalityName" : "Vélez de Benaudalla",
+  "confidenceScore" : null
+}, {
+  "id" : 400,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-027",
+  "idealistaMunicipalityName" : "Benalua de Guadix",
+  "acantiladoAyuntamientoId" : 18027,
+  "acantiladoMunicipalityName" : "Benalúa",
+  "confidenceScore" : null
+}, {
+  "id" : 449,
+  "idealistaLocationId" : "0-EU-ES-18-05-011-021",
+  "idealistaMunicipalityName" : "Armilla",
+  "acantiladoAyuntamientoId" : 18021,
+  "acantiladoMunicipalityName" : "Armilla",
+  "confidenceScore" : null
+}, {
+  "id" : 554,
+  "idealistaLocationId" : "0-EU-ES-18-01-010-608",
+  "idealistaMunicipalityName" : "La Mamola",
+  "acantiladoAyuntamientoId" : 18162,
+  "acantiladoMunicipalityName" : "Polopos",
+  "confidenceScore" : null
+}, {
+  "id" : 487,
+  "idealistaLocationId" : "0-EU-ES-18-05-025-068",
+  "idealistaMunicipalityName" : "Dilar",
+  "acantiladoAyuntamientoId" : 18068,
+  "acantiladoMunicipalityName" : "Dílar",
+  "confidenceScore" : null
+}, {
+  "id" : 415,
+  "idealistaLocationId" : "0-EU-ES-18-05-007-003",
+  "idealistaMunicipalityName" : "Albolote",
+  "acantiladoAyuntamientoId" : 18003,
+  "acantiladoMunicipalityName" : "Albolote",
+  "confidenceScore" : null
+}, {
+  "id" : 525,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-151",
+  "idealistaMunicipalityName" : "Pampaneira",
+  "acantiladoAyuntamientoId" : 18151,
+  "acantiladoMunicipalityName" : "Pampaneira",
+  "confidenceScore" : null
+}, {
+  "id" : 529,
+  "idealistaLocationId" : "0-EU-ES-18-06-004-171",
+  "idealistaMunicipalityName" : "Salar",
+  "acantiladoAyuntamientoId" : 18171,
+  "acantiladoMunicipalityName" : "Salar",
+  "confidenceScore" : null
+}, {
+  "id" : 545,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-123",
+  "idealistaMunicipalityName" : "Lugros",
+  "acantiladoAyuntamientoId" : 18123,
+  "acantiladoMunicipalityName" : "Lugros",
+  "confidenceScore" : null
+}, {
+  "id" : 394,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-040",
+  "idealistaMunicipalityName" : "Cañar",
+  "acantiladoAyuntamientoId" : 18040,
+  "acantiladoMunicipalityName" : "Cáñar",
+  "confidenceScore" : null
+}, {
+  "id" : 531,
+  "idealistaLocationId" : "0-EU-ES-18-07-004-908",
+  "idealistaMunicipalityName" : "Villamena",
+  "acantiladoAyuntamientoId" : 18908,
+  "acantiladoMunicipalityName" : "Villamena",
+  "confidenceScore" : null
+}, {
+  "id" : 396,
+  "idealistaLocationId" : "0-EU-ES-18-01-010-162",
+  "idealistaMunicipalityName" : "Polopos",
+  "acantiladoAyuntamientoId" : 18162,
+  "acantiladoMunicipalityName" : "Polopos",
+  "confidenceScore" : null
+}, {
+  "id" : 477,
+  "idealistaLocationId" : "0-EU-ES-18-05-021-115",
+  "idealistaMunicipalityName" : "Lachar",
+  "acantiladoAyuntamientoId" : 18115,
+  "acantiladoMunicipalityName" : "Láchar",
+  "confidenceScore" : null
+}, {
+  "id" : 547,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-108",
+  "idealistaMunicipalityName" : "Jerez del Marquesado",
+  "acantiladoAyuntamientoId" : 18108,
+  "acantiladoMunicipalityName" : "Jérez del Marquesado",
+  "confidenceScore" : null
+}, {
+  "id" : 523,
+  "idealistaLocationId" : "0-EU-ES-18-05-003-099",
+  "idealistaMunicipalityName" : "Huétor Santillán",
+  "acantiladoAyuntamientoId" : 18099,
+  "acantiladoMunicipalityName" : "Huétor de Santillán",
+  "confidenceScore" : null
+}, {
+  "id" : 536,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-083",
+  "idealistaMunicipalityName" : "Gobernador",
+  "acantiladoAyuntamientoId" : 18083,
+  "acantiladoMunicipalityName" : "Gobernador",
+  "confidenceScore" : null
+}, {
+  "id" : 423,
+  "idealistaLocationId" : "0-EU-ES-18-01-004-602",
+  "idealistaMunicipalityName" : "Castell de Ferro",
+  "acantiladoAyuntamientoId" : 18093,
+  "acantiladoMunicipalityName" : "Gualchos",
+  "confidenceScore" : null
+}, {
+  "id" : 544,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-137",
+  "idealistaMunicipalityName" : "Montillana",
+  "acantiladoAyuntamientoId" : 18137,
+  "acantiladoMunicipalityName" : "Montillana",
+  "confidenceScore" : null
+}, {
+  "id" : 427,
+  "idealistaLocationId" : "0-EU-ES-18-05-023-158",
+  "idealistaMunicipalityName" : "Pinos-Puente",
+  "acantiladoAyuntamientoId" : 18158,
+  "acantiladoMunicipalityName" : "Pinos Puente",
+  "confidenceScore" : null
+}, {
+  "id" : 489,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-141",
+  "idealistaMunicipalityName" : "Murtas",
+  "acantiladoAyuntamientoId" : 18141,
+  "acantiladoMunicipalityName" : "Murtas",
+  "confidenceScore" : null
+}, {
+  "id" : 426,
+  "idealistaLocationId" : "0-EU-ES-18-05-017-094",
+  "idealistaMunicipalityName" : "Güéjar-Sierra",
+  "acantiladoAyuntamientoId" : 18094,
+  "acantiladoMunicipalityName" : "Güéjar Sierra",
+  "confidenceScore" : null
+}, {
+  "id" : 495,
+  "idealistaLocationId" : "0-EU-ES-18-07-004-902",
+  "idealistaMunicipalityName" : "El Valle",
+  "acantiladoAyuntamientoId" : 18902,
+  "acantiladoMunicipalityName" : "El Valle",
+  "confidenceScore" : null
+}, {
+  "id" : 526,
+  "idealistaLocationId" : "0-EU-ES-18-09-001-066",
+  "idealistaMunicipalityName" : "Deifontes",
+  "acantiladoAyuntamientoId" : 18066,
+  "acantiladoMunicipalityName" : "Deifontes",
+  "confidenceScore" : null
+}, {
+  "id" : 533,
+  "idealistaLocationId" : "0-EU-ES-18-01-002-103",
+  "idealistaMunicipalityName" : "Itrabo",
+  "acantiladoAyuntamientoId" : 18103,
+  "acantiladoMunicipalityName" : "Ítrabo",
+  "confidenceScore" : null
+}, {
+  "id" : 535,
+  "idealistaLocationId" : "0-EU-ES-18-04-002-167",
+  "idealistaMunicipalityName" : "Purullena",
+  "acantiladoAyuntamientoId" : 18167,
+  "acantiladoMunicipalityName" : "Purullena",
+  "confidenceScore" : null
+}, {
+  "id" : 530,
+  "idealistaLocationId" : "0-EU-ES-18-03-002-078",
+  "idealistaMunicipalityName" : "Freila",
+  "acantiladoAyuntamientoId" : 18078,
+  "acantiladoMunicipalityName" : "Freila",
+  "confidenceScore" : null
+}, {
+  "id" : 492,
+  "idealistaLocationId" : "0-EU-ES-18-06-002-012",
+  "idealistaMunicipalityName" : "Algarinejo",
+  "acantiladoAyuntamientoId" : 18012,
+  "acantiladoMunicipalityName" : "Algarinejo",
+  "confidenceScore" : null
+}, {
+  "id" : 388,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-042",
+  "idealistaMunicipalityName" : "Capileira",
+  "acantiladoAyuntamientoId" : 18042,
+  "acantiladoMunicipalityName" : "Capileira",
+  "confidenceScore" : null
+}, {
+  "id" : 407,
+  "idealistaLocationId" : "0-EU-ES-18-05-018-101",
+  "idealistaMunicipalityName" : "Huétor-Vega",
+  "acantiladoAyuntamientoId" : 18101,
+  "acantiladoMunicipalityName" : "Huétor Vega",
+  "confidenceScore" : null
+}, {
+  "id" : 534,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-182",
+  "idealistaMunicipalityName" : "Ugijar",
+  "acantiladoAyuntamientoId" : 18182,
+  "acantiladoMunicipalityName" : "Ugíjar",
+  "confidenceScore" : null
+}, {
+  "id" : 453,
+  "idealistaLocationId" : "0-EU-ES-18-05-006-149",
+  "idealistaMunicipalityName" : "Otura",
+  "acantiladoAyuntamientoId" : 18149,
+  "acantiladoMunicipalityName" : "Villa de Otura",
+  "confidenceScore" : null
+}, {
+  "id" : 469,
+  "idealistaLocationId" : "0-EU-ES-18-06-003-102",
+  "idealistaMunicipalityName" : "Illora",
+  "acantiladoAyuntamientoId" : 18102,
+  "acantiladoMunicipalityName" : "Íllora",
+  "confidenceScore" : null
+}, {
+  "id" : 543,
+  "idealistaLocationId" : "0-EU-ES-18-02-001-044",
+  "idealistaMunicipalityName" : "Castaras",
+  "acantiladoAyuntamientoId" : 18044,
+  "acantiladoMunicipalityName" : "Cástaras",
+  "confidenceScore" : null
+}, {
+  "id" : 474,
+  "idealistaLocationId" : "0-EU-ES-18-05-004-193",
+  "idealistaMunicipalityName" : "La Zubia",
+  "acantiladoAyuntamientoId" : 18193,
+  "acantiladoMunicipalityName" : "La Zubia",
+  "confidenceScore" : null
+}, {
+  "id" : 532,
+  "idealistaLocationId" : "0-EU-ES-18-05-020-059",
+  "idealistaMunicipalityName" : "Chauchina",
+  "acantiladoAyuntamientoId" : 18059,
+  "acantiladoMunicipalityName" : "Chauchina",
+  "confidenceScore" : null
+} ]

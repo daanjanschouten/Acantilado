@@ -124,7 +124,7 @@ public class NovelLocationEstablisher {
         Optional<Ayuntamiento> maybeClosestAyuntamiento = ayuntamientosForProvince.stream()
                 .min(Comparator.comparingDouble(a -> a.getGeometry().distance(locationPoint)))
                 .map(closest -> {
-                    LOGGER.info("Selecting closest ayuntamiento {} for location {}", closest.getName(), locationPoint);
+                    LOGGER.debug("Selecting closest ayuntamiento {} for location {}", closest.getName(), locationPoint);
                     return closest;
                 });
 

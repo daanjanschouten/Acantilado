@@ -37,6 +37,8 @@ import java.util.stream.Collectors;
 
 import static com.acantilado.utils.RetryableBatchedExecutor.executeCallableInSessionWithoutTransaction;
 
+// Barrios somehow aren't getting mapped for Madrid.
+// Villa del Prado isn't getting hits in general, resulting in INDETERMINATE acantilado locations.
 public final class IdealistaProvinceCollectorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaProvinceCollectorService.class);
     private static final Optional<Integer> APIFY_ACTIVE_AGENTS = Optional.of(32);
@@ -250,12 +252,9 @@ public final class IdealistaProvinceCollectorService {
      * Phase 3: Collect real estate listings using the complete mappings
      */
     private boolean collectRealEstateListings(IdealistaPropertyType propertyType) {
-        LOGGER.info("Starting Phase 5: Collecting {} listings for province", propertyType);
-
-        // Create search requests for each ayuntamiento using mappings
         Set<IdealistaSearchRequest> searchRequests = ayuntamientosForProvince
                 .stream()
-                .map(ayuntamiento -> createSearchRequest(ayuntamiento, propertyType))
+                .flatMap(ayuntamiento -> createSearchRequests(ayuntamiento, propertyType).stream())
                 .collect(Collectors.toSet());
 
         IdealistaRealEstateCollector<?> collector = switch (propertyType) {
@@ -277,15 +276,23 @@ public final class IdealistaProvinceCollectorService {
         LOGGER.info("Starting full collection workflow for province {} and property type {}",
                 provinceToCollectFor.getName(), propertyType);
 
-        if (locationMappingMerchant.importMappings(provinceToCollectFor)) {
-            LOGGER.info("Imported mappings from disk");
-        }
-
         Set<String> missingLocationMappings = getLocationIdsMissingFromMappings();
         Set<Long> missingAyuntamientoMappings = getAyuntamientoIdsMissingFromMappings();
 
         if (missingLocationMappings.isEmpty() && missingAyuntamientoMappings.isEmpty()) {
-            LOGGER.info("All mappings complete, skipping bootstrap phases");
+            LOGGER.info("All mappings complete, skipping import and bootstrap phases");
+            return collectRealEstateListings(propertyType);
+        }
+
+        if (locationMappingMerchant.importMappings(provinceToCollectFor)) {
+            LOGGER.info("Imported mappings from disk");
+        }
+
+        missingLocationMappings = getLocationIdsMissingFromMappings();
+        missingAyuntamientoMappings = getAyuntamientoIdsMissingFromMappings();
+
+        if (missingLocationMappings.isEmpty() && missingAyuntamientoMappings.isEmpty()) {
+            LOGGER.info("All mappings complete after import, skipping bootstrap phases");
             return collectRealEstateListings(propertyType);
         }
         LOGGER.info("Mappings incomplete: {} location IDs and {} ayuntamientos need mapping",
@@ -360,38 +367,38 @@ public final class IdealistaProvinceCollectorService {
         Set<Long> missingIds = new HashSet<>(allAyuntamientoIds);
         missingIds.removeAll(mappedAyuntamientoIds);
 
-        LOGGER.info("Missing ayuntamiento IDs: {}", missingIds);
+        if (!missingIds.isEmpty()) {
+            LOGGER.info("Missing ayuntamiento IDs: {}", missingIds);
+        }
 
         return missingIds;
     }
 
-    private IdealistaSearchRequest createSearchRequest(Ayuntamiento ayuntamiento, IdealistaPropertyType propertyType) {
-        Optional<IdealistaLocationMapping> mapping = executeCallableInSessionWithoutTransaction(
+    private Set<IdealistaSearchRequest> createSearchRequests(Ayuntamiento ayuntamiento, IdealistaPropertyType propertyType) {
+        List<IdealistaLocationMapping> mappings = executeCallableInSessionWithoutTransaction(
                 sessionFactory,
-                () -> {
-                    List<IdealistaLocationMapping> results = mappingDAO.findByAyuntamientoId(ayuntamiento.getId());
-                    if (results.size() != 1) {
-                        throw new RuntimeException("Expected exactly one mapping for ayuntamiento "
-                                + ayuntamiento.getId() + " but found " + results.size());
-                    }
-                    return Optional.of(results.get(0));
-                });
+                () -> mappingDAO.findByAyuntamientoId(ayuntamiento.getId())
+        );
 
-        if (mapping.isPresent()) {
-            LOGGER.debug("Using location ID {} for ayuntamiento {}",
-                    mapping.get().getIdealistaLocationId(), ayuntamiento.getName());
-            return IdealistaSearchRequest.saleSearch(
-                    mapping.get().getIdealistaLocationId(),
-                    propertyType
-            );
-        } else {
-            LOGGER.warn("No mapping found for ayuntamiento {}, using name-based search",
+        if (mappings.isEmpty()) {
+            LOGGER.error("No mapping found for ayuntamiento {}, using name-based search",
                     ayuntamiento.getName());
-            return IdealistaSearchRequest.saleSearch(
+            return Set.of(IdealistaSearchRequest.saleSearch(
                     ayuntamiento.getName(),
                     propertyType
-            );
+            ));
         }
+
+        return mappings.stream()
+                .map(mapping -> {
+                    LOGGER.debug("Using location ID {} for ayuntamiento {}",
+                            mapping.getIdealistaLocationId(), ayuntamiento.getName());
+                    return IdealistaSearchRequest.saleSearch(
+                            mapping.getIdealistaLocationId(),
+                            propertyType
+                    );
+                })
+                .collect(Collectors.toSet());
     }
 
     private <T> boolean startRealEstateCollectionForProvince(
