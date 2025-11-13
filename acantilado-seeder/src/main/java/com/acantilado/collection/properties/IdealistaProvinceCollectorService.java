@@ -147,17 +147,15 @@ public final class IdealistaProvinceCollectorService {
                     locationCount, ayuntamientoCount);
             return true;
         }
-
-        LOGGER.info("Insufficient location IDs {} for ayuntamientos {}; bootstrapping location IDs",
+        LOGGER.info("Insufficient location IDs {} for {} ayuntamiento; bootstrapping location IDs",
                 locationCount, ayuntamientoCount);
 
-        // Bootstrap province-wide to collect location IDs
+        IdealistaSearchRequest request = IdealistaSearchRequest.locationBasedSaleSearch(
+                provinceToCollectFor.getIdealistaLocationId(),
+                IdealistaPropertyType.HOMES);
         startRealEstateCollectionForProvince(
-                Set.of(IdealistaSearchRequest.locationBasedSaleSearch(
-                        provinceToCollectFor.getIdealistaLocationId(),
-                        IdealistaPropertyType.HOMES)),
-                locationCollector,
-                0);
+                Set.of(request),
+                locationCollector);
 
         locations = ProvinceCollectionUtils.getLocationsForProvince(
                 sessionFactory, locationDAO, provinceToCollectFor);
@@ -186,7 +184,7 @@ public final class IdealistaProvinceCollectorService {
                         locationId,
                         IdealistaPropertyType.HOMES))
                 .collect(Collectors.toSet());
-        startRealEstateCollectionForProvince(searchRequests, propertyCollector, 0);
+        startRealEstateCollectionForProvince(searchRequests, propertyCollector);
 
         RetryableBatchedExecutor.executeRunnableInSessionWithTransaction(
                 sessionFactory,
@@ -229,7 +227,7 @@ public final class IdealistaProvinceCollectorService {
                         locationId,
                         IdealistaPropertyType.HOMES))
                 .collect(Collectors.toSet());
-        startRealEstateCollectionForProvince(searchRequests, propertyCollector, 0);
+        startRealEstateCollectionForProvince(searchRequests, propertyCollector);
 
         RetryableBatchedExecutor.executeRunnableInSessionWithTransaction(
                 sessionFactory,
@@ -262,14 +260,7 @@ public final class IdealistaProvinceCollectorService {
             case LANDS -> terrainCollector;
         };
 
-        boolean success = startRealEstateCollectionForProvince(searchRequests, collector, 0);
-
-        if (success) {
-            LOGGER.info("Successfully completed Phase 5. Collection stats: {}",
-                    locationEstablisher.getCollectionStats());
-        }
-
-        return success;
+        return startRealEstateCollectionForProvince(searchRequests, collector);
     }
 
     public boolean collectRealEstateForProvince(IdealistaPropertyType propertyType) {
@@ -297,6 +288,7 @@ public final class IdealistaProvinceCollectorService {
         }
         LOGGER.info("Mappings incomplete: {} location IDs and {} ayuntamientos need mapping",
                 missingLocationMappings.size(), missingAyuntamientoMappings.size());
+        LOGGER.info("Missing ayuntamiento IDs: {}", missingAyuntamientoMappings);
 
         // Phase 1: Location IDs
         if (!ensureLocationIdsComplete()) {
@@ -367,10 +359,6 @@ public final class IdealistaProvinceCollectorService {
         Set<Long> missingIds = new HashSet<>(allAyuntamientoIds);
         missingIds.removeAll(mappedAyuntamientoIds);
 
-        if (!missingIds.isEmpty()) {
-            LOGGER.info("Missing ayuntamiento IDs: {}", missingIds);
-        }
-
         return missingIds;
     }
 
@@ -402,17 +390,21 @@ public final class IdealistaProvinceCollectorService {
     }
 
     private <T> boolean startRealEstateCollectionForProvince(
+            Set<IdealistaSearchRequest> searchRequests, ApifyCollector<T> collector) {
+        return startRealEstateCollectionForProvince(searchRequests, collector, 0);
+    }
+
+    private <T> boolean startRealEstateCollectionForProvince(
             Set<IdealistaSearchRequest> searchRequests,
             ApifyCollector<T> collector,
             int retryCount) {
         if (retryCount > 1) {
-            LOGGER.info("Giving up on further retries after 2 failures");
+            LOGGER.info("Giving up on {} remaining requests after 2 retries", searchRequests.size());
             return true;
         }
 
         LOGGER.info("Triggering {} search requests", searchRequests.size());
         Set<ApifyRunningSearch> pendingSearches = triggerSearches(searchRequests, collector);
-        LOGGER.info("Finished triggering {} search requests", pendingSearches.size());
 
         LOGGER.info("Awaiting completion of {} searches", pendingSearches.size());
         Set<ApifyRunningSearch> finishedSearches = awaitSearchesFinishing(pendingSearches, collector);

@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class IdealistaCollectorScheduler implements Managed {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaCollectorScheduler.class);
 
-    private static final Set<String> PROVINCES = Set.of("Granada");
+    private static final Set<String> PROVINCES = Set.of("Málaga");
     private static final Set<IdealistaPropertyType> PROPERTY_TYPES = Set.of(IdealistaPropertyType.HOMES);
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);

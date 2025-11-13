@@ -20,12 +20,12 @@ public class ExistingLocationEstablisher {
 
     private final AyuntamientoDAO ayuntamientoDAO;
     private final IdealistaLocationMappingDAO mappingDAO;
-    private final BiFunction<Ayuntamiento, Point, Optional<AcantiladoLocation>> locationProducer;
+    private final BiFunction<Ayuntamiento, Point, AcantiladoLocation> locationProducer;
 
     public ExistingLocationEstablisher(
             AyuntamientoDAO ayuntamientoDAO,
             IdealistaLocationMappingDAO mappingDAO,
-            BiFunction<Ayuntamiento, Point, Optional<AcantiladoLocation>> locationProducer) {
+            BiFunction<Ayuntamiento, Point, AcantiladoLocation> locationProducer) {
 
         this.ayuntamientoDAO = ayuntamientoDAO;
         this.mappingDAO = mappingDAO;
@@ -33,7 +33,7 @@ public class ExistingLocationEstablisher {
         this.locationProducer = locationProducer;
     }
 
-    protected Optional<AcantiladoLocation> establish(String locationId, Point locationPoint) {
+    protected AcantiladoLocation establish(String locationId, Point locationPoint) {
         return locationProducer.apply(
                 establishAyuntamiento(locationId, locationPoint),
                 locationPoint

@@ -5,28 +5,18 @@ import org.locationtech.jts.geom.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class AcantiladoLocationEstablisher {
     private static final Logger LOGGER = LoggerFactory.getLogger(AcantiladoLocationEstablisher.class);
-    public record CollectionStats(
-            int locationsEstablished,
-            int locationsMissed,
-            int barriosEstablished,
-            int barriosMissed) {}
 
     private final ExistingLocationEstablisher existingLocationEstablisher;
     private final NovelLocationEstablisher novelLocationEstablisher;
-
-    private final AtomicInteger locationsEstablished = new AtomicInteger();
-    private final AtomicInteger locationsMissed = new AtomicInteger();
-    private final AtomicInteger barriosEstablished = new AtomicInteger();
-    private final AtomicInteger barrioMisses = new AtomicInteger();
 
     private final Set<Barrio> barriosForProvince;
     private final Set<Long> ayuntamientosWithBarrios;
@@ -60,20 +50,10 @@ public class AcantiladoLocationEstablisher {
                 this::buildAcantiladoLocation);
     }
 
-    public Optional<AcantiladoLocation> establish(String idealistaAyuntamiento, String idealistaLocationId, Point locationPoint) {
-        Optional<AcantiladoLocation> maybeLocation;
-        if (isBootstrapMode.get()) {
-            maybeLocation = novelLocationEstablisher.establish(idealistaAyuntamiento, idealistaLocationId, locationPoint);
-        } else {
-            maybeLocation = existingLocationEstablisher.establish(idealistaLocationId, locationPoint);
-        }
-
-        if (maybeLocation.isEmpty()) {
-            this.locationsMissed.incrementAndGet();
-        } else {
-            this.locationsEstablished.incrementAndGet();
-        }
-        return maybeLocation;
+    public AcantiladoLocation establish(String idealistaAyuntamiento, String idealistaLocationId, Point locationPoint) {
+        return isBootstrapMode.get()
+                ? novelLocationEstablisher.establish(idealistaAyuntamiento, idealistaLocationId, locationPoint)
+                : existingLocationEstablisher.establish(idealistaLocationId, locationPoint);
     }
 
     public void storeInMemoryMappings() {
@@ -84,54 +64,40 @@ public class AcantiladoLocationEstablisher {
         this.isBootstrapMode.set(shouldBootstrap);
     }
 
-    private Optional<AcantiladoLocation> buildAcantiladoLocation(Ayuntamiento ayuntamiento, Point locationPoint) {
-        Optional<CodigoPostal> maybeCodigoPostal = findCodigoPostal(ayuntamiento, locationPoint);
+    private AcantiladoLocation buildAcantiladoLocation(Ayuntamiento ayuntamiento, Point locationPoint) {
+        CodigoPostal codigoPostal = findCodigoPostal(ayuntamiento, locationPoint);
         Optional<Barrio> maybeBarrio = findBarrio(ayuntamiento, locationPoint);
 
-        if (maybeCodigoPostal.isEmpty()) {
-            LOGGER.error("Unable to establish postcode for point {} in ayuntamiento {}", locationPoint, ayuntamiento);
-            return Optional.empty();
-        }
-
-        AcantiladoLocation location = maybeBarrio
-                .map(barrio -> new AcantiladoLocation(ayuntamiento, maybeCodigoPostal.get(), barrio))
-                .orElseGet(() -> new AcantiladoLocation(ayuntamiento, maybeCodigoPostal.get()));
-
-        return Optional.of(location);
+        return maybeBarrio
+                .map(barrio -> new AcantiladoLocation(ayuntamiento, codigoPostal, barrio))
+                .orElseGet(() -> new AcantiladoLocation(ayuntamiento, codigoPostal));
     }
 
-    public CollectionStats getCollectionStats() {
-        return new CollectionStats(
-                locationsEstablished.get(),
-                locationsMissed.get(),
-                barriosEstablished.get(),
-                barrioMisses.get()
-        );
-    }
-
-    private Optional<CodigoPostal> findCodigoPostal(Ayuntamiento ayuntamiento, Point point) {
+    private CodigoPostal findCodigoPostal(Ayuntamiento ayuntamiento, Point locationPoint) {
         Set<CodigoPostal> postcodesForAyuntamiento = this.postCodesForProvince.get(ayuntamiento.getId());
         for (CodigoPostal codigoPostal : postcodesForAyuntamiento) {
-            if (codigoPostal.getGeometry().covers(point)) {
-                return Optional.of(codigoPostal);
+            if (codigoPostal.getGeometry().covers(locationPoint)) {
+                return codigoPostal;
             }
         }
-        LOGGER.error("Point not found in any postcode {} associated with this ayuntamiento {}",
-                postcodesForAyuntamiento.stream().map(CodigoPostal::getCodigoPostal).collect(Collectors.toSet()),
-                ayuntamiento.getId());
 
-        return Optional.empty();
+        Optional<CodigoPostal> maybeClosestPostcode = postcodesForAyuntamiento.stream()
+                .min(Comparator.comparingDouble(p -> p.getGeometry().distance(locationPoint)))
+                .map(closest -> {
+                    LOGGER.debug("Selecting closest postcode {} for location {}", closest.getCodigoPostal(), locationPoint);
+                    return closest;
+                });
+
+        return maybeClosestPostcode.orElseThrow();
     }
 
     private Optional<Barrio> findBarrio(Ayuntamiento ayuntamiento, Point point) {
         if (ayuntamientosWithBarrios.contains(ayuntamiento.getId())) {
             for (Barrio barrio : barriosForProvince) {
                 if (barrio.getGeometry().contains(point)) {
-                    barriosEstablished.incrementAndGet();
                     return Optional.of(barrio);
                 }
             }
-            barrioMisses.incrementAndGet();
         }
 
         return Optional.empty();

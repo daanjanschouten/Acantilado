@@ -16,21 +16,21 @@ public class NovelLocationEstablisher {
 
     private final IdealistaLocationMappingDAO mappingDAO;
     private final Set<Ayuntamiento> ayuntamientosForProvince;
-    private final BiFunction<Ayuntamiento, Point, Optional<AcantiladoLocation>> locationProducer;
+    private final BiFunction<Ayuntamiento, Point, AcantiladoLocation> locationProducer;
 
     private final Map<Long, Map<IdealistaLocationMapping, Integer>> ayuntamientoIdsByCountOfIdealistaLocationIds = new HashMap<>();
 
     public NovelLocationEstablisher(
             IdealistaLocationMappingDAO mappingDAO,
             Set<Ayuntamiento> ayuntamientosForProvince,
-            BiFunction<Ayuntamiento, Point, Optional<AcantiladoLocation>> locationProducer) {
+            BiFunction<Ayuntamiento, Point, AcantiladoLocation> locationProducer) {
 
         this.mappingDAO = mappingDAO;
         this.ayuntamientosForProvince = ayuntamientosForProvince;
         this.locationProducer = locationProducer;
     }
 
-    public Optional<AcantiladoLocation> establish(
+    public AcantiladoLocation establish(
             String idealistaAyuntamiento,
             String normalizedLocationId,
             Point locationPoint) {
