@@ -397,7 +397,7 @@ public final class IdealistaProvinceCollectorService {
             return true;
         }
 
-        LOGGER.info("Triggering {} search requests", searchRequests.size());
+        LOGGER.info("Triggering {} search requests for retry {}", searchRequests.size(), retryCount);
         Set<ApifyRunningSearch> pendingSearches = triggerSearches(searchRequests, collector);
 
         LOGGER.info("Awaiting completion of {} searches", pendingSearches.size());

@@ -40,7 +40,7 @@ public class IdealistaLocationMapping implements Serializable {
     @Column(name = "idealista_municipality_name", nullable = false)
     private String idealistaMunicipalityName;
 
-    @Column(name = "acantiladoAyuntamientoId", nullable = false)
+    @Column(name = "acantilado_ayuntamiento_id", nullable = false)
     private String acantiladoAyuntamientoId;
 
     @Column(name = "acantilado_municipality_name", nullable = false)

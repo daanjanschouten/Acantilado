@@ -24,7 +24,7 @@ public class IdealistaAyuntamientoLocation {
     @Column(name = "idealista_ayuntamiento_location_id")
     private String ayuntamientoLocationId;
 
-    @Column(name = "provincia_id")
+    @Column(name = "provinciaId")
     private String provinciaId;
 
     public IdealistaAyuntamientoLocation(String locationId) {

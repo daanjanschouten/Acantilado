@@ -15,9 +15,10 @@ import java.util.stream.Collectors;
 public class RetryableBatchedExecutor {
     private static final Logger LOGGER = LoggerFactory.getLogger(RetryableBatchedExecutor.class);
     private static final int INITIAL_RETRY_DELAY_MS = 10000;
+    private static final int MAX_RETRY_DELAY_MS = 100000;
 
     private record SingleRunStats(int totalToRun, int totalExecuted, int executedThisRun, int totalRetryCount, long waitTimeMs) {
-        SingleRunStats refresh(int executedThisRun) {
+        SingleRunStats refreshRetryCount(int executedThisRun) {
             return new SingleRunStats(
                     this.totalToRun,
                     this.totalExecuted + executedThisRun,
@@ -28,9 +29,13 @@ public class RetryableBatchedExecutor {
         }
 
         static long adjustWaitTime(long current, int numPrevResults, int numCurrentResults) {
-            return numPrevResults > numCurrentResults || numCurrentResults == 0
+            long waitTime = numPrevResults > numCurrentResults || numCurrentResults == 0
                     ? (long) (current * 1.5)
                     : (long) (current * 0.8);
+
+            return waitTime > MAX_RETRY_DELAY_MS
+                    ? MAX_RETRY_DELAY_MS
+                    : waitTime;
         }
 
         @Override
@@ -79,12 +84,12 @@ public class RetryableBatchedExecutor {
                     .collect(Collectors.toSet());
 
             if (!requestsToRun.isEmpty()) {
-                currentRun = currentRun.refresh(successfulResponses.size());
+                currentRun = currentRun.refreshRetryCount(successfulResponses.size());
                 LOGGER.info("Single run stats {}", currentRun);
 
                 if (currentRun.totalRetryCount >= 30) {
                     LOGGER.error("Giving up on retries, {} remaining requests {}", requestsToRun.size(), requestsToRun);
-                    throw new RuntimeException("Giving up on subsequent retries");
+                    return Set.of();
                 }
 
                 try {

@@ -129,25 +129,23 @@ public class IdealistaSearchRequest implements RequestBodyData {
     }
 
     public static Set<IdealistaSearchRequest> fragment(Set<IdealistaSearchRequest> requests) {
-        return Set.of();
+        if (requests.isEmpty()) {
+          return requests;
+        }
 
-//        if (requests.isEmpty()) {
-//          return requests;
-//        }
+        Set<IdealistaSearchRequest> fragmentedRequests = new HashSet<>();
+        requests.forEach(request -> {
+            if (isFragmentable(request)) {
+                PERMITTED_SIZE_VALUES().forEach(pair -> {
+                    fragmentedRequests.add(IdealistaSearchRequest.withSurfaceAreaBounds(request, pair.getLeft(), pair.getRight()));
+                });
+                fragmentedRequests.add(IdealistaSearchRequest.withSurfaceAreaBounds(request, MAX_SURFACE_AREA, 0));
+            }
+        });
 
-//        Set<IdealistaSearchRequest> fragmentedRequests = new HashSet<>();
-//        requests.forEach(request -> {
-//            if (isFragmentable(request)) {
-//                PERMITTED_SIZE_VALUES().forEach(pair -> {
-//                    fragmentedRequests.add(IdealistaSearchRequest.withSurfaceAreaBounds(request, pair.getLeft(), pair.getRight()));
-//                });
-//                fragmentedRequests.add(IdealistaSearchRequest.withSurfaceAreaBounds(request, MAX_SURFACE_AREA, 0));
-//            }
-//        });
-//
-//        LOGGER.info("Fragmented {} into {} requests", requests.size(), fragmentedRequests.size());
-//
-//        return fragmentedRequests;
+        LOGGER.info("Fragmented {} into {} requests", requests.size(), fragmentedRequests.size());
+
+        return fragmentedRequests;
     }
 
     private static IdealistaSearchRequest withSurfaceAreaBounds(IdealistaSearchRequest request, int minSize, int maxSize) {

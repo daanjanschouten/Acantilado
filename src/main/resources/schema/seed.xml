@@ -442,7 +442,7 @@
             <column name="idealista_municipality_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="acantilado_ayuntamientoId" type="VARCHAR(100)">
+            <column name="acantilado_ayuntamiento_id" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="acantilado_municipality_name" type="VARCHAR(255)">
@@ -455,7 +455,7 @@
         <addForeignKeyConstraint
                 constraintName="fk_location_mapping_ayuntamiento"
                 baseTableName="idealista_location_mapping"
-                baseColumnNames="acantilado_ayuntamientoId"
+                baseColumnNames="acantilado_ayuntamiento_id"
                 referencedTableName="ayuntamiento"
                 referencedColumnNames="ayuntamientoId"
                 onDelete="CASCADE"
@@ -468,7 +468,7 @@
         </createIndex>
 
         <createIndex indexName="idx_location_mapping_ayuntamientoId" tableName="idealista_location_mapping">
-            <column name="acantilado_ayuntamientoId"/>
+            <column name="acantilado_ayuntamiento_id"/>
         </createIndex>
 
         <createIndex indexName="idx_location_mapping_idealista_muni" tableName="idealista_location_mapping">
