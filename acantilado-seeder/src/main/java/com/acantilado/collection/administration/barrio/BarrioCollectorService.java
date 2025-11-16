@@ -28,7 +28,7 @@ public class BarrioCollectorService extends CollectorService {
             new CityBarrioConfig(CityAyuntamientoCode.MALAGA, "/barrios/malaga_barrios.geojson", "NOMBARRIO"),
             new CityBarrioConfig(CityAyuntamientoCode.SAN_SEBASTIAN, "/barrios/sansebastian_barrios.geojson", "NOM_EUS"),
             new CityBarrioConfig(CityAyuntamientoCode.ALICANTE, "/barrios/alicante_barrios.geojson", "barrio"),
-            new CityBarrioConfig(CityAyuntamientoCode.TENERIFE, "/barrios/tenerife_barrios.geojson", "BARRIO"),
+            // new CityBarrioConfig(CityAyuntamientoCode.TENERIFE, "/barrios/tenerife_barrios.geojson", "BARRIO"),
             new CityBarrioConfig(CityAyuntamientoCode.LORCA, "/barrios/lorca_barrios.geojson", "NNCLEC")
     );
 

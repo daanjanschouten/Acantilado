@@ -2,6 +2,7 @@ package com.acantilado.collection.properties;
 
 import com.acantilado.collection.location.AcantiladoLocationEstablisher;
 import com.acantilado.collection.properties.apify.ApifyRunningSearch;
+import com.acantilado.collection.properties.apify.ApifySearchResults;
 import com.acantilado.collection.properties.apify.ApifySearchStatus;
 import com.acantilado.collection.properties.collectors.ApifyCollector;
 import com.acantilado.collection.properties.collectors.IdealistaLocationCollector;
@@ -28,7 +29,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -42,21 +42,6 @@ import static com.acantilado.utils.RetryableBatchedExecutor.executeCallableInSes
 public final class IdealistaProvinceCollectorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaProvinceCollectorService.class);
     private static final Optional<Integer> APIFY_ACTIVE_AGENTS = Optional.of(32);
-
-    public record searchResults(
-            Set<IdealistaSearchRequest> requestsSucceeded,
-            Set<IdealistaSearchRequest> requestsToFragment,
-            Set<IdealistaSearchRequest> requestsToRetryDueToFailure,
-            Set<IdealistaSearchRequest> requestsToRetryDueToProxy) {
-
-        @Override
-        public String toString() {
-            return "requestsSucceeded " + requestsSucceeded.size() +
-                    "; requestsToFragment " + requestsToFragment.size() +
-                    "; requestsToRetryDueToFailure " + requestsToRetryDueToFailure.size() +
-                    "; requestsToRetryDueToProxy " + requestsToRetryDueToProxy.size();
-        }
-    }
 
     private final IdealistaLocationMappingDAO mappingDAO;
     private final IdealistaLocationDAO locationDAO;
@@ -147,7 +132,7 @@ public final class IdealistaProvinceCollectorService {
                     locationCount, ayuntamientoCount);
             return true;
         }
-        LOGGER.info("Insufficient location IDs {} for {} ayuntamiento; bootstrapping location IDs",
+        LOGGER.info("Insufficient location IDs {} for {} ayuntamientos; bootstrapping location IDs",
                 locationCount, ayuntamientoCount);
 
         IdealistaSearchRequest request = IdealistaSearchRequest.locationBasedSaleSearch(
@@ -160,7 +145,7 @@ public final class IdealistaProvinceCollectorService {
         locations = ProvinceCollectionUtils.getLocationsForProvince(
                 sessionFactory, locationDAO, provinceToCollectFor);
         if (locations.size() < ayuntamientoCount) {
-            LOGGER.error("Still insufficient location IDs {} for ayuntamientos {}. Manual intervention required.",
+            LOGGER.error("Still insufficient location IDs {} for {} ayuntamientos. Manual intervention required.",
                     locations.size(), ayuntamientoCount);
             return false;
         }
@@ -176,7 +161,12 @@ public final class IdealistaProvinceCollectorService {
     private boolean bootstrapLocationMappings() {
         Set<String> missingLocations = getLocationIdsMissingFromMappings();
 
-        LOGGER.info("Building mappings for {} missing location IDs", missingLocations.size());
+        if (missingLocations.isEmpty()) {
+            LOGGER.info("No missing location IDs to bootstrap, moving on");
+            return true;
+        }
+
+        LOGGER.info("Building missing mappings for {} location IDs", missingLocations.size());
         locationEstablisher.setBootstrapMode(true);
 
         Set<IdealistaSearchRequest> searchRequests = missingLocations.stream()
@@ -204,17 +194,17 @@ public final class IdealistaProvinceCollectorService {
     }
 
     /**
-     * Phase 2: Build mappings from Idealista location IDs to Acantilado ayuntamientos
+     * Phase 3: Build mappings from Idealista location IDs to Acantilado ayuntamientos
      * @return true if all mappings are complete, false if some couldn't be mapped
      */
     private boolean bootstrapAyuntamientoMappings() {
-        Set<Long> missingAyuntamientoIds = getAyuntamientoIdsMissingFromMappings();
+        Set<String> missingAyuntamientoIds = getAyuntamientoIdsMissingFromMappings();
         if (missingAyuntamientoIds.isEmpty()) {
             LOGGER.info("No missing ayuntamientos to bootstrap, moving on");
             return true;
         }
 
-        LOGGER.info("Building mappings for {} missing ayuntamientos", missingAyuntamientoIds.size());
+        LOGGER.info("Building missing mappings for {} ayuntamientos", missingAyuntamientoIds.size());
         locationEstablisher.setBootstrapMode(true);
 
         Set<String> missingAyuntamientos = ayuntamientosForProvince
@@ -235,7 +225,7 @@ public final class IdealistaProvinceCollectorService {
 
         locationEstablisher.setBootstrapMode(false);
 
-        Set<Long> stillMissing = getAyuntamientoIdsMissingFromMappings();
+        Set<String> stillMissing = getAyuntamientoIdsMissingFromMappings();
         if (!stillMissing.isEmpty()) {
             LOGGER.warn("Could not create mappings for {} ayuntamiento IDs: {}",
                     stillMissing.size(), stillMissing);
@@ -268,7 +258,7 @@ public final class IdealistaProvinceCollectorService {
                 provinceToCollectFor.getName(), propertyType);
 
         Set<String> missingLocationMappings = getLocationIdsMissingFromMappings();
-        Set<Long> missingAyuntamientoMappings = getAyuntamientoIdsMissingFromMappings();
+        Set<String> missingAyuntamientoMappings = getAyuntamientoIdsMissingFromMappings();
 
         if (missingLocationMappings.isEmpty() && missingAyuntamientoMappings.isEmpty()) {
             LOGGER.info("All mappings complete, skipping import and bootstrap phases");
@@ -340,23 +330,27 @@ public final class IdealistaProvinceCollectorService {
     /**
      * Get the set of ayuntamiento IDs that don't have mappings yet
      */
-    private Set<Long> getAyuntamientoIdsMissingFromMappings() {
-        Set<String> allLocationIds = ProvinceCollectionUtils
-                .getLocationsForProvince(sessionFactory, locationDAO, provinceToCollectFor)
-                .stream()
-                .map(IdealistaAyuntamientoLocation::getAyuntamientoLocationId)
-                .collect(Collectors.toSet());
-
-        Set<Long> allAyuntamientoIds = ayuntamientosForProvince
+    private Set<String> getAyuntamientoIdsMissingFromMappings() {
+        Set<String> allAyuntamientoIds = ayuntamientosForProvince
                 .stream()
                 .map(Ayuntamiento::getId)
                 .collect(Collectors.toSet());
 
-        Set<Long> mappedAyuntamientoIds = ProvinceCollectionUtils
-                .getMappingsByAyuntamientoIds(sessionFactory, mappingDAO, allLocationIds)
-                .keySet();
+        // Get ALL mappings for this province's ayuntamientos
+        // Don't filter by location IDs - we want to find mappings created by name-based searches too
+        Set<String> mappedAyuntamientoIds = ayuntamientosForProvince
+                .stream()
+                .map(Ayuntamiento::getId)
+                .filter(ayuntamientoId -> {
+                    List<IdealistaLocationMapping> mappings = executeCallableInSessionWithoutTransaction(
+                            sessionFactory,
+                            () -> mappingDAO.findByAyuntamientoId(ayuntamientoId)
+                    );
+                    return !mappings.isEmpty();
+                })
+                .collect(Collectors.toSet());
 
-        Set<Long> missingIds = new HashSet<>(allAyuntamientoIds);
+        Set<String> missingIds = new HashSet<>(allAyuntamientoIds);
         missingIds.removeAll(mappedAyuntamientoIds);
 
         return missingIds;
@@ -398,8 +392,8 @@ public final class IdealistaProvinceCollectorService {
             Set<IdealistaSearchRequest> searchRequests,
             ApifyCollector<T> collector,
             int retryCount) {
-        if (retryCount > 1) {
-            LOGGER.info("Giving up on {} remaining requests after 2 retries", searchRequests.size());
+        if (retryCount > 3) {
+            LOGGER.info("Giving up on {} remaining requests after 3 retries", searchRequests.size());
             return true;
         }
 
@@ -410,7 +404,7 @@ public final class IdealistaProvinceCollectorService {
         Set<ApifyRunningSearch> finishedSearches = awaitSearchesFinishing(pendingSearches, collector);
         LOGGER.info("Confirmed {} searches have finished", finishedSearches.size());
 
-        searchResults results = storeSearchResults(finishedSearches, collector);
+        ApifySearchResults results = storeSearchResults(finishedSearches, collector);
         LOGGER.info("Search results: {}", results);
 
         Set<IdealistaSearchRequest> remainingRequestsToRun = calculateRequestsToRetry(results);
@@ -433,78 +427,41 @@ public final class IdealistaProvinceCollectorService {
             ApifyCollector<T> collector) {
         return executeIteratively(APIFY_ACTIVE_AGENTS, pendingSearches, (ApifyRunningSearch pendingSearch) -> {
             ApifySearchStatus searchStatus = collector.getSearchStatus(pendingSearch);
-            if (searchStatus.isFinished()) {
+            if (searchStatus.hasFinished()) {
                 return pendingSearch.withStatus(searchStatus);
             }
             return null;
         });
     }
 
-    private <T> searchResults storeSearchResults(
+    private <T> ApifySearchResults storeSearchResults(
             Set<ApifyRunningSearch> finishedSearches,
             ApifyCollector<T> collector) {
-        Set<IdealistaSearchRequest> requestsSucceeded = ConcurrentHashMap.newKeySet();
-        Set<IdealistaSearchRequest> requestsToFragment = ConcurrentHashMap.newKeySet();
-        Set<IdealistaSearchRequest> requestsToRetryDueToProxy = ConcurrentHashMap.newKeySet();
-        Set<IdealistaSearchRequest> requestsToRetryDueToFailure = ConcurrentHashMap.newKeySet();
 
-        LOGGER.info("Storing search results for {} finished searches", finishedSearches.size());
-
-        // Process sequentially to avoid deadlocks from concurrent identical property storage
-        for (ApifyRunningSearch search : finishedSearches) {
-            try {
-                RetryableBatchedExecutor.executeRunnableInSessionWithTransaction(sessionFactory, () -> {
-                    if (search.pendingSearchStatus().equals(ApifySearchStatus.FAILED)) {
-                        requestsToRetryDueToFailure.add(search.request());
-                        return;
-                    }
-
-                    Set<T> realEstates = collector.getSearchResults(search);
-                    if (realEstates.isEmpty()) {
-                        requestsToRetryDueToProxy.add(search.request());
-                        LOGGER.warn("No results for search, will be retried with residential proxy: {}", search.request().getLocation());
-                        return;
-                    }
-
-                    if (realEstates.size() > 2300) {
-                        requestsToFragment.add(search.request());
-                        return;
-                    }
-
-                    requestsSucceeded.add(search.request());
-                    realEstates.forEach(collector::storeResult);
-                    LOGGER.debug("Stored batch of {} results", realEstates.size());
-                });
-            } catch (Exception e) {
-                LOGGER.error("Failed to store results for search: {}", search, e);
-            }
+        try {
+            return RetryableBatchedExecutor.executeCallableInSessionWithTransaction(sessionFactory,
+                    () -> collector.storeResults(finishedSearches));
+        } catch (Exception e) {
+            LOGGER.error("Failed to store results for search: {}", finishedSearches, e);
+            return new ApifySearchResults(Set.of(), Set.of(), Set.of(), Set.of());
         }
-
-        return new searchResults(requestsSucceeded, requestsToFragment, requestsToRetryDueToFailure, requestsToRetryDueToProxy);
     }
 
-    private <S, T> Set<T> executeIteratively(Optional<Integer> batchSize, Set<S> toRun,
-                                             Function<S, T> resultOrNullFunction) {
+    private <S, T> Set<T> executeIteratively(
+            Optional<Integer> batchSize, Set<S> toRun,
+            Function<S, T> resultOrNullFunction) {
         return RetryableBatchedExecutor.executeUntilAllSuccessful(
                 toRun, resultOrNullFunction, batchSize, executorService);
     }
 
-    private static Set<IdealistaSearchRequest> calculateRequestsToRetry(searchResults results) {
-        Set<IdealistaSearchRequest> fragmentedRequests = new HashSet<>();
-        if (!results.requestsToFragment.isEmpty()) {
-            fragmentedRequests = IdealistaSearchRequest.fragment(results.requestsToFragment);
-            if (fragmentedRequests.isEmpty()) {
-                LOGGER.error("Cannot further fragment requests: {}", results.requestsToFragment);
-            }
-        }
-
-        Set<IdealistaSearchRequest> residentialProxyRequests = new HashSet<>();
-        if (!results.requestsToRetryDueToProxy.isEmpty()) {
-            residentialProxyRequests = IdealistaSearchRequest.withResidentialProxy(results.requestsToRetryDueToProxy);
-        }
+    private static Set<IdealistaSearchRequest> calculateRequestsToRetry(ApifySearchResults results) {
+        Set<IdealistaSearchRequest> residentialProxyRequests = Sets.union(
+                IdealistaSearchRequest.withResidentialProxy(results.requestsToRetryDueToProxy()),
+                IdealistaSearchRequest.withResidentialProxy(results.requestsToRetryDueToFailure())
+        );
 
         return Sets.union(
-                Sets.union(results.requestsToRetryDueToFailure, residentialProxyRequests),
-                fragmentedRequests);
+                residentialProxyRequests,
+                IdealistaSearchRequest.fragment(results.requestsToFragment()));
     }
 }

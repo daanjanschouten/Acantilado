@@ -12,9 +12,9 @@ public class AdministrativeCollectorScheduler implements Managed {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdministrativeCollectorScheduler.class);
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private final AdministrativeCollectorService collectorService;
+    private final GeographicCollectorService collectorService;
 
-    public AdministrativeCollectorScheduler(AdministrativeCollectorService collectorService) {
+    public AdministrativeCollectorScheduler(GeographicCollectorService collectorService) {
         this.collectorService = collectorService;
     }
 
@@ -26,13 +26,7 @@ public class AdministrativeCollectorScheduler implements Managed {
         }
 
         LOGGER.info("Starting administrative collection");
-
-        scheduler.scheduleAtFixedRate(
-                this::seed,
-                10,
-                TimeUnit.DAYS.toSeconds(100),
-                TimeUnit.SECONDS
-        );
+        scheduler.schedule(this::seed, 10, TimeUnit.SECONDS);
     }
 
     @Override

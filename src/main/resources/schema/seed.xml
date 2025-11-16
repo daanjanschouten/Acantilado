@@ -8,44 +8,50 @@
 
     <changeSet id="create-comunidad-autonoma-table" author="dschouten">
         <createTable tableName="comunidad_autonoma">
-            <column name="comunidad_autonoma_id" type="BIGINT">
+            <column name="comunidadAutonomaId" type="VARCHAR(100)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
+            </column>
+            <column name="geometry" type="CLOB">
+                <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>
 
     <changeSet id="create-provincia-table" author="dschouten">
         <createTable tableName="provincia">
-            <column name="provincia_id" type="BIGINT">
+            <column name="provinciaId" type="VARCHAR(100)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
+            </column>
+            <column name="comunidadAutonomaId" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="geometry" type="CLOB">
+                <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>
 
     <changeSet id="create-ayuntamiento-table" author="dschouten">
         <createTable tableName="ayuntamiento">
-            <column name="ayuntamiento_id" type="BIGINT">
+            <column name="ayuntamientoId" type="VARCHAR(100)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="provincia_id" type="BIGINT">
+            <column name="provinciaId" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comunidadAutonomaId" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="phone" type="VARCHAR(50)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="provincia" type="BIGINT">
-                <constraints nullable="true"/>
-            </column>
-            <column name="comunidad_autonoma" type="BIGINT">
                 <constraints nullable="true"/>
             </column>
             <column name="geometry" type="CLOB">
@@ -58,18 +64,9 @@
         <addForeignKeyConstraint
                 constraintName="fk_ayuntamiento_provincia"
                 baseTableName="ayuntamiento"
-                baseColumnNames="provincia"
+                baseColumnNames="provinciaId"
                 referencedTableName="provincia"
-                referencedColumnNames="provincia_id"
-                onDelete="SET NULL"
-                onUpdate="CASCADE"/>
-
-        <addForeignKeyConstraint
-                constraintName="fk_ayuntamiento_comunidad_autonoma"
-                baseTableName="ayuntamiento"
-                baseColumnNames="comunidad_autonoma"
-                referencedTableName="comunidad_autonoma"
-                referencedColumnNames="comunidad_autonoma_id"
+                referencedColumnNames="provinciaId"
                 onDelete="SET NULL"
                 onUpdate="CASCADE"/>
     </changeSet>
@@ -120,7 +117,7 @@
             <column name="municipality" type="VARCHAR(100)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ayuntamiento_id" type="BIGINT">
+            <column name="ayuntamientoId" type="VARCHAR(100)">
                 <constraints nullable="true"/>
             </column>
             <column name="location_id" type="VARCHAR(50)">
@@ -215,7 +212,7 @@
             <column name="municipality" type="VARCHAR(100)">
                 <constraints nullable="true"/>
             </column>
-            <column name="ayuntamiento_id" type="BIGINT">
+            <column name="ayuntamientoId" type="VARCHAR(100)">
                 <constraints nullable="true"/>
             </column>
             <column name="location_id" type="VARCHAR(50)">
@@ -321,7 +318,7 @@
             <column name="municipality"/>
         </createIndex>
         <createIndex tableName="idealista_property" indexName="idx_property_ayuntamiento">
-            <column name="ayuntamiento_id"/>
+            <column name="ayuntamientoId"/>
         </createIndex>
         <createIndex tableName="idealista_property_price_records" indexName="idx_property_price_recorded_at">
             <column name="property_code"/>
@@ -334,7 +331,7 @@
             <column name="municipality"/>
         </createIndex>
         <createIndex tableName="idealista_terrain" indexName="idx_terrain_ayuntamiento">
-            <column name="ayuntamiento_id"/>
+            <column name="ayuntamientoId"/>
         </createIndex>
         <createIndex tableName="idealista_terrain_price_records" indexName="idx_terrain_price_recorded_at">
             <column name="property_code"/>
@@ -364,7 +361,7 @@
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="ayuntamiento_id" type="BIGINT">
+            <column name="ayuntamientoId" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="geometry" type="CLOB">
@@ -377,9 +374,9 @@
         <addForeignKeyConstraint
                 constraintName="fk_barrio_ayuntamiento"
                 baseTableName="barrio"
-                baseColumnNames="ayuntamiento_id"
+                baseColumnNames="ayuntamientoId"
                 referencedTableName="ayuntamiento"
-                referencedColumnNames="ayuntamiento_id"
+                referencedColumnNames="ayuntamientoId"
                 onDelete="CASCADE"
                 onUpdate="CASCADE"/>
     </changeSet>
@@ -389,14 +386,14 @@
             <column name="codigo_ine" type="VARCHAR(20)">
                 <constraints nullable="false"/>
             </column>
-            <column name="ayuntamiento_id" type="BIGINT">
+            <column name="ayuntamientoId" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
         <addPrimaryKey
                 tableName="codigo_postal_ayuntamiento"
-                columnNames="codigo_ine, ayuntamiento_id"
+                columnNames="codigo_ine, ayuntamientoId"
                 constraintName="pk_codigo_postal_ayuntamiento"/>
 
         <addForeignKeyConstraint
@@ -411,16 +408,16 @@
         <addForeignKeyConstraint
                 constraintName="fk_cp_ayun_ayuntamiento"
                 baseTableName="codigo_postal_ayuntamiento"
-                baseColumnNames="ayuntamiento_id"
+                baseColumnNames="ayuntamientoId"
                 referencedTableName="ayuntamiento"
-                referencedColumnNames="ayuntamiento_id"
+                referencedColumnNames="ayuntamientoId"
                 onDelete="CASCADE"
                 onUpdate="CASCADE"/>
     </changeSet>
 
     <changeSet id="create-barrio-indexes" author="dschouten">
         <createIndex indexName="idx_barrio_ayuntamiento" tableName="barrio">
-            <column name="ayuntamiento_id"/>
+            <column name="ayuntamientoId"/>
         </createIndex>
 
         <createIndex indexName="idx_barrio_name" tableName="barrio">
@@ -430,7 +427,7 @@
 
     <changeSet id="create-join-table-indexes" author="dschouten">
         <createIndex indexName="idx_cp_ayun_ayuntamiento" tableName="codigo_postal_ayuntamiento">
-            <column name="ayuntamiento_id"/>
+            <column name="ayuntamientoId"/>
         </createIndex>
     </changeSet>
 
@@ -445,7 +442,7 @@
             <column name="idealista_municipality_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="acantilado_ayuntamiento_id" type="BIGINT">
+            <column name="acantilado_ayuntamientoId" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="acantilado_municipality_name" type="VARCHAR(255)">
@@ -458,9 +455,9 @@
         <addForeignKeyConstraint
                 constraintName="fk_location_mapping_ayuntamiento"
                 baseTableName="idealista_location_mapping"
-                baseColumnNames="acantilado_ayuntamiento_id"
+                baseColumnNames="acantilado_ayuntamientoId"
                 referencedTableName="ayuntamiento"
-                referencedColumnNames="ayuntamiento_id"
+                referencedColumnNames="ayuntamientoId"
                 onDelete="CASCADE"
                 onUpdate="CASCADE"/>
     </changeSet>
@@ -470,8 +467,8 @@
             <column name="idealista_location_id"/>
         </createIndex>
 
-        <createIndex indexName="idx_location_mapping_ayuntamiento_id" tableName="idealista_location_mapping">
-            <column name="acantilado_ayuntamiento_id"/>
+        <createIndex indexName="idx_location_mapping_ayuntamientoId" tableName="idealista_location_mapping">
+            <column name="acantilado_ayuntamientoId"/>
         </createIndex>
 
         <createIndex indexName="idx_location_mapping_idealista_muni" tableName="idealista_location_mapping">
@@ -488,16 +485,16 @@
             <column name="idealista_ayuntamiento_location_id" type="VARCHAR(255)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="provincia_id" type="VARCHAR(255)">
+            <column name="provinciaId" type="VARCHAR(255)">
                 <constraints nullable="true"/>
             </column>
         </createTable>
     </changeSet>
 
     <changeSet id="add-index-idealista-ayuntamiento-location-provincia" author="your-name">
-        <createIndex indexName="idx_idealista_ayuntamiento_provincia_id"
+        <createIndex indexName="idx_idealista_ayuntamiento_provinciaId"
                      tableName="IDEALISTA_AYUNTAMIENTO_LOCATION">
-            <column name="provincia_id"/>
+            <column name="provinciaId"/>
         </createIndex>
     </changeSet>
 

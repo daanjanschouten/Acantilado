@@ -25,7 +25,7 @@ import java.util.Objects;
         ),
         @NamedQuery(
                 name = "com.acantilado.barrio.findByAyuntamiento",
-                query = "SELECT b FROM Barrio b WHERE b.ayuntamientoId = :ayuntamiento_id"
+                query = "SELECT b FROM Barrio b WHERE b.ayuntamientoId = :ayuntamientoId"
         ),
         @NamedQuery(
                 name = "com.acantilado.barrio.findByName",
@@ -33,7 +33,7 @@ import java.util.Objects;
         ),
         @NamedQuery(
                 name = "com.acantilado.barrio.findByAyuntamientoAndName",
-                query = "SELECT b FROM Barrio b WHERE b.ayuntamientoId = :ayuntamiento_id AND b.name = :name"
+                query = "SELECT b FROM Barrio b WHERE b.ayuntamientoId = :ayuntamientoId AND b.name = :name"
         )
 })
 public class Barrio {
@@ -47,8 +47,8 @@ public class Barrio {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "ayuntamiento_id", nullable = false)
-    private Long ayuntamientoId;
+    @Column(name = "ayuntamientoId", nullable = false)
+    private String ayuntamientoId;
 
     @JsonIgnore
     @Column(name = "geometry", columnDefinition = "CLOB", nullable = false)
@@ -58,15 +58,9 @@ public class Barrio {
     @JsonIgnore
     private Geometry geometry;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ayuntamiento_id", referencedColumnName = "ayuntamiento_id",
-            insertable = false, updatable = false)
-    private Ayuntamiento ayuntamiento;
-
     public Barrio() {}
 
-    public Barrio(String name, Long ayuntamientoId, Geometry geometry) {
+    public Barrio(String name, String ayuntamientoId, Geometry geometry) {
         this.name = name;
         this.ayuntamientoId = ayuntamientoId;
         this.geometry = geometry;
@@ -113,11 +107,11 @@ public class Barrio {
         this.name = name;
     }
 
-    public Long getAyuntamientoId() {
+    public String getAyuntamientoId() {
         return ayuntamientoId;
     }
 
-    public void setAyuntamientoId(Long ayuntamientoId) {
+    public void setAyuntamientoId(String ayuntamientoId) {
         this.ayuntamientoId = ayuntamientoId;
     }
 
@@ -136,14 +130,6 @@ public class Barrio {
     public void setGeometryJson(String geometryJson) {
         this.geometryJson = geometryJson;
         this.geometry = null;
-    }
-
-    public Ayuntamiento getAyuntamiento() {
-        return ayuntamiento;
-    }
-
-    public void setAyuntamiento(Ayuntamiento ayuntamiento) {
-        this.ayuntamiento = ayuntamiento;
     }
 
     @JsonProperty("bounds")

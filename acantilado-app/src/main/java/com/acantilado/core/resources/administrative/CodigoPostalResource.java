@@ -42,7 +42,7 @@ public class CodigoPostalResource {
     @GET
     @Path("/ayuntamiento/{ayuntamientoId}")
     @UnitOfWork
-    public List<CodigoPostal> getByAyuntamiento(@PathParam("ayuntamientoId") Long ayuntamientoId) {
+    public List<CodigoPostal> getByAyuntamiento(@PathParam("ayuntamientoId") String ayuntamientoId) {
         return codigoPostalDao.findByAyuntamiento(ayuntamientoId);
     }
 

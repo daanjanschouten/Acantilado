@@ -1,6 +1,14 @@
 package com.acantilado.core.administrative;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.locationtech.jts.geom.Envelope;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.io.geojson.GeoJsonReader;
+
 import javax.persistence.*;
+import java.util.Map;
 import java.util.Objects;
 
 @Entity
@@ -14,45 +22,117 @@ import java.util.Objects;
         }
 )
 public class ComunidadAutonoma {
+
     @Id
-    @Column(name = "comunidad_autonoma_id")
-    private long comunidad_autonoma_id;
+    @Column(name = "comunidadAutonomaId")
+    private String comunidadAutonomaId;
 
     @Column(name = "name", nullable = false)
     private String name;
 
+    /** ---------- GEOMETRY FIELDS (same pattern as Provincia) ------------- */
+
+    @JsonIgnore
+    @Column(name = "geometry", columnDefinition = "CLOB")
+    private String geometryJson;
+
+    @JsonIgnore
+    @Transient
+    private Geometry geometry;
+
     public ComunidadAutonoma() {}
 
-    public ComunidadAutonoma(long comunidad_autonoma_id, String name) {
-        this.comunidad_autonoma_id = comunidad_autonoma_id;
+    public ComunidadAutonoma(String comunidadAutonomaId, String name, Geometry geometry) {
+        this.comunidadAutonomaId = comunidadAutonomaId;
         this.name = name;
+        this.geometry = geometry;
     }
 
-    public long getId() {
-        return comunidad_autonoma_id;
+    public String getId() { return comunidadAutonomaId; }
+    public String getName() { return name; }
+
+    public void setId(String id) { this.comunidadAutonomaId = id; }
+    public void setName(String name) { this.name = name; }
+
+    /* ---------------- GEOMETRY GETTERS ---------------- */
+
+    public Geometry getGeometry() { return geometry; }
+    public String getGeometryJson() { return geometryJson; }
+
+    public void setGeometry(Geometry geometry) {
+        this.geometry = geometry;
     }
 
-    public String getName() {
-        return name;
+    public void setGeometryJson(String geometryJson) {
+        this.geometryJson = geometryJson;
+        this.geometry = null; // force re-parse on load
     }
 
-    public void setId(long id) {
-        this.comunidad_autonoma_id = id;
+    /** Geometry-derived properties for JSON exposure */
+
+    @JsonProperty("bounds")
+    public Map<String, Double> getBounds() {
+        if (geometry == null) return null;
+        Envelope e = geometry.getEnvelopeInternal();
+        return Map.of(
+                "minLon", e.getMinX(),
+                "maxLon", e.getMaxX(),
+                "minLat", e.getMinY(),
+                "maxLat", e.getMaxY()
+        );
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @JsonProperty("centroid")
+    public Map<String, Double> getCentroid() {
+        if (geometry == null) return null;
+        Point p = geometry.getCentroid();
+        return Map.of(
+                "lon", p.getX(),
+                "lat", p.getY()
+        );
+    }
+
+    /** ---------- LIFECYCLE HOOKS (same as Provincia) ----------- */
+
+    @PrePersist
+    @PreUpdate
+    private void serializeGeometry() {
+        if (geometry != null) {
+            try {
+                org.locationtech.jts.io.geojson.GeoJsonWriter writer =
+                        new org.locationtech.jts.io.geojson.GeoJsonWriter();
+                this.geometryJson = writer.write(geometry);
+            } catch (Exception e) {
+                throw new RuntimeException(
+                        "Failed to serialize geometry for comunidad: " + comunidadAutonomaId, e
+                );
+            }
+        }
+    }
+
+    @PostLoad
+    private void parseGeometry() {
+        if (geometryJson != null && !geometryJson.isEmpty()) {
+            try {
+                GeoJsonReader reader = new GeoJsonReader();
+                this.geometry = reader.read(geometryJson);
+            } catch (Exception e) {
+                throw new RuntimeException(
+                        "Failed to parse geometry for comunidad: " + comunidadAutonomaId, e
+                );
+            }
+        }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(comunidad_autonoma_id, name);
+        return Objects.hash(comunidadAutonomaId, name);
     }
 
     @Override
     public String toString() {
         return "ComunidadAutonoma{" +
-                "comunidad_autonoma_id=" + comunidad_autonoma_id +
+                "comunidadAutonomaId='" + comunidadAutonomaId + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }

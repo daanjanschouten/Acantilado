@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public final class CodigoPostalToAyuntamientoLinkingService extends CollectorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CodigoPostalToAyuntamientoLinkingService.class);
-    private static final double PROXIMITY_THRESHOLD = 0.015; // ~500 meters
+    private static final double PROXIMITY_DEGREES_THRESHOLD = 0.01;
 
     private final AyuntamientoDAO ayuntamientoDAO;
     private final CodigoPostalDAO codigoPostalDAO;
@@ -35,7 +35,7 @@ public final class CodigoPostalToAyuntamientoLinkingService extends CollectorSer
         ManagedSessionContext.bind(session);
 
         try {
-            return codigoPostalDAO.findByAyuntamiento(28079L).isEmpty();
+            return codigoPostalDAO.findByAyuntamiento("28079").isEmpty();
         } finally {
             ManagedSessionContext.unbind(sessionFactory);
             session.close();
@@ -55,7 +55,7 @@ public final class CodigoPostalToAyuntamientoLinkingService extends CollectorSer
      * Linking is based only on proximity, not intersection. This is because these links are purely used to filter
      * down possible postcodes for a given real estate listing, as Idealista provides a reliable ayuntamiento.
      */
-    private void linkPostCodesToAyuntamientos(Set<String> postalCodeIds, Long provinciaId) {
+    private void linkPostCodesToAyuntamientos(Set<String> postalCodeIds, String provinciaId) {
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
         int totalLinksCreated = 0;
@@ -78,7 +78,7 @@ public final class CodigoPostalToAyuntamientoLinkingService extends CollectorSer
                     for (Ayuntamiento ayuntamiento : ayuntamientos) {
                         try {
                             double distance = cp.getGeometry().distance(ayuntamiento.getGeometry());
-                            if (distance > PROXIMITY_THRESHOLD) {
+                            if (distance > PROXIMITY_DEGREES_THRESHOLD) {
                                 continue;
                             }
 
@@ -94,8 +94,8 @@ public final class CodigoPostalToAyuntamientoLinkingService extends CollectorSer
 
                 if (linksForThisPostalCode == 0) {
                     LOGGER.error("No ayuntamientos found for postal code {} at proximity setting {}",
-                            postalCodeId, PROXIMITY_THRESHOLD);
-                    logClosestAyuntamiento(codigosPostales.get(0), ayuntamientos);
+                            postalCodeId, PROXIMITY_DEGREES_THRESHOLD);
+                    // logClosestAyuntamiento(codigosPostales.get(0), ayuntamientos);
                 }
                 totalLinksCreated += linksForThisPostalCode;
             }
@@ -142,11 +142,11 @@ public final class CodigoPostalToAyuntamientoLinkingService extends CollectorSer
         return codigosPostales;
     }
 
-    private static long provinciaIdForPostalCode(String postalCodeId) {
-        return Long.parseLong(postalCodeId.substring(0, 2));
+    private static String provinciaIdForPostalCode(String postalCodeId) {
+        return postalCodeId.substring(0, 2);
     }
 
-    private static Map<Long, Set<String>> collectPostCodesByProvinceIds(SessionFactory sessionFactory, CodigoPostalDAO codigoPostalDAO) {
+    private static Map<String, Set<String>> collectPostCodesByProvinceIds(SessionFactory sessionFactory, CodigoPostalDAO codigoPostalDAO) {
         Session session = sessionFactory.openSession();
         ManagedSessionContext.bind(session);
 

@@ -24,10 +24,10 @@ public class BarrioDAO extends AbstractDAO<Barrio> {
         return list(namedTypedQuery("com.acantilado.barrio.findAll"));
     }
 
-    public List<Barrio> findByAyuntamiento(Long ayuntamientoId) {
+    public List<Barrio> findByAyuntamiento(String ayuntamientoId) {
         return list(
                 namedTypedQuery("com.acantilado.barrio.findByAyuntamiento")
-                        .setParameter("ayuntamiento_id", ayuntamientoId)
+                        .setParameter("ayuntamientoId", ayuntamientoId)
         );
     }
 
@@ -41,7 +41,7 @@ public class BarrioDAO extends AbstractDAO<Barrio> {
     public Optional<Barrio> findByAyuntamientoAndName(Long ayuntamientoId, String name) {
         List<Barrio> results = list(
                 namedTypedQuery("com.acantilado.barrio.findByAyuntamientoAndName")
-                        .setParameter("ayuntamiento_id", ayuntamientoId)
+                        .setParameter("ayuntamientoId", ayuntamientoId)
                         .setParameter("name", name)
         );
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));

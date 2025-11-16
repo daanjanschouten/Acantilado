@@ -34,7 +34,7 @@ public class ProvinceCollectionUtils {
                         .collect(Collectors.groupingBy(IdealistaLocationMapping::getIdealistaLocationId)));
     }
 
-    public static Map<Long, List<IdealistaLocationMapping>> getMappingsByAyuntamientoIds(
+    public static Map<String, List<IdealistaLocationMapping>> getMappingsByAyuntamientoIds(
             SessionFactory sessionFactory, IdealistaLocationMappingDAO mappingDAO, Set<String> idealistaLocationIdsForProvince) {
         return executeCallableInSessionWithoutTransaction(sessionFactory,
                 () -> mappingDAO.findAll()
@@ -50,12 +50,7 @@ public class ProvinceCollectionUtils {
                 () -> {
                     List<Ayuntamiento> ayuntamientos = ayuntamientoDAO.findByProvinceId(provincia.getId());
 
-                    return ayuntamientos.stream()
-                            .filter(a -> {
-                                String ayuntamientoProvinceCode = String.valueOf(a.getId() / 1000);
-                                return ayuntamientoProvinceCode.equals(String.valueOf(provincia.getId()));
-                            })
-                            .collect(Collectors.toSet());
+                    return new HashSet<>(ayuntamientos);
                 });
     }
 
@@ -65,10 +60,10 @@ public class ProvinceCollectionUtils {
                 () -> new HashSet<>(locationDAO.findByProvinceId(provincia.getId())));
     }
 
-    public static Map<Long, Set<CodigoPostal>> getPostcodesForProvince(
+    public static Map<String, Set<CodigoPostal>> getPostcodesForProvince(
             SessionFactory sessionFactory, CodigoPostalDAO codigoPostalDAO, Set<Ayuntamiento> ayuntamientos) {
         return executeCallableInSessionWithoutTransaction(sessionFactory, () -> {
-            Map<Long, Set<CodigoPostal>> postcodesByAyuntamiento = new HashMap<>();
+            Map<String, Set<CodigoPostal>> postcodesByAyuntamiento = new HashMap<>();
 
             ayuntamientos.forEach(ayuntamiento -> {
                 List<CodigoPostal> postcodes = codigoPostalDAO.findByAyuntamiento(ayuntamiento.getId());
@@ -83,7 +78,7 @@ public class ProvinceCollectionUtils {
         return executeCallableInSessionWithoutTransaction(sessionFactory, () -> {
             Set<Barrio> barrios = new HashSet<>();
             for (CityAyuntamientoCode city : CityAyuntamientoCode.values()) {
-                if (city.getProvinceCode() == provincia.getId()) {
+                if (Objects.equals(city.getProvinceCode(), provincia.getId())) {
                     barrios.addAll(barrioDAO.findByAyuntamiento(city.getMunicipalityCode()));
                 }
             }

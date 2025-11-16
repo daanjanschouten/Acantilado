@@ -27,7 +27,7 @@ import java.util.Set;
         ),
         @NamedQuery(
                 name = "com.acantilado.codigopostal.findByAyuntamiento",
-                query = "SELECT c FROM CodigoPostal c JOIN c.ayuntamientos a WHERE a.ayuntamiento_id = :ayuntamiento_id"
+                query = "SELECT c FROM CodigoPostal c JOIN c.ayuntamientos a WHERE a.ayuntamientoId = :ayuntamientoId"
         ),
         @NamedQuery(
                 name = "com.acantilado.codigopostal.findByCodigoPostal",
@@ -56,7 +56,7 @@ public class CodigoPostal {
     @JoinTable(
             name = "CODIGO_POSTAL_AYUNTAMIENTO",
             joinColumns = @JoinColumn(name = "codigo_ine"),
-            inverseJoinColumns = @JoinColumn(name = "ayuntamiento_id")
+            inverseJoinColumns = @JoinColumn(name = "ayuntamientoId")
     )
     private Set<Ayuntamiento> ayuntamientos = new HashSet<>();
 

@@ -125,29 +125,29 @@ public class IdealistaSearchRequest implements RequestBodyData {
                 2400,
                 String.valueOf(0),
                 String.valueOf(0),
-                ProxyConfiguration.residential());
+                ProxyConfiguration.datacenter());
     }
 
     public static Set<IdealistaSearchRequest> fragment(Set<IdealistaSearchRequest> requests) {
-        Set<IdealistaSearchRequest> fragmentedRequests = new HashSet<>();
-        Set<IdealistaSearchRequest> cannotFragment = new HashSet<>();
+        return Set.of();
 
-        requests.forEach(request -> {
-            if (isFragmentable(request)) {
-                PERMITTED_SIZE_VALUES().forEach(pair -> {
-                    fragmentedRequests.add(IdealistaSearchRequest.withSurfaceAreaBounds(request, pair.getLeft(), pair.getRight()));
-                });
-                fragmentedRequests.add(IdealistaSearchRequest.withSurfaceAreaBounds(request, MAX_SURFACE_AREA, 0));
-            } else {
-                cannotFragment.add(request);
-            }
-        });
+//        if (requests.isEmpty()) {
+//          return requests;
+//        }
 
-        if (!cannotFragment.isEmpty()) {
-            LOGGER.error("Cannot fragment {} requests further: {}", cannotFragment.size(), cannotFragment);
-        }
-
-        return fragmentedRequests;
+//        Set<IdealistaSearchRequest> fragmentedRequests = new HashSet<>();
+//        requests.forEach(request -> {
+//            if (isFragmentable(request)) {
+//                PERMITTED_SIZE_VALUES().forEach(pair -> {
+//                    fragmentedRequests.add(IdealistaSearchRequest.withSurfaceAreaBounds(request, pair.getLeft(), pair.getRight()));
+//                });
+//                fragmentedRequests.add(IdealistaSearchRequest.withSurfaceAreaBounds(request, MAX_SURFACE_AREA, 0));
+//            }
+//        });
+//
+//        LOGGER.info("Fragmented {} into {} requests", requests.size(), fragmentedRequests.size());
+//
+//        return fragmentedRequests;
     }
 
     private static IdealistaSearchRequest withSurfaceAreaBounds(IdealistaSearchRequest request, int minSize, int maxSize) {
@@ -203,6 +203,6 @@ public class IdealistaSearchRequest implements RequestBodyData {
                 2400,
                 String.valueOf(0),
                 String.valueOf(0),
-                ProxyConfiguration.residential());
+                ProxyConfiguration.datacenter());
     }
 }

@@ -10,7 +10,7 @@ import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
 import com.acantilado.core.resources.administrative.*;
 import com.acantilado.core.resources.properties.IdealistaRealEstateResource;
 import com.acantilado.collection.administration.AdministrativeCollectorScheduler;
-import com.acantilado.collection.administration.AdministrativeCollectorService;
+import com.acantilado.collection.administration.GeographicCollectorService;
 import com.acantilado.collection.properties.IdealistaCollectorScheduler;
 import com.acantilado.collection.properties.IdealistaCollectorServiceFactory;
 import com.acantilado.tasks.EchoTask;
@@ -129,9 +129,10 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                 barrioDAO,
                 idealistaAyuntamientoMappingDAO,
                 hibernateBundle.getSessionFactory());
-        final AdministrativeCollectorService administrativeCollectorService = new AdministrativeCollectorService(
+        final GeographicCollectorService geographicCollectorService = new GeographicCollectorService(
                 codigoPostalDAO,
                 ayuntamientoDao,
+                provinciaDao,
                 barrioDAO,
                 hibernateBundle.getSessionFactory());
 
@@ -148,7 +149,7 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         environment.jersey().register(new ProvinciaResource(provinciaDao));
         environment.jersey().register(new CodigoPostalResource(codigoPostalDAO));
         environment.jersey().register(new BarrioResource(barrioDAO));
-        environment.lifecycle().manage(new AdministrativeCollectorScheduler(administrativeCollectorService));
+        environment.lifecycle().manage(new AdministrativeCollectorScheduler(geographicCollectorService));
 
         // Properties
         environment.jersey().register(new IdealistaRealEstateResource(

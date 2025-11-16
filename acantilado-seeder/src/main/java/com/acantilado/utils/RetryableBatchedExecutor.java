@@ -82,7 +82,7 @@ public class RetryableBatchedExecutor {
                 currentRun = currentRun.refresh(successfulResponses.size());
                 LOGGER.info("Single run stats {}", currentRun);
 
-                if (currentRun.totalRetryCount >= 20) {
+                if (currentRun.totalRetryCount >= 30) {
                     LOGGER.error("Giving up on retries, {} remaining requests {}", requestsToRun.size(), requestsToRun);
                     throw new RuntimeException("Giving up on subsequent retries");
                 }
@@ -104,6 +104,24 @@ public class RetryableBatchedExecutor {
         try {
             return callable.call();
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            ManagedSessionContext.unbind(sessionFactory);
+            session.close();
+        }
+    }
+
+    public static <T> T executeCallableInSessionWithTransaction(SessionFactory sessionFactory, Callable<T> callable) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        ManagedSessionContext.bind(session);
+
+        try {
+            T result = callable.call();
+            transaction.commit();
+            return result;
+        } catch (Exception e) {
+            transaction.rollback();
             throw new RuntimeException(e);
         } finally {
             ManagedSessionContext.unbind(sessionFactory);

@@ -1,34 +1,34 @@
 package com.acantilado.collection.location;
 
 public enum CityAyuntamientoCode {
-    MADRID(28, 79),
-    BARCELONA(8, 19),
-    VALENCIA(46, 250),
-    ZARAGOZA(50, 297),
-    SEVILLA(41, 91),
-    MALAGA(29, 67),
-    SAN_SEBASTIAN(20, 69),
-    ALICANTE(3, 14),
-    TENERIFE(38, 38),
-    LORCA(30, 24);
+    MADRID("28", "079"),
+    BARCELONA("08", "019"),
+    VALENCIA("46", "250"),
+    ZARAGOZA("50", "297"),
+    SEVILLA("41", "091"),
+    MALAGA("29", "067"),
+    SAN_SEBASTIAN("20", "069"),
+    ALICANTE("03", "014"),
+    // TENERIFE("38", "038"),
+    LORCA("30", "024");
 
-    private final long provinceCode;
-    private final long municipalityCode;
+    private final String provinceCode;
+    private final String municipalityCode;
 
-    CityAyuntamientoCode(long provinceCode, long municipalityCode) {
+    CityAyuntamientoCode(String provinceCode, String municipalityCode) {
         this.provinceCode = provinceCode;
         this.municipalityCode = municipalityCode;
     }
 
-    public long getProvinceCode() {
+    public String getProvinceCode() {
         return provinceCode;
     }
 
-    public long getCityCode() {
-        return provinceCode * 1000 + municipalityCode;
+    public String getCityCode() {
+        return provinceCode + municipalityCode;
     }
 
-    public long getMunicipalityCode() {
+    public String getMunicipalityCode() {
         return municipalityCode;
     }
 }

@@ -54,7 +54,7 @@ public class AcantiladoLocation {
     }
 
     public String getIdentifier() {
-        long ayuntamientoId = ayuntamiento.getId();
+        String ayuntamientoId = ayuntamiento.getId();
         String codigoPostalId = codigoPostal.getCodigoIne();
         String barrioId = maybeBarrio.map(value -> value.getId().toString()).orElse(ABSENT_BARRIO);
 
@@ -88,8 +88,7 @@ public class AcantiladoLocation {
 
     private static Ayuntamiento getMandatoryAyuntamiento(String identifierSlice, AyuntamientoDAO ayuntamientoDAO) {
         try {
-            long ayuntamientoId = Long.parseLong(identifierSlice);
-            Optional<Ayuntamiento> maybeAyuntamiento = ayuntamientoDAO.findById(ayuntamientoId);
+            Optional<Ayuntamiento> maybeAyuntamiento = ayuntamientoDAO.findById(identifierSlice);
             if (maybeAyuntamiento.isEmpty()) {
                 throw new IllegalStateException("Provided identifier for ayuntamiento that doesn't exist " + identifierSlice);
             }

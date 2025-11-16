@@ -11,7 +11,7 @@ public class AyuntamientoDAO extends AbstractDAO<Ayuntamiento> {
         super(sessionFactory);
     }
 
-    public Optional<Ayuntamiento> findById(Long ayuntamientoId) {
+    public Optional<Ayuntamiento> findById(String ayuntamientoId) {
         return Optional.ofNullable(get(ayuntamientoId));
     }
 
@@ -29,9 +29,9 @@ public class AyuntamientoDAO extends AbstractDAO<Ayuntamiento> {
         );
     }
 
-    public List<Ayuntamiento> findByProvinceId(long provinceId) {
+    public List<Ayuntamiento> findByProvinceId(String provinceId) {
         return namedTypedQuery("com.acantilado.ayuntamiento.findByProvinceId")
-                .setParameter("provincia_id", provinceId)
+                .setParameter("provinciaId", provinceId)
                 .getResultList();
     }
 
@@ -41,9 +41,9 @@ public class AyuntamientoDAO extends AbstractDAO<Ayuntamiento> {
                 .getResultList();
     }
 
-    public List<Long> findAllIds() {
+    public List<String> findAllIds() {
         return currentSession()
-                .createQuery("SELECT a.ayuntamiento_id FROM Ayuntamiento a", Long.class)
+                .createQuery("SELECT a.ayuntamientoId FROM Ayuntamiento a", String.class)
                 .getResultList();
     }
 }

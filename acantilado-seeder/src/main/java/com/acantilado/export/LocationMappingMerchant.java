@@ -26,7 +26,7 @@ public class LocationMappingMerchant {
     private final SessionFactory sessionFactory;
 
     private final ObjectMapper mapper;
-    private static final String OUTPUT_DIRECTORY = "./acantilado-seeder/src/main/resources";
+    private static final String OUTPUT_DIRECTORY = "./acantilado-seeder/src/main/resources/mappings";
 
     public LocationMappingMerchant(IdealistaLocationMappingDAO mappingDAO, SessionFactory sessionFactory) {
         this.mappingDAO = mappingDAO;

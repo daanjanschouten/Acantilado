@@ -1,5 +1,6 @@
 package com.acantilado.collection.properties.collectors;
 
+import com.acantilado.collection.location.AcantiladoLocation;
 import com.acantilado.core.idealista.IdealistaLocationDAO;
 import com.acantilado.core.idealista.realEstate.IdealistaAyuntamientoLocation;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -20,7 +21,8 @@ public class IdealistaLocationCollector extends ApifyCollector<IdealistaAyuntami
     protected IdealistaAyuntamientoLocation constructObject(JsonNode jsonNode) {
         try {
             String idealistaLocationId = jsonNode.get("locationId").textValue();
-            return new IdealistaAyuntamientoLocation(idealistaLocationId);
+            String normalizedId = AcantiladoLocation.normalizeIdealistaLocationId(idealistaLocationId);
+            return new IdealistaAyuntamientoLocation(normalizedId);
         } catch (Exception e) {
             LOGGER.error("Failed to construct JSON object: {}", jsonNode, e);
             throw new RuntimeException(e);
@@ -29,9 +31,6 @@ public class IdealistaLocationCollector extends ApifyCollector<IdealistaAyuntami
 
     @Override
     public void storeResult(IdealistaAyuntamientoLocation result) {
-        final String locationId = result.getAyuntamientoLocationId();
-        if (locationDAO.findByLocationId(locationId).isEmpty()) {
-            this.locationDAO.saveOrUpdate(result);
-        }
+        this.locationDAO.merge(result);
     }
 }

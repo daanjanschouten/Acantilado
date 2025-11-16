@@ -1,9 +1,10 @@
 package com.acantilado.collection.properties.collectors;
 
 import com.acantilado.collection.Collector;
-import com.acantilado.collection.properties.idealista.IdealistaSearchRequest;
 import com.acantilado.collection.properties.apify.ApifyRunningSearch;
+import com.acantilado.collection.properties.apify.ApifySearchResults;
 import com.acantilado.collection.properties.apify.ApifySearchStatus;
+import com.acantilado.collection.properties.idealista.IdealistaSearchRequest;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class ApifyCollector<T> extends Collector<T> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApifyCollector.class);
@@ -64,20 +67,57 @@ public abstract class ApifyCollector<T> extends Collector<T> {
     public ApifySearchStatus getSearchStatus(ApifyRunningSearch runningSearch) {
         JsonNode requestStatus = makeGetHttpRequest(constructActsUri(runningSearch.runId()), AUTH_HEADER);
         String status = requestStatus.get(DATA_FIELD).get(STATUS_FIELD).textValue();
-        return ApifySearchStatus.valueOf(status);
+
+        return ApifySearchStatus.valueOf(status.replace("-", "_"));
     }
 
-    public Set<T> getSearchResults(ApifyRunningSearch finishedSearch) {
-        Set<T> apifyObjects = new HashSet<>();
-        JsonNode node = makeGetHttpRequest(constructDatasetsUri(finishedSearch.datasetId()), AUTH_HEADER);
+    public ApifySearchResults storeResults(Set<ApifyRunningSearch> finishedSearches) {
+        Set<IdealistaSearchRequest> requestsSucceeded = ConcurrentHashMap.newKeySet();
+        Set<IdealistaSearchRequest> requestsToFragment = ConcurrentHashMap.newKeySet();
+        Set<IdealistaSearchRequest> requestsToRetryDueToProxy = ConcurrentHashMap.newKeySet();
+        Set<IdealistaSearchRequest> requestsToRetryDueToFailure = ConcurrentHashMap.newKeySet();
 
-        Iterator<JsonNode> individualObjects = node.elements();
-        while (individualObjects.hasNext()) {
-            T translatedObject = constructObject(individualObjects.next());
-            apifyObjects.add(translatedObject);
-        }
+        LOGGER.debug("Processing search results for {} finished searches", finishedSearches.size());
 
-        return apifyObjects;
+        finishedSearches.forEach(search -> {
+            if (search.pendingSearchStatus().hasFailed()) {
+                requestsToRetryDueToFailure.add(search.request());
+                return;
+            }
+
+            Iterator<JsonNode> iterator = getSuccessfulSearchResults(search);
+            AtomicInteger objectsProcessed = new AtomicInteger();
+            Set<T> realEstates = new HashSet<>();
+
+            while (iterator.hasNext()) {
+                T translatedObject = constructObject(iterator.next());
+                objectsProcessed.incrementAndGet();
+                realEstates.add(translatedObject);
+            }
+
+            if (objectsProcessed.get() > 2300) {
+                requestsToFragment.add(search.request());
+            }
+
+            if (realEstates.isEmpty()) {
+                requestsToRetryDueToProxy.add(search.request());
+                LOGGER.warn("No results for search, will be retried with residential proxy: {}", search.request().getLocation());
+                return;
+            }
+
+            realEstates.forEach(this::storeResult);
+            requestsSucceeded.add(search.request());
+
+            LOGGER.debug("Stored batch of {} results", realEstates.size());
+        });
+
+        return new ApifySearchResults(requestsSucceeded, requestsToFragment, requestsToRetryDueToFailure, requestsToRetryDueToProxy);
+    }
+
+    private Iterator<JsonNode> getSuccessfulSearchResults(ApifyRunningSearch finishedSearch) {
+        URI uri = constructDatasetsUri(finishedSearch.datasetId());
+        JsonNode node = makeGetHttpRequest(uri, AUTH_HEADER);
+        return node.elements();
     }
 
     private URI constructActsUri(String extension) {

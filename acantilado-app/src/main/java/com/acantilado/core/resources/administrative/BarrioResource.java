@@ -42,7 +42,7 @@ public class BarrioResource {
     @GET
     @Path("/ayuntamiento/{ayuntamientoId}")
     @UnitOfWork
-    public List<Barrio> getByAyuntamiento(@PathParam("ayuntamientoId") Long ayuntamientoId) {
+    public List<Barrio> getByAyuntamiento(@PathParam("ayuntamientoId") String ayuntamientoId) {
         return barrioDao.findByAyuntamiento(ayuntamientoId);
     }
 

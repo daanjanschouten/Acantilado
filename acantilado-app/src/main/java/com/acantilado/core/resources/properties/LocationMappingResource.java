@@ -27,11 +27,11 @@ public class LocationMappingResource {
     @GET
     @Path("/getById/{ayuntamientoId}")
     @UnitOfWork
-    public List<IdealistaLocationMapping> getById(@PathParam("ayuntamientoId") Long ayuntamientoId) {
+    public List<IdealistaLocationMapping> getById(@PathParam("ayuntamientoId") String ayuntamientoId) {
         return findSafely(ayuntamientoId);
     }
 
-    private List<IdealistaLocationMapping> findSafely(Long ayuntamientoId) {
+    private List<IdealistaLocationMapping> findSafely(String ayuntamientoId) {
         return mappingDAO.findByAyuntamientoId(ayuntamientoId);
     }
 

@@ -33,11 +33,11 @@ public class AyuntamientoResource {
     @GET
     @Path("/getById/{ayuntamientoId}")
     @UnitOfWork
-    public Ayuntamiento getById(@PathParam("ayuntamientoId") Long ayuntamientoId) {
+    public Ayuntamiento getById(@PathParam("ayuntamientoId") String ayuntamientoId) {
         return findSafely(ayuntamientoId);
     }
 
-    private Ayuntamiento findSafely(Long ayuntamientoId) {
+    private Ayuntamiento findSafely(String ayuntamientoId) {
         return ayuntamientoDao.findById(ayuntamientoId).orElseThrow(() -> new NotFoundException("No such ayuntamiento." + ayuntamientoId));
     }
 
@@ -51,7 +51,7 @@ public class AyuntamientoResource {
     @GET
     @Path("/getAllIds")
     @UnitOfWork
-    public List<Long> findAllIds() {
+    public List<String> findAllIds() {
         return ayuntamientoDao.findAllIds();
     }
 }

@@ -24,10 +24,10 @@ public class CodigoPostalDAO extends AbstractDAO<CodigoPostal> {
         return list(namedTypedQuery("com.acantilado.codigopostal.findAll"));
     }
 
-    public List<CodigoPostal> findByAyuntamiento(Long ayuntamientoId) {
+    public List<CodigoPostal> findByAyuntamiento(String ayuntamientoId) {
         return list(
                 namedTypedQuery("com.acantilado.codigopostal.findByAyuntamiento")
-                        .setParameter("ayuntamiento_id", ayuntamientoId)
+                        .setParameter("ayuntamientoId", ayuntamientoId)
         );
     }
 

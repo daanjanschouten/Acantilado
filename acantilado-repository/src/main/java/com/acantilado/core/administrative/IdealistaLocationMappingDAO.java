@@ -16,7 +16,7 @@ public class IdealistaLocationMappingDAO extends AbstractDAO<IdealistaLocationMa
                     .setParameter("idealistaLocationId", idealistaLocationId));
     }
 
-    public List<IdealistaLocationMapping> findByAyuntamientoId(Long ayuntamientoId) {
+    public List<IdealistaLocationMapping> findByAyuntamientoId(String ayuntamientoId) {
         return list(namedTypedQuery("com.acantilado.core.administrative.IdealistaLocationMapping.findByAyuntamientoId")
                 .setParameter("ayuntamientoId", ayuntamientoId));
     }

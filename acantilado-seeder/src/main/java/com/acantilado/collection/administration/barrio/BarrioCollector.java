@@ -18,7 +18,7 @@ public class BarrioCollector {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private final String geoJsonPath;
-    private final Long ayuntamientoId;
+    private final String ayuntamientoId;
     private final String barrioTitle;
 
     public BarrioCollector(BarrioCollectorService.CityBarrioConfig cityBarrioConfig) {

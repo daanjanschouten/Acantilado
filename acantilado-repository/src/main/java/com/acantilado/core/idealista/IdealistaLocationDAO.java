@@ -20,14 +20,18 @@ public class IdealistaLocationDAO extends AbstractDAO<IdealistaAyuntamientoLocat
         return Optional.ofNullable(get(locationId));
     }
 
+    public IdealistaAyuntamientoLocation merge(IdealistaAyuntamientoLocation location) {
+        return (IdealistaAyuntamientoLocation) currentSession().merge(location);
+    }
+
 //    public List<IdealistaAyuntamientoLocation> findByProvinceString(String provinceId) {
 //        return namedTypedQuery("com.schouten.core.properties.idealista.IdealistaAyuntamientoLocation.findByProvinciaId")
 //                .setParameter("provinciaId", provinceId)
 //                .getResultList();
 //    }
 
-    public List<IdealistaAyuntamientoLocation> findByProvinceId(Long provinceId) {
-        String provinceString = String.join("-", "0-EU-ES", provinceId.toString());
+    public List<IdealistaAyuntamientoLocation> findByProvinceId(String provinceId) {
+        String provinceString = String.join("-", "0-EU-ES", provinceId);
 
         return namedTypedQuery("com.schouten.core.properties.idealista.IdealistaAyuntamientoLocation.findByProvinciaId")
                 .setParameter("provinciaId", provinceString)

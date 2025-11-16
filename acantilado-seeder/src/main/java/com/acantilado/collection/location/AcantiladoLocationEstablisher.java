@@ -19,15 +19,15 @@ public class AcantiladoLocationEstablisher {
     private final NovelLocationEstablisher novelLocationEstablisher;
 
     private final Set<Barrio> barriosForProvince;
-    private final Set<Long> ayuntamientosWithBarrios;
-    private final Map<Long, Set<CodigoPostal>> postCodesForProvince;
+    private final Set<String> ayuntamientosWithBarrios;
+    private final Map<String, Set<CodigoPostal>> postCodesForProvince;
 
     private final AtomicBoolean isBootstrapMode = new AtomicBoolean(false);
 
     public AcantiladoLocationEstablisher(
             Set<Barrio> barriosForProvince,
             Set<Ayuntamiento> ayuntamientosForProvince,
-            Map<Long, Set<CodigoPostal>> postCodesForProvince,
+            Map<String, Set<CodigoPostal>> postCodesForProvince,
             AyuntamientoDAO ayuntamientoDAO,
             IdealistaLocationMappingDAO mappingDAO) {
 

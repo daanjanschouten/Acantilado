@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "AYUNTAMIENTO")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "ayuntamiento_id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "ayuntamientoId")
 @NamedQueries(
         {
                 @NamedQuery(
@@ -27,7 +27,11 @@ import java.util.Set;
                 ),
                 @NamedQuery(
                         name = "com.acantilado.ayuntamiento.findByProvinceId",
-                        query = "SELECT a FROM Ayuntamiento a WHERE a.provincia_id = :provincia_id"
+                        query = "SELECT a FROM Ayuntamiento a WHERE a.provinciaId = :provinciaId"
+                ),
+                @NamedQuery(
+                        name = "com.acantilado.ayuntamiento.findByComunidadAutonomaId",
+                        query = "SELECT a FROM Ayuntamiento a WHERE a.comunidadAutonomaId = :comunidadAutonomaId"
                 ),
                 @NamedQuery(
                         name = "com.acantilado.ayuntamiento.findByName",
@@ -37,16 +41,19 @@ import java.util.Set;
 )
 public class Ayuntamiento {
     @Id
-    /* The INE code structure works as follows:5-digit format: PPMMM
+    /* The INE code structure works as follows: 5-digit format: PPMMMM
      * PP = Province code (2 digits)
      * MMM = Municipality code within the province (3 digits)
      */
-    @JsonProperty("ayuntamiento_id")
-    @Column(name = "ayuntamiento_id")
-    private long ayuntamiento_id;
+    @JsonProperty("ayuntamientoId")
+    @Column(name = "ayuntamientoId")
+    private String ayuntamientoId;
 
-    @Column(name = "provincia_id")
-    private long provincia_id;
+    @Column(name = "provinciaId", nullable = false)
+    private String provinciaId;
+
+    @Column(name = "comunidadAutonomaId", nullable = false)
+    private String comunidadAutonomaId;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -55,20 +62,12 @@ public class Ayuntamiento {
     private String phone;
 
     @JsonIgnore  // Don't expose the raw CLOB in API responses
-    @Column(name = "geometry", columnDefinition = "CLOB")
+    @Column(name = "geometry", columnDefinition = "CLOB", nullable = false)
     private String geometryJson;
 
     @JsonIgnore
     @Transient
     private Geometry geometry;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Provincia.class)
-    @JoinColumn(name = "provincia", referencedColumnName= "provincia_id", nullable = false)
-    private Provincia provincia;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "comunidad_autonoma", referencedColumnName= "comunidad_autonoma_id", nullable = false)
-    private ComunidadAutonoma comunidadAutonoma;
 
     @ManyToMany(mappedBy = "ayuntamientos", fetch = FetchType.LAZY)
     private Set<CodigoPostal> codigosPostales = new HashSet<>();
@@ -81,19 +80,25 @@ public class Ayuntamiento {
         this.codigosPostales = codigosPostales;
     }
 
-    public Ayuntamiento() {}
+    public Ayuntamiento() {
+    }
 
-    public Ayuntamiento(long ayuntamiento_id, String name, long provincia_id, Provincia provincia, ComunidadAutonoma comunidadAutonoma, Geometry geometry) {
-        this.ayuntamiento_id = ayuntamiento_id;
+    public Ayuntamiento(
+            String ayuntamientoId,
+            String name,
+            String provinciaId,
+            String comunidadAutonomaId,
+            Geometry geometry) {
+
+        this.ayuntamientoId = ayuntamientoId;
         this.name = name;
-        this.provincia_id = provincia_id;
-        this.provincia = provincia;
-        this.comunidadAutonoma = comunidadAutonoma;
+        this.provinciaId = provinciaId;
+        this.comunidadAutonomaId = comunidadAutonomaId;
         this.geometry = geometry;
     }
 
-    public long getId() {
-        return ayuntamiento_id;
+    public String getId() {
+        return ayuntamientoId;
     }
 
     public String getName() {
@@ -112,10 +117,16 @@ public class Ayuntamiento {
         return geometryJson;
     }
 
-    public long getProvincia_id() { return provincia_id; }
+    public String getProvinciaId() {
+        return provinciaId;
+    }
 
-    public void setId(long id) {
-        this.ayuntamiento_id = id;
+    public String getComunidadAutonomaId() {
+        return comunidadAutonomaId;
+    }
+
+    public void setId(String id) {
+        this.ayuntamientoId = id;
     }
 
     public void setName(String name) {
@@ -164,7 +175,6 @@ public class Ayuntamiento {
     private void serializeGeometry() {
         if (geometry != null) {
             try {
-
                 org.locationtech.jts.io.geojson.GeoJsonWriter writer =
                         new org.locationtech.jts.io.geojson.GeoJsonWriter();
                 this.geometryJson = writer.write(geometry);
@@ -174,7 +184,13 @@ public class Ayuntamiento {
         }
     }
 
-    public void setProvincia_id(long provincia_id) { this.provincia_id = provincia_id; }
+    public void setProvinciaId(String provinciaId) {
+        this.provinciaId = provinciaId;
+    }
+
+    public void setComunidadAutonomaId(String comunidadAutonomaId) {
+        this.comunidadAutonomaId = comunidadAutonomaId;
+    }
 
     @PostLoad
     private void parseGeometry() {
@@ -183,22 +199,25 @@ public class Ayuntamiento {
                 GeoJsonReader reader = new GeoJsonReader();
                 this.geometry = reader.read(geometryJson);
             } catch (Exception e) {
-                throw new RuntimeException("Failed to parse geometry for ayuntamiento: " + ayuntamiento_id, e);
+                throw new RuntimeException("Failed to parse geometry for ayuntamiento: " + ayuntamientoId, e);
             }
         }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ayuntamiento_id, name, phone);
+        return Objects.hash(ayuntamientoId, name, phone);
     }
 
     @Override
     public String toString() {
         return "Ayuntamiento{" +
-                "ayuntamiento_id=" + ayuntamiento_id +
+                "ayuntamientoId='" + ayuntamientoId + '\'' +
+                ", provinciaId='" + provinciaId + '\'' +
+                ", comunidadAutonomaId='" + comunidadAutonomaId + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
     }
 }
+

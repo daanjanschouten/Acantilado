@@ -2,6 +2,7 @@ package com.acantilado.core.idealista.realEstate;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.Objects;
 
 @Entity
 @Table(name = "IDEALISTA_AYUNTAMIENTO_LOCATION")
@@ -55,6 +56,19 @@ public class IdealistaAyuntamientoLocation {
         }
 
         return String.join("-", Arrays.copyOfRange(parts, 0, 4));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IdealistaAyuntamientoLocation that = (IdealistaAyuntamientoLocation) o;
+        return Objects.equals(ayuntamientoLocationId, that.ayuntamientoLocationId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ayuntamientoLocationId);
     }
 
     @Override
