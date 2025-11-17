@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class IdealistaCollectorScheduler implements Managed {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaCollectorScheduler.class);
 
-    private static final Set<String> PROVINCES = Set.of("Málaga");
+    private static final Set<String> PROVINCES = Set.of("Barcelona");
     private static final Set<IdealistaPropertyType> PROPERTY_TYPES = Set.of(IdealistaPropertyType.HOMES);
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -67,13 +67,5 @@ public class IdealistaCollectorScheduler implements Managed {
             });
             provinceCollectorServices.remove(collectorService);
         });
-    }
-
-    private long calculateInitialDelay(int desiredHour) {
-//        final int currentHour = Instant.now().atOffset(ZoneOffset.of(ZoneId.of("CET").getId())).getHour();
-//        int hoursToGo = currentHour > desiredHour
-//                ? 24 - (currentHour - desiredHour)
-//                : desiredHour - currentHour;
-        return 3600L;
     }
 }

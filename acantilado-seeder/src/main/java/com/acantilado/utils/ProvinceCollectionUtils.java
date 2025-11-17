@@ -46,12 +46,12 @@ public class ProvinceCollectionUtils {
 
     public static Set<Ayuntamiento> getAyuntamientosForProvince(
             SessionFactory sessionFactory, AyuntamientoDAO ayuntamientoDAO, Provincia provincia) {
+        Set<String> ignorableAyuntamientos = Set.of("53057", "53058");
         return executeCallableInSessionWithoutTransaction(sessionFactory,
-                () -> {
-                    List<Ayuntamiento> ayuntamientos = ayuntamientoDAO.findByProvinceId(provincia.getId());
-
-                    return new HashSet<>(ayuntamientos);
-                });
+                () -> ayuntamientoDAO.findByProvinceId(provincia.getId())
+                        .stream()
+                        .filter(a -> !ignorableAyuntamientos.contains(a.getId()))
+                        .collect(Collectors.toSet()));
     }
 
     public static Set<IdealistaAyuntamientoLocation> getLocationsForProvince(

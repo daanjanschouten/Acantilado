@@ -151,8 +151,8 @@ public class IdealistaSearchRequest implements RequestBodyData {
     private static IdealistaSearchRequest withSurfaceAreaBounds(IdealistaSearchRequest request, int minSize, int maxSize) {
         return new IdealistaSearchRequest(
                 IdealistaCountry.SPAIN,
-                IdealistaOperation.valueOf(request.operation.toUpperCase(Locale.ROOT)),
-                IdealistaPropertyType.valueOf(request.propertyType.toUpperCase(Locale.ROOT)),
+                IdealistaOperation.fromOperationCode(request.operation),
+                IdealistaPropertyType.fromTypeCode(request.propertyType),
                 IdealistaSortBy.PROXIMITY,
                 request.getLocation(),
                 2400,
@@ -191,6 +191,14 @@ public class IdealistaSearchRequest implements RequestBodyData {
         return minIsZero && maxIsZero;
     }
 
+    public static IdealistaSearchRequest homeSaleSearch(String location) {
+        return locationBasedSaleSearch(location, IdealistaPropertyType.HOMES);
+    }
+
+    public static IdealistaSearchRequest landSaleSearch(String location) {
+        return locationBasedSaleSearch(location, IdealistaPropertyType.LANDS);
+    }
+
     public static IdealistaSearchRequest locationBasedSaleSearch(String location, IdealistaPropertyType propertyType) {
         return new IdealistaSearchRequest(
                 IdealistaCountry.SPAIN,
@@ -202,5 +210,17 @@ public class IdealistaSearchRequest implements RequestBodyData {
                 String.valueOf(0),
                 String.valueOf(0),
                 ProxyConfiguration.datacenter());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        IdealistaSearchRequest request = (IdealistaSearchRequest) o;
+        return maxItems == request.maxItems && Objects.equals(country, request.country) && Objects.equals(location, request.location) && Objects.equals(operation, request.operation) && Objects.equals(propertyType, request.propertyType) && Objects.equals(sortBy, request.sortBy) && Objects.equals(minSize, request.minSize) && Objects.equals(maxSize, request.maxSize);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(country, location, operation, propertyType, maxItems, sortBy, minSize, maxSize);
     }
 }
