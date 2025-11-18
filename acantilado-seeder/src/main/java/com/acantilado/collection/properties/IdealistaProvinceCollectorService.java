@@ -37,7 +37,6 @@ import java.util.stream.Collectors;
 
 import static com.acantilado.utils.RetryableBatchedExecutor.executeCallableInSessionWithoutTransaction;
 
-// Barrios somehow aren't getting mapped.
 public final class IdealistaProvinceCollectorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaProvinceCollectorService.class);
     private static final Optional<Integer> APIFY_ACTIVE_AGENTS = Optional.of(32);

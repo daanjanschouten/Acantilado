@@ -16,7 +16,7 @@ public class AcantiladoLocationEstablisher {
     private static final Logger LOGGER = LoggerFactory.getLogger(AcantiladoLocationEstablisher.class);
 
     private final ExistingLocationEstablisher existingLocationEstablisher;
-    private final NovelLocationEstablisher novelLocationEstablisher;
+    private final NovelAyuntamientoEstablisher novelAyuntamientoEstablisher;
 
     private final Set<Barrio> barriosForProvince;
     private final Set<String> ayuntamientosWithBarrios;
@@ -31,6 +31,10 @@ public class AcantiladoLocationEstablisher {
             AyuntamientoDAO ayuntamientoDAO,
             IdealistaLocationMappingDAO mappingDAO) {
 
+        if (barriosForProvince.isEmpty()) {
+            LOGGER.info("Found no barrios for province");
+        }
+
         this.barriosForProvince = barriosForProvince;
         this.postCodesForProvince = postCodesForProvince;
 
@@ -44,7 +48,7 @@ public class AcantiladoLocationEstablisher {
                 mappingDAO,
                 this::buildAcantiladoLocation);
 
-        this.novelLocationEstablisher = new NovelLocationEstablisher(
+        this.novelAyuntamientoEstablisher = new NovelAyuntamientoEstablisher(
                 mappingDAO,
                 ayuntamientosForProvince,
                 this::buildAcantiladoLocation);
@@ -52,12 +56,12 @@ public class AcantiladoLocationEstablisher {
 
     public AcantiladoLocation establish(String idealistaAyuntamiento, String idealistaLocationId, Point locationPoint) {
         return isBootstrapMode.get()
-                ? novelLocationEstablisher.establish(idealistaAyuntamiento, idealistaLocationId, locationPoint)
+                ? novelAyuntamientoEstablisher.establish(idealistaAyuntamiento, idealistaLocationId, locationPoint)
                 : existingLocationEstablisher.establish(idealistaLocationId, locationPoint);
     }
 
     public void storeInMemoryMappings() {
-        this.novelLocationEstablisher.storeInMemoryMappings();
+        this.novelAyuntamientoEstablisher.storeInMemoryMappings();
     }
 
     public void setBootstrapMode(boolean shouldBootstrap) {

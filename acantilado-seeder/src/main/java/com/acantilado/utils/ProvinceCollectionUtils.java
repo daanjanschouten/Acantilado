@@ -1,9 +1,9 @@
 package com.acantilado.utils;
 
+import com.acantilado.collection.location.CityAyuntamientoCode;
 import com.acantilado.core.administrative.*;
 import com.acantilado.core.idealista.IdealistaLocationDAO;
 import com.acantilado.core.idealista.realEstate.IdealistaAyuntamientoLocation;
-import com.acantilado.collection.location.CityAyuntamientoCode;
 import org.hibernate.SessionFactory;
 
 import java.util.*;
@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import static com.acantilado.utils.RetryableBatchedExecutor.executeCallableInSessionWithoutTransaction;
 
 public class ProvinceCollectionUtils {
-
     public static Provincia getProvinceFromName(
             SessionFactory sessionFactory, ProvinciaDAO provinciaDAO, String provinceName) {
         return executeCallableInSessionWithoutTransaction(sessionFactory, () -> {
@@ -79,7 +78,7 @@ public class ProvinceCollectionUtils {
             Set<Barrio> barrios = new HashSet<>();
             for (CityAyuntamientoCode city : CityAyuntamientoCode.values()) {
                 if (Objects.equals(city.getProvinceCode(), provincia.getId())) {
-                    barrios.addAll(barrioDAO.findByAyuntamiento(city.getMunicipalityCode()));
+                    barrios.addAll(barrioDAO.findByAyuntamiento(city.getCityCode()));
                 }
             }
 

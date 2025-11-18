@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class IdealistaCollectorScheduler implements Managed {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaCollectorScheduler.class);
 
-    private static final Set<String> PROVINCES = Set.of("Barcelona");
+    private static final Set<String> PROVINCES = Set.of("Madrid");
     private static final Set<IdealistaPropertyType> PROPERTY_TYPES = Set.of(IdealistaPropertyType.HOMES);
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -52,6 +52,7 @@ public class IdealistaCollectorScheduler implements Managed {
         PROVINCES.forEach(provinceName -> {
             IdealistaProvinceCollectorService collectorService = collectorServiceFactory.getCollectorService(provinceName);
             provinceCollectorServices.add(collectorService);
+
             PROPERTY_TYPES.forEach(propertyType -> {
                 try {
                     if (collectorService.collectRealEstateForProvince(propertyType)) {

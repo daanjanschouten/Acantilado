@@ -11,8 +11,8 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 
-public class NovelLocationEstablisher {
-    private static final Logger LOGGER = LoggerFactory.getLogger(NovelLocationEstablisher.class);
+public class NovelAyuntamientoEstablisher {
+    private static final Logger LOGGER = LoggerFactory.getLogger(NovelAyuntamientoEstablisher.class);
 
     private final IdealistaLocationMappingDAO mappingDAO;
     private final Set<Ayuntamiento> ayuntamientosForProvince;
@@ -20,7 +20,7 @@ public class NovelLocationEstablisher {
 
     private final Map<IdealistaLocationMapping, Integer> mappingsByCounts = new HashMap<>();
 
-    public NovelLocationEstablisher(
+    public NovelAyuntamientoEstablisher(
             IdealistaLocationMappingDAO mappingDAO,
             Set<Ayuntamiento> ayuntamientosForProvince,
             BiFunction<Ayuntamiento, Point, AcantiladoLocation> locationProducer) {
@@ -58,8 +58,6 @@ public class NovelLocationEstablisher {
 
         LOGGER.info("Finished storing {} mappings", mappingsStored.get());
     }
-
-
 
     private Ayuntamiento establishAyuntamientoByCoordinates(Point locationPoint) {
         for (Ayuntamiento ayuntamiento : ayuntamientosForProvince) {
