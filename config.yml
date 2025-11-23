@@ -1,0 +1,85 @@
+# Database settings - PostgreSQL running in Docker
+database:
+  driverClass: org.postgresql.Driver
+  user: acantilado
+  password: acantilado
+  url: jdbc:postgresql://localhost:5432/acantilado
+  properties:
+    charSet: UTF-8
+    hibernate.dialect: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate.hbm2ddl.auto: update
+    hibernate.show_sql: false
+    hibernate.format_sql: true
+    hibernate.globally_quoted_identifiers: true
+
+  # Connection pool settings
+  maxWaitForConnection: 1s
+  validationQuery: "SELECT 1"
+  validationQueryTimeout: 3s
+  minSize: 8
+  maxSize: 32
+  checkConnectionWhileIdle: false
+  evictionInterval: 10s
+  minIdleTime: 1m
+
+# Idealista Collector Configuration
+idealistaCollector:
+  enabled: true
+  provinces: []
+  propertyTypes:
+    - HOMES
+
+  # Timing
+  initialDelay: 10s
+  collectionInterval: 1d
+
+  # Thread pools
+  schedulerThreadPoolSize: 1
+  collectorThreadPoolSize: 4
+  shutdownTimeout: 10s
+
+  # API settings
+  apiBaseUrl: https://www.idealista.com
+  maxRetriesPerRequest: 3
+  requestTimeout: 30s
+  rateLimitDelay: 500ms
+
+# Administrative Collector Configuration
+administrativeCollector:
+  enabled: true
+  initialDelay: 5s
+  collectionInterval: 7d
+  threadPoolSize: 1
+  shutdownTimeout: 10s
+
+# Server configuration
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+
+# Logging settings
+logging:
+  level: INFO
+  loggers:
+    com.acantilado: INFO
+    org.hibernate.SQL: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
+    org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: WARN
+
+  appenders:
+    - type: console
+      threshold: ALL
+      logFormat: "%highlight(%-5level) %cyan(%d{HH:mm:ss.SSS}) %blue([%thread]) %magenta(%logger{36}) - %msg%n"
+      timeZone: UTC
+    - type: file
+      threshold: INFO
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+      currentLogFilename: /tmp/acantilado.log
+      archivedLogFilenamePattern: /tmp/acantilado-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 7
+      timeZone: UTC
+      maxFileSize: 10MB

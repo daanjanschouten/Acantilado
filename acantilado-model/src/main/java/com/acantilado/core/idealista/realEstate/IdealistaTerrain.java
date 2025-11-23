@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "IDEALISTA_TERRAIN")
+@Table(name = "idealista_terrain")
 @NamedQueries(
         {
                 @NamedQuery(

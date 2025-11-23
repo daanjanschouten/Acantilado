@@ -18,7 +18,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "CODIGO_POSTAL")
+@Table(name = "codigo_postal")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "codigoIne")
 @NamedQueries({
         @NamedQuery(

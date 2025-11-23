@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "IDEALISTA_PROPERTY")
+@Table(name = "idealista_property")
 @NamedQueries(
         {
                 @NamedQuery(

@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.Map;
 
 @Entity
-@Table(name = "PROVINCIA")
+@Table(name = "provincia")
 @NamedQueries(
         {
                 @NamedQuery(

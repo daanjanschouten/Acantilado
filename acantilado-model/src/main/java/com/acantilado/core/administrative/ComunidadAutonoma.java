@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Entity
-@Table(name = "COMUNIDAD_AUTONOMA")
+@Table(name = "comunidad_autonoma")
 @NamedQueries(
         {
                 @NamedQuery(

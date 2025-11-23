@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "IDEALISTA_PROPERTY_PRICE_RECORDS")
+@Table(name = "idealista_property_price_records")
 @NamedQueries(
         {
                 @NamedQuery(

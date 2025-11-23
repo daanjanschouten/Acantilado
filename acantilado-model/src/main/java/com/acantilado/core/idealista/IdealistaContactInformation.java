@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Entity
-@Table(name = "IDEALISTA_CONTACT_INFORMATION")
+@Table(name = "idealista_contact_information")
 @NamedQueries(
         {
                 @NamedQuery(

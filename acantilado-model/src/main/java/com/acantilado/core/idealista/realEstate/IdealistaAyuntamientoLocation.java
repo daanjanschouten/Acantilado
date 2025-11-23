@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
-@Table(name = "IDEALISTA_AYUNTAMIENTO_LOCATION")
+@Table(name = "idealista_ayuntamiento_location")
 @NamedQueries(
         {
                 @NamedQuery(

@@ -1,5 +1,9 @@
 package com.acantilado;
 
+import com.acantilado.collection.administration.AdministrativeCollectorScheduler;
+import com.acantilado.collection.administration.GeographicCollectorService;
+import com.acantilado.collection.properties.IdealistaCollectorScheduler;
+import com.acantilado.collection.properties.IdealistaCollectorServiceFactory;
 import com.acantilado.core.administrative.*;
 import com.acantilado.core.idealista.*;
 import com.acantilado.core.idealista.priceRecords.IdealistaPropertyPriceRecord;
@@ -9,10 +13,6 @@ import com.acantilado.core.idealista.realEstate.IdealistaProperty;
 import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
 import com.acantilado.core.resources.administrative.*;
 import com.acantilado.core.resources.properties.IdealistaRealEstateResource;
-import com.acantilado.collection.administration.AdministrativeCollectorScheduler;
-import com.acantilado.collection.administration.GeographicCollectorService;
-import com.acantilado.collection.properties.IdealistaCollectorScheduler;
-import com.acantilado.collection.properties.IdealistaCollectorServiceFactory;
 import com.acantilado.tasks.EchoTask;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -23,12 +23,10 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import io.dropwizard.views.ViewBundle;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class AcantiladoApplication extends Application<AcantiladoConfiguration> {
@@ -76,12 +74,6 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
             @Override
             public DataSourceFactory getDataSourceFactory(AcantiladoConfiguration configuration) {
                 return configuration.getDataSourceFactory();
-            }
-        });
-        bootstrap.addBundle(new ViewBundle<>() {
-            @Override
-            public Map<String, Map<String, String>> getViewConfiguration(AcantiladoConfiguration configuration) {
-                return configuration.getViewRendererConfiguration();
             }
         });
 
