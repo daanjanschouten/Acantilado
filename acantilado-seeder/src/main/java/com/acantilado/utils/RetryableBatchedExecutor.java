@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class RetryableBatchedExecutor {
     private static final Logger LOGGER = LoggerFactory.getLogger(RetryableBatchedExecutor.class);
@@ -50,6 +49,16 @@ public class RetryableBatchedExecutor {
         }
     }
 
+    private static class BatchResult<S, T> {
+        final Set<T> successful;
+        final Set<S> failed;
+
+        BatchResult(Set<T> successful, Set<S> failed) {
+            this.successful = successful;
+            this.failed = failed;
+        }
+    }
+
     public static <S, T> Set<T> executeUntilAllSuccessful(
             Set<S> toRun, Function<S, T> resultFunction, Optional<Integer> maybeBatchSize, ExecutorService executorService) {
         int batchSize = maybeBatchSize.orElse(toRun.size());
@@ -63,28 +72,19 @@ public class RetryableBatchedExecutor {
                 nextBatch.add(requestsToRun.poll());
             }
 
-            List<CompletableFuture<T>> futures = nextBatch
-                    .stream()
-                    .map( request -> CompletableFuture.supplyAsync(() -> {
-                            T response = resultFunction.apply(request);
-                            if (Objects.isNull(response)) { // execution has failed
-                                LOGGER.debug("Request {} failed to run and will be retried", request);
-                                requestsToRun.add(request);
-                                return null;
-                            }
+            // Process batch and explicitly track successes and failures
+            BatchResult<S, T> batchResult = processBatch(nextBatch, resultFunction, executorService);
 
-                            return response;
-                        }, executorService))
-                    .toList();
+            // Add successful responses to the overall success set
+            requestsThatSucceeded.addAll(batchResult.successful);
 
-            Set<T> successfulResponses = futures.stream()
-                    .map(CompletableFuture::join)
-                    .filter(Objects::nonNull)
-                    .peek(requestsThatSucceeded::add)
-                    .collect(Collectors.toSet());
+            // CRITICAL FIX: Re-add failed requests AFTER all futures have completed
+            // This eliminates the race condition
+            requestsToRun.addAll(batchResult.failed);
 
+            // Now check if there are still items to process
             if (!requestsToRun.isEmpty()) {
-                currentRun = currentRun.refreshRetryCount(successfulResponses.size());
+                currentRun = currentRun.refreshRetryCount(batchResult.successful.size());
                 LOGGER.info("Single run stats {}", currentRun);
 
                 if (currentRun.totalRetryCount >= 30) {
@@ -95,11 +95,41 @@ public class RetryableBatchedExecutor {
                 try {
                     Thread.sleep(currentRun.waitTimeMs);
                 } catch (InterruptedException exception) {
+                    Thread.currentThread().interrupt();
                     throw new RuntimeException(exception);
                 }
             }
         }
         return requestsThatSucceeded;
+    }
+
+    private static <S, T> BatchResult<S, T> processBatch(
+            Set<S> batch, Function<S, T> resultFunction, ExecutorService executorService) {
+
+        Set<T> successful = ConcurrentHashMap.newKeySet();
+        Set<S> failed = ConcurrentHashMap.newKeySet();
+
+        List<CompletableFuture<Void>> futures = batch.stream()
+                .map(request -> CompletableFuture.runAsync(() -> {
+                    try {
+                        T response = resultFunction.apply(request);
+                        if (Objects.isNull(response)) {
+                            LOGGER.debug("Request {} failed to run and will be retried", request);
+                            failed.add(request);
+                        } else {
+                            successful.add(response);
+                        }
+                    } catch (Exception e) {
+                        LOGGER.debug("Request {} threw exception and will be retried", request, e);
+                        failed.add(request);
+                    }
+                }, executorService))
+                .toList();
+
+        // Wait for ALL futures to complete
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+
+        return new BatchResult<>(successful, failed);
     }
 
     public static <T> T executeCallableInSessionWithoutTransaction(SessionFactory sessionFactory, Callable<T> callable) {
@@ -150,5 +180,4 @@ public class RetryableBatchedExecutor {
             session.close();
         }
     }
-
 }

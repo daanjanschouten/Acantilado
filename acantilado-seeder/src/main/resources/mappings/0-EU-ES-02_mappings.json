@@ -1,0 +1,446 @@
+[ {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-016",
+  "idealistaMunicipalityName" : "Bienservida",
+  "acantiladoAyuntamientoId" : "02016",
+  "acantiladoMunicipalityName" : "Bienservida"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-041",
+  "idealistaMunicipalityName" : "Jorquera",
+  "acantiladoAyuntamientoId" : "02041",
+  "acantiladoMunicipalityName" : "Jorquera"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-003-027",
+  "idealistaMunicipalityName" : "Corral-Rubio",
+  "acantiladoAyuntamientoId" : "02027",
+  "acantiladoMunicipalityName" : "Corral-Rubio"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-04-003-010",
+  "idealistaMunicipalityName" : "Alpera",
+  "acantiladoAyuntamientoId" : "02010",
+  "acantiladoMunicipalityName" : "Alpera"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-002-049",
+  "idealistaMunicipalityName" : "Molinicos",
+  "acantiladoAyuntamientoId" : "02049",
+  "acantiladoMunicipalityName" : "Molinicos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-064",
+  "idealistaMunicipalityName" : "Pozo-Lorente",
+  "acantiladoAyuntamientoId" : "02064",
+  "acantiladoMunicipalityName" : "Pozo-Lorente"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-04-004-051",
+  "idealistaMunicipalityName" : "Montealegre del Castillo",
+  "acantiladoAyuntamientoId" : "02051",
+  "acantiladoMunicipalityName" : "Montealegre del Castillo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-077",
+  "idealistaMunicipalityName" : "Villa de Ves",
+  "acantiladoAyuntamientoId" : "02077",
+  "acantiladoMunicipalityName" : "Villa de Ves"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-075",
+  "idealistaMunicipalityName" : "Valdeganga",
+  "acantiladoAyuntamientoId" : "02075",
+  "acantiladoMunicipalityName" : "Valdeganga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-052",
+  "idealistaMunicipalityName" : "Motilleja",
+  "acantiladoAyuntamientoId" : "02052",
+  "acantiladoMunicipalityName" : "Motilleja"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-05-002-004",
+  "idealistaMunicipalityName" : "Albatana",
+  "acantiladoAyuntamientoId" : "02056",
+  "acantiladoMunicipalityName" : "Ontur"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-013",
+  "idealistaMunicipalityName" : "Balsa de Ves",
+  "acantiladoAyuntamientoId" : "02013",
+  "acantiladoMunicipalityName" : "Balsa de Ves"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-003-901",
+  "idealistaMunicipalityName" : "Pozo Cañada",
+  "acantiladoAyuntamientoId" : "02029",
+  "acantiladoMunicipalityName" : "Chinchilla de Monte-Aragón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-04-001-009",
+  "idealistaMunicipalityName" : "Almansa",
+  "acantiladoAyuntamientoId" : "02009",
+  "acantiladoMunicipalityName" : "Almansa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-05-002-074",
+  "idealistaMunicipalityName" : "Tobarra",
+  "acantiladoAyuntamientoId" : "02074",
+  "acantiladoMunicipalityName" : "Tobarra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-05-002-056",
+  "idealistaMunicipalityName" : "Ontur",
+  "acantiladoAyuntamientoId" : "02056",
+  "acantiladoMunicipalityName" : "Ontur"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-003-072",
+  "idealistaMunicipalityName" : "Socovos",
+  "acantiladoAyuntamientoId" : "02072",
+  "acantiladoMunicipalityName" : "Socovos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-02-001-073",
+  "idealistaMunicipalityName" : "Tarazona de la Mancha",
+  "acantiladoAyuntamientoId" : "02073",
+  "acantiladoMunicipalityName" : "Tarazona de la Mancha"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-036",
+  "idealistaMunicipalityName" : "Golosalvo",
+  "acantiladoAyuntamientoId" : "02036",
+  "acantiladoMunicipalityName" : "Golosalvo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-02-003-081",
+  "idealistaMunicipalityName" : "Villarrobledo",
+  "acantiladoAyuntamientoId" : "02081",
+  "acantiladoMunicipalityName" : "Villarrobledo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-024",
+  "idealistaMunicipalityName" : "Casas-Ibañez",
+  "acantiladoAyuntamientoId" : "02024",
+  "acantiladoMunicipalityName" : "Casas-Ibáñez"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-020",
+  "idealistaMunicipalityName" : "Carcelén",
+  "acantiladoAyuntamientoId" : "02020",
+  "acantiladoMunicipalityName" : "Carcelén"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-003-031",
+  "idealistaMunicipalityName" : "Férez",
+  "acantiladoAyuntamientoId" : "02031",
+  "acantiladoMunicipalityName" : "Férez"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-003-901",
+  "idealistaMunicipalityName" : "Pozo Cañada",
+  "acantiladoAyuntamientoId" : "02901",
+  "acantiladoMunicipalityName" : "Pozo Cañada"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-076",
+  "idealistaMunicipalityName" : "Vianos",
+  "acantiladoAyuntamientoId" : "02076",
+  "acantiladoMunicipalityName" : "Vianos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-082",
+  "idealistaMunicipalityName" : "Villatoya",
+  "acantiladoAyuntamientoId" : "02082",
+  "acantiladoMunicipalityName" : "Villatoya"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-02-001-032",
+  "idealistaMunicipalityName" : "Fuensanta",
+  "acantiladoAyuntamientoId" : "02032",
+  "acantiladoMunicipalityName" : "Fuensanta"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-003-021",
+  "idealistaMunicipalityName" : "Casas de Juan Nuñez",
+  "acantiladoAyuntamientoId" : "02021",
+  "acantiladoMunicipalityName" : "Casas de Juan Núñez"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-05-002-004",
+  "idealistaMunicipalityName" : "Albatana",
+  "acantiladoAyuntamientoId" : "02004",
+  "acantiladoMunicipalityName" : "Albatana"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-04-002-025",
+  "idealistaMunicipalityName" : "Caudete",
+  "acantiladoAyuntamientoId" : "02025",
+  "acantiladoMunicipalityName" : "Caudete"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-002-006",
+  "idealistaMunicipalityName" : "Alcadozo",
+  "acantiladoAyuntamientoId" : "02006",
+  "acantiladoMunicipalityName" : "Alcadozo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-023",
+  "idealistaMunicipalityName" : "Casas de Ves",
+  "acantiladoAyuntamientoId" : "02023",
+  "acantiladoMunicipalityName" : "Casas de Ves"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-003-039",
+  "idealistaMunicipalityName" : "Higueruela",
+  "acantiladoAyuntamientoId" : "02039",
+  "acantiladoMunicipalityName" : "Higueruela"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-054",
+  "idealistaMunicipalityName" : "Navas de Jorquera",
+  "acantiladoAyuntamientoId" : "02054",
+  "acantiladoMunicipalityName" : "Navas de Jorquera"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-022",
+  "idealistaMunicipalityName" : "Casas de Lazaro",
+  "acantiladoAyuntamientoId" : "02022",
+  "acantiladoMunicipalityName" : "Casas de Lázaro"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-085",
+  "idealistaMunicipalityName" : "Viveros",
+  "acantiladoAyuntamientoId" : "02085",
+  "acantiladoMunicipalityName" : "Viveros"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-003-042",
+  "idealistaMunicipalityName" : "Letur",
+  "acantiladoAyuntamientoId" : "02042",
+  "acantiladoMunicipalityName" : "Letur"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-002-067",
+  "idealistaMunicipalityName" : "Riopar",
+  "acantiladoAyuntamientoId" : "02067",
+  "acantiladoMunicipalityName" : "Riópar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-002-084",
+  "idealistaMunicipalityName" : "Villaverde de Guadalimar",
+  "acantiladoAyuntamientoId" : "02084",
+  "acantiladoMunicipalityName" : "Villaverde de Guadalimar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-05-003-063",
+  "idealistaMunicipalityName" : "Pozohondo",
+  "acantiladoAyuntamientoId" : "02063",
+  "acantiladoMunicipalityName" : "Pozohondo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-083",
+  "idealistaMunicipalityName" : "Villavaliente",
+  "acantiladoAyuntamientoId" : "02083",
+  "acantiladoMunicipalityName" : "Villavaliente"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-05-003-044",
+  "idealistaMunicipalityName" : "Liétor",
+  "acantiladoAyuntamientoId" : "02044",
+  "acantiladoMunicipalityName" : "Liétor"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-034",
+  "idealistaMunicipalityName" : "Fuentealbilla",
+  "acantiladoAyuntamientoId" : "02034",
+  "acantiladoMunicipalityName" : "Fuentealbilla"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-002-058",
+  "idealistaMunicipalityName" : "Paterna del Madera",
+  "acantiladoAyuntamientoId" : "02058",
+  "acantiladoMunicipalityName" : "Paterna del Madera"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-003-040",
+  "idealistaMunicipalityName" : "Hoya-Gonzalo",
+  "acantiladoAyuntamientoId" : "02040",
+  "acantiladoMunicipalityName" : "Hoya-Gonzalo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-001",
+  "idealistaMunicipalityName" : "Abengibre",
+  "acantiladoAyuntamientoId" : "02001",
+  "acantiladoMunicipalityName" : "Abengibre"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-079",
+  "idealistaMunicipalityName" : "Villamalea",
+  "acantiladoAyuntamientoId" : "02079",
+  "acantiladoMunicipalityName" : "Villamalea"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-002-065",
+  "idealistaMunicipalityName" : "Pozuelo",
+  "acantiladoAyuntamientoId" : "02065",
+  "acantiladoMunicipalityName" : "Pozuelo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-003-029",
+  "idealistaMunicipalityName" : "Chinchilla de Monte-Aragón",
+  "acantiladoAyuntamientoId" : "02029",
+  "acantiladoMunicipalityName" : "Chinchilla de Monte-Aragón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-003-055",
+  "idealistaMunicipalityName" : "Nerpio",
+  "acantiladoAyuntamientoId" : "02055",
+  "acantiladoMunicipalityName" : "Nerpio"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-02-001-048",
+  "idealistaMunicipalityName" : "Minaya",
+  "acantiladoAyuntamientoId" : "02048",
+  "acantiladoMunicipalityName" : "Minaya"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-003-086",
+  "idealistaMunicipalityName" : "Yeste",
+  "acantiladoAyuntamientoId" : "02086",
+  "acantiladoMunicipalityName" : "Yeste"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-014",
+  "idealistaMunicipalityName" : "El Ballestero",
+  "acantiladoAyuntamientoId" : "02014",
+  "acantiladoMunicipalityName" : "El Ballestero"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-046",
+  "idealistaMunicipalityName" : "Mahora",
+  "acantiladoAyuntamientoId" : "02046",
+  "acantiladoMunicipalityName" : "Mahora"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-059",
+  "idealistaMunicipalityName" : "Peñascosa",
+  "acantiladoAyuntamientoId" : "02059",
+  "acantiladoMunicipalityName" : "Peñascosa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-002-050",
+  "idealistaMunicipalityName" : "Montalvos",
+  "acantiladoAyuntamientoId" : "02050",
+  "acantiladoMunicipalityName" : "Montalvos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-002-028",
+  "idealistaMunicipalityName" : "Cotillas",
+  "acantiladoAyuntamientoId" : "02028",
+  "acantiladoMunicipalityName" : "Cotillas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-012",
+  "idealistaMunicipalityName" : "Balazote",
+  "acantiladoAyuntamientoId" : "02012",
+  "acantiladoMunicipalityName" : "Balazote"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-02-002-019",
+  "idealistaMunicipalityName" : "El Bonillo",
+  "acantiladoAyuntamientoId" : "02019",
+  "acantiladoMunicipalityName" : "El Bonillo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-070",
+  "idealistaMunicipalityName" : "Salobre",
+  "acantiladoAyuntamientoId" : "02070",
+  "acantiladoMunicipalityName" : "Salobre"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-05-001-037",
+  "idealistaMunicipalityName" : "Hellín",
+  "acantiladoAyuntamientoId" : "02037",
+  "acantiladoMunicipalityName" : "Hellín"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-008",
+  "idealistaMunicipalityName" : "Alcaraz",
+  "acantiladoAyuntamientoId" : "02008",
+  "acantiladoMunicipalityName" : "Alcaraz"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-066",
+  "idealistaMunicipalityName" : "La Recueja",
+  "acantiladoAyuntamientoId" : "02066",
+  "acantiladoMunicipalityName" : "La Recueja"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-002",
+  "idealistaMunicipalityName" : "Alatoz",
+  "acantiladoAyuntamientoId" : "02002",
+  "acantiladoMunicipalityName" : "Alatoz"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-071",
+  "idealistaMunicipalityName" : "San Pedro",
+  "acantiladoAyuntamientoId" : "02071",
+  "acantiladoMunicipalityName" : "San Pedro"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-002-060",
+  "idealistaMunicipalityName" : "Peñas de San Pedro",
+  "acantiladoAyuntamientoId" : "02060",
+  "acantiladoMunicipalityName" : "Peñas de San Pedro"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-017",
+  "idealistaMunicipalityName" : "Bogarra",
+  "acantiladoAyuntamientoId" : "02017",
+  "acantiladoMunicipalityName" : "Bogarra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-002-030",
+  "idealistaMunicipalityName" : "Elche de la Sierra",
+  "acantiladoAyuntamientoId" : "02030",
+  "acantiladoMunicipalityName" : "Elche de la Sierra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-007",
+  "idealistaMunicipalityName" : "Alcalá del Jucar",
+  "acantiladoAyuntamientoId" : "02007",
+  "acantiladoMunicipalityName" : "Alcalá del Júcar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-02-001-078",
+  "idealistaMunicipalityName" : "Villalgordo del Jucar",
+  "acantiladoAyuntamientoId" : "02078",
+  "acantiladoMunicipalityName" : "Villalgordo del Júcar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-02-001-069",
+  "idealistaMunicipalityName" : "La Roda",
+  "acantiladoAyuntamientoId" : "02069",
+  "acantiladoMunicipalityName" : "La Roda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-003-061",
+  "idealistaMunicipalityName" : "Pétrola",
+  "acantiladoAyuntamientoId" : "02061",
+  "acantiladoMunicipalityName" : "Pétrola"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-02-002-043",
+  "idealistaMunicipalityName" : "Lezuza",
+  "acantiladoAyuntamientoId" : "02043",
+  "acantiladoMunicipalityName" : "Lezuza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-002-035",
+  "idealistaMunicipalityName" : "La Gineta",
+  "acantiladoAyuntamientoId" : "02035",
+  "acantiladoMunicipalityName" : "La Gineta"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-005",
+  "idealistaMunicipalityName" : "Alborea",
+  "acantiladoAyuntamientoId" : "02005",
+  "acantiladoMunicipalityName" : "Alborea"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-026",
+  "idealistaMunicipalityName" : "Cenizate",
+  "acantiladoAyuntamientoId" : "02026",
+  "acantiladoMunicipalityName" : "Cenizate"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-002-011",
+  "idealistaMunicipalityName" : "Ayna",
+  "acantiladoAyuntamientoId" : "02011",
+  "acantiladoMunicipalityName" : "Ayna"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-080",
+  "idealistaMunicipalityName" : "Villapalacios",
+  "acantiladoAyuntamientoId" : "02080",
+  "acantiladoMunicipalityName" : "Villapalacios"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-04-003-018",
+  "idealistaMunicipalityName" : "Bonete",
+  "acantiladoAyuntamientoId" : "02018",
+  "acantiladoMunicipalityName" : "Bonete"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-04-004-033",
+  "idealistaMunicipalityName" : "Fuente-Álamo",
+  "acantiladoAyuntamientoId" : "02033",
+  "acantiladoMunicipalityName" : "Fuente-Álamo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-02-002-057",
+  "idealistaMunicipalityName" : "Ossa de Montiel",
+  "acantiladoAyuntamientoId" : "02057",
+  "acantiladoMunicipalityName" : "Ossa de Montiel"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-002-015",
+  "idealistaMunicipalityName" : "Barrax",
+  "acantiladoAyuntamientoId" : "02015",
+  "acantiladoMunicipalityName" : "Barrax"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-068",
+  "idealistaMunicipalityName" : "Robledo",
+  "acantiladoAyuntamientoId" : "02068",
+  "acantiladoMunicipalityName" : "Robledo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-03-001-045",
+  "idealistaMunicipalityName" : "Madrigueras",
+  "acantiladoAyuntamientoId" : "02045",
+  "acantiladoMunicipalityName" : "Madrigueras"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-002-038",
+  "idealistaMunicipalityName" : "La Herrera",
+  "acantiladoAyuntamientoId" : "02038",
+  "acantiladoMunicipalityName" : "La Herrera"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-047",
+  "idealistaMunicipalityName" : "Masegoso",
+  "acantiladoAyuntamientoId" : "02047",
+  "acantiladoMunicipalityName" : "Masegoso"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-01-001-003",
+  "idealistaMunicipalityName" : "Albacete",
+  "acantiladoAyuntamientoId" : "02003",
+  "acantiladoMunicipalityName" : "Albacete"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-06-001-062",
+  "idealistaMunicipalityName" : "Povedilla",
+  "acantiladoAyuntamientoId" : "02062",
+  "acantiladoMunicipalityName" : "Povedilla"
+}, {
+  "idealistaLocationId" : "0-EU-ES-02-02-002-053",
+  "idealistaMunicipalityName" : "Munera",
+  "acantiladoAyuntamientoId" : "02053",
+  "acantiladoMunicipalityName" : "Munera"
+} ]

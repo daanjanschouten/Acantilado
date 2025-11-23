@@ -60,6 +60,10 @@ public class AcantiladoLocationEstablisher {
                 : existingLocationEstablisher.establish(idealistaLocationId, locationPoint);
     }
 
+    public void storeMapping(IdealistaLocationMapping mapping) {
+        this.novelAyuntamientoEstablisher.storeMapping(mapping);
+    }
+
     public void storeInMemoryMappings() {
         this.novelAyuntamientoEstablisher.storeInMemoryMappings();
     }

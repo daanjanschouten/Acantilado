@@ -45,7 +45,7 @@ public class LocationMappingMerchant {
                 .collect(Collectors.toSet());
 
         if (provinceMappings.isEmpty()) {
-            LOGGER.warn("No mappings found for province: {}", provincia.getName());
+            LOGGER.error("No mappings found for province: {}", provincia.getName());
             return;
         }
 
@@ -70,8 +70,7 @@ public class LocationMappingMerchant {
         File inputFile = new File(OUTPUT_DIRECTORY, filename);
 
         if (!inputFile.exists()) {
-            LOGGER.info("No mapping file found for province {}: {}",
-                    provincia.getName(), inputFile.getAbsolutePath());
+            LOGGER.info("No mapping file found: {}", inputFile.getAbsolutePath());
             return false;
         }
 

@@ -1,5 +1,6 @@
 package com.acantilado.collection.properties;
 
+import com.acantilado.collection.location.AcantiladoLocation;
 import com.acantilado.collection.location.AcantiladoLocationEstablisher;
 import com.acantilado.collection.properties.apify.ApifyRunningSearch;
 import com.acantilado.collection.properties.apify.ApifySearchResults;
@@ -44,6 +45,8 @@ public final class IdealistaProvinceCollectorService {
     private final IdealistaLocationMappingDAO mappingDAO;
     private final IdealistaLocationDAO locationDAO;
 
+    private final AyuntamientoDAO ayuntamientoDAO;
+
     private final SessionFactory sessionFactory;
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
     private final AcantiladoLocationEstablisher locationEstablisher;
@@ -70,6 +73,7 @@ public final class IdealistaProvinceCollectorService {
             SessionFactory sessionFactory) {
         this.mappingDAO = mappingDAO;
         this.locationDAO = locationDAO;
+        this.ayuntamientoDAO = ayuntamientoDAO;
 
         this.sessionFactory = sessionFactory;
 
@@ -186,6 +190,29 @@ public final class IdealistaProvinceCollectorService {
 
         locationEstablisher.setBootstrapMode(false);
 
+        Set<String> missing = getLocationIdsMissingFromMappings();
+        LOGGER.info("Proceeding to extract ayuntamiento codes from {} remaining location IDs", missing.size());
+
+        RetryableBatchedExecutor.executeRunnableInSessionWithTransaction(sessionFactory, () ->
+                missing.forEach(missingLocationId -> {
+                    String ayuntamientoId = AcantiladoLocation.getAyuntamientoFromNormalizedLocationId(missingLocationId);
+                    Optional<Ayuntamiento> maybeAyuntamiento = ayuntamientoDAO.findById(ayuntamientoId);
+
+                    if (maybeAyuntamiento.isEmpty()) {
+                        return;
+                    }
+
+                    Ayuntamiento ayuntamiento = maybeAyuntamiento.get();
+                    IdealistaLocationMapping mapping = new IdealistaLocationMapping(
+                            missingLocationId,
+                            ayuntamiento.getName(),
+                            ayuntamiento.getId(),
+                            ayuntamiento.getName());
+                    LOGGER.info("Established mapping {} from a missing location ID", mapping);
+                    locationEstablisher.storeMapping(mapping);
+                }));
+
+
         Set<String> stillMissing = getLocationIdsMissingFromMappings();
         if (!stillMissing.isEmpty()) {
             LOGGER.warn("Could not create mappings for {} location IDs: {}",
@@ -268,21 +295,13 @@ public final class IdealistaProvinceCollectorService {
 
         Set<String> missingLocationMappings = getLocationIdsMissingFromMappings();
         Set<String> missingAyuntamientoMappings = getAyuntamientoIdsMissingFromMappings();
+        boolean mappingsComplete = missingLocationMappings.isEmpty() && missingAyuntamientoMappings.isEmpty();
 
-        if (missingLocationMappings.isEmpty() && missingAyuntamientoMappings.isEmpty()) {
+        if (mappingsComplete) {
             LOGGER.info("All mappings complete, skipping import and bootstrap phases");
             return collectRealEstateListings(propertyType);
-        }
-
-        if (locationMappingMerchant.importMappings(provinceToCollectFor)) {
-            LOGGER.info("Imported mappings from disk");
-        }
-
-        missingLocationMappings = getLocationIdsMissingFromMappings();
-        missingAyuntamientoMappings = getAyuntamientoIdsMissingFromMappings();
-
-        if (missingLocationMappings.isEmpty() && missingAyuntamientoMappings.isEmpty()) {
-            LOGGER.info("All mappings complete after import, skipping bootstrap phases");
+        } else if (locationMappingMerchant.importMappings(provinceToCollectFor)) {
+            LOGGER.info("Imported mappings from disk, starting collection");
             return collectRealEstateListings(propertyType);
         }
 
@@ -383,7 +402,6 @@ public final class IdealistaProvinceCollectorService {
         LOGGER.info("Triggering {} search requests for retry {}", searchRequests.size(), retryCount);
         Set<ApifyRunningSearch> pendingSearches = triggerSearches(searchRequests, collector);
 
-        LOGGER.info("Awaiting completion of {} searches", pendingSearches.size());
         Set<ApifyRunningSearch> finishedSearches = awaitSearchesFinishing(pendingSearches, collector);
         LOGGER.info("Confirmed {} searches have finished", finishedSearches.size());
 

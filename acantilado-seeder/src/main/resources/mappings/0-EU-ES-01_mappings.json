@@ -1,0 +1,266 @@
+[ {
+  "idealistaLocationId" : "0-EU-ES-01-07-001-018",
+  "idealistaMunicipalityName" : "Zigoitia",
+  "acantiladoAyuntamientoId" : "01018",
+  "acantiladoMunicipalityName" : "Zigoitia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-03-001-017",
+  "idealistaMunicipalityName" : "Campezo",
+  "acantiladoAyuntamientoId" : "01017",
+  "acantiladoMunicipalityName" : "Campezo/Kanpezu"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-07-001-063",
+  "idealistaMunicipalityName" : "Zuya",
+  "acantiladoAyuntamientoId" : "01063",
+  "acantiladoMunicipalityName" : "Zuia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-07-001-003",
+  "idealistaMunicipalityName" : "Aramaio",
+  "acantiladoAyuntamientoId" : "01003",
+  "acantiladoMunicipalityName" : "Aramaio"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-05-001-046",
+  "idealistaMunicipalityName" : "Ribera Alta",
+  "acantiladoAyuntamientoId" : "01046",
+  "acantiladoMunicipalityName" : "Erriberagoitia/Ribera Alta"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-07-001-058",
+  "idealistaMunicipalityName" : "Legutiano",
+  "acantiladoAyuntamientoId" : "01058",
+  "acantiladoMunicipalityName" : "Legutio"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-05-001-902",
+  "idealistaMunicipalityName" : "Lantarón",
+  "acantiladoAyuntamientoId" : "01902",
+  "acantiladoMunicipalityName" : "Lantarón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-05-001-049",
+  "idealistaMunicipalityName" : "Salinas de Añana",
+  "acantiladoAyuntamientoId" : "01049",
+  "acantiladoMunicipalityName" : "Añana"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-039",
+  "idealistaMunicipalityName" : "Moreda de Álava",
+  "acantiladoAyuntamientoId" : "01039",
+  "acantiladoMunicipalityName" : "Moreda de Álava/Moreda Araba"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-05-001-901",
+  "idealistaMunicipalityName" : "Iruña de Oca",
+  "acantiladoAyuntamientoId" : "01901",
+  "acantiladoMunicipalityName" : "Iruña Oka/Iruña de Oca"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-06-001-004",
+  "idealistaMunicipalityName" : "Artziniega",
+  "acantiladoAyuntamientoId" : "01004",
+  "acantiladoMunicipalityName" : "Artziniega"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-01-001-059",
+  "idealistaMunicipalityName" : "Vitoria-Gasteiz",
+  "acantiladoAyuntamientoId" : "01059",
+  "acantiladoMunicipalityName" : "Vitoria-Gasteiz"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-03-001-016",
+  "idealistaMunicipalityName" : "Bernedo",
+  "acantiladoAyuntamientoId" : "01016",
+  "acantiladoMunicipalityName" : "Bernedo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-023",
+  "idealistaMunicipalityName" : "Elvillar",
+  "acantiladoAyuntamientoId" : "01023",
+  "acantiladoMunicipalityName" : "Elvillar/Bilar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-060",
+  "idealistaMunicipalityName" : "Yécora",
+  "acantiladoAyuntamientoId" : "01060",
+  "acantiladoMunicipalityName" : "Yécora/Iekora"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-02-001-051",
+  "idealistaMunicipalityName" : "Salvatierra",
+  "acantiladoAyuntamientoId" : "01051",
+  "acantiladoMunicipalityName" : "Agurain/Salvatierra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-05-001-006",
+  "idealistaMunicipalityName" : "Armiñon",
+  "acantiladoAyuntamientoId" : "01006",
+  "acantiladoMunicipalityName" : "Armiñón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-052",
+  "idealistaMunicipalityName" : "Samaniego",
+  "acantiladoAyuntamientoId" : "01052",
+  "acantiladoMunicipalityName" : "Samaniego"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-05-001-020",
+  "idealistaMunicipalityName" : "Cuartango",
+  "acantiladoAyuntamientoId" : "01020",
+  "acantiladoMunicipalityName" : "Kuartango"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-034",
+  "idealistaMunicipalityName" : "Leza",
+  "acantiladoAyuntamientoId" : "01034",
+  "acantiladoMunicipalityName" : "Leza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-06-001-010",
+  "idealistaMunicipalityName" : "Ayala",
+  "acantiladoAyuntamientoId" : "01010",
+  "acantiladoMunicipalityName" : "Ayala/Aiara"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-03-001-037",
+  "idealistaMunicipalityName" : "Arraia-Maeztu",
+  "acantiladoAyuntamientoId" : "01037",
+  "acantiladoMunicipalityName" : "Arraia-Maeztu"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-07-001-058",
+  "idealistaMunicipalityName" : "Legutiano",
+  "acantiladoAyuntamientoId" : "01008",
+  "acantiladoMunicipalityName" : "Arratzua-Ubarrundia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-022",
+  "idealistaMunicipalityName" : "Elciego",
+  "acantiladoAyuntamientoId" : "01022",
+  "acantiladoMunicipalityName" : "Elciego"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-032",
+  "idealistaMunicipalityName" : "Lanciego",
+  "acantiladoAyuntamientoId" : "01032",
+  "acantiladoMunicipalityName" : "Lanciego/Lantziego"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-02-001-009",
+  "idealistaMunicipalityName" : "Asparrena",
+  "acantiladoAyuntamientoId" : "01009",
+  "acantiladoMunicipalityName" : "Asparrena"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-06-001-036",
+  "idealistaMunicipalityName" : "Llodio",
+  "acantiladoAyuntamientoId" : "01036",
+  "acantiladoMunicipalityName" : "Laudio/Llodio"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-028",
+  "idealistaMunicipalityName" : "Labastida",
+  "acantiladoAyuntamientoId" : "01028",
+  "acantiladoMunicipalityName" : "Labastida/Bastida"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-057",
+  "idealistaMunicipalityName" : "Villabuena de Álava",
+  "acantiladoAyuntamientoId" : "01057",
+  "acantiladoMunicipalityName" : "Villabuena de Álava/Eskuernaga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-031",
+  "idealistaMunicipalityName" : "Laguardia",
+  "acantiladoAyuntamientoId" : "01032",
+  "acantiladoMunicipalityName" : "Lanciego/Lantziego"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-06-001-042",
+  "idealistaMunicipalityName" : "Okondo",
+  "acantiladoAyuntamientoId" : "01042",
+  "acantiladoMunicipalityName" : "Okondo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-05-001-055",
+  "idealistaMunicipalityName" : "Valdegovia",
+  "acantiladoAyuntamientoId" : "01055",
+  "acantiladoMunicipalityName" : "Valdegovía/Gaubea"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-07-001-008",
+  "idealistaMunicipalityName" : "Arrazua-Ubarrundia",
+  "acantiladoAyuntamientoId" : "01008",
+  "acantiladoMunicipalityName" : "Arratzua-Ubarrundia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-019",
+  "idealistaMunicipalityName" : "Cripán",
+  "acantiladoAyuntamientoId" : "01019",
+  "acantiladoMunicipalityName" : "Kripan"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-033",
+  "idealistaMunicipalityName" : "Lapuebla de Labarca",
+  "acantiladoAyuntamientoId" : "01033",
+  "acantiladoMunicipalityName" : "Lapuebla de Labarca"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-02-001-021",
+  "idealistaMunicipalityName" : "Elburgo",
+  "acantiladoAyuntamientoId" : "01021",
+  "acantiladoMunicipalityName" : "Elburgo/Burgelu"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-06-001-002",
+  "idealistaMunicipalityName" : "Amurrio",
+  "acantiladoAyuntamientoId" : "01002",
+  "acantiladoMunicipalityName" : "Amurrio"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-03-001-056",
+  "idealistaMunicipalityName" : "Valle de Arana",
+  "acantiladoAyuntamientoId" : "01056",
+  "acantiladoMunicipalityName" : "Harana/Valle de Arana"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-02-001-061",
+  "idealistaMunicipalityName" : "Zalduondo",
+  "acantiladoAyuntamientoId" : "01061",
+  "acantiladoMunicipalityName" : "Zalduondo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-043",
+  "idealistaMunicipalityName" : "Oión",
+  "acantiladoAyuntamientoId" : "01043",
+  "acantiladoMunicipalityName" : "Oyón-Oion"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-02-001-013",
+  "idealistaMunicipalityName" : "Barrundia",
+  "acantiladoAyuntamientoId" : "01013",
+  "acantiladoMunicipalityName" : "Barrundia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-041",
+  "idealistaMunicipalityName" : "Navaridas",
+  "acantiladoAyuntamientoId" : "01041",
+  "acantiladoMunicipalityName" : "Navaridas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-02-001-053",
+  "idealistaMunicipalityName" : "San Millán",
+  "acantiladoAyuntamientoId" : "01053",
+  "acantiladoMunicipalityName" : "San Millán/Donemiliaga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-07-001-054",
+  "idealistaMunicipalityName" : "Urcabustaiz",
+  "acantiladoAyuntamientoId" : "01054",
+  "acantiladoMunicipalityName" : "Urkabustaiz"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-05-001-062",
+  "idealistaMunicipalityName" : "Zambrana",
+  "acantiladoAyuntamientoId" : "01062",
+  "acantiladoMunicipalityName" : "Zambrana"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-02-001-001",
+  "idealistaMunicipalityName" : "Alegria-Dulantzi",
+  "acantiladoAyuntamientoId" : "01001",
+  "acantiladoMunicipalityName" : "Alegría-Dulantzi"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-031",
+  "idealistaMunicipalityName" : "Laguardia",
+  "acantiladoAyuntamientoId" : "01031",
+  "acantiladoMunicipalityName" : "Laguardia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-03-001-030",
+  "idealistaMunicipalityName" : "Lagrán",
+  "acantiladoAyuntamientoId" : "01030",
+  "acantiladoMunicipalityName" : "Lagrán"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-04-001-011",
+  "idealistaMunicipalityName" : "Baños de Ebro",
+  "acantiladoAyuntamientoId" : "01011",
+  "acantiladoMunicipalityName" : "Baños de Ebro/Mañueta"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-05-001-047",
+  "idealistaMunicipalityName" : "Ribera Baja",
+  "acantiladoAyuntamientoId" : "01047",
+  "acantiladoMunicipalityName" : "Ribera Baja/Erriberabeitia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-02-001-027",
+  "idealistaMunicipalityName" : "Iruraiz-Gauna",
+  "acantiladoAyuntamientoId" : "01027",
+  "acantiladoMunicipalityName" : "Iruraiz-Gauna"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-03-001-044",
+  "idealistaMunicipalityName" : "Peñacerrada",
+  "acantiladoAyuntamientoId" : "01044",
+  "acantiladoMunicipalityName" : "Peñacerrada-Urizaharra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-01-05-001-014",
+  "idealistaMunicipalityName" : "Berantevilla",
+  "acantiladoAyuntamientoId" : "01014",
+  "acantiladoMunicipalityName" : "Berantevilla"
+} ]

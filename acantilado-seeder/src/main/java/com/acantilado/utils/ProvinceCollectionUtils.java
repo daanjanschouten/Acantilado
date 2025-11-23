@@ -45,11 +45,10 @@ public class ProvinceCollectionUtils {
 
     public static Set<Ayuntamiento> getAyuntamientosForProvince(
             SessionFactory sessionFactory, AyuntamientoDAO ayuntamientoDAO, Provincia provincia) {
-        Set<String> ignorableAyuntamientos = Set.of("53057", "53058");
         return executeCallableInSessionWithoutTransaction(sessionFactory,
                 () -> ayuntamientoDAO.findByProvinceId(provincia.getId())
                         .stream()
-                        .filter(a -> !ignorableAyuntamientos.contains(a.getId()))
+                        .filter(a -> !a.getId().startsWith("53"))
                         .collect(Collectors.toSet()));
     }
 

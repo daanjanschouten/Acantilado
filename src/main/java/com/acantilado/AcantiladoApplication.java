@@ -149,7 +149,10 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         environment.jersey().register(new ProvinciaResource(provinciaDao));
         environment.jersey().register(new CodigoPostalResource(codigoPostalDAO));
         environment.jersey().register(new BarrioResource(barrioDAO));
-        environment.lifecycle().manage(new AdministrativeCollectorScheduler(geographicCollectorService));
+        environment.lifecycle().manage(
+                new AdministrativeCollectorScheduler(
+                        geographicCollectorService,
+                        configuration.getAdministrativeCollector()));
 
         // Properties
         environment.jersey().register(new IdealistaRealEstateResource(
@@ -157,6 +160,9 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                 idealistaPropertyDAO,
                 idealistaPropertyPriceRecordDAO,
                 idealistaTerrainPriceRecordDAO));
-        environment.lifecycle().manage(new IdealistaCollectorScheduler(collectorServiceFactory));
+        environment.lifecycle().manage(
+                new IdealistaCollectorScheduler(
+                        collectorServiceFactory,
+                        configuration.getIdealistaCollector()));
     }
 }

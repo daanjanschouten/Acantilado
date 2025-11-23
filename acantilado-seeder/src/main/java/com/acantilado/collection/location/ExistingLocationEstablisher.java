@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 public class ExistingLocationEstablisher {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExistingLocationEstablisher.class);
-    private static final double MAX_ACCEPTABLE_DISTANCE_DEGREES = 0.01;
+    private static final double MAX_ACCEPTABLE_DISTANCE_DEGREES = 0.005;
 
     private final AyuntamientoDAO ayuntamientoDAO;
     private final IdealistaLocationMappingDAO mappingDAO;
@@ -56,14 +56,13 @@ public class ExistingLocationEstablisher {
     }
 
     private Ayuntamiento establishAyuntamiento(String locationId, Point locationPoint) {
-        // Cache lookup for mappings
         List<IdealistaLocationMapping> mappingsForLocationId = mappingCache.get(
                 locationId,
                 key -> mappingDAO.findByIdealistaLocationId(key)
         );
 
         if (mappingsForLocationId.isEmpty()) {
-            LOGGER.error("No mapping found for location ID {}", locationId);
+            LOGGER.error("No mapping found for location ID {}. Reseed", locationId);
             throw new IllegalStateException();
         }
 

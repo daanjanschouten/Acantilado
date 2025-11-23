@@ -30,7 +30,7 @@ public abstract class ApifyCollector<T> extends Collector<T> {
     private static final String DATASETS_PATH = "/v2/datasets";
     private static final String ITEMS = "items";
 
-    private static final String AUTH_HEADER = "";
+    private static final String AUTH_HEADER = "Bearer apify_api_oxBRVjvZJkKIge2rLLhhE8H6rVXJsv3yLEJR";
 
     protected final String getActorId() {
         return "REcGj6dyoIJ9Z7aE6";
@@ -101,7 +101,7 @@ public abstract class ApifyCollector<T> extends Collector<T> {
 
             if (realEstates.isEmpty()) {
                 requestsToRetryDueToProxy.add(search.request());
-                LOGGER.warn("No results for search, will be retried with residential proxy: {}", search.request().getLocation());
+                LOGGER.debug("No results, will be retried with residential proxy: {}", search.request().getLocation());
                 return;
             }
 

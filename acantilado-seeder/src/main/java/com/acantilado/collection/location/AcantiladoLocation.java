@@ -77,6 +77,16 @@ public class AcantiladoLocation {
         return String.join("-", Arrays.copyOfRange(parts, 0, 7));
     }
 
+    public static String getAyuntamientoFromNormalizedLocationId(String idealistaLocationId) {
+        String[] parts = idealistaLocationId.split("-");
+
+        if (parts.length != 7) {
+            throw new IllegalArgumentException("location ID has incorrect length; normalize it first");
+        }
+
+        return String.join("", parts[3], parts[6]);
+    }
+
     private static Barrio getBarrio(String identifierSlice, BarrioDAO barrioDAO) {
         long barrioId = Long.parseLong(identifierSlice);
         Optional<Barrio> maybeBarrio = barrioDAO.findById(barrioId);

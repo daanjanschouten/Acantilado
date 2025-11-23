@@ -17,6 +17,36 @@ database:
 #    type: http
 #    port: 8080
 
+idealistaCollector:
+  enabled: true
+  provinces:
+    - Burgos
+  propertyTypes:
+    - HOMES
+
+  # Timing
+  initialDelay: 10s
+  collectionInterval: 1d
+
+  # Thread pools
+  schedulerThreadPoolSize: 1
+  collectorThreadPoolSize: 4
+  shutdownTimeout: 10s
+
+  # API settings
+  apiBaseUrl: https://www.idealista.com
+  maxRetriesPerRequest: 3
+  requestTimeout: 30s
+  rateLimitDelay: 500ms
+
+administrativeCollector:
+  enabled: true
+  initialDelay: 5s
+  collectionInterval: 7d
+  threadPoolSize: 1
+  shutdownTimeout: 10s
+
+
 server:
 #  softNofileLimit: 1000
 #  hardNofileLimit: 1000

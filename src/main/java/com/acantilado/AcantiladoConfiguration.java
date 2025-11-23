@@ -1,5 +1,7 @@
 package com.acantilado;
 
+import com.acantilado.collection.administration.AdministrativeCollectorConfig;
+import com.acantilado.collection.properties.IdealistaCollectorConfig;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableMap;
 import io.dropwizard.Configuration;
@@ -25,6 +27,14 @@ public class AcantiladoConfiguration extends Configuration {
     @NotNull
     private Map<String, Map<String, String>> viewRendererConfiguration = Collections.emptyMap();
 
+    @Valid
+    @NotNull
+    private IdealistaCollectorConfig idealistaCollector = new IdealistaCollectorConfig();
+
+    @Valid
+    @NotNull
+    private AdministrativeCollectorConfig administrativeCollector = new AdministrativeCollectorConfig();
+
     @JsonProperty
     public String getTemplate() {
         return template;
@@ -44,10 +54,6 @@ public class AcantiladoConfiguration extends Configuration {
     public void setDefaultName(String defaultName) {
         this.defaultName = defaultName;
     }
-
-//    public Template buildTemplate() {
-//        return new Template(template, defaultName);
-//    }
 
     @JsonProperty("database")
     public DataSourceFactory getDataSourceFactory() {
@@ -71,5 +77,25 @@ public class AcantiladoConfiguration extends Configuration {
             builder.put(entry.getKey(), ImmutableMap.copyOf(entry.getValue()));
         }
         this.viewRendererConfiguration = builder.build();
+    }
+
+    @JsonProperty("idealistaCollector")
+    public IdealistaCollectorConfig getIdealistaCollector() {
+        return idealistaCollector;
+    }
+
+    @JsonProperty("idealistaCollector")
+    public void setIdealistaCollector(IdealistaCollectorConfig idealistaCollector) {
+        this.idealistaCollector = idealistaCollector;
+    }
+
+    @JsonProperty("administrativeCollector")
+    public AdministrativeCollectorConfig getAdministrativeCollector() {
+        return administrativeCollector;
+    }
+
+    @JsonProperty("administrativeCollector")
+    public void setAdministrativeCollector(AdministrativeCollectorConfig administrativeCollector) {
+        this.administrativeCollector = administrativeCollector;
     }
 }

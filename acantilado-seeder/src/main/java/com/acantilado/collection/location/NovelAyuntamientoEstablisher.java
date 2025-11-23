@@ -42,6 +42,10 @@ public class NovelAyuntamientoEstablisher {
         return locationProducer.apply(ayuntamiento, locationPoint);
     }
 
+    public void storeMapping(IdealistaLocationMapping mapping) {
+        mappingDAO.saveOrUpdate(mapping);
+    }
+
     public void storeInMemoryMappings() {
         AtomicInteger mappingsStored = new AtomicInteger();
         mappingsByCounts.forEach((mapping, count) -> {
