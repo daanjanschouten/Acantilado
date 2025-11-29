@@ -1,6 +1,7 @@
 package com.acantilado;
 
 import com.acantilado.collection.administration.AdministrativeCollectorConfig;
+import com.acantilado.collection.amenity.AmenityCollectorConfig;
 import com.acantilado.collection.properties.IdealistaCollectorConfig;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
@@ -17,6 +18,10 @@ public class AcantiladoConfiguration extends Configuration {
     @Valid
     @NotNull
     private IdealistaCollectorConfig idealistaCollector = new IdealistaCollectorConfig();
+
+    @Valid
+    @NotNull
+    private AmenityCollectorConfig amenityCollector = new AmenityCollectorConfig();
 
     @Valid
     @NotNull
@@ -37,9 +42,19 @@ public class AcantiladoConfiguration extends Configuration {
         return idealistaCollector;
     }
 
+    @JsonProperty("amenityCollector")
+    public AmenityCollectorConfig getAmenityCollector() {
+        return amenityCollector;
+    }
+
     @JsonProperty("idealistaCollector")
     public void setIdealistaCollector(IdealistaCollectorConfig idealistaCollector) {
         this.idealistaCollector = idealistaCollector;
+    }
+
+    @JsonProperty("amenityCollector")
+    public void setAmenityCollector(AmenityCollectorConfig amenityCollector) {
+        this.amenityCollector = amenityCollector;
     }
 
     @JsonProperty("administrativeCollector")

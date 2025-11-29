@@ -2,9 +2,15 @@ package com.acantilado;
 
 import com.acantilado.collection.administration.AdministrativeCollectorScheduler;
 import com.acantilado.collection.administration.GeographicCollectorService;
+import com.acantilado.collection.amenity.AmenityCollectorScheduler;
+import com.acantilado.collection.amenity.AmenityCollectorServiceFactory;
 import com.acantilado.collection.properties.IdealistaCollectorScheduler;
 import com.acantilado.collection.properties.IdealistaCollectorServiceFactory;
 import com.acantilado.core.administrative.*;
+import com.acantilado.core.amenity.GoogleAmenity;
+import com.acantilado.core.amenity.GoogleAmenityDAO;
+import com.acantilado.core.amenity.GoogleAmenitySnapshot;
+import com.acantilado.core.amenity.GoogleAmenitySnapshotDAO;
 import com.acantilado.core.idealista.*;
 import com.acantilado.core.idealista.priceRecords.IdealistaPropertyPriceRecord;
 import com.acantilado.core.idealista.priceRecords.IdealistaTerrainPriceRecord;
@@ -47,7 +53,9 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                     IdealistaAyuntamientoLocation.class,
                     IdealistaContactInformation.class,
                     IdealistaPropertyPriceRecord.class,
-                    IdealistaTerrainPriceRecord.class) {
+                    IdealistaTerrainPriceRecord.class,
+                    GoogleAmenity.class,
+                    GoogleAmenitySnapshot.class) {
                 @Override
                 public DataSourceFactory getDataSourceFactory(AcantiladoConfiguration configuration) {
                     return configuration.getDataSourceFactory();
@@ -89,7 +97,9 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                 IdealistaAyuntamientoLocation.class,
                 IdealistaContactInformation.class,
                 IdealistaPropertyPriceRecord.class,
-                IdealistaTerrainPriceRecord.class));
+                IdealistaTerrainPriceRecord.class,
+                GoogleAmenity.class,
+                GoogleAmenitySnapshot.class));
         HibernateUtil.generateSchema(annotatedClasses);
     }
 
@@ -109,6 +119,9 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         final IdealistaPropertyDAO idealistaPropertyDAO = new IdealistaPropertyDAO(hibernateBundle.getSessionFactory());
         final IdealistaLocationDAO locationDAO = new IdealistaLocationDAO(hibernateBundle.getSessionFactory());
 
+        final GoogleAmenityDAO amenityDAO = new GoogleAmenityDAO(hibernateBundle.getSessionFactory());
+        final GoogleAmenitySnapshotDAO amenitySnapshotDAO = new GoogleAmenitySnapshotDAO(hibernateBundle.getSessionFactory());
+
         final IdealistaLocationMappingDAO idealistaAyuntamientoMappingDAO = new IdealistaLocationMappingDAO(hibernateBundle.getSessionFactory());
         final IdealistaCollectorServiceFactory collectorServiceFactory = new IdealistaCollectorServiceFactory(
                 idealistaContactInformationDAO,
@@ -121,6 +134,13 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                 barrioDAO,
                 idealistaAyuntamientoMappingDAO,
                 hibernateBundle.getSessionFactory());
+        final AmenityCollectorServiceFactory amenityServiceFactory = new AmenityCollectorServiceFactory(
+                amenityDAO,
+                amenitySnapshotDAO,
+                provinciaDao,
+                ayuntamientoDao,
+                hibernateBundle.getSessionFactory());
+
         final GeographicCollectorService geographicCollectorService = new GeographicCollectorService(
                 codigoPostalDAO,
                 ayuntamientoDao,
@@ -152,9 +172,14 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                 idealistaPropertyDAO,
                 idealistaPropertyPriceRecordDAO,
                 idealistaTerrainPriceRecordDAO));
+
         environment.lifecycle().manage(
                 new IdealistaCollectorScheduler(
                         collectorServiceFactory,
                         configuration.getIdealistaCollector()));
+        environment.lifecycle().manage(
+                new AmenityCollectorScheduler(
+                        amenityServiceFactory,
+                        configuration.getAmenityCollector()));
     }
 }

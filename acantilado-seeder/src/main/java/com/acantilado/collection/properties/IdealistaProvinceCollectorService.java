@@ -1,11 +1,9 @@
 package com.acantilado.collection.properties;
 
+import com.acantilado.collection.apify.ApifyCollector;
+import com.acantilado.collection.apify.ApifySearchResults;
 import com.acantilado.collection.location.AcantiladoLocation;
 import com.acantilado.collection.location.AcantiladoLocationEstablisher;
-import com.acantilado.collection.properties.apify.ApifyRunningSearch;
-import com.acantilado.collection.properties.apify.ApifySearchResults;
-import com.acantilado.collection.properties.apify.ApifySearchStatus;
-import com.acantilado.collection.properties.collectors.ApifyCollector;
 import com.acantilado.collection.properties.collectors.IdealistaLocationCollector;
 import com.acantilado.collection.properties.collectors.IdealistaRealEstateCollector;
 import com.acantilado.collection.properties.idealista.IdealistaPropertyType;
@@ -33,7 +31,6 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.acantilado.utils.RetryableBatchedExecutor.executeCallableInSessionWithoutTransaction;
@@ -94,17 +91,19 @@ public final class IdealistaProvinceCollectorService {
                 locationEstablisher,
                 contactDAO,
                 terrainDAO,
-                IdealistaTerrain::constructFromJson
-        );
+                IdealistaTerrain::constructFromJson,
+                executorService,
+                sessionFactory);
 
         propertyCollector = new IdealistaRealEstateCollector<>(
                 locationEstablisher,
                 contactDAO,
                 propertyDAO,
-                IdealistaProperty::constructFromJson
-        );
+                IdealistaProperty::constructFromJson,
+                executorService,
+                sessionFactory);
 
-        locationCollector = new IdealistaLocationCollector(locationDAO);
+        locationCollector = new IdealistaLocationCollector(locationDAO, executorService, sessionFactory);
         locationMappingMerchant = new LocationMappingMerchant(mappingDAO, sessionFactory);
     }
 
@@ -274,12 +273,13 @@ public final class IdealistaProvinceCollectorService {
      * Phase 3: Collect real estate listings using the complete mappings
      */
     private boolean collectRealEstateListings(IdealistaPropertyType propertyType) {
-        Set<IdealistaSearchRequest> searchRequests = executeCallableInSessionWithoutTransaction(
-                sessionFactory, mappingDAO::findAll).stream()
-                .map(IdealistaLocationMapping::getIdealistaLocationId)
-                .filter(location -> location.contains(provinceToCollectFor.getIdealistaLocationId()))
-                .map(location -> IdealistaSearchRequest.saleSearch(location, propertyType))
-                .collect(Collectors.toSet());
+        Set<IdealistaSearchRequest> searchRequests =
+                executeCallableInSessionWithoutTransaction(sessionFactory, mappingDAO::findAll)
+                        .stream()
+                        .map(IdealistaLocationMapping::getIdealistaLocationId)
+                        .filter(location -> location.contains(provinceToCollectFor.getIdealistaLocationId()))
+                        .map(location -> IdealistaSearchRequest.saleSearch(location, propertyType))
+                        .collect(Collectors.toSet());
 
         IdealistaRealEstateCollector<?> collector = switch (propertyType) {
             case HOMES -> propertyCollector;
@@ -386,27 +386,21 @@ public final class IdealistaProvinceCollectorService {
     }
 
     private <T> boolean startRealEstateCollectionForProvince(
-            Set<IdealistaSearchRequest> searchRequests, ApifyCollector<T> collector) {
+            Set<IdealistaSearchRequest> searchRequests, ApifyCollector<IdealistaSearchRequest, T> collector) {
         return startRealEstateCollectionForProvince(searchRequests, collector, 0);
     }
 
     private <T> boolean startRealEstateCollectionForProvince(
             Set<IdealistaSearchRequest> searchRequests,
-            ApifyCollector<T> collector,
+            ApifyCollector<IdealistaSearchRequest, T> collector,
             int retryCount) {
         if (retryCount > 3) {
             LOGGER.info("Giving up on {} remaining requests after 3 retries", searchRequests.size());
             return true;
         }
 
-        LOGGER.info("Triggering {} search requests for retry {}", searchRequests.size(), retryCount);
-        Set<ApifyRunningSearch> pendingSearches = triggerSearches(searchRequests, collector);
-
-        Set<ApifyRunningSearch> finishedSearches = awaitSearchesFinishing(pendingSearches, collector);
-        LOGGER.info("Confirmed {} searches have finished", finishedSearches.size());
-
-        ApifySearchResults results = storeSearchResults(finishedSearches, collector);
-        LOGGER.info("Search results: {}", results);
+        LOGGER.info("Orchestrating collection for retry {}", retryCount);
+        ApifySearchResults<IdealistaSearchRequest> results = collector.startCollection(searchRequests);
 
         Set<IdealistaSearchRequest> remainingRequestsToRun = calculateRequestsToRetry(results);
         if (!remainingRequestsToRun.isEmpty()) {
@@ -417,45 +411,7 @@ public final class IdealistaProvinceCollectorService {
         return true;
     }
 
-    private <T> Set<ApifyRunningSearch> triggerSearches(
-            Set<IdealistaSearchRequest> toRun,
-            ApifyCollector<T> collector) {
-        return executeIteratively(APIFY_ACTIVE_AGENTS, toRun, collector::startSearch);
-    }
-
-    private <T> Set<ApifyRunningSearch> awaitSearchesFinishing(
-            Set<ApifyRunningSearch> pendingSearches,
-            ApifyCollector<T> collector) {
-        return executeIteratively(APIFY_ACTIVE_AGENTS, pendingSearches, (ApifyRunningSearch pendingSearch) -> {
-            ApifySearchStatus searchStatus = collector.getSearchStatus(pendingSearch);
-            if (searchStatus.hasFinished()) {
-                return pendingSearch.withStatus(searchStatus);
-            }
-            return null;
-        });
-    }
-
-    private <T> ApifySearchResults storeSearchResults(
-            Set<ApifyRunningSearch> finishedSearches,
-            ApifyCollector<T> collector) {
-
-        try {
-            return RetryableBatchedExecutor.executeCallableInSessionWithTransaction(sessionFactory,
-                    () -> collector.storeResults(finishedSearches));
-        } catch (Exception e) {
-            LOGGER.error("Failed to store results for search: {}", finishedSearches, e);
-            return new ApifySearchResults(Set.of(), Set.of(), Set.of(), Set.of());
-        }
-    }
-
-    private <S, T> Set<T> executeIteratively(
-            Optional<Integer> batchSize, Set<S> toRun,
-            Function<S, T> resultOrNullFunction) {
-        return RetryableBatchedExecutor.executeUntilAllSuccessful(
-                toRun, resultOrNullFunction, batchSize, executorService);
-    }
-
-    private static Set<IdealistaSearchRequest> calculateRequestsToRetry(ApifySearchResults results) {
+    private static Set<IdealistaSearchRequest> calculateRequestsToRetry(ApifySearchResults<IdealistaSearchRequest> results) {
         Set<IdealistaSearchRequest> residentialProxyRequests = Sets.union(
                 IdealistaSearchRequest.withResidentialProxy(results.requestsToRetryDueToProxy()),
                 IdealistaSearchRequest.withResidentialProxy(results.requestsToRetryDueToFailure())

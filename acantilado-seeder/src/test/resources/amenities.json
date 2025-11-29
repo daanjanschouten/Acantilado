@@ -1,0 +1,308 @@
+[
+  {
+    "title": "Carrefour Market",
+    "price": null,
+    "categoryName": "Supermarket",
+    "address": "C. del Río, 0, 28792 Miraflores de la Sierra, Madrid, Spain",
+    "neighborhood": null,
+    "street": "C. del Río, 0",
+    "city": "Miraflores de la Sierra",
+    "postalCode": "28792",
+    "state": "Madrid",
+    "countryCode": "ES",
+    "website": "https://www.carrefour.es/tiendas-carrefour/supermercados/carrefour-market/calle-del-rio-miraflores-s.aspx",
+    "phone": "+34 605 96 30 24",
+    "phoneUnformatted": "+34605963024",
+    "claimThisBusiness": false,
+    "location": {
+      "lat": 40.8110918,
+      "lng": -3.7688524
+    },
+    "totalScore": 3.7,
+    "permanentlyClosed": false,
+    "temporarilyClosed": false,
+    "placeId": "ChIJ3dDeGiRiQQ0RG7g1xCC49EI",
+    "categories": [
+      "Supermarket"
+    ],
+    "fid": "0xd4162241aded0dd:0x42f4b820c435b81b",
+    "cid": "4824683551690962971",
+    "reviewsCount": 480,
+    "imagesCount": 92,
+    "imageCategories": [],
+    "scrapedAt": "2025-11-29T14:09:07.496Z",
+    "googleFoodUrl": null,
+    "hotelAds": [],
+    "openingHours": [
+      {
+        "day": "Monday",
+        "hours": "9 AM to 9 PM"
+      },
+      {
+        "day": "Tuesday",
+        "hours": "9 AM to 9 PM"
+      },
+      {
+        "day": "Wednesday",
+        "hours": "9 AM to 9 PM"
+      },
+      {
+        "day": "Thursday",
+        "hours": "9 AM to 9 PM"
+      },
+      {
+        "day": "Friday",
+        "hours": "9 AM to 9 PM"
+      },
+      {
+        "day": "Saturday",
+        "hours": "9 AM to 9 PM"
+      },
+      {
+        "day": "Sunday",
+        "hours": "9 AM to 9 PM"
+      }
+    ],
+    "peopleAlsoSearch": [],
+    "placesTags": [],
+    "reviewsTags": [],
+    "additionalInfo": {
+      "Service options": [
+        {
+          "Delivery": true
+        },
+        {
+          "In-store pickup": true
+        },
+        {
+          "In-store shopping": true
+        }
+      ],
+      "Highlights": [
+        {
+          "Great produce": true
+        }
+      ],
+      "Accessibility": [
+        {
+          "Wheelchair accessible entrance": true
+        },
+        {
+          "Wheelchair accessible parking lot": true
+        }
+      ],
+      "Planning": [
+        {
+          "Quick visit": true
+        }
+      ],
+      "Recycling": [
+        {
+          "Batteries": true
+        }
+      ],
+      "Payments": [
+        {
+          "Credit cards": true
+        },
+        {
+          "Debit cards": true
+        },
+        {
+          "NFC mobile payments": true
+        }
+      ]
+    },
+    "gasPrices": [],
+    "url": "https://www.google.com/maps/search/?api=1&query=Carrefour%20Market&query_place_id=ChIJ3dDeGiRiQQ0RG7g1xCC49EI",
+    "searchPageUrl": "https://www.google.com/maps/search/carrefour/@40.82414071764651,-3.748683031638436,16z?hl=en",
+    "searchString": "carrefour",
+    "language": "en",
+    "rank": 1,
+    "isAdvertisement": false,
+    "imageUrl": "https://lh3.googleusercontent.com/p/AF1QipP8q4nEAcZxAiif14o1AfGgX-scNjePCLamYJBS=w408-h306-k-no",
+    "kgmid": "/g/1tdb5l0y"
+  },
+  {
+    "title": "Carrefour Express EESS",
+    "price": null,
+    "categoryName": "Supermarket",
+    "address": "Carretera M-610 Km 19.8 Confluencia De La, C. de la Estación, 28792 Miraflores de la Sierra, Madrid, Spain",
+    "neighborhood": null,
+    "street": "Carretera M-610 Km 19.8 Confluencia De La, C. de la Estación",
+    "city": "Miraflores de la Sierra",
+    "postalCode": "28792",
+    "state": "Madrid",
+    "countryCode": "ES",
+    "website": "https://www.carrefour.es/tiendas-carrefour/supermercados/carrefour-express/miraflores-cepsa-s.aspx",
+    "phone": "+34 914 90 89 00",
+    "phoneUnformatted": "+34914908900",
+    "claimThisBusiness": false,
+    "location": {
+      "lat": 40.8142783,
+      "lng": -3.7603214
+    },
+    "totalScore": 4.1,
+    "permanentlyClosed": false,
+    "temporarilyClosed": false,
+    "placeId": "ChIJrU5ELyJiQQ0RWzaw6resor8",
+    "categories": [
+      "Supermarket"
+    ],
+    "fid": "0xd4162222f444ead:0xbfa2acb7eab0365b",
+    "cid": "13808789313387771483",
+    "reviewsCount": 100,
+    "imagesCount": 7,
+    "imageCategories": [],
+    "scrapedAt": "2025-11-29T14:09:07.498Z",
+    "googleFoodUrl": null,
+    "hotelAds": [],
+    "openingHours": [
+      {
+        "day": "Monday",
+        "hours": "5:30 AM to 9 PM"
+      },
+      {
+        "day": "Tuesday",
+        "hours": "5:30 AM to 9 PM"
+      },
+      {
+        "day": "Wednesday",
+        "hours": "5:30 AM to 9 PM"
+      },
+      {
+        "day": "Thursday",
+        "hours": "5:30 AM to 9 PM"
+      },
+      {
+        "day": "Friday",
+        "hours": "5:30 AM to 9 PM"
+      },
+      {
+        "day": "Saturday",
+        "hours": "5:30 AM to 9 PM"
+      },
+      {
+        "day": "Sunday",
+        "hours": "5:30 AM to 9 PM"
+      }
+    ],
+    "peopleAlsoSearch": [],
+    "placesTags": [],
+    "reviewsTags": [],
+    "additionalInfo": {
+      "Service options": [
+        {
+          "Delivery": true
+        },
+        {
+          "In-store shopping": true
+        }
+      ],
+      "Highlights": [
+        {
+          "Great produce": true
+        }
+      ],
+      "Accessibility": [
+        {
+          "Wheelchair accessible entrance": true
+        },
+        {
+          "Wheelchair accessible parking lot": true
+        }
+      ],
+      "Offerings": [
+        {
+          "Food": true
+        },
+        {
+          "Organic products": true
+        },
+        {
+          "Prepared foods": true
+        }
+      ],
+      "Planning": [
+        {
+          "Quick visit": true
+        }
+      ],
+      "Payments": [
+        {
+          "Credit cards": true
+        },
+        {
+          "Debit cards": true
+        },
+        {
+          "NFC mobile payments": true
+        }
+      ]
+    },
+    "gasPrices": [],
+    "url": "https://www.google.com/maps/search/?api=1&query=Carrefour%20Express%20EESS&query_place_id=ChIJrU5ELyJiQQ0RWzaw6resor8",
+    "searchPageUrl": "https://www.google.com/maps/search/carrefour/@40.82414071764651,-3.748683031638436,16z?hl=en",
+    "searchString": "carrefour",
+    "language": "en",
+    "rank": 2,
+    "isAdvertisement": false,
+    "imageUrl": "https://lh3.googleusercontent.com/p/AF1QipMtfFffdHOLKdaWsaPpB8Wfxos_o4oXh2kvealA=w408-h301-k-no",
+    "kgmid": "/g/11bw61yn75"
+  },
+  {
+    "title": "Parking Carrefour Market",
+    "price": null,
+    "categoryName": "Parking lot",
+    "address": "28792 Miraflores de la Sierra, Madrid, Spain",
+    "neighborhood": null,
+    "street": null,
+    "city": "Miraflores de la Sierra",
+    "postalCode": "28792",
+    "state": "Madrid",
+    "countryCode": "ES",
+    "claimThisBusiness": true,
+    "location": {
+      "lat": 40.8107567,
+      "lng": -3.7690213
+    },
+    "totalScore": 5,
+    "permanentlyClosed": false,
+    "temporarilyClosed": false,
+    "placeId": "ChIJr8z0G45jQQ0RG9fgxvVjMsc",
+    "categories": [
+      "Parking lot"
+    ],
+    "fid": "0xd41638e1bf4ccaf:0xc73263f5c6e0d71b",
+    "cid": "14353644869637953307",
+    "reviewsCount": 2,
+    "imagesCount": 1,
+    "imageCategories": [],
+    "scrapedAt": "2025-11-29T14:09:07.500Z",
+    "googleFoodUrl": null,
+    "hotelAds": [],
+    "openingHours": [],
+    "peopleAlsoSearch": [],
+    "placesTags": [],
+    "reviewsTags": [],
+    "additionalInfo": {
+      "Accessibility": [
+        {
+          "Wheelchair accessible entrance": true
+        },
+        {
+          "Wheelchair accessible parking lot": true
+        }
+      ]
+    },
+    "gasPrices": [],
+    "url": "https://www.google.com/maps/search/?api=1&query=Parking%20Carrefour%20Market&query_place_id=ChIJr8z0G45jQQ0RG9fgxvVjMsc",
+    "searchPageUrl": "https://www.google.com/maps/search/carrefour/@40.82414071764651,-3.748683031638436,16z?hl=en",
+    "searchString": "carrefour",
+    "language": "en",
+    "rank": 8,
+    "isAdvertisement": false,
+    "imageUrl": "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=kVpCnqiIvSc7bMWk8l8-mA&cb_client=search.gws-prod.gps&w=408&h=240&yaw=353.6024&pitch=0&thumbfov=100",
+    "kgmid": "/g/11rtlt_c_9"
+  }
+]

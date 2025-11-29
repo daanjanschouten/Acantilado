@@ -1,5 +1,7 @@
 package com.acantilado.collection.properties.collectors;
 
+import com.acantilado.collection.apify.ApifyCollector;
+import com.acantilado.collection.properties.idealista.IdealistaSearchRequest;
 import com.acantilado.core.idealista.IdealistaContactInformation;
 import com.acantilado.core.idealista.IdealistaContactInformationDAO;
 import com.acantilado.core.idealista.IdealistaRealEstateDAO;
@@ -12,6 +14,7 @@ import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
 import com.acantilado.collection.location.AcantiladoLocation;
 import com.acantilado.collection.location.AcantiladoLocationEstablisher;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.hibernate.SessionFactory;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.slf4j.Logger;
@@ -20,12 +23,12 @@ import org.slf4j.LoggerFactory;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
 
-public class IdealistaRealEstateCollector<T extends IdealistaRealEstate<? extends IdealistaPriceRecordBase>> extends ApifyCollector<T> {
+public class IdealistaRealEstateCollector<T extends IdealistaRealEstate<? extends IdealistaPriceRecordBase>> extends ApifyCollector<IdealistaSearchRequest, T> {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaRealEstateCollector.class);
     private static final GeometryFactory GEOMETRY_FACTORY = new GeometryFactory();
-
 
     private final AcantiladoLocationEstablisher locationEstablisher;
     private final IdealistaContactInformationDAO contactInformationDAO;
@@ -36,7 +39,11 @@ public class IdealistaRealEstateCollector<T extends IdealistaRealEstate<? extend
             AcantiladoLocationEstablisher locationEstablisher,
             IdealistaContactInformationDAO contactInformationDAO,
             IdealistaRealEstateDAO<T> realEstateDAO,
-            Function<JsonNode, T> constructObjectFunction) {
+            Function<JsonNode, T> constructObjectFunction,
+            ExecutorService executorService,
+            SessionFactory sessionFactory) {
+        super(executorService, sessionFactory);
+
         this.locationEstablisher = locationEstablisher;
         this.contactInformationDAO = contactInformationDAO;
         this.realEstateDAO = realEstateDAO;

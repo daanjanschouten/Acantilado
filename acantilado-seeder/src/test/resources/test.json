@@ -1,0 +1,198 @@
+{
+  "url": "https://www.google.com/maps/place/Carrefour+Express+EESS/data=!4m7!3m6!1s0xd4162222f444ead:0xbfa2acb7eab0365b!8m2!3d40.8142783!4d-3.7603214!16s%2Fg%2F11bw61yn75!19sChIJrU5ELyJiQQ0RWzaw6resor8?authuser=0&hl=es&rclk=1",
+  "title": "Carrefour Express EESS",
+  "description": "Supermercados Carrefour Express EESS: ofrece la variedad de productos de un supermercado a precio competitivo en estaciones de servicio.",
+  "address": "Carrefour Express EESS, Carretera M-610 Km 19.8 Confluencia De La, C. de la Estación, 28792 Miraflores de la Sierra, Madrid, España",
+  "neighborhood": null,
+  "street": "Carretera M-610 Km 19.8 Confluencia De La, C. de la Estación",
+  "district": null,
+  "state": "Madrid",
+  "postalCode": "28792",
+  "city": "Miraflores de la Sierra",
+  "countryCode": "ES",
+  "location": {
+    "lat": 40.8142783,
+    "lng": -3.7603214
+  },
+  "website": "https://www.carrefour.es/tiendas-carrefour/supermercados/carrefour-express/miraflores-cepsa-s.aspx",
+  "phone": "+34 914 90 89 00",
+  "phoneUnformatted": "+34914908900",
+  "plusCode": "R67Q+PV Miraflores de la Sierra, España",
+  "price": null,
+  "totalScore": 4.1,
+  "cid": "-4637954760321780133",
+  "reviewsCount": 100,
+  "reviewsDistribution": {
+    "oneStar": 6,
+    "twoStar": 1,
+    "threeStar": 19,
+    "fourStar": 26,
+    "fiveStar": 48
+  },
+  "categories": [
+    "Supermercado"
+  ],
+  "imagesCount": 7,
+  "hotelPrices": [],
+  "peopleAlsoSearch": [
+    {
+      "title": "Supermercados Dia",
+      "totalScore": 4.1,
+      "reviewsCount": 229
+    },
+    {
+      "title": "Supermercado Unide Miraflores de la Sierra",
+      "totalScore": 4.2,
+      "reviewsCount": 139
+    },
+    {
+      "title": "Bip Bip",
+      "totalScore": 4.5,
+      "reviewsCount": 2
+    },
+    {
+      "title": "Tienda Supercor Stop & Go",
+      "totalScore": 4,
+      "reviewsCount": 1
+    },
+    {
+      "title": "El Melon 24h Vending",
+      "totalScore": 4,
+      "reviewsCount": 1
+    }
+  ],
+  "reviewTags": [
+    {
+      "title": "gasolina",
+      "count": 4
+    },
+    {
+      "title": "pan",
+      "count": 4
+    },
+    {
+      "title": "precio",
+      "count": 4
+    },
+    {
+      "title": "olvidos",
+      "count": 2
+    }
+  ],
+  "additionalInfo": {
+    "Opciones de servicio": [
+      {
+        "Entrega a domicilio": true
+      },
+      {
+        "Compras en tienda": true
+      }
+    ],
+    "Aspectos destacados": [
+      {
+        "Buenos productos frescos": true
+      }
+    ],
+    "Accesibilidad": [
+      {
+        "Entrada accesible para personas en silla de ruedas": true
+      },
+      {
+        "Estacionamiento accesible para personas en silla de ruedas": true
+      }
+    ],
+    "Qué ofrece": [
+      {
+        "Comida": true
+      },
+      {
+        "Comida preparada": true
+      },
+      {
+        "Productos orgánicos": true
+      }
+    ],
+    "Planificación": [
+      {
+        "Visita rápida": true
+      }
+    ],
+    "Pagos": [
+      {
+        "Pagos móviles mediante NFC": true
+      },
+      {
+        "Tarjetas de crédito": true
+      },
+      {
+        "Tarjetas de débito": true
+      }
+    ]
+  },
+  "updatesFromCustomers": [
+    {
+      "id": "ChZDSUhNMG9nS0VJQ0FnSUR2N283QUxnEAE",
+      "text": "Excelente atención por parte del personal, no me he quedado con el nombre de la chica que me ha atendido (rubia) pero ha sido inmejorable",
+      "date": 1734717040674960,
+      "reviewer": {},
+      "language": "es",
+      "photos": []
+    },
+    {
+      "id": "ChZDSUhNMG9nS0VJQ0FnSURtMzQzblZREAE",
+      "text": "El super para estar en una gasolinera está muy bien.\nLa atención es muy buena. Es agradable ir a comprar\nAl estar ubicado a las afueras del centro del pueblo, a los que vivimos en las inmediaciones nos viene muy bien",
+      "date": 1644791042703769,
+      "reviewer": {},
+      "language": "es",
+      "photos": []
+    },
+    {
+      "id": "Ci9DQUlRQUNvZENodHljRjlvT25oSE9Fa3phekJmY0hnemJHbGxiRzVZWjBaVFJYYxAB",
+      "text": "Buena atención",
+      "date": 1763312416790007,
+      "reviewer": {},
+      "language": "es",
+      "photos": []
+    },
+    {
+      "id": "ChZDSUhNMG9nS0VJQ0FnSUNScWFtYU9REAE",
+      "text": "Han reducido el tamaño de una Barra de pan a la minimal expresión y ahora 3 barrITAS cuestan 2,50.  NO VUELVO, son usureros",
+      "date": 1680677714690809,
+      "reviewer": {},
+      "language": "es",
+      "photos": []
+    },
+    {
+      "id": "ChZDSUhNMG9nS0VJQ0FnSURnZ3BfREVnEAE",
+      "text": "La gasolina suele tener un precio razonable.\nLo mejor de tener productos de Carrefour es que, al estar un poco alejados del centro del pueblo, en la zona no hay más comercios. Para una emergencia viene muy bien ya que está bastante surtido en cuanto a variedad de productos.",
+      "date": 1535660462758700,
+      "reviewer": {},
+      "language": "es",
+      "photos": []
+    },
+    {
+      "id": "ChZDSUhNMG9nS0VJQ0FnSURzZ3Vtc0hREAE",
+      "text": "Muy bien ubicada y con una tienda Carrefour que tiene casi de todo y te saca de más de un apuro a horas intempestivas. La gente que te atiende es muy amable y en general es muy cómodo y agradable repostar allí, le doy mis cinco estrellas.",
+      "date": 1582808323956563,
+      "reviewer": {},
+      "language": "es",
+      "photos": []
+    },
+    {
+      "id": "ChZDSUhNMG9nS0VJQ0FnSUNneXZqUWFnEAE",
+      "text": "Es la panadería por excelencia para todo aquel que tenga buen gusto. Precio de la gasolina decente, de hecho bastante baja respecto a las de otras comunidades autónomas y franquicias",
+      "date": 1494581802361000,
+      "reviewer": {},
+      "language": "es",
+      "photos": []
+    },
+    {
+      "id": "ChZDSUhNMG9nS0VJQ1Q2X244cF9PbEV3EAE",
+      "text": "Se encuentra mecato",
+      "date": 1749304156272706,
+      "reviewer": {},
+      "language": "es",
+      "photos": []
+    }
+  ]
+}

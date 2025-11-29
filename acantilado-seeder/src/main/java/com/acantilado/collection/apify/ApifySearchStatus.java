@@ -1,4 +1,4 @@
-package com.acantilado.collection.properties.apify;
+package com.acantilado.collection.apify;
 
 // https://docs.apify.com/platform/actors/running/runs-and-builds
 public enum ApifySearchStatus {

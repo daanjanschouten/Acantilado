@@ -60,7 +60,7 @@ public class RetryableBatchedExecutor {
     }
 
     public static <S, T> Set<T> executeUntilAllSuccessful(
-            Set<S> toRun, Function<S, T> resultFunction, Optional<Integer> maybeBatchSize, ExecutorService executorService) {
+            Set<S> toRun, Optional<Integer> maybeBatchSize, ExecutorService executorService, Function<S, T> resultFunction) {
         int batchSize = maybeBatchSize.orElse(toRun.size());
         Queue<S> requestsToRun = new ConcurrentLinkedQueue<>(toRun);
         Set<T> requestsThatSucceeded = ConcurrentHashMap.newKeySet();

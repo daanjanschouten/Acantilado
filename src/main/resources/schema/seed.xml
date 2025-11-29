@@ -498,4 +498,87 @@
         </createIndex>
     </changeSet>
 
+    <changeSet id="add-google-amenity-table" author="acantilado">
+        <createTable tableName="google_amenity">
+            <column name="place_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="latitude" type="DECIMAL(10, 7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="DECIMAL(10, 7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="chain" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="previous_place_id" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="google_amenity"
+                baseColumnNames="previous_place_id"
+                constraintName="fk_amenity_previous_place_id"
+                referencedTableName="google_amenity"
+                referencedColumnNames="place_id"
+                onDelete="SET NULL"/>
+
+        <createIndex indexName="idx_amenity_previous_place_id" tableName="google_amenity">
+            <column name="previous_place_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="add-amenity-snapshot-table" author="acantilado">
+        <createTable tableName="google_amenity_snapshot">
+            <column name="id" type="BIGSERIAL" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="place_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="opening_hours" type="JSONB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rating" type="DECIMAL(2, 1)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="user_rating_count" type="INTEGER">
+                <constraints nullable="true"/>
+            </column>
+            <column name="first_seen" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_seen" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="google_amenity_snapshot"
+                baseColumnNames="place_id"
+                constraintName="fk_snapshot_place_id"
+                referencedTableName="google_amenity"
+                referencedColumnNames="place_id"
+                onDelete="CASCADE"/>
+
+        <createIndex indexName="idx_snapshot_place_id" tableName="google_amenity_snapshot">
+            <column name="place_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_snapshot_last_seen" tableName="google_amenity_snapshot">
+            <column name="last_seen"/>
+        </createIndex>
+    </changeSet>
+
 </databaseChangeLog>
