@@ -37,6 +37,11 @@ allprojects {
                 implementation group: 'org.locationtech.jts', name: 'jts-core', version: "$jtsVersion"
                 implementation group: 'org.locationtech.jts.io', name: 'jts-io-common', version: "$jtsVersion"
                 implementation group: 'org.postgresql', name: 'postgresql', version: "$postgresVersion"
+                implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8'
+                implementation 'io.swagger.core.v3:swagger-jaxrs2:2.2.40'
+                implementation 'io.swagger.core.v3:swagger-integration:2.2.40'
+                implementation 'io.swagger.core.v3:swagger-annotations:2.2.40'
+                implementation 'io.swagger.core.v3:swagger-jaxrs2-servlet-initializer-v2:2.2.40'
 
                 testImplementation group: 'io.dropwizard', name: 'dropwizard-testing', version: "$dropwizardVersion"
                 testImplementation(group: 'org.glassfish.jersey.test-framework.providers',

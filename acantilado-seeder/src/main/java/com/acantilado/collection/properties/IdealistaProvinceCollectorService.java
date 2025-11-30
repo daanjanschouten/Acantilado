@@ -82,7 +82,7 @@ public final class IdealistaProvinceCollectorService {
         locationEstablisher = new AcantiladoLocationEstablisher(
                 ProvinceCollectionUtils.getBarriosForProvince(sessionFactory, barrioDAO, provinceToCollectFor),
                 ayuntamientosForProvince,
-                ProvinceCollectionUtils.getPostcodesForProvince(
+                ProvinceCollectionUtils.getPostcodesForAyuntamientos(
                         sessionFactory, codigoPostalDAO, ayuntamientosForProvince),
                 ayuntamientoDAO,
                 mappingDAO);

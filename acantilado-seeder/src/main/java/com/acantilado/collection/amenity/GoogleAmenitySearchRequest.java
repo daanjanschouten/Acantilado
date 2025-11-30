@@ -82,8 +82,8 @@ public class GoogleAmenitySearchRequest implements RequestBodyData {
     @JsonProperty("allPlacesNoSearchAction")
     private final String allPlacesNoSearchAction = "";
 
-    public GoogleAmenitySearchRequest(String ayuntamientoName, String postcode, AcantiladoAmenityChain chain) {
-        this.locationQuery = String.format("ES %s %s", ayuntamientoName, postcode);
+    public GoogleAmenitySearchRequest(String postcode, AcantiladoAmenityChain chain) {
+        this.locationQuery = String.format("ES %s", postcode);
         this.searchStringsArray = List.of(chain.name().toLowerCase(Locale.ROOT));
     }
 

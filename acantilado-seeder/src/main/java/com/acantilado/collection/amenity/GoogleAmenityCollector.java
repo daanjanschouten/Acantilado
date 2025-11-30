@@ -42,7 +42,7 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
 
     @Override
     protected int getRetryCount() {
-        return 10;
+        return 50;
     }
 
     @Override
@@ -115,22 +115,20 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
     }
 
     private OpeningHours parseOpeningHours(JsonNode openingHoursNode) {
-        if (openingHoursNode == null || !openingHoursNode.isArray() || openingHoursNode.isEmpty()) {
-            return OpeningHours.builder().build();
-        }
-
         OpeningHours.Builder builder = OpeningHours.builder();
+
+        if (openingHoursNode == null || !openingHoursNode.isArray()) {
+            return builder.build();
+        }
 
         for (JsonNode dayEntry : openingHoursNode) {
             String dayName = dayEntry.get("day").asText();
             String hoursText = dayEntry.get("hours").asText();
 
-            DayOfWeek dayOfWeek = parseDayName(dayName);
-            OpeningHour hours = parseHoursText(hoursText);
-
-            if (hours != null) {
-                builder.day(dayOfWeek, hours);
-            }
+            DayOfWeek day = parseDayName(dayName);
+            parseMultipleRanges(hoursText).forEach(range ->
+                    builder.add(day, range)
+            );
         }
 
         return builder.build();
@@ -149,44 +147,140 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
         };
     }
 
-    private OpeningHour parseHoursText(String hoursText) {
-        if (hoursText == null || hoursText.isEmpty() || hoursText.equalsIgnoreCase("Closed")) {
-            return null;
+    // put this near other helper methods in GoogleAmenityCollector
+
+    private List<OpeningHour> parseMultipleRanges(String text) {
+        if (text == null || text.isBlank() || text.equalsIgnoreCase("Closed")) {
+            return List.of();
         }
 
-        try {
-            String[] parts = hoursText.split(" to ");
+        // Normalize "Open 24 hours" (covers variants)
+        if (text.equalsIgnoreCase("Open 24 hours") || text.equalsIgnoreCase("24 hours")) {
+            return List.of(new OpeningHour(0, 0, 0, 0));
+        }
+
+        List<OpeningHour> result = new ArrayList<>();
+
+        // Normalize separators: replace various dash types with " to "
+        String normalized = text
+                .replace("–", " to ")
+                .replace("—", " to ")
+                .replace("-", " to ")
+                .replace("—", " to ")
+                .replaceAll("\\s*to\\s*", " to "); // ensure consistent spacing
+
+        // Split on commas for multiple ranges: "9 AM–2 PM, 5–8 PM"
+        String[] ranges = normalized.split("\\s*,\\s*");
+
+        for (String range : ranges) {
+            String r = range.trim();
+            if (r.isEmpty()) continue;
+
+            // Support both "X to Y" and accidental "X–Y" forms already normalized
+            String[] parts = r.split("\\s+to\\s+");
             if (parts.length != 2) {
-                LOGGER.warn("Unexpected hours format: {}", hoursText);
-                return null;
+                LOGGER.warn("Unexpected hours format (no range separator): {}", r);
+                continue;
             }
 
-            TimeOfDay openTime = parseTimeOfDay(parts[0].trim());
-            TimeOfDay closeTime = parseTimeOfDay(parts[1].trim());
+            String left = parts[0].trim();
+            String right = parts[1].trim();
 
-            return new OpeningHour(
-                    openTime.hour,
-                    openTime.minute,
-                    closeTime.hour,
-                    closeTime.minute
-            );
+            // detect AM/PM suffixes (case-insensitive); support e.g. "10 AM" (non-breaking spaces)
+            String leftSuffix = getAmPmSuffix(left);
+            String rightSuffix = getAmPmSuffix(right);
+
+            // If only one side has suffix, propagate it
+            if (leftSuffix == null && rightSuffix != null) {
+                left = left + " " + rightSuffix;
+                leftSuffix = rightSuffix;
+            } else if (rightSuffix == null && leftSuffix != null) {
+                right = right + " " + leftSuffix;
+                rightSuffix = leftSuffix;
+            }
+
+            try {
+                // If neither side had AM/PM, try to parse heuristically as 24-hour if a number > 12 exists
+                if (leftSuffix == null && rightSuffix == null) {
+                    Integer lHour = peekHourNumber(left);
+                    Integer rHour = peekHourNumber(right);
+                    boolean looks24h = (lHour != null && lHour > 12) || (rHour != null && rHour > 12);
+
+                    if (looks24h) {
+                        // parse as 24-hour times (no AM/PM)
+                        TimeOfDay open = parseTimeOfDay24(left);
+                        TimeOfDay close = parseTimeOfDay24(right);
+                        result.add(new OpeningHour(open.hour, open.minute, close.hour, close.minute));
+                    } else {
+                        // Ambiguous (both <= 12, no AM/PM). Safer to skip and log.
+                        LOGGER.warn("Ambiguous hours (no AM/PM): {}; skipping range", r);
+                    }
+                } else {
+                    // At least one side had AM/PM (we already propagated), parse both normally
+                    TimeOfDay open = parseTimeOfDay(left);
+                    TimeOfDay close = parseTimeOfDay(right);
+                    result.add(new OpeningHour(open.hour, open.minute, close.hour, close.minute));
+                }
+            } catch (Exception ex) {
+                LOGGER.warn("Failed to parse hours range '{}': {}", r, ex.getMessage());
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Returns "AM" or "PM" (uppercase) if the token ends with AM/PM (possibly with spaces or NBSP).
+     * Otherwise null.
+     */
+    private String getAmPmSuffix(String token) {
+        if (token == null) return null;
+        String t = token.trim().toUpperCase();
+        // Accept forms like "10AM", "10 AM", "10\u202FAM" etc.
+        if (t.endsWith("AM")) return "AM";
+        if (t.endsWith("PM")) return "PM";
+        return null;
+    }
+
+    /**
+     * Extract the leading numeric hour from a token (ignoring AM/PM). Returns null on parse failure.
+     * e.g. "4", "4:30", "04", "04:00" -> 4
+     */
+    private Integer peekHourNumber(String token) {
+        try {
+            String t = token.trim().toUpperCase();
+            // remove AM/PM if present
+            if (t.endsWith("AM") || t.endsWith("PM")) {
+                t = t.substring(0, t.length() - 2).trim();
+            }
+            // remove all whitespace and NBSPs etc
+            t = t.replaceAll("[\\s\\u00A0\\u2000-\\u200B\\u202F\\u205F\\u3000]", "");
+            if (t.contains(":")) {
+                String[] p = t.split(":");
+                return Integer.parseInt(p[0]);
+            } else {
+                return Integer.parseInt(t);
+            }
         } catch (Exception e) {
-            LOGGER.warn("Failed to parse hours text: {}", hoursText, e);
             return null;
         }
     }
 
+    /**
+     * Parse time tokens that include AM/PM. Accepts lots of whitespace and non-breaking spaces.
+     * Requires AM/PM suffix (throws IllegalArgumentException if not present).
+     */
     private TimeOfDay parseTimeOfDay(String timeText) {
         timeText = timeText.trim();
 
-        boolean isPM = timeText.endsWith("PM");
-        boolean isAM = timeText.endsWith("AM");
+        boolean isPM = timeText.toUpperCase().endsWith("PM");
+        boolean isAM = timeText.toUpperCase().endsWith("AM");
 
         if (!isPM && !isAM) {
             throw new IllegalArgumentException("Time must end with AM or PM: " + timeText);
         }
 
-        // Remove AM/PM suffix and ALL whitespace (including Unicode spaces like U+202F)
+        // Remove AM/PM suffix and ALL whitespace (including Unicode spaces)
         String timeOnly = timeText.substring(0, timeText.length() - 2)
                 .replaceAll("[\\s\\u00A0\\u2000-\\u200B\\u202F\\u205F\\u3000]", "");
 
@@ -210,6 +304,36 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
 
         return new TimeOfDay(hour, minute);
     }
+
+    /**
+     * Parse time tokens WITHOUT AM/PM, assuming 24-hour format (e.g. "14:30" or "4" for 04:00).
+     * Throws IllegalArgumentException on bad input.
+     */
+    private TimeOfDay parseTimeOfDay24(String timeText) {
+        String timeOnly = timeText.trim()
+                .replaceAll("[\\s\\u00A0\\u2000-\\u200B\\u202F\\u205F\\u3000]", "");
+
+        int hour;
+        int minute = 0;
+
+        if (timeOnly.contains(":")) {
+            String[] timeParts = timeOnly.split(":");
+            hour = Integer.parseInt(timeParts[0]);
+            minute = Integer.parseInt(timeParts[1]);
+        } else {
+            hour = Integer.parseInt(timeOnly);
+        }
+
+        if (hour < 0 || hour > 23) {
+            throw new IllegalArgumentException("Hour out of range for 24-hour time: " + hour);
+        }
+        if (minute < 0 || minute > 59) {
+            throw new IllegalArgumentException("Minute out of range: " + minute);
+        }
+
+        return new TimeOfDay(hour, minute);
+    }
+
 
     private record TimeOfDay(int hour, int minute) {}
 

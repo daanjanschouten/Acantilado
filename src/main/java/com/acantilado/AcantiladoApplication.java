@@ -23,6 +23,7 @@ import com.acantilado.core.resources.amenity.GoogleAmenitySnapshotResource;
 import com.acantilado.core.resources.properties.IdealistaRealEstateResource;
 import com.acantilado.tasks.EchoTask;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
@@ -44,7 +45,7 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
     }
 
     private final HibernateBundle<AcantiladoConfiguration> hibernateBundle =
-            new HibernateBundle<AcantiladoConfiguration>(
+            new HibernateBundle<>(
                     Ayuntamiento.class,
                     Provincia.class,
                     ComunidadAutonoma.class,
@@ -73,6 +74,7 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
     @Override
     public void initialize(Bootstrap<AcantiladoConfiguration> bootstrap) {
         bootstrap.getObjectMapper().registerModule(new Jdk8Module());
+        bootstrap.getObjectMapper().registerModule(new JavaTimeModule());
 
         bootstrap.setConfigurationSourceProvider(
                 new SubstitutingSourceProvider(
@@ -164,6 +166,8 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         environment.jersey().register(new BarrioResource(barrioDAO));
         environment.jersey().register(new GoogleAmenityResource(amenityDAO));
         environment.jersey().register(new GoogleAmenitySnapshotResource(amenitySnapshotDAO));
+
+        // environment.jersey().register(new SwaggerServlet());
 
 
         environment.lifecycle().manage(

@@ -11,7 +11,6 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,16 +20,14 @@ import java.util.stream.Collectors;
 public class AmenityProvinceCollectorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AmenityProvinceCollectorService.class);
 
-    private final SessionFactory sessionFactory;
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
 
-    private final AyuntamientoDAO ayuntamientoDAO;
     private final String provinceName;
 
     // location establisher
 
     private final GoogleAmenityCollector amenityCollector;
-    private final Map<String, Set<String>> postCodeIdsByAyuntamientoName;
+    private final Set<String> postcodeIdsForProvince;
 
     public AmenityProvinceCollectorService(
             String provinceName,
@@ -40,10 +37,8 @@ public class AmenityProvinceCollectorService {
             ProvinciaDAO provinciaDAO,
             AyuntamientoDAO ayuntamientoDAO) {
         this.provinceName = provinceName;
-        this.sessionFactory = sessionFactory;
-        this.ayuntamientoDAO = ayuntamientoDAO;
 
-        this.postCodeIdsByAyuntamientoName = ProvinceCollectionUtils.getPostcodeIdsForProvince(
+        this.postcodeIdsForProvince = ProvinceCollectionUtils.getPostcodeIdsForProvince(
                 sessionFactory, provinciaDAO, ayuntamientoDAO, provinceName);
 
         this.amenityCollector = new GoogleAmenityCollector(amenityDAO, snapshotDAO, executorService, sessionFactory);
@@ -63,15 +58,11 @@ public class AmenityProvinceCollectorService {
     public boolean collectAmenitiesForProvince() {
         LOGGER.info("Starting full amenity collection workflow for province {}", provinceName);
 
-        Set<GoogleAmenitySearchRequest> searchRequests = postCodeIdsByAyuntamientoName
-                .entrySet()
+        Set<GoogleAmenitySearchRequest> searchRequests = postcodeIdsForProvince
                 .stream()
-                .flatMap(entry -> entry.getValue()
-                        .stream()
-                        .map(postcode -> new GoogleAmenitySearchRequest(
-                                entry.getKey(),
-                                postcode,
-                                AcantiladoAmenityChain.CARREFOUR)))
+                .map(postcode ->
+                    new GoogleAmenitySearchRequest(postcode, AcantiladoAmenityChain.CARREFOUR)
+                )
                 .collect(Collectors.toSet());
 
         ApifySearchResults<GoogleAmenitySearchRequest> results = amenityCollector.startCollection(searchRequests);

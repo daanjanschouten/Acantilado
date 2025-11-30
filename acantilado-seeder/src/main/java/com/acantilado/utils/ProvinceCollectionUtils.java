@@ -58,7 +58,7 @@ public class ProvinceCollectionUtils {
                 () -> new HashSet<>(locationDAO.findByProvinceId(provincia.getId())));
     }
 
-    public static Map<String, Set<CodigoPostal>> getPostcodesForProvince(
+    public static Map<String, Set<CodigoPostal>> getPostcodesForAyuntamientos(
             SessionFactory sessionFactory, CodigoPostalDAO codigoPostalDAO, Set<Ayuntamiento> ayuntamientos) {
         return executeCallableInSessionWithoutTransaction(sessionFactory, () -> {
             Map<String, Set<CodigoPostal>> postcodesByAyuntamiento = new HashMap<>();
@@ -72,7 +72,7 @@ public class ProvinceCollectionUtils {
         });
     }
 
-    public static Map<String, Set<String>> getPostcodeIdsForProvince(
+    public static Set<String> getPostcodeIdsForProvince(
             SessionFactory sessionFactory,
             ProvinciaDAO provinciaDAO,
             AyuntamientoDAO ayuntamientoDAO,
@@ -86,12 +86,9 @@ public class ProvinceCollectionUtils {
             return ayuntamientoDAO.findByProvinceId(provincias.get(0).getId())
                     .stream()
                     .filter(a -> !a.getId().startsWith("53"))
-                    .collect(Collectors.toMap(Ayuntamiento::getName, ayuntamiento ->
-                            ayuntamiento.getCodigosPostales()
-                                    .stream()
-                                    .map(CodigoPostal::getCodigoPostal)
-                                    .collect(Collectors.toSet())
-                    ));
+                    .flatMap(a -> a.getCodigosPostales().stream())
+                    .map(CodigoPostal::getCodigoPostal)
+                    .collect(Collectors.toSet());
         });
     }
 

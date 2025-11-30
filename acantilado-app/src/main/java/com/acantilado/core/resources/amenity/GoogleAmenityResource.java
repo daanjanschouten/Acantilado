@@ -5,6 +5,8 @@ import com.acantilado.core.amenity.GoogleAmenityDAO;
 import com.acantilado.core.amenity.fields.AcantiladoAmenityChain;
 import com.acantilado.core.amenity.fields.AcantiladoAmenityType;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -17,6 +19,7 @@ import java.util.Optional;
 
 @Path("/amenities")
 @Produces(MediaType.APPLICATION_JSON)
+@Tag(name = "Amenities", description = "Endpoints for Google amenities")
 public class GoogleAmenityResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleAmenityResource.class);
     private final GoogleAmenityDAO amenityDAO;
@@ -25,23 +28,17 @@ public class GoogleAmenityResource {
         this.amenityDAO = amenityDAO;
     }
 
-    /**
-     * GET /amenities
-     * List all amenities
-     */
     @GET
     @UnitOfWork
+    @Operation(summary = "List all amenities")
     public List<GoogleAmenity> listAll() {
         return amenityDAO.findAll();
     }
 
-    /**
-     * GET /amenities/{placeId}
-     * Get specific amenity by Place ID
-     */
     @GET
     @Path("/{placeId}")
     @UnitOfWork
+    @Operation(summary = "Get an amenity by its place ID")
     public Response getByPlaceId(@PathParam("placeId") String placeId) {
         Optional<GoogleAmenity> amenity = amenityDAO.findByPlaceId(placeId);
 
@@ -54,14 +51,10 @@ public class GoogleAmenityResource {
         return Response.ok(amenity.get()).build();
     }
 
-    /**
-     * GET /amenities/chain/{chain}
-     * Get all amenities for a specific chain
-     * Example: /amenities/chain/CARREFOUR
-     */
     @GET
     @Path("/chain/{chain}")
     @UnitOfWork
+    @Operation(summary = "Get all amenities for a given chain")
     public Response getByChain(@PathParam("chain") String chainName) {
         try {
             AcantiladoAmenityChain chain = AcantiladoAmenityChain.valueOf(chainName.toUpperCase());
@@ -74,14 +67,10 @@ public class GoogleAmenityResource {
         }
     }
 
-    /**
-     * GET /amenities/type/{type}
-     * Get all amenities for a specific type
-     * Example: /amenities/type/SUPERMARKET
-     */
     @GET
     @Path("/type/{type}")
     @UnitOfWork
+    @Operation(summary = "Get all amenities for a given amenity type")
     public Response getByType(@PathParam("type") String typeName) {
         try {
             AcantiladoAmenityType type = AcantiladoAmenityType.valueOf(typeName.toUpperCase());
@@ -158,6 +147,7 @@ public class GoogleAmenityResource {
     @GET
     @Path("/stats")
     @UnitOfWork
+    @Operation(summary = "Get stats across all amenities")
     public Response getStats() {
         long totalCount = amenityDAO.countAll();
 

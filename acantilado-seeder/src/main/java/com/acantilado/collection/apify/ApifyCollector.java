@@ -161,7 +161,6 @@ public abstract class ApifyCollector<S extends RequestBodyData, T> extends Colle
                 return;
             }
 
-            LOGGER.info("Creating {} objects", jsonObjects);
             jsonObjects.forEach(this::storeResult);
             requestsSucceeded.add(request);
 
