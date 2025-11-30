@@ -9,10 +9,10 @@ import com.acantilado.core.idealista.priceRecords.IdealistaTerrainPriceRecord;
 import com.acantilado.core.idealista.realEstate.IdealistaProperty;
 import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
 import io.dropwizard.hibernate.UnitOfWork;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/idealista")
@@ -92,7 +92,7 @@ public class IdealistaRealEstateResource {
     public IdealistaProperty updateProperty(@PathParam("code") Long code, IdealistaProperty property) {
         findPropertySafely(code);
         property.setPropertyCode(code);
-        return propertyDAO.saveOrUpdate(property);
+        return propertyDAO.merge(property);
     }
 
     @DELETE
@@ -163,7 +163,7 @@ public class IdealistaRealEstateResource {
     public IdealistaTerrain updateTerrain(@PathParam("code") Long code, IdealistaTerrain terrain) {
         findTerrainSafely(code);
         terrain.setPropertyCode(code);
-        return terrainDAO.saveOrUpdate(terrain);
+        return terrainDAO.merge(terrain);
     }
 
     @DELETE

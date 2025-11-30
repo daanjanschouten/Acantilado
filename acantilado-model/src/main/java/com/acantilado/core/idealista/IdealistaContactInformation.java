@@ -3,8 +3,8 @@ package com.acantilado.core.idealista;
 import com.acantilado.core.idealista.realEstate.IdealistaProperty;
 import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;

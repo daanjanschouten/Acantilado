@@ -33,14 +33,10 @@ public class AdministrativeCollectorScheduler implements Managed {
 
         if (!collectorService.isSeedingNecessary()) {
             LOGGER.info("Skipping administrative collection because data already populated");
-            // Schedule periodic updates even if initial seed not needed
-            schedulePeriodicCollection();
             return;
         }
 
-        LOGGER.info("Starting administrative collection - initial seed required");
-
-        // Run initial seed after configured delay
+        LOGGER.info("Starting administrative collection");
         scheduler.schedule(
                 this::seedAndScheduleRecurring,
                 config.getInitialDelay().toSeconds(),
@@ -63,23 +59,9 @@ public class AdministrativeCollectorScheduler implements Managed {
     private void seedAndScheduleRecurring() {
         try {
             seed();
-            // After initial seed, schedule periodic updates
-            schedulePeriodicCollection();
         } catch (Exception e) {
             LOGGER.error("Error during initial administrative data seeding", e);
         }
-    }
-
-    private void schedulePeriodicCollection() {
-        LOGGER.info("Scheduling periodic administrative data collection every {}",
-                config.getCollectionInterval());
-
-        scheduler.scheduleAtFixedRate(
-                this::seed,
-                config.getCollectionInterval().toSeconds(),
-                config.getCollectionInterval().toSeconds(),
-                TimeUnit.SECONDS
-        );
     }
 
     private void seed() {

@@ -2,15 +2,15 @@ package com.acantilado.collection.amenity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.util.Duration;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 public class AmenityCollectorConfig {
     @NotNull
-    private Set<String> provinces = new HashSet<>(Set.of());
+    private Set<String> provinces = new HashSet<>(Set.of("Madrid"));
 
     @NotNull
     private Set<String> amenityChains = new HashSet<>(Set.of("CARREFOUR"));

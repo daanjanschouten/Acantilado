@@ -3,8 +3,8 @@ package com.acantilado.core.idealista.realEstate;
 import com.acantilado.core.idealista.IdealistaContactInformation;
 import com.acantilado.core.idealista.priceRecords.IdealistaPropertyPriceRecord;
 import com.fasterxml.jackson.databind.JsonNode;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

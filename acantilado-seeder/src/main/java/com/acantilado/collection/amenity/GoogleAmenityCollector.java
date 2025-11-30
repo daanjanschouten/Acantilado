@@ -16,8 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.DayOfWeek;
 import java.time.Instant;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 
 public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRequest, GoogleAmenityCollector.GoogleAmenityData> {
@@ -37,20 +36,43 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
     }
 
     @Override
-    protected GoogleAmenityData constructObject(JsonNode jsonNode) {
+    protected String getActorId() {
+        return "nwua9Gu5YrADL7ZDj";
+    }
+
+    @Override
+    protected int getRetryCount() {
+        return 10;
+    }
+
+    @Override
+    protected int getConcurrentRunCount() {
+        return 5;
+    }
+
+    @Override
+    protected Optional<GoogleAmenityData> constructObject(JsonNode jsonNode) {
         try {
-            String placeId = jsonNode.get("placeId").asText();
             String name = jsonNode.get("title").asText();
+            String placeId = jsonNode.get("placeId").asText();
+
+            Optional<AcantiladoAmenityChain> chain = determineChain(name);
+            if (chain.isEmpty()) {
+                LOGGER.warn("No chain found for name {}", name);
+                return Optional.empty();
+            }
 
             JsonNode locationNode = jsonNode.get("location");
             double latitude = locationNode.get("lat").asDouble();
             double longitude = locationNode.get("lng").asDouble();
 
-            AcantiladoAmenityChain chain = determineChain(name);
             GoogleAmenityStatus status = parseStatus(jsonNode);
             OpeningHours openingHours = parseOpeningHours(jsonNode.get("openingHours"));
 
-            Double rating = jsonNode.get("totalScore").asDouble();
+            Double rating = jsonNode.has("totalScore") && !jsonNode.get("totalScore").isNull()
+                    ? jsonNode.get("totalScore").asDouble()
+                    : null;
+
             Integer userRatingCount = jsonNode.get("reviewsCount").asInt();
 
             GoogleAmenity amenity = GoogleAmenity.builder()
@@ -58,7 +80,7 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
                     .name(name)
                     .latitude(latitude)
                     .longitude(longitude)
-                    .chain(chain)
+                    .chain(chain.get())
                     .createdAt(Instant.now())
                     .build();
 
@@ -71,7 +93,7 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
                     .seenNow()
                     .build();
 
-            return new GoogleAmenityData(amenity, snapshot);
+            return Optional.of(new GoogleAmenityData(amenity, snapshot));
 
         } catch (Exception e) {
             LOGGER.error("Failed to construct GoogleAmenityData from JSON: {}", jsonNode, e);
@@ -191,45 +213,22 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
 
     private record TimeOfDay(int hour, int minute) {}
 
-    private AcantiladoAmenityChain determineChain(String name) {
+    private Optional<AcantiladoAmenityChain> determineChain(String name) {
         String lowerName = name.toLowerCase();
 
-        if (lowerName.contains("carrefour express")) {
-            return AcantiladoAmenityChain.CARREFOUR_EXPRESS;
-        } else if (lowerName.contains("carrefour")) {
-            return AcantiladoAmenityChain.CARREFOUR;
-        } else if (lowerName.contains("dia")) {
-            return AcantiladoAmenityChain.DIA;
-        } else if (lowerName.contains("mercadona")) {
-            return AcantiladoAmenityChain.MERCADONA;
-        } else if (lowerName.contains("lidl")) {
-            return AcantiladoAmenityChain.LIDL;
-        } else if (lowerName.contains("aldi")) {
-            return AcantiladoAmenityChain.ALDI;
-        } else if (lowerName.contains("bbva")) {
-            return AcantiladoAmenityChain.BBVA;
-        } else if (lowerName.contains("santander")) {
-            return AcantiladoAmenityChain.SANTANDER;
-        } else if (lowerName.contains("caixabank")) {
-            return AcantiladoAmenityChain.CAIXABANK;
-        } else if (lowerName.contains("sabadell")) {
-            return AcantiladoAmenityChain.SABADELL;
-        } else if (lowerName.contains("cepsa")) {
-            return AcantiladoAmenityChain.CEPSA;
-        } else if (lowerName.contains("repsol")) {
-            return AcantiladoAmenityChain.REPSOL;
-        }
-
-        throw new IllegalArgumentException("Could not determine chain from name: " + name);
+        return Arrays.stream(AcantiladoAmenityChain.values())
+                .filter(chain -> lowerName.contains(chain.name().toLowerCase(Locale.ROOT)))
+                .findFirst();
     }
 
     @Override
     public void storeResult(GoogleAmenityData amenityData) {
         Optional<GoogleAmenity> existingAmenity = amenityDAO.findByPlaceId(amenityData.amenity().getPlaceId());
-
         if (existingAmenity.isEmpty()) {
+            LOGGER.info("Found new amenity {}", amenityData.amenity());
+
             detectPlaceIdChange(amenityData.amenity());
-            amenityDAO.saveOrUpdate(amenityData.amenity());
+            amenityDAO.merge(amenityData.amenity());
         }
 
         processSnapshot(amenityData.snapshot());
@@ -255,7 +254,7 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
 
     private void migratePlaceId(GoogleAmenity oldAmenity, GoogleAmenity newAmenity) {
         newAmenity.setPreviousPlaceId(oldAmenity.getPlaceId());
-        amenityDAO.saveOrUpdate(newAmenity);
+        amenityDAO.merge(newAmenity);
 
         List<GoogleAmenitySnapshot> oldSnapshots = snapshotDAO.findAllByPlaceId(oldAmenity.getPlaceId());
         for (GoogleAmenitySnapshot snapshot : oldSnapshots) {

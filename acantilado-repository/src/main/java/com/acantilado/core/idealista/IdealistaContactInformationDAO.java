@@ -4,9 +4,9 @@ import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +29,8 @@ public class IdealistaContactInformationDAO extends AbstractDAO<IdealistaContact
         return persist(contactInfo);
     }
 
-    public IdealistaContactInformation saveOrUpdate(IdealistaContactInformation contactInfo) {
-        currentSession().saveOrUpdate(contactInfo);
+    public IdealistaContactInformation merge(IdealistaContactInformation contactInfo) {
+        currentSession().merge(contactInfo);
         return contactInfo;
     }
 

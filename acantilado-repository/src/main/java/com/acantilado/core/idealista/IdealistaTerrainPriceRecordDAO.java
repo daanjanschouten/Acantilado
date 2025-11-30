@@ -43,8 +43,8 @@ public class IdealistaTerrainPriceRecordDAO extends AbstractDAO<IdealistaTerrain
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
     }
 
-    public IdealistaTerrainPriceRecord saveOrUpdate(IdealistaTerrainPriceRecord priceRecord) {
-        currentSession().saveOrUpdate(priceRecord);
+    public IdealistaTerrainPriceRecord merge(IdealistaTerrainPriceRecord priceRecord) {
+        currentSession().merge(priceRecord);
         return priceRecord;
     }
 

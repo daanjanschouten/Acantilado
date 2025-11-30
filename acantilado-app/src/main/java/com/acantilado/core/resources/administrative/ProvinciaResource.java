@@ -3,9 +3,9 @@ package com.acantilado.core.resources.administrative;
 import com.acantilado.core.administrative.Provincia;
 import com.acantilado.core.administrative.ProvinciaDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/provincias")

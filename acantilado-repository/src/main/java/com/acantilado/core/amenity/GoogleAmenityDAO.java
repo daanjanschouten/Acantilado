@@ -25,11 +25,6 @@ public class GoogleAmenityDAO extends AbstractDAO<GoogleAmenity> {
         return (GoogleAmenity) currentSession().merge(amenity);
     }
 
-    public GoogleAmenity saveOrUpdate(GoogleAmenity amenity) {
-        currentSession().saveOrUpdate(amenity);
-        return amenity;
-    }
-
     public void delete(String placeId) {
         Optional<GoogleAmenity> amenity = findByPlaceId(placeId);
         amenity.ifPresent(a -> currentSession().delete(a));

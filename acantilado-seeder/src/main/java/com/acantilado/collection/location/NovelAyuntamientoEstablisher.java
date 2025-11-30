@@ -43,7 +43,7 @@ public class NovelAyuntamientoEstablisher {
     }
 
     public void storeMapping(IdealistaLocationMapping mapping) {
-        mappingDAO.saveOrUpdate(mapping);
+        mappingDAO.merge(mapping);
     }
 
     public void storeInMemoryMappings() {
@@ -57,7 +57,7 @@ public class NovelAyuntamientoEstablisher {
 
             LOGGER.info("Created new mapping: {} with score {}", mapping, count);
             mappingsStored.incrementAndGet();
-            mappingDAO.saveOrUpdate(mapping);
+            mappingDAO.merge(mapping);
         });
 
         LOGGER.info("Finished storing {} mappings", mappingsStored.get());

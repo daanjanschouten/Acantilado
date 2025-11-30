@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 
 
@@ -25,11 +26,26 @@ public class IdealistaLocationCollector extends ApifyCollector<IdealistaSearchRe
     }
 
     @Override
-    protected IdealistaAyuntamientoLocation constructObject(JsonNode jsonNode) {
+    protected String getActorId() {
+        return "REcGj6dyoIJ9Z7aE6";
+    }
+
+    @Override
+    protected int getRetryCount() {
+        return 20;
+    }
+
+    @Override
+    protected int getConcurrentRunCount() {
+        return 32;
+    }
+
+    @Override
+    protected Optional<IdealistaAyuntamientoLocation> constructObject(JsonNode jsonNode) {
         try {
             String idealistaLocationId = jsonNode.get("locationId").textValue();
             String normalizedId = AcantiladoLocation.normalizeIdealistaLocationId(idealistaLocationId);
-            return new IdealistaAyuntamientoLocation(normalizedId);
+            return Optional.of(new IdealistaAyuntamientoLocation(normalizedId));
         } catch (Exception e) {
             LOGGER.error("Failed to construct JSON object: {}", jsonNode, e);
             throw new RuntimeException(e);

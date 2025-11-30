@@ -30,7 +30,7 @@ public class IdealistaLocationMappingDAO extends AbstractDAO<IdealistaLocationMa
         return list(namedTypedQuery("com.acantilado.core.administrative.IdealistaLocationMapping.findAll"));
     }
 
-    public IdealistaLocationMapping saveOrUpdate(IdealistaLocationMapping mapping) {
+    public IdealistaLocationMapping merge(IdealistaLocationMapping mapping) {
         return (IdealistaLocationMapping) currentSession().merge(mapping);
     }
 

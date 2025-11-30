@@ -31,15 +31,9 @@ public abstract class ApifyCollector<S extends RequestBodyData, T> extends Colle
     private static final String ITEMS = "items";
 
     private static final String AUTH_HEADER = "";
-    private static final Optional<Integer> APIFY_ACTIVE_AGENTS = Optional.of(32);
 
-    protected final String getActorId() {
-        return "REcGj6dyoIJ9Z7aE6";
-    }
     private final ExecutorService executorService;
     private final SessionFactory sessionFactory;
-
-    public abstract void storeResult(T result);
 
     public ApifyCollector(ExecutorService executorService, SessionFactory sessionFactory) {
         super(AUTHORITY);
@@ -48,10 +42,18 @@ public abstract class ApifyCollector<S extends RequestBodyData, T> extends Colle
         this.sessionFactory = sessionFactory;
     }
 
+    protected abstract String getActorId();
+
+    protected abstract int getRetryCount();
+
+    protected abstract int getConcurrentRunCount();
+
+    protected abstract void storeResult(T result);
+
     public ApifySearchResults<S> startCollection(Set<S> requests) {
         LOGGER.info("Triggering {} search requests", requests.size());
         Set<ApifyRunningSearch<S>> pendingSearches = triggerSearches(requests);
-        LOGGER.info("Submitted {} search requests", requests.size());
+        LOGGER.info("Submitted {} search requests", pendingSearches.size());
 
         Set<ApifyRunningSearch<S>> finishedSearches = awaitSearchesFinishing(pendingSearches);
         LOGGER.info("Confirmed {} searches have finished", finishedSearches.size());
@@ -64,16 +66,33 @@ public abstract class ApifyCollector<S extends RequestBodyData, T> extends Colle
     private Set<ApifyRunningSearch<S>> triggerSearches(Set<S> toRun) {
         return RetryableBatchedExecutor.executeUntilAllSuccessful(
                 toRun,
-                APIFY_ACTIVE_AGENTS,
+                getConcurrentRunCount(),
+                getRetryCount(),
                 executorService,
-                this::startSearch
-        );
+                request -> {
+                    JsonNode requestStarted = makePostHttpRequest(
+                            constructActsUri(""), request.toRequestBodyString(), AUTH_HEADER);
+
+                    if (Objects.isNull(requestStarted.get(DATA_FIELD))) {
+                        String error = requestStarted.get(ERROR).get(MESSAGE).textValue();
+                        if (!error.startsWith("By launching this job you will")) {
+                            LOGGER.info("Request start failed with error {}", error);
+                        }
+                        return null;
+                    }
+
+                    return new ApifyRunningSearch<>(
+                            request,
+                            requestStarted.get(DATA_FIELD).get(RUN_FIELD).textValue(),
+                            requestStarted.get(DATA_FIELD).get(DATASET_FIELD).textValue());
+                });
     }
 
     private Set<ApifyRunningSearch<S>> awaitSearchesFinishing(Set<ApifyRunningSearch<S>> pendingSearches) {
         return RetryableBatchedExecutor.executeUntilAllSuccessful(
                 pendingSearches,
-                APIFY_ACTIVE_AGENTS,
+                getConcurrentRunCount(),
+                getRetryCount(),
                 executorService,
                 (ApifyRunningSearch<S> pendingSearch) -> {
                     ApifySearchStatus searchStatus = this.getSearchStatus(pendingSearch);
@@ -94,30 +113,8 @@ public abstract class ApifyCollector<S extends RequestBodyData, T> extends Colle
         }
     }
 
-    @Override
-    protected Iterator<Collection<T>> seed() {
-        throw new RuntimeException("Unsupported");
-    }
-
-    public ApifyRunningSearch<S> startSearch(S request) {
-        JsonNode requestStarted = makePostHttpRequest(
-                constructActsUri(""), request.toRequestBodyString(), AUTH_HEADER);
-
-        if (Objects.isNull(requestStarted.get(DATA_FIELD))) {
-            String error = requestStarted.get(ERROR).get(MESSAGE).textValue();
-            LOGGER.debug("Request start failed with error {}", error);
-            return null;
-        }
-
-        return new ApifyRunningSearch<>(
-                request,
-                ApifySearchStatus.TO_BE_SUBMITTED,
-                requestStarted.get(DATA_FIELD).get(RUN_FIELD).textValue(),
-                requestStarted.get(DATA_FIELD).get(DATASET_FIELD).textValue());
-    }
-
     public ApifySearchStatus getSearchStatus(ApifyRunningSearch runningSearch) {
-        JsonNode requestStatus = makeGetHttpRequest(constructActsUri(runningSearch.runId()), AUTH_HEADER);
+        JsonNode requestStatus = makeGetHttpRequest(constructActsUri(runningSearch.getRunId()), AUTH_HEADER);
         String status = requestStatus.get(DATA_FIELD).get(STATUS_FIELD).textValue();
 
         return ApifySearchStatus.valueOf(status.replace("-", "_"));
@@ -129,11 +126,14 @@ public abstract class ApifyCollector<S extends RequestBodyData, T> extends Colle
         Set<S> requestsToRetryDueToProxy = ConcurrentHashMap.newKeySet();
         Set<S> requestsToRetryDueToFailure = ConcurrentHashMap.newKeySet();
 
-        LOGGER.debug("Processing search results for {} finished searches", finishedSearches.size());
+        LOGGER.info("Processing search results for {} finished searches", finishedSearches.size());
 
         finishedSearches.forEach(search -> {
-            if (search.pendingSearchStatus().hasFailed()) {
-                requestsToRetryDueToFailure.add(search.request());
+            final S request = search.getRequest();
+            final ApifySearchStatus status = search.getStatus();
+
+            if (status.hasFailed()) {
+                requestsToRetryDueToFailure.add(request);
                 return;
             }
 
@@ -142,23 +142,28 @@ public abstract class ApifyCollector<S extends RequestBodyData, T> extends Colle
             Set<T> jsonObjects = new HashSet<>();
 
             while (iterator.hasNext()) {
-                T translatedObject = constructObject(iterator.next());
+                Optional<T> translatedObject = constructObject(iterator.next());
+                if (translatedObject.isEmpty()) {
+                    return;
+                }
+
                 objectsProcessed.incrementAndGet();
-                jsonObjects.add(translatedObject);
+                jsonObjects.add(translatedObject.get());
             }
 
             if (objectsProcessed.get() > 2300) {
-                requestsToFragment.add(search.request());
+                requestsToFragment.add(request);
             }
 
             if (jsonObjects.isEmpty()) {
-                requestsToRetryDueToProxy.add(search.request());
-                LOGGER.debug("No results, will be retried with residential proxy: {}", search.request());
+                requestsToRetryDueToProxy.add(request);
+                LOGGER.debug("No results, will be retried with residential proxy: {}", request);
                 return;
             }
 
+            LOGGER.info("Creating {} objects", jsonObjects);
             jsonObjects.forEach(this::storeResult);
-            requestsSucceeded.add(search.request());
+            requestsSucceeded.add(request);
 
             LOGGER.debug("Stored batch of {} results", jsonObjects.size());
         });
@@ -167,7 +172,7 @@ public abstract class ApifyCollector<S extends RequestBodyData, T> extends Colle
     }
 
     private Iterator<JsonNode> getSuccessfulSearchResults(ApifyRunningSearch finishedSearch) {
-        URI uri = constructDatasetsUri(finishedSearch.datasetId());
+        URI uri = constructDatasetsUri(finishedSearch.getDatasetId());
         JsonNode node = makeGetHttpRequest(uri, AUTH_HEADER);
         return node.elements();
     }

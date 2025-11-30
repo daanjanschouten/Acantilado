@@ -49,19 +49,10 @@ public class RetryableBatchedExecutor {
         }
     }
 
-    private static class BatchResult<S, T> {
-        final Set<T> successful;
-        final Set<S> failed;
-
-        BatchResult(Set<T> successful, Set<S> failed) {
-            this.successful = successful;
-            this.failed = failed;
-        }
-    }
+    private record BatchResult<S, T>(Set<T> successful, Set<S> failed) { }
 
     public static <S, T> Set<T> executeUntilAllSuccessful(
-            Set<S> toRun, Optional<Integer> maybeBatchSize, ExecutorService executorService, Function<S, T> resultFunction) {
-        int batchSize = maybeBatchSize.orElse(toRun.size());
+            Set<S> toRun, int batchSize, int retryCount,  ExecutorService executorService, Function<S, T> resultFunction) {
         Queue<S> requestsToRun = new ConcurrentLinkedQueue<>(toRun);
         Set<T> requestsThatSucceeded = ConcurrentHashMap.newKeySet();
 
@@ -72,24 +63,18 @@ public class RetryableBatchedExecutor {
                 nextBatch.add(requestsToRun.poll());
             }
 
-            // Process batch and explicitly track successes and failures
             BatchResult<S, T> batchResult = processBatch(nextBatch, resultFunction, executorService);
 
-            // Add successful responses to the overall success set
             requestsThatSucceeded.addAll(batchResult.successful);
-
-            // CRITICAL FIX: Re-add failed requests AFTER all futures have completed
-            // This eliminates the race condition
             requestsToRun.addAll(batchResult.failed);
 
-            // Now check if there are still items to process
             if (!requestsToRun.isEmpty()) {
                 currentRun = currentRun.refreshRetryCount(batchResult.successful.size());
                 LOGGER.info("Single run stats {}", currentRun);
 
-                if (currentRun.totalRetryCount >= 30) {
-                    LOGGER.error("Giving up on retries, {} remaining requests {}", requestsToRun.size(), requestsToRun);
-                    return Set.of();
+                if (currentRun.totalRetryCount >= retryCount) {
+                    LOGGER.error("Giving up on retries, {} remaining requests", requestsToRun.size());
+                    return requestsThatSucceeded;
                 }
 
                 try {

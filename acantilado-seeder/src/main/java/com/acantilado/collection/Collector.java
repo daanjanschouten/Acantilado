@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpRequest;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -23,9 +21,7 @@ public abstract class Collector<T> {
         this.authority = authority;
     }
 
-    protected abstract Iterator<Collection<T>> seed();
-
-    protected abstract T constructObject(JsonNode jsonNode);
+    protected abstract Optional<T> constructObject(JsonNode jsonNode);
 
     protected final JsonNode makePostHttpRequest(URI uri, HttpRequest.BodyPublisher body, String authorizationHeader)  {
         LOGGER.debug("Constructing HTTP POST request for URI: {} with body: {}", uri, body);

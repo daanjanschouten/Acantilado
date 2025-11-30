@@ -3,9 +3,9 @@ package com.acantilado.core.resources.properties;
 import com.acantilado.core.administrative.IdealistaLocationMapping;
 import com.acantilado.core.administrative.IdealistaLocationMappingDAO;
 import io.dropwizard.hibernate.UnitOfWork;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/location-mappings")

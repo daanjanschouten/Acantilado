@@ -2,8 +2,8 @@ package com.acantilado.core.amenity;
 
 import com.acantilado.core.amenity.fields.AcantiladoAmenityChain;
 import com.acantilado.core.amenity.fields.AcantiladoAmenityType;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -27,10 +27,10 @@ public class GoogleAmenity {
     @Column(name = "name", length = 500, nullable = false)
     private String name;
 
-    @Column(name = "latitude", nullable = false, precision = 10, scale = 7)
+    @Column(name = "latitude", nullable = false)
     private double latitude;
 
-    @Column(name = "longitude", nullable = false, precision = 10, scale = 7)
+    @Column(name = "longitude", nullable = false)
     private double longitude;
 
     @Enumerated(EnumType.STRING)

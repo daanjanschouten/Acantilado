@@ -1,6 +1,7 @@
 package com.acantilado.core.idealista.realEstate;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.util.Arrays;
 import java.util.Objects;
 

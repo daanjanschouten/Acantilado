@@ -413,7 +413,7 @@ public final class IdealistaProvinceCollectorService {
 
     private static Set<IdealistaSearchRequest> calculateRequestsToRetry(ApifySearchResults<IdealistaSearchRequest> results) {
         Set<IdealistaSearchRequest> residentialProxyRequests = Sets.union(
-                IdealistaSearchRequest.withResidentialProxy(results.requestsToRetryDueToProxy()),
+                IdealistaSearchRequest.withResidentialProxy(results.requestsToRetryDueToEmptyResults()),
                 IdealistaSearchRequest.withResidentialProxy(results.requestsToRetryDueToFailure())
         );
 

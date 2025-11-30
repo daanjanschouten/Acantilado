@@ -1,6 +1,7 @@
 package com.acantilado.core.idealista.priceRecords;
 
-import javax.persistence.*;
+
+import jakarta.persistence.*;
 
 @MappedSuperclass
 public abstract class IdealistaPriceRecordBase {

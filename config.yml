@@ -6,7 +6,7 @@ database:
   url: jdbc:postgresql://localhost:5432/acantilado
   properties:
     charSet: UTF-8
-    hibernate.dialect: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate.hbm2ddl.auto: update
     hibernate.show_sql: false
     hibernate.format_sql: true
@@ -25,7 +25,7 @@ database:
 # Idealista Collector Configuration
 idealistaCollector:
   enabled: true
-  provinces: ["Sevilla"]
+  provinces: []
   propertyTypes:
     - HOMES
 

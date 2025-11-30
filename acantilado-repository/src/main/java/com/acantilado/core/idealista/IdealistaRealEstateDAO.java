@@ -22,7 +22,7 @@ public abstract class IdealistaRealEstateDAO<T extends IdealistaRealEstate> exte
 
     public abstract T create(T realEstate);
 
-    public abstract T saveOrUpdate(T realEstate);
+    public abstract T merge(T realEstate);
 
     public abstract void delete(T realEstate);
 

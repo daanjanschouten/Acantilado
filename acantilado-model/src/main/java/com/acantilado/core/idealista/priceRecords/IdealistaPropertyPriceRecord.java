@@ -2,8 +2,8 @@ package com.acantilado.core.idealista.priceRecords;
 
 import com.acantilado.core.idealista.realEstate.IdealistaProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 
 @Entity
 @Table(name = "idealista_property_price_records")

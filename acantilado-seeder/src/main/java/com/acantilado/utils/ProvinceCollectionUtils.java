@@ -72,6 +72,29 @@ public class ProvinceCollectionUtils {
         });
     }
 
+    public static Map<String, Set<String>> getPostcodeIdsForProvince(
+            SessionFactory sessionFactory,
+            ProvinciaDAO provinciaDAO,
+            AyuntamientoDAO ayuntamientoDAO,
+            String provinceName) {
+        return executeCallableInSessionWithoutTransaction(sessionFactory, () -> {
+            List<Provincia> provincias = provinciaDAO.findByName(provinceName);
+            if (provincias.size() != 1) {
+                throw new RuntimeException("More than 1 or 0 provinces found for province " + provinceName);
+            }
+
+            return ayuntamientoDAO.findByProvinceId(provincias.get(0).getId())
+                    .stream()
+                    .filter(a -> !a.getId().startsWith("53"))
+                    .collect(Collectors.toMap(Ayuntamiento::getName, ayuntamiento ->
+                            ayuntamiento.getCodigosPostales()
+                                    .stream()
+                                    .map(CodigoPostal::getCodigoPostal)
+                                    .collect(Collectors.toSet())
+                    ));
+        });
+    }
+
     public static Set<Barrio> getBarriosForProvince(SessionFactory sessionFactory, BarrioDAO barrioDAO, Provincia provincia) {
         return executeCallableInSessionWithoutTransaction(sessionFactory, () -> {
             Set<Barrio> barrios = new HashSet<>();

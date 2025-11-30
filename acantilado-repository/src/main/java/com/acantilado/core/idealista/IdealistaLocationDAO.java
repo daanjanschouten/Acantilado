@@ -37,9 +37,4 @@ public class IdealistaLocationDAO extends AbstractDAO<IdealistaAyuntamientoLocat
                 .setParameter("provinciaId", provinceString)
                 .getResultList();
     }
-
-    public IdealistaAyuntamientoLocation saveOrUpdate(IdealistaAyuntamientoLocation location) {
-        currentSession().saveOrUpdate(location);
-        return location;
-    }
 }

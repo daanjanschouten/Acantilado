@@ -4,11 +4,11 @@ import com.acantilado.collection.administration.AdministrativeCollectorConfig;
 import com.acantilado.collection.amenity.AmenityCollectorConfig;
 import com.acantilado.collection.properties.IdealistaCollectorConfig;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.dropwizard.Configuration;
+import io.dropwizard.core.Configuration;
 import io.dropwizard.db.DataSourceFactory;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 public class AcantiladoConfiguration extends Configuration {
     @Valid

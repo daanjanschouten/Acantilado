@@ -2,9 +2,10 @@ package com.acantilado.core.amenity;
 
 import com.acantilado.core.amenity.fields.GoogleAmenityStatus;
 import com.acantilado.core.amenity.fields.OpeningHours;
-import com.acantilado.core.amenity.fields.OpeningHoursJsonConverter;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import javax.persistence.*;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.Optional;
@@ -29,11 +30,11 @@ public class GoogleAmenitySnapshot {
     @Column(name = "status", length = 50, nullable = false)
     private GoogleAmenityStatus status;
 
-    @Column(name = "opening_hours", columnDefinition = "JSONB", nullable = false)
-    @Convert(converter = OpeningHoursJsonConverter.class)
+    @JdbcTypeCode(SqlTypes.JSON)  // ← ADD THIS
+    @Column(name = "opening_hours", nullable = false, columnDefinition = "jsonb")
     private OpeningHours openingHours;
 
-    @Column(name = "rating", precision = 2, scale = 1)
+    @Column(name = "rating")
     private Double rating;
 
     @Column(name = "user_rating_count")

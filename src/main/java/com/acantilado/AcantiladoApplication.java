@@ -18,17 +18,20 @@ import com.acantilado.core.idealista.realEstate.IdealistaAyuntamientoLocation;
 import com.acantilado.core.idealista.realEstate.IdealistaProperty;
 import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
 import com.acantilado.core.resources.administrative.*;
+import com.acantilado.core.resources.amenity.GoogleAmenityResource;
+import com.acantilado.core.resources.amenity.GoogleAmenitySnapshotResource;
 import com.acantilado.core.resources.properties.IdealistaRealEstateResource;
 import com.acantilado.tasks.EchoTask;
-import io.dropwizard.Application;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
+import io.dropwizard.core.Application;
+import io.dropwizard.core.setup.Bootstrap;
+import io.dropwizard.core.setup.Environment;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.migrations.MigrationsBundle;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import java.util.Arrays;
@@ -69,6 +72,8 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
 
     @Override
     public void initialize(Bootstrap<AcantiladoConfiguration> bootstrap) {
+        bootstrap.getObjectMapper().registerModule(new Jdk8Module());
+
         bootstrap.setConfigurationSourceProvider(
                 new SubstitutingSourceProvider(
                         bootstrap.getConfigurationSourceProvider(),
@@ -148,10 +153,6 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                 barrioDAO,
                 hibernateBundle.getSessionFactory());
 
-        environment.servlets()
-                .addServlet("h2-console", new org.h2.server.web.WebServlet())
-                .addMapping("/console/*");
-
         environment.admin().addTask(new EchoTask());
         environment.jersey().register(RolesAllowedDynamicFeature.class);
 
@@ -161,6 +162,10 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         environment.jersey().register(new ProvinciaResource(provinciaDao));
         environment.jersey().register(new CodigoPostalResource(codigoPostalDAO));
         environment.jersey().register(new BarrioResource(barrioDAO));
+        environment.jersey().register(new GoogleAmenityResource(amenityDAO));
+        environment.jersey().register(new GoogleAmenitySnapshotResource(amenitySnapshotDAO));
+
+
         environment.lifecycle().manage(
                 new AdministrativeCollectorScheduler(
                         geographicCollectorService,

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.net.http.HttpRequest;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class GoogleAmenitySearchRequest implements RequestBodyData {
@@ -83,7 +84,7 @@ public class GoogleAmenitySearchRequest implements RequestBodyData {
 
     public GoogleAmenitySearchRequest(String ayuntamientoName, String postcode, AcantiladoAmenityChain chain) {
         this.locationQuery = String.format("ES %s %s", ayuntamientoName, postcode);
-        this.searchStringsArray = List.of(getSearchStringForChain(chain));
+        this.searchStringsArray = List.of(chain.name().toLowerCase(Locale.ROOT));
     }
 
     public String getLocationQuery() {
@@ -92,26 +93,6 @@ public class GoogleAmenitySearchRequest implements RequestBodyData {
 
     public List<String> getSearchStringsArray() {
         return searchStringsArray;
-    }
-
-    /**
-     * Convert the chain enum to a search string that Google will understand
-     */
-    private static String getSearchStringForChain(AcantiladoAmenityChain chain) {
-        return switch (chain) {
-            case CARREFOUR -> "carrefour market";
-            case CARREFOUR_EXPRESS -> "carrefour express";
-            case DIA -> "dia";
-            case MERCADONA -> "mercadona";
-            case LIDL -> "lidl";
-            case ALDI -> "aldi";
-            case BBVA -> "bbva";
-            case SANTANDER -> "santander";
-            case CAIXABANK -> "caixabank";
-            case SABADELL -> "sabadell";
-            case CEPSA -> "cepsa";
-            case REPSOL -> "repsol";
-        };
     }
 
     @Override

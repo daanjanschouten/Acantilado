@@ -4,9 +4,9 @@ import com.acantilado.core.idealista.realEstate.IdealistaProperty;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,8 +57,8 @@ public class IdealistaPropertyDAO extends IdealistaRealEstateDAO<IdealistaProper
     }
 
     @Override
-    public IdealistaProperty saveOrUpdate(IdealistaProperty property) {
-        currentSession().saveOrUpdate(property);
+    public IdealistaProperty merge(IdealistaProperty property) {
+        currentSession().merge(property);
         return property;
     }
 

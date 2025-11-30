@@ -26,8 +26,8 @@ public class GoogleAmenitySnapshotDAO extends AbstractDAO<GoogleAmenitySnapshot>
         return (GoogleAmenitySnapshot) currentSession().merge(snapshot);
     }
 
-    public GoogleAmenitySnapshot saveOrUpdate(GoogleAmenitySnapshot snapshot) {
-        currentSession().saveOrUpdate(snapshot);
+    public GoogleAmenitySnapshot merge(GoogleAmenitySnapshot snapshot) {
+        currentSession().merge(snapshot);
         return snapshot;
     }
 

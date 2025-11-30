@@ -6,7 +6,7 @@ import com.acantilado.core.amenity.GoogleAmenityDAO;
 import com.acantilado.core.amenity.GoogleAmenitySnapshotDAO;
 import org.hibernate.SessionFactory;
 
-public class AmenityCollectorServiceFactory {
+public final class AmenityCollectorServiceFactory {
     private final GoogleAmenityDAO amenityDAO;
     private final GoogleAmenitySnapshotDAO snapshotDAO;
     private final ProvinciaDAO provinciaDAO;

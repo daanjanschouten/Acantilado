@@ -48,7 +48,11 @@ class GoogleAmenityCollectorTest {
         JsonNode firstPlace = amenitiesArray.get(0);
 
         // Execute
-        GoogleAmenityCollector.GoogleAmenityData result = collector.constructObject(firstPlace);
+        Optional<GoogleAmenityCollector.GoogleAmenityData> resultOpt = collector.constructObject(firstPlace);
+
+        // Verify we got a result
+        assertTrue(resultOpt.isPresent(), "Expected amenity data to be present");
+        GoogleAmenityCollector.GoogleAmenityData result = resultOpt.get();
 
         // Verify amenity
         GoogleAmenity amenity = result.amenity();
@@ -85,7 +89,11 @@ class GoogleAmenityCollectorTest {
         JsonNode secondPlace = amenitiesArray.get(1);
 
         // Execute
-        GoogleAmenityCollector.GoogleAmenityData result = collector.constructObject(secondPlace);
+        Optional<GoogleAmenityCollector.GoogleAmenityData> resultOpt = collector.constructObject(secondPlace);
+
+        // Verify we got a result
+        assertTrue(resultOpt.isPresent(), "Expected amenity data to be present");
+        GoogleAmenityCollector.GoogleAmenityData result = resultOpt.get();
 
         // Verify
         GoogleAmenity amenity = result.amenity();
@@ -93,7 +101,7 @@ class GoogleAmenityCollectorTest {
         assertEquals("Carrefour Express EESS", amenity.getName());
         assertEquals(40.8142783, amenity.getLatitude(), 0.0001);
         assertEquals(-3.7603214, amenity.getLongitude(), 0.0001);
-        assertEquals(AcantiladoAmenityChain.CARREFOUR_EXPRESS, amenity.getChain());
+        assertEquals(AcantiladoAmenityChain.CARREFOUR, amenity.getChain());
 
         GoogleAmenitySnapshot snapshot = result.snapshot();
         assertEquals(4.1, snapshot.getRating().orElse(null), 0.01);
@@ -106,11 +114,55 @@ class GoogleAmenityCollectorTest {
     }
 
     @Test
+    void constructObject_filtersShoppingMall() throws IOException {
+        // Create a shopping mall JSON node
+        String shoppingMallJson = """
+            {
+                "title": "Centro Comercial El Pinar",
+                "categoryName": "Shopping mall",
+                "placeId": "ChIJ9UDk0xiDQQ0REcrv-1b1D38",
+                "location": {"lat": 40.5235599, "lng": -3.8844804}
+            }
+            """;
+
+        JsonNode shoppingMallNode = objectMapper.readTree(shoppingMallJson);
+
+        // Execute
+        Optional<GoogleAmenityCollector.GoogleAmenityData> result = collector.constructObject(shoppingMallNode);
+
+        // Verify it was filtered out
+        assertFalse(result.isPresent(), "Shopping malls should be filtered out");
+    }
+
+    @Test
+    void constructObject_filtersTitleWithoutChainName() throws IOException {
+        // Create a JSON node with Carrefour only in subtitle, not title
+        String noChainInTitleJson = """
+            {
+                "title": "Generic Store Name",
+                "subTitle": "Inside Carrefour Market",
+                "categoryName": "Convenience store",
+                "placeId": "ChIJ_test_id",
+                "location": {"lat": 40.0, "lng": -3.0}
+            }
+            """;
+
+        JsonNode node = objectMapper.readTree(noChainInTitleJson);
+
+        // Execute
+        Optional<GoogleAmenityCollector.GoogleAmenityData> result = collector.constructObject(node);
+
+        // Verify it was filtered out (depending on your implementation)
+        assertFalse(result.isPresent(), "Should filter out when chain name not in title");
+    }
+
+    @Test
     void storeResult_newAmenity_savesAmenityAndSnapshot() throws IOException {
         // Setup
         JsonNode amenitiesArray = loadTestJson();
         JsonNode firstPlace = amenitiesArray.get(0);
-        GoogleAmenityCollector.GoogleAmenityData amenityData = collector.constructObject(firstPlace);
+        GoogleAmenityCollector.GoogleAmenityData amenityData = collector.constructObject(firstPlace)
+                .orElseThrow(() -> new AssertionError("Expected amenity data"));
 
         when(amenityDAO.findByPlaceId(any())).thenReturn(Optional.empty());
         when(amenityDAO.findByLocationAndChain(anyDouble(), anyDouble(), anyDouble(), any()))
@@ -122,7 +174,7 @@ class GoogleAmenityCollectorTest {
 
         // Verify amenity was saved
         ArgumentCaptor<GoogleAmenity> amenityCaptor = ArgumentCaptor.forClass(GoogleAmenity.class);
-        verify(amenityDAO).saveOrUpdate(amenityCaptor.capture());
+        verify(amenityDAO).merge(amenityCaptor.capture());
         assertEquals("ChIJ3dDeGiRiQQ0RG7g1xCC49EI", amenityCaptor.getValue().getPlaceId());
 
         // Verify snapshot was saved
@@ -136,7 +188,8 @@ class GoogleAmenityCollectorTest {
         // Setup
         JsonNode amenitiesArray = loadTestJson();
         JsonNode firstPlace = amenitiesArray.get(0);
-        GoogleAmenityCollector.GoogleAmenityData amenityData = collector.constructObject(firstPlace);
+        GoogleAmenityCollector.GoogleAmenityData amenityData = collector.constructObject(firstPlace)
+                .orElseThrow(() -> new AssertionError("Expected amenity data"));
 
         // Mock existing amenity
         when(amenityDAO.findByPlaceId(any())).thenReturn(Optional.of(amenityData.amenity()));
@@ -158,7 +211,7 @@ class GoogleAmenityCollectorTest {
         collector.storeResult(amenityData);
 
         // Verify amenity was NOT saved (already exists)
-        verify(amenityDAO, never()).saveOrUpdate(any());
+        verify(amenityDAO, never()).merge(any());
 
         // Verify snapshot was updated (not created new)
         verify(snapshotDAO).update(any(GoogleAmenitySnapshot.class));
@@ -170,7 +223,8 @@ class GoogleAmenityCollectorTest {
         // Setup
         JsonNode amenitiesArray = loadTestJson();
         JsonNode firstPlace = amenitiesArray.get(0);
-        GoogleAmenityCollector.GoogleAmenityData newData = collector.constructObject(firstPlace);
+        GoogleAmenityCollector.GoogleAmenityData newData = collector.constructObject(firstPlace)
+                .orElseThrow(() -> new AssertionError("Expected amenity data"));
 
         // Mock existing amenity
         when(amenityDAO.findByPlaceId(any())).thenReturn(Optional.of(newData.amenity()));
@@ -203,7 +257,8 @@ class GoogleAmenityCollectorTest {
         // Setup
         JsonNode amenitiesArray = loadTestJson();
         JsonNode firstPlace = amenitiesArray.get(0);
-        GoogleAmenityCollector.GoogleAmenityData newData = collector.constructObject(firstPlace);
+        GoogleAmenityCollector.GoogleAmenityData newData = collector.constructObject(firstPlace)
+                .orElseThrow(() -> new AssertionError("Expected amenity data"));
 
         // Mock existing amenity
         when(amenityDAO.findByPlaceId(any())).thenReturn(Optional.of(newData.amenity()));
@@ -236,7 +291,8 @@ class GoogleAmenityCollectorTest {
         JsonNode firstPlace = amenitiesArray.get(0);
 
         // Execute
-        GoogleAmenityCollector.GoogleAmenityData result = collector.constructObject(firstPlace);
+        GoogleAmenityCollector.GoogleAmenityData result = collector.constructObject(firstPlace)
+                .orElseThrow(() -> new AssertionError("Expected amenity data"));
         OpeningHours hours = result.snapshot().getOpeningHours();
 
         // Verify all days have same hours (9-21)
@@ -255,7 +311,8 @@ class GoogleAmenityCollectorTest {
         JsonNode secondPlace = amenitiesArray.get(1);
 
         // Execute
-        GoogleAmenityCollector.GoogleAmenityData result = collector.constructObject(secondPlace);
+        GoogleAmenityCollector.GoogleAmenityData result = collector.constructObject(secondPlace)
+                .orElseThrow(() -> new AssertionError("Expected amenity data"));
         OpeningHours hours = result.snapshot().getOpeningHours();
 
         // Verify early opening time (5:30)
@@ -271,7 +328,8 @@ class GoogleAmenityCollectorTest {
         JsonNode amenitiesArray = loadTestJson();
         JsonNode firstPlace = amenitiesArray.get(0);
 
-        GoogleAmenityCollector.GoogleAmenityData result = collector.constructObject(firstPlace);
+        GoogleAmenityCollector.GoogleAmenityData result = collector.constructObject(firstPlace)
+                .orElseThrow(() -> new AssertionError("Expected amenity data"));
 
         assertEquals(AcantiladoAmenityChain.CARREFOUR, result.amenity().getChain());
     }
@@ -281,9 +339,10 @@ class GoogleAmenityCollectorTest {
         JsonNode amenitiesArray = loadTestJson();
         JsonNode secondPlace = amenitiesArray.get(1);
 
-        GoogleAmenityCollector.GoogleAmenityData result = collector.constructObject(secondPlace);
+        GoogleAmenityCollector.GoogleAmenityData result = collector.constructObject(secondPlace)
+                .orElseThrow(() -> new AssertionError("Expected amenity data"));
 
-        assertEquals(AcantiladoAmenityChain.CARREFOUR_EXPRESS, result.amenity().getChain());
+        assertEquals(AcantiladoAmenityChain.CARREFOUR, result.amenity().getChain());
     }
 
     private JsonNode loadTestJson() throws IOException {

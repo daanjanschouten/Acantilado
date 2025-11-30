@@ -51,9 +51,24 @@ public class IdealistaRealEstateCollector<T extends IdealistaRealEstate<? extend
     }
 
     @Override
-    protected T constructObject(JsonNode jsonNode) {
+    protected String getActorId() {
+        return "REcGj6dyoIJ9Z7aE6";
+    }
+
+    @Override
+    protected int getRetryCount() {
+        return 20;
+    }
+
+    @Override
+    protected int getConcurrentRunCount() {
+        return 32;
+    }
+
+    @Override
+    protected Optional<T> constructObject(JsonNode jsonNode) {
         try {
-            return constructObjectFunction.apply(jsonNode);
+            return Optional.of(constructObjectFunction.apply(jsonNode));
         } catch (Exception e) {
             LOGGER.error("Failed to construct JSON object: {}", jsonNode, e);
             throw new RuntimeException(e);
@@ -76,7 +91,7 @@ public class IdealistaRealEstateCollector<T extends IdealistaRealEstate<? extend
 
         T definitiveIdealistaRealEstate = idealistaRealEstateResult.idealistaRealEstate();
         definitiveIdealistaRealEstate.setContactInfo(definitiveContactInformation);
-        realEstateDAO.saveOrUpdate(definitiveIdealistaRealEstate);
+        realEstateDAO.merge(definitiveIdealistaRealEstate);
     }
 
     public record IdealistaRealEstateResult<T extends IdealistaRealEstate<?>>(T idealistaRealEstate, Result result) {

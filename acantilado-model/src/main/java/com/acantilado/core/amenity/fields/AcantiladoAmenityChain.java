@@ -3,7 +3,6 @@ package com.acantilado.core.amenity.fields;
 public enum AcantiladoAmenityChain {
     // Supermarkets
     CARREFOUR(AcantiladoAmenityType.SUPERMARKET),
-    CARREFOUR_EXPRESS(AcantiladoAmenityType.SUPERMARKET),
     DIA(AcantiladoAmenityType.SUPERMARKET),
     MERCADONA(AcantiladoAmenityType.SUPERMARKET),
     LIDL(AcantiladoAmenityType.SUPERMARKET),

@@ -43,8 +43,8 @@ public class IdealistaPropertyPriceRecordDAO extends AbstractDAO<IdealistaProper
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
     }
 
-    public IdealistaPropertyPriceRecord saveOrUpdate(IdealistaPropertyPriceRecord priceRecord) {
-        currentSession().saveOrUpdate(priceRecord);
+    public IdealistaPropertyPriceRecord merge(IdealistaPropertyPriceRecord priceRecord) {
+        currentSession().merge(priceRecord);
         return priceRecord;
     }
 
