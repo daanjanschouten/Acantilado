@@ -512,6 +512,9 @@
             <column name="longitude" type="DECIMAL(10, 7)">
                 <constraints nullable="false"/>
             </column>
+            <column name="acantilado_location_id" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
             <column name="chain" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>

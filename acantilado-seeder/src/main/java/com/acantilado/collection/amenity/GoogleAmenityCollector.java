@@ -1,6 +1,8 @@
 package com.acantilado.collection.amenity;
 
 import com.acantilado.collection.apify.ApifyCollector;
+import com.acantilado.collection.location.AcantiladoLocation;
+import com.acantilado.collection.location.AcantiladoLocationEstablisher;
 import com.acantilado.core.amenity.GoogleAmenity;
 import com.acantilado.core.amenity.GoogleAmenityDAO;
 import com.acantilado.core.amenity.GoogleAmenitySnapshot;
@@ -11,6 +13,8 @@ import com.acantilado.core.amenity.fields.OpeningHour;
 import com.acantilado.core.amenity.fields.OpeningHours;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.hibernate.SessionFactory;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,17 +26,25 @@ import java.util.concurrent.ExecutorService;
 public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRequest, GoogleAmenityCollector.GoogleAmenityData> {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleAmenityCollector.class);
     private static final double LOCATION_DELTA = 0.0001; // ~10 meters
+    private static final GeometryFactory GEOMETRY_FACTORY = new GeometryFactory();
 
     private final GoogleAmenityDAO amenityDAO;
     private final GoogleAmenitySnapshotDAO snapshotDAO;
+    private final AcantiladoLocationEstablisher locationEstablisher;
 
     public record GoogleAmenityData(GoogleAmenity amenity, GoogleAmenitySnapshot snapshot) {}
 
-    public GoogleAmenityCollector(GoogleAmenityDAO amenityDAO, GoogleAmenitySnapshotDAO snapshotDAO, ExecutorService executorService, SessionFactory sessionFactory) {
+    public GoogleAmenityCollector(
+            GoogleAmenityDAO amenityDAO,
+            GoogleAmenitySnapshotDAO snapshotDAO,
+            ExecutorService executorService,
+            SessionFactory sessionFactory,
+            AcantiladoLocationEstablisher locationEstablisher) {
         super(executorService, sessionFactory);
 
         this.amenityDAO = amenityDAO;
         this.snapshotDAO = snapshotDAO;
+        this.locationEstablisher = locationEstablisher;
     }
 
     @Override
@@ -75,6 +87,10 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
 
             Integer userRatingCount = jsonNode.get("reviewsCount").asInt();
 
+            Coordinate coordinate = new Coordinate(latitude, longitude);
+            AcantiladoLocation location = locationEstablisher.establishForLocation(
+                    GEOMETRY_FACTORY.createPoint(coordinate));
+
             GoogleAmenity amenity = GoogleAmenity.builder()
                     .placeId(placeId)
                     .name(name)
@@ -82,6 +98,7 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
                     .longitude(longitude)
                     .chain(chain.get())
                     .createdAt(Instant.now())
+                    .acantiladoLocationId(location.getIdentifier())
                     .build();
 
             GoogleAmenitySnapshot snapshot = GoogleAmenitySnapshot.builder()

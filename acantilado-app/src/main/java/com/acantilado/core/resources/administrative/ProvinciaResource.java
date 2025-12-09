@@ -26,11 +26,11 @@ public class ProvinciaResource {
     @GET
     @Path("/getById/{provinciaId}")
     @UnitOfWork
-    public Provincia getById(@PathParam("provinciaId") Long provinciaId) {
+    public Provincia getById(@PathParam("provinciaId") String provinciaId) {
         return findSafely(provinciaId);
     }
 
-    private Provincia findSafely(Long provinciaId) {
+    private Provincia findSafely(String provinciaId) {
         return provinciaDao.findById(provinciaId).orElseThrow(() -> new NotFoundException("No such provincia:" + provinciaId));
     }
 

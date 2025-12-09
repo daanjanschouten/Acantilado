@@ -25,7 +25,7 @@ database:
 # Idealista Collector Configuration
 idealistaCollector:
   enabled: true
-  provinces: []
+  provinces: ["Castelló/Castellón"]
   propertyTypes:
     - HOMES
 
@@ -39,14 +39,13 @@ idealistaCollector:
   shutdownTimeout: 10s
 
   # API settings
-  apiBaseUrl: https://www.idealista.com
   maxRetriesPerRequest: 3
   requestTimeout: 30s
   rateLimitDelay: 500ms
 
 # Administrative Collector Configuration
 administrativeCollector:
-  enabled: true
+  enabled: false
   initialDelay: 5s
   collectionInterval: 7d
   threadPoolSize: 1

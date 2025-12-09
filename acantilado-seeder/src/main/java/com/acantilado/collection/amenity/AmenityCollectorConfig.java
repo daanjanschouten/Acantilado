@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class AmenityCollectorConfig {
     @NotNull
-    private Set<String> provinces = new HashSet<>(Set.of("Madrid"));
+    private Set<String> provinces = new HashSet<>(Set.of());
 
     @NotNull
     private Set<String> amenityChains = new HashSet<>(Set.of("CARREFOUR"));

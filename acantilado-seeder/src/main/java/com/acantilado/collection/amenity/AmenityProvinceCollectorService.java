@@ -1,8 +1,8 @@
 package com.acantilado.collection.amenity;
 
 import com.acantilado.collection.apify.ApifySearchResults;
-import com.acantilado.core.administrative.AyuntamientoDAO;
-import com.acantilado.core.administrative.ProvinciaDAO;
+import com.acantilado.collection.location.AcantiladoLocationEstablisher;
+import com.acantilado.core.administrative.*;
 import com.acantilado.core.amenity.GoogleAmenityDAO;
 import com.acantilado.core.amenity.GoogleAmenitySnapshotDAO;
 import com.acantilado.core.amenity.fields.AcantiladoAmenityChain;
@@ -22,9 +22,7 @@ public class AmenityProvinceCollectorService {
 
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
 
-    private final String provinceName;
-
-    // location establisher
+    private final Provincia provinceToCollectFor;
 
     private final GoogleAmenityCollector amenityCollector;
     private final Set<String> postcodeIdsForProvince;
@@ -35,13 +33,31 @@ public class AmenityProvinceCollectorService {
             GoogleAmenitySnapshotDAO snapshotDAO,
             SessionFactory sessionFactory,
             ProvinciaDAO provinciaDAO,
-            AyuntamientoDAO ayuntamientoDAO) {
-        this.provinceName = provinceName;
-
+            CodigoPostalDAO codigoPostalDAO,
+            AyuntamientoDAO ayuntamientoDAO,
+            BarrioDAO barrioDAO,
+            IdealistaLocationMappingDAO mappingDAO) {
+        this.provinceToCollectFor = ProvinceCollectionUtils.getProvinceFromName(
+                sessionFactory, provinciaDAO, provinceName);
         this.postcodeIdsForProvince = ProvinceCollectionUtils.getPostcodeIdsForProvince(
                 sessionFactory, provinciaDAO, ayuntamientoDAO, provinceName);
 
-        this.amenityCollector = new GoogleAmenityCollector(amenityDAO, snapshotDAO, executorService, sessionFactory);
+        Set<Ayuntamiento> ayuntamientosForProvince = ProvinceCollectionUtils.getAyuntamientosForProvince(
+                sessionFactory, ayuntamientoDAO, provinceToCollectFor);
+        AcantiladoLocationEstablisher locationEstablisher = new AcantiladoLocationEstablisher(
+                ProvinceCollectionUtils.getBarriosForProvince(sessionFactory, barrioDAO, provinceToCollectFor),
+                ayuntamientosForProvince,
+                ProvinceCollectionUtils.getPostcodesForAyuntamientos(
+                        sessionFactory, codigoPostalDAO, ayuntamientosForProvince),
+                ayuntamientoDAO,
+                mappingDAO);
+
+        this.amenityCollector = new GoogleAmenityCollector(
+                amenityDAO,
+                snapshotDAO,
+                executorService,
+                sessionFactory,
+                locationEstablisher);
     }
 
     public void shutdownExecutor() {
@@ -56,7 +72,7 @@ public class AmenityProvinceCollectorService {
     }
 
     public boolean collectAmenitiesForProvince() {
-        LOGGER.info("Starting full amenity collection workflow for province {}", provinceName);
+        LOGGER.info("Starting full amenity collection workflow for province {}", provinceToCollectFor.getName());
 
         Set<GoogleAmenitySearchRequest> searchRequests = postcodeIdsForProvince
                 .stream()
@@ -68,7 +84,7 @@ public class AmenityProvinceCollectorService {
         ApifySearchResults<GoogleAmenitySearchRequest> results = amenityCollector.startCollection(searchRequests);
 
         if (results.requestsSucceeded().size() == searchRequests.size()) {
-            LOGGER.info("Finished amenity collection for province {}", provinceName);
+            LOGGER.info("Finished amenity collection for province {}", provinceToCollectFor.getName());
         }
         LOGGER.warn("Amenity collection for province finished partially {} ", results);
 

@@ -58,7 +58,7 @@ public class ExistingLocationEstablisher {
     private Ayuntamiento establishAyuntamiento(String locationId, Point locationPoint) {
         List<IdealistaLocationMapping> mappingsForLocationId = mappingCache.get(
                 locationId,
-                key -> mappingDAO.findByIdealistaLocationId(key)
+                mappingDAO::findByIdealistaLocationId
         );
 
         if (mappingsForLocationId.isEmpty()) {

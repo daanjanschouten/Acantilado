@@ -33,6 +33,9 @@ public class GoogleAmenity {
     @Column(name = "longitude", nullable = false)
     private double longitude;
 
+    @Column(name = "acantilado_location_id", nullable = false)
+    private String acantiladoLocationId;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "chain", length = 100, nullable = false)
     private AcantiladoAmenityChain chain;
@@ -83,6 +86,7 @@ public class GoogleAmenity {
     public AcantiladoAmenityType getType() { return chain.getAmenityType(); }
     public Instant getCreatedAt() { return createdAt; }
     public String getPreviousPlaceId() { return previousPlaceId; }
+    public String getAcantiladoLocationId() { return acantiladoLocationId; }
 
     // Setters for JPA
     public void setPlaceId(String placeId) {
@@ -112,6 +116,8 @@ public class GoogleAmenity {
     public void setPreviousPlaceId(String previousPlaceId) {
         this.previousPlaceId = previousPlaceId;
     }
+
+    public void setAcantiladoLocationId(String locationId) { this.acantiladoLocationId = locationId; }
 
     @Override
     public boolean equals(Object o) {
@@ -144,6 +150,7 @@ public class GoogleAmenity {
         private AcantiladoAmenityChain chain;
         private Instant createdAt;
         private String previousPlaceId;
+        private String acantiladoLocationId;
 
         public Builder placeId(String placeId) {
             this.placeId = placeId;
@@ -177,6 +184,11 @@ public class GoogleAmenity {
 
         public Builder previousPlaceId(String previousPlaceId) {
             this.previousPlaceId = previousPlaceId;
+            return this;
+        }
+
+        public Builder acantiladoLocationId(String locationId) {
+            this.acantiladoLocationId = acantiladoLocationId;
             return this;
         }
 

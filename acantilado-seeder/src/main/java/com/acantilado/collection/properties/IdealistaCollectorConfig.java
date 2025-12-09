@@ -125,16 +125,6 @@ public class IdealistaCollectorConfig {
     }
 
     @JsonProperty
-    public String getApiBaseUrl() {
-        return apiBaseUrl;
-    }
-
-    @JsonProperty
-    public void setApiBaseUrl(String apiBaseUrl) {
-        this.apiBaseUrl = apiBaseUrl;
-    }
-
-    @JsonProperty
     public int getMaxRetriesPerRequest() {
         return maxRetriesPerRequest;
     }

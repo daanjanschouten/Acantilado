@@ -20,7 +20,9 @@ import com.acantilado.core.idealista.realEstate.IdealistaTerrain;
 import com.acantilado.core.resources.administrative.*;
 import com.acantilado.core.resources.amenity.GoogleAmenityResource;
 import com.acantilado.core.resources.amenity.GoogleAmenitySnapshotResource;
+import com.acantilado.core.resources.properties.IdealistaLocationResource;
 import com.acantilado.core.resources.properties.IdealistaRealEstateResource;
+import com.acantilado.core.resources.properties.LocationMappingResource;
 import com.acantilado.tasks.EchoTask;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -125,6 +127,7 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         final IdealistaTerrainDAO idealistaTerrainDAO = new IdealistaTerrainDAO(hibernateBundle.getSessionFactory());
         final IdealistaPropertyDAO idealistaPropertyDAO = new IdealistaPropertyDAO(hibernateBundle.getSessionFactory());
         final IdealistaLocationDAO locationDAO = new IdealistaLocationDAO(hibernateBundle.getSessionFactory());
+        final IdealistaLocationMappingDAO locationMappingDAO = new IdealistaLocationMappingDAO(hibernateBundle.getSessionFactory());
 
         final GoogleAmenityDAO amenityDAO = new GoogleAmenityDAO(hibernateBundle.getSessionFactory());
         final GoogleAmenitySnapshotDAO amenitySnapshotDAO = new GoogleAmenitySnapshotDAO(hibernateBundle.getSessionFactory());
@@ -145,7 +148,10 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
                 amenityDAO,
                 amenitySnapshotDAO,
                 provinciaDao,
+                codigoPostalDAO,
                 ayuntamientoDao,
+                barrioDAO,
+                locationMappingDAO,
                 hibernateBundle.getSessionFactory());
 
         final GeographicCollectorService geographicCollectorService = new GeographicCollectorService(
@@ -166,9 +172,8 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         environment.jersey().register(new BarrioResource(barrioDAO));
         environment.jersey().register(new GoogleAmenityResource(amenityDAO));
         environment.jersey().register(new GoogleAmenitySnapshotResource(amenitySnapshotDAO));
-
-        // environment.jersey().register(new SwaggerServlet());
-
+        environment.jersey().register(new LocationMappingResource(locationMappingDAO));
+        environment.jersey().register(new IdealistaLocationResource(locationDAO));
 
         environment.lifecycle().manage(
                 new AdministrativeCollectorScheduler(

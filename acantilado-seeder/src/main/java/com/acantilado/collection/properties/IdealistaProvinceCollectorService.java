@@ -37,7 +37,6 @@ import static com.acantilado.utils.RetryableBatchedExecutor.executeCallableInSes
 
 public final class IdealistaProvinceCollectorService {
     private static final Logger LOGGER = LoggerFactory.getLogger(IdealistaProvinceCollectorService.class);
-    private static final Optional<Integer> APIFY_ACTIVE_AGENTS = Optional.of(32);
 
     private final IdealistaLocationMappingDAO mappingDAO;
     private final IdealistaLocationDAO locationDAO;

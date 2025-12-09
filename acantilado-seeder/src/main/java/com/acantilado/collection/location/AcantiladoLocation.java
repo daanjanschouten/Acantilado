@@ -2,15 +2,12 @@ package com.acantilado.collection.location;
 
 import com.acantilado.core.administrative.*;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
 public class AcantiladoLocation {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AcantiladoLocation.class);
     private static final String JOIN = "-";
     private static final String ABSENT_BARRIO = "XXX";
 

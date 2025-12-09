@@ -13,7 +13,7 @@ public class ProvinciaDAO extends AbstractDAO<Provincia> {
         super(sessionFactory);
     }
 
-    public Optional<Provincia> findById(Long provinciaId) {
+    public Optional<Provincia> findById(String provinciaId) {
         return Optional.ofNullable(get(provinciaId));
     }
 

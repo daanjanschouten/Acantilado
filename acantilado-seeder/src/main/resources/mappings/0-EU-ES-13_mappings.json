@@ -1,0 +1,561 @@
+[ {
+  "idealistaLocationId" : "0-EU-ES-13-02-006-078",
+  "idealistaMunicipalityName" : "Socuéllamos",
+  "acantiladoAyuntamientoId" : "13082",
+  "acantiladoMunicipalityName" : "Tomelloso"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-002-053",
+  "idealistaMunicipalityName" : "Manzanares",
+  "acantiladoAyuntamientoId" : "13053",
+  "acantiladoMunicipalityName" : "Manzanares"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-092",
+  "idealistaMunicipalityName" : "Villanueva de la Fuente",
+  "acantiladoAyuntamientoId" : "13092",
+  "acantiladoMunicipalityName" : "Villanueva de la Fuente"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-041",
+  "idealistaMunicipalityName" : "Fontanarejo",
+  "acantiladoAyuntamientoId" : "13041",
+  "acantiladoMunicipalityName" : "Fontanarejo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-063",
+  "idealistaMunicipalityName" : "Piedrabuena",
+  "acantiladoAyuntamientoId" : "13063",
+  "acantiladoMunicipalityName" : "Piedrabuena"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-005-061",
+  "idealistaMunicipalityName" : "Pedro Muñoz",
+  "acantiladoAyuntamientoId" : "13061",
+  "acantiladoMunicipalityName" : "Pedro Muñoz"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-002",
+  "idealistaMunicipalityName" : "Agudo",
+  "acantiladoAyuntamientoId" : "13002",
+  "acantiladoMunicipalityName" : "Agudo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-04-001-077",
+  "idealistaMunicipalityName" : "Santa Cruz de Mudela",
+  "acantiladoAyuntamientoId" : "13077",
+  "acantiladoMunicipalityName" : "Santa Cruz de Mudela"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-003",
+  "idealistaMunicipalityName" : "Alamillo",
+  "acantiladoAyuntamientoId" : "13003",
+  "acantiladoMunicipalityName" : "Alamillo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-090",
+  "idealistaMunicipalityName" : "Villamanrique",
+  "acantiladoAyuntamientoId" : "13090",
+  "acantiladoMunicipalityName" : "Villamanrique"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-015",
+  "idealistaMunicipalityName" : "Almodovar del Campo",
+  "acantiladoAyuntamientoId" : "13015",
+  "acantiladoMunicipalityName" : "Almodóvar del Campo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-069",
+  "idealistaMunicipalityName" : "Puebla del Principe",
+  "acantiladoAyuntamientoId" : "13069",
+  "acantiladoMunicipalityName" : "Puebla del Príncipe"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-04-001-075",
+  "idealistaMunicipalityName" : "San Lorenzo de Calatrava",
+  "acantiladoAyuntamientoId" : "13075",
+  "acantiladoMunicipalityName" : "San Lorenzo de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-017",
+  "idealistaMunicipalityName" : "Anchuras",
+  "acantiladoAyuntamientoId" : "13017",
+  "acantiladoMunicipalityName" : "Anchuras"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-003-088",
+  "idealistaMunicipalityName" : "Valenzuela de Calatrava",
+  "acantiladoAyuntamientoId" : "13088",
+  "acantiladoMunicipalityName" : "Valenzuela de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-002-079",
+  "idealistaMunicipalityName" : "La Solana",
+  "acantiladoAyuntamientoId" : "13079",
+  "acantiladoMunicipalityName" : "La Solana"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-032",
+  "idealistaMunicipalityName" : "Carrizosa",
+  "acantiladoAyuntamientoId" : "13032",
+  "acantiladoMunicipalityName" : "Carrizosa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-001-018",
+  "idealistaMunicipalityName" : "Arenas de San Juan",
+  "acantiladoAyuntamientoId" : "13018",
+  "acantiladoMunicipalityName" : "Arenas de San Juan"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-04-001-085",
+  "idealistaMunicipalityName" : "Torrenueva",
+  "acantiladoAyuntamientoId" : "13085",
+  "acantiladoMunicipalityName" : "Torrenueva"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-093",
+  "idealistaMunicipalityName" : "Villanueva de los Infantes",
+  "acantiladoAyuntamientoId" : "13093",
+  "acantiladoMunicipalityName" : "Villanueva de los Infantes"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-04-001-055",
+  "idealistaMunicipalityName" : "Mestanza",
+  "acantiladoAyuntamientoId" : "13055",
+  "acantiladoMunicipalityName" : "Mestanza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-036",
+  "idealistaMunicipalityName" : "Los Cortijos",
+  "acantiladoAyuntamientoId" : "13036",
+  "acantiladoMunicipalityName" : "Los Cortijos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-007-019",
+  "idealistaMunicipalityName" : "Argamasilla de Alba",
+  "acantiladoAyuntamientoId" : "13053",
+  "acantiladoMunicipalityName" : "Manzanares"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-089",
+  "idealistaMunicipalityName" : "Villahermosa",
+  "acantiladoAyuntamientoId" : "13089",
+  "acantiladoMunicipalityName" : "Villahermosa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-006-020",
+  "idealistaMunicipalityName" : "Argamasilla de Calatrava",
+  "acantiladoAyuntamientoId" : "13020",
+  "acantiladoMunicipalityName" : "Argamasilla de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-025",
+  "idealistaMunicipalityName" : "Cabezarados",
+  "acantiladoAyuntamientoId" : "13025",
+  "acantiladoMunicipalityName" : "Cabezarados"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-004-082",
+  "idealistaMunicipalityName" : "Tomelloso",
+  "acantiladoAyuntamientoId" : "13082",
+  "acantiladoMunicipalityName" : "Tomelloso"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-003-009",
+  "idealistaMunicipalityName" : "Aldea del Rey",
+  "acantiladoAyuntamientoId" : "13009",
+  "acantiladoMunicipalityName" : "Aldea del Rey"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-004-082",
+  "idealistaMunicipalityName" : "Tomelloso",
+  "acantiladoAyuntamientoId" : "13019",
+  "acantiladoMunicipalityName" : "Argamasilla de Alba"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-024",
+  "idealistaMunicipalityName" : "Brazatortas",
+  "acantiladoAyuntamientoId" : "13024",
+  "acantiladoMunicipalityName" : "Brazatortas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-04-001-016",
+  "idealistaMunicipalityName" : "Almuradiel",
+  "acantiladoAyuntamientoId" : "13016",
+  "acantiladoMunicipalityName" : "Almuradiel"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-002-904",
+  "idealistaMunicipalityName" : "Llanos del Caudillo",
+  "acantiladoAyuntamientoId" : "13904",
+  "acantiladoMunicipalityName" : "Llanos del Caudillo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-052",
+  "idealistaMunicipalityName" : "Malagon",
+  "acantiladoAyuntamientoId" : "13052",
+  "acantiladoMunicipalityName" : "Malagón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-007-902",
+  "idealistaMunicipalityName" : "Ruidera",
+  "acantiladoAyuntamientoId" : "13902",
+  "acantiladoMunicipalityName" : "Ruidera"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-051",
+  "idealistaMunicipalityName" : "Luciana",
+  "acantiladoAyuntamientoId" : "13051",
+  "acantiladoMunicipalityName" : "Luciana"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-006-029",
+  "idealistaMunicipalityName" : "Cañada de Calatrava",
+  "acantiladoAyuntamientoId" : "13029",
+  "acantiladoMunicipalityName" : "Cañada de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-021",
+  "idealistaMunicipalityName" : "Arroba de los Montes",
+  "acantiladoAyuntamientoId" : "13021",
+  "acantiladoMunicipalityName" : "Arroba de los Montes"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-04-001-016",
+  "idealistaMunicipalityName" : "Almuradiel",
+  "acantiladoAyuntamientoId" : "13098",
+  "acantiladoMunicipalityName" : "Viso del Marqués"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-011",
+  "idealistaMunicipalityName" : "Almadén",
+  "acantiladoAyuntamientoId" : "13011",
+  "acantiladoMunicipalityName" : "Almadén"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-065",
+  "idealistaMunicipalityName" : "Porzuna",
+  "acantiladoAyuntamientoId" : "13065",
+  "acantiladoMunicipalityName" : "Porzuna"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-901",
+  "idealistaMunicipalityName" : "El Robledo",
+  "acantiladoAyuntamientoId" : "13901",
+  "acantiladoMunicipalityName" : "El Robledo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-008",
+  "idealistaMunicipalityName" : "Alcubillas",
+  "acantiladoAyuntamientoId" : "13008",
+  "acantiladoMunicipalityName" : "Alcubillas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-026",
+  "idealistaMunicipalityName" : "Cabezarrubias del Puerto",
+  "acantiladoAyuntamientoId" : "13026",
+  "acantiladoMunicipalityName" : "Cabezarrubias del Puerto"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-038",
+  "idealistaMunicipalityName" : "Chillon",
+  "acantiladoAyuntamientoId" : "13038",
+  "acantiladoMunicipalityName" : "Chillón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-001-097",
+  "idealistaMunicipalityName" : "Villarta de San Juan",
+  "acantiladoAyuntamientoId" : "13097",
+  "acantiladoMunicipalityName" : "Villarta de San Juan"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-004-007",
+  "idealistaMunicipalityName" : "Alcolea de Calatrava",
+  "acantiladoAyuntamientoId" : "13007",
+  "acantiladoMunicipalityName" : "Alcolea de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-007-056",
+  "idealistaMunicipalityName" : "Miguelturra",
+  "acantiladoAyuntamientoId" : "13056",
+  "acantiladoMunicipalityName" : "Miguelturra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-04-001-080",
+  "idealistaMunicipalityName" : "Solana del Pino",
+  "acantiladoAyuntamientoId" : "13080",
+  "acantiladoMunicipalityName" : "Solana del Pino"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-004-082",
+  "idealistaMunicipalityName" : "Tomelloso",
+  "acantiladoAyuntamientoId" : "13903",
+  "acantiladoMunicipalityName" : "Arenales de San Gregorio"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-005-083",
+  "idealistaMunicipalityName" : "Torralba de Calatrava",
+  "acantiladoAyuntamientoId" : "13083",
+  "acantiladoMunicipalityName" : "Torralba de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-003-058",
+  "idealistaMunicipalityName" : "Moral de Calatrava",
+  "acantiladoAyuntamientoId" : "13058",
+  "acantiladoMunicipalityName" : "Moral de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-006-078",
+  "idealistaMunicipalityName" : "Socuéllamos",
+  "acantiladoAyuntamientoId" : "13078",
+  "acantiladoMunicipalityName" : "Socuéllamos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-005-031",
+  "idealistaMunicipalityName" : "Carrion de Calatrava",
+  "acantiladoAyuntamientoId" : "13031",
+  "acantiladoMunicipalityName" : "Carrión de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-006-035",
+  "idealistaMunicipalityName" : "Corral de Calatrava",
+  "acantiladoAyuntamientoId" : "13035",
+  "acantiladoMunicipalityName" : "Corral de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-001-071",
+  "idealistaMunicipalityName" : "Puertollano",
+  "acantiladoAyuntamientoId" : "13071",
+  "acantiladoMunicipalityName" : "Puertollano"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-006",
+  "idealistaMunicipalityName" : "Alcoba",
+  "acantiladoAyuntamientoId" : "13006",
+  "acantiladoMunicipalityName" : "Alcoba"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-004-602",
+  "idealistaMunicipalityName" : "Las Casas",
+  "acantiladoAyuntamientoId" : "13034",
+  "acantiladoMunicipalityName" : "Ciudad Real"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-04-001-027",
+  "idealistaMunicipalityName" : "Calzada de Calatrava",
+  "acantiladoAyuntamientoId" : "13027",
+  "acantiladoMunicipalityName" : "Calzada de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-043",
+  "idealistaMunicipalityName" : "Fuenllana",
+  "acantiladoAyuntamientoId" : "13043",
+  "acantiladoMunicipalityName" : "Fuenllana"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-012",
+  "idealistaMunicipalityName" : "Almadenejos",
+  "acantiladoAyuntamientoId" : "13012",
+  "acantiladoMunicipalityName" : "Almadenejos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-003-013",
+  "idealistaMunicipalityName" : "Almagro",
+  "acantiladoAyuntamientoId" : "13013",
+  "acantiladoMunicipalityName" : "Almagro"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-002-054",
+  "idealistaMunicipalityName" : "Membrilla",
+  "acantiladoAyuntamientoId" : "13054",
+  "acantiladoMunicipalityName" : "Membrilla"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-033",
+  "idealistaMunicipalityName" : "Castellar de Santiago",
+  "acantiladoAyuntamientoId" : "13033",
+  "acantiladoMunicipalityName" : "Castellar de Santiago"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-004",
+  "idealistaMunicipalityName" : "Albaladejo",
+  "acantiladoAyuntamientoId" : "13004",
+  "acantiladoMunicipalityName" : "Albaladejo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-044",
+  "idealistaMunicipalityName" : "Fuente el Fresno",
+  "acantiladoAyuntamientoId" : "13044",
+  "acantiladoMunicipalityName" : "Fuente el Fresno"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-060",
+  "idealistaMunicipalityName" : "Navas de Estena",
+  "acantiladoAyuntamientoId" : "13060",
+  "acantiladoMunicipalityName" : "Navas de Estena"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-073",
+  "idealistaMunicipalityName" : "Saceruela",
+  "acantiladoAyuntamientoId" : "13073",
+  "acantiladoMunicipalityName" : "Saceruela"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-068",
+  "idealistaMunicipalityName" : "Puebla de Don Rodrigo",
+  "acantiladoAyuntamientoId" : "13068",
+  "acantiladoMunicipalityName" : "Puebla de Don Rodrigo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-010",
+  "idealistaMunicipalityName" : "Alhambra",
+  "acantiladoAyuntamientoId" : "13010",
+  "acantiladoMunicipalityName" : "Alhambra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-001",
+  "idealistaMunicipalityName" : "Abenojar",
+  "acantiladoAyuntamientoId" : "13001",
+  "acantiladoMunicipalityName" : "Abenójar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-005-040",
+  "idealistaMunicipalityName" : "Fernancaballero",
+  "acantiladoAyuntamientoId" : "13040",
+  "acantiladoMunicipalityName" : "Fernán Caballero"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-04-001-098",
+  "idealistaMunicipalityName" : "Viso del Marqués",
+  "acantiladoAyuntamientoId" : "13098",
+  "acantiladoMunicipalityName" : "Viso del Marqués"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-008-087",
+  "idealistaMunicipalityName" : "Valdepeñas",
+  "acantiladoAyuntamientoId" : "13054",
+  "acantiladoMunicipalityName" : "Membrilla"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-003-066",
+  "idealistaMunicipalityName" : "Pozuelo de Calatrava",
+  "acantiladoAyuntamientoId" : "13066",
+  "acantiladoMunicipalityName" : "Pozuelo de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-008-087",
+  "idealistaMunicipalityName" : "Valdepeñas",
+  "acantiladoAyuntamientoId" : "13087",
+  "acantiladoMunicipalityName" : "Valdepeñas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-081",
+  "idealistaMunicipalityName" : "Terrinches",
+  "acantiladoAyuntamientoId" : "13081",
+  "acantiladoMunicipalityName" : "Terrinches"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-04-001-042",
+  "idealistaMunicipalityName" : "Fuencaliente",
+  "acantiladoAyuntamientoId" : "13042",
+  "acantiladoMunicipalityName" : "Fuencaliente"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-006-067",
+  "idealistaMunicipalityName" : "Los Pozuelos de Calatrava",
+  "acantiladoAyuntamientoId" : "13067",
+  "acantiladoMunicipalityName" : "Los Pozuelos de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-001-096",
+  "idealistaMunicipalityName" : "Villarrubia de los Ojos",
+  "acantiladoAyuntamientoId" : "13096",
+  "acantiladoMunicipalityName" : "Villarrubia de los Ojos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-046",
+  "idealistaMunicipalityName" : "Guadalmez",
+  "acantiladoAyuntamientoId" : "13046",
+  "acantiladoMunicipalityName" : "Guadalmez"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-049",
+  "idealistaMunicipalityName" : "Horcajo de los Montes",
+  "acantiladoAyuntamientoId" : "13049",
+  "acantiladoMunicipalityName" : "Horcajo de los Montes"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-076",
+  "idealistaMunicipalityName" : "Santa Cruz de los Cañamos",
+  "acantiladoAyuntamientoId" : "13076",
+  "acantiladoMunicipalityName" : "Santa Cruz de los Cáñamos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-072",
+  "idealistaMunicipalityName" : "Retuerta del Bullaque",
+  "acantiladoAyuntamientoId" : "13072",
+  "acantiladoMunicipalityName" : "Retuerta del Bullaque"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-001-070",
+  "idealistaMunicipalityName" : "Puerto Lapice",
+  "acantiladoAyuntamientoId" : "13070",
+  "acantiladoMunicipalityName" : "Puerto Lápice"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-006-091",
+  "idealistaMunicipalityName" : "Villamayor de Calatrava",
+  "acantiladoAyuntamientoId" : "13020",
+  "acantiladoMunicipalityName" : "Argamasilla de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-084",
+  "idealistaMunicipalityName" : "Torre de Juan Abad",
+  "acantiladoAyuntamientoId" : "13084",
+  "acantiladoMunicipalityName" : "Torre de Juan Abad"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-006-022",
+  "idealistaMunicipalityName" : "Ballesteros de Calatrava",
+  "acantiladoAyuntamientoId" : "13022",
+  "acantiladoMunicipalityName" : "Ballesteros de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-048",
+  "idealistaMunicipalityName" : "Hinojosas de Calatrava",
+  "acantiladoAyuntamientoId" : "13048",
+  "acantiladoMunicipalityName" : "Hinojosas de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-006-095",
+  "idealistaMunicipalityName" : "Villar del Pozo",
+  "acantiladoAyuntamientoId" : "13095",
+  "acantiladoMunicipalityName" : "Villar del Pozo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-04-001-094",
+  "idealistaMunicipalityName" : "Villanueva de San Carlos",
+  "acantiladoAyuntamientoId" : "13094",
+  "acantiladoMunicipalityName" : "Villanueva de San Carlos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-003-023",
+  "idealistaMunicipalityName" : "Bolaños de Calatrava",
+  "acantiladoAyuntamientoId" : "13023",
+  "acantiladoMunicipalityName" : "Bolaños de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-074",
+  "idealistaMunicipalityName" : "San Carlos del Valle",
+  "acantiladoAyuntamientoId" : "13074",
+  "acantiladoMunicipalityName" : "San Carlos del Valle"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-002-079",
+  "idealistaMunicipalityName" : "La Solana",
+  "acantiladoAyuntamientoId" : "13010",
+  "acantiladoMunicipalityName" : "Alhambra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-004-064",
+  "idealistaMunicipalityName" : "Poblete",
+  "acantiladoAyuntamientoId" : "13064",
+  "acantiladoMunicipalityName" : "Poblete"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-003-047",
+  "idealistaMunicipalityName" : "Herencia",
+  "acantiladoAyuntamientoId" : "13047",
+  "acantiladoMunicipalityName" : "Herencia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-003-045",
+  "idealistaMunicipalityName" : "Granatula de Calatrava",
+  "acantiladoAyuntamientoId" : "13045",
+  "acantiladoMunicipalityName" : "Granátula de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-006-091",
+  "idealistaMunicipalityName" : "Villamayor de Calatrava",
+  "acantiladoAyuntamientoId" : "13091",
+  "acantiladoMunicipalityName" : "Villamayor de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-001-039",
+  "idealistaMunicipalityName" : "Daimiel",
+  "acantiladoAyuntamientoId" : "13039",
+  "acantiladoMunicipalityName" : "Daimiel"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-057",
+  "idealistaMunicipalityName" : "Montiel",
+  "acantiladoAyuntamientoId" : "13057",
+  "acantiladoMunicipalityName" : "Montiel"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-007-019",
+  "idealistaMunicipalityName" : "Argamasilla de Alba",
+  "acantiladoAyuntamientoId" : "13019",
+  "acantiladoMunicipalityName" : "Argamasilla de Alba"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-005-903",
+  "idealistaMunicipalityName" : "Arenales de San Gregorio",
+  "acantiladoAyuntamientoId" : "13903",
+  "acantiladoMunicipalityName" : "Arenales de San Gregorio"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-006-030",
+  "idealistaMunicipalityName" : "Caracuel de Calatrava",
+  "acantiladoAyuntamientoId" : "13030",
+  "acantiladoMunicipalityName" : "Caracuel de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-004-062",
+  "idealistaMunicipalityName" : "Picon",
+  "acantiladoAyuntamientoId" : "13062",
+  "acantiladoMunicipalityName" : "Picón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-01-002-034",
+  "idealistaMunicipalityName" : "Ciudad Real",
+  "acantiladoAyuntamientoId" : "13034",
+  "acantiladoMunicipalityName" : "Ciudad Real"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-037",
+  "idealistaMunicipalityName" : "Cozar",
+  "acantiladoAyuntamientoId" : "13037",
+  "acantiladoMunicipalityName" : "Cózar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-06-001-059",
+  "idealistaMunicipalityName" : "Navalpino",
+  "acantiladoAyuntamientoId" : "13059",
+  "acantiladoMunicipalityName" : "Navalpino"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-001-050",
+  "idealistaMunicipalityName" : "Las Labores",
+  "acantiladoAyuntamientoId" : "13050",
+  "acantiladoMunicipalityName" : "Las Labores"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-03-001-014",
+  "idealistaMunicipalityName" : "Almedina",
+  "acantiladoAyuntamientoId" : "13014",
+  "acantiladoMunicipalityName" : "Almedina"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-003-005",
+  "idealistaMunicipalityName" : "Alcazar de San Juan",
+  "acantiladoAyuntamientoId" : "13005",
+  "acantiladoMunicipalityName" : "Alcázar de San Juan"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-007-019",
+  "idealistaMunicipalityName" : "Argamasilla de Alba",
+  "acantiladoAyuntamientoId" : "13082",
+  "acantiladoMunicipalityName" : "Tomelloso"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-05-001-086",
+  "idealistaMunicipalityName" : "Valdemanco del esteras",
+  "acantiladoAyuntamientoId" : "13086",
+  "acantiladoMunicipalityName" : "Valdemanco del Esteras"
+}, {
+  "idealistaLocationId" : "0-EU-ES-13-02-005-028",
+  "idealistaMunicipalityName" : "Campo de Criptana",
+  "acantiladoAyuntamientoId" : "13028",
+  "acantiladoMunicipalityName" : "Campo de Criptana"
+} ]
