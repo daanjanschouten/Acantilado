@@ -85,8 +85,9 @@ public class AmenityProvinceCollectorService {
 
         if (results.requestsSucceeded().size() == searchRequests.size()) {
             LOGGER.info("Finished amenity collection for province {}", provinceToCollectFor.getName());
+        } else {
+            LOGGER.warn("Amenity collection for province finished partially: {} ", results);
         }
-        LOGGER.warn("Amenity collection for province finished partially {} ", results);
 
         return true;
     }

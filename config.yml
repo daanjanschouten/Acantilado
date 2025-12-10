@@ -25,7 +25,7 @@ database:
 # Idealista Collector Configuration
 idealistaCollector:
   enabled: true
-  provinces: ["Castelló/Castellón"]
+  provinces: ["Cuenca"]
   propertyTypes:
     - HOMES
 
