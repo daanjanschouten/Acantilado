@@ -19,7 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.DayOfWeek;
-import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 
@@ -98,7 +97,6 @@ public class GoogleAmenityCollector
               .longitude(longitude)
               .chain(maybeChain.orElse(null))
               .category(categoryName)
-              .createdAt(Instant.now())
               .acantiladoLocationId(location.getIdentifier())
               .build();
 
@@ -109,7 +107,6 @@ public class GoogleAmenityCollector
               .openingHours(openingHours)
               .rating(rating)
               .userRatingCount(userRatingCount)
-              .seenNow()
               .build();
 
       return Optional.of(new GoogleAmenityData(amenity, snapshot));
@@ -424,10 +421,10 @@ public class GoogleAmenityCollector
     } else {
       GoogleAmenitySnapshot existing = latestSnapshot.get();
       if (existing.dataMatches(newSnapshot)) {
-        GoogleAmenitySnapshot updated =
-            existing.withUpdatedMetadata(
-                newSnapshot.getUserRatingCount().orElse(null), Instant.now());
-        snapshotDAO.update(updated);
+        if (newSnapshot.getUserRatingCount().isPresent()) {
+          existing.setUserRatingCount(newSnapshot.getUserRatingCount().get());
+        }
+        snapshotDAO.update(existing);
       } else {
         snapshotDAO.save(newSnapshot);
       }

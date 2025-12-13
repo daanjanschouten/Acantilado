@@ -1,11 +1,12 @@
 package com.acantilado.core.administrative;
 
 import io.dropwizard.hibernate.AbstractDAO;
-import java.util.List;
-import java.util.Optional;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Optional;
 
 public class ComunidadAutonomaDAO extends AbstractDAO<ComunidadAutonoma> {
   private static final Logger LOGGER = LoggerFactory.getLogger(ComunidadAutonomaDAO.class);

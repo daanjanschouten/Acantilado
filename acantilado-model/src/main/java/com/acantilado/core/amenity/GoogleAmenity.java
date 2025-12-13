@@ -3,6 +3,8 @@ package com.acantilado.core.amenity;
 import com.acantilado.core.amenity.fields.AcantiladoAmenityChain;
 import com.acantilado.core.amenity.fields.GoogleAmenityCategory;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.Instant;
 import java.util.Objects;
 
@@ -41,6 +43,7 @@ public class GoogleAmenity {
   private String googleCategory;
 
   @Column(name = "created_at", nullable = false)
+  @CreationTimestamp
   private Instant createdAt;
 
   @Column(name = "previous_place_id")
@@ -56,7 +59,6 @@ public class GoogleAmenity {
     this.chain = builder.chain;
     this.acantiladoLocationId = requireNonNull(builder.acantiladoLocationId, "locationId");
     this.googleCategory = requireNonNull(builder.googleCategory, "googleCategory");
-    this.createdAt = builder.createdAt != null ? builder.createdAt : Instant.now();
     this.previousPlaceId = builder.previousPlaceId;
 
     validateCoordinates();
@@ -188,7 +190,6 @@ public class GoogleAmenity {
     private double longitude;
     private AcantiladoAmenityChain chain;
     private String googleCategory;
-    private Instant createdAt;
     private String previousPlaceId;
     private String acantiladoLocationId;
 
@@ -222,18 +223,13 @@ public class GoogleAmenity {
       return this;
     }
 
-    public Builder createdAt(Instant createdAt) {
-      this.createdAt = createdAt;
-      return this;
-    }
-
     public Builder previousPlaceId(String previousPlaceId) {
       this.previousPlaceId = previousPlaceId;
       return this;
     }
 
     public Builder acantiladoLocationId(String locationId) {
-      this.acantiladoLocationId = acantiladoLocationId;
+      this.acantiladoLocationId = locationId;
       return this;
     }
 

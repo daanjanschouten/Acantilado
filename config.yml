@@ -29,13 +29,13 @@ collector:
     enabled: true
     collectionInterval: 7d
     threadPoolSize: 10
-    provinces: []
-    searchCategories: ["PHARMACY"]
+    provinces: [ ]
+    searchCategories: [ "PHARMACY" ]
   idealistaCollector:
     enabled: true
     collectionInterval: 1d
     threadPoolSize: 1
-    provinces: [31]
+    provinces: [ ]
     propertyTypes:
       - HOMES
 

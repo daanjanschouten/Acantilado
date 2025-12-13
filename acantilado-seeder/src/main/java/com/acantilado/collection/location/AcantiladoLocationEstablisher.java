@@ -101,11 +101,8 @@ public class AcantiladoLocationEstablisher {
 
   private AcantiladoLocation buildAcantiladoLocation(
       Ayuntamiento ayuntamiento, Point locationPoint) {
-    LOGGER.info("Finding postcode and barrio for {}", ayuntamiento);
     CodigoPostal codigoPostal = findCodigoPostal(ayuntamiento, locationPoint);
     Optional<Barrio> maybeBarrio = findBarrio(ayuntamiento, locationPoint);
-
-    LOGGER.info("Found postcode and barrio {} {}", codigoPostal, maybeBarrio);
 
     return maybeBarrio
         .map(barrio -> new AcantiladoLocation(ayuntamiento, codigoPostal, barrio))
@@ -121,7 +118,6 @@ public class AcantiladoLocationEstablisher {
   }
 
   private Ayuntamiento establishAyuntamientoByCoordinates(Point locationPoint) {
-    LOGGER.info("Looking for ayuntamiento containing point: {}", locationPoint);
     for (Ayuntamiento ayuntamiento : ayuntamientosForProvince) {
       if (ayuntamiento.getGeometry().contains(locationPoint)) {
         LOGGER.debug("Point is inside ayuntamiento {}", ayuntamiento.getName());
@@ -147,6 +143,19 @@ public class AcantiladoLocationEstablisher {
   private CodigoPostal findCodigoPostal(Ayuntamiento ayuntamiento, Point locationPoint) {
     Set<CodigoPostal> postcodesForAyuntamiento =
         this.postCodesForProvince.get(ayuntamiento.getId());
+
+    if (postcodesForAyuntamiento == null || postcodesForAyuntamiento.isEmpty()) {
+      LOGGER.warn(
+          "No postcodes found for ayuntamiento {} - location may be outside province boundaries",
+          ayuntamiento.getId());
+      throw new IllegalStateException(
+          "No postcodes available for ayuntamiento "
+              + ayuntamiento.getName()
+              + " ("
+              + ayuntamiento.getId()
+              + ")");
+    }
+
     for (CodigoPostal codigoPostal : postcodesForAyuntamiento) {
       if (codigoPostal.getGeometry().covers(locationPoint)) {
         return codigoPostal;

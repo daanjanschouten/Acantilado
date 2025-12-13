@@ -1,9 +1,10 @@
 package com.acantilado.core.administrative;
 
 import io.dropwizard.hibernate.AbstractDAO;
+import org.hibernate.SessionFactory;
+
 import java.util.List;
 import java.util.Optional;
-import org.hibernate.SessionFactory;
 
 public class AyuntamientoDAO extends AbstractDAO<Ayuntamiento> {
   public AyuntamientoDAO(SessionFactory sessionFactory) {

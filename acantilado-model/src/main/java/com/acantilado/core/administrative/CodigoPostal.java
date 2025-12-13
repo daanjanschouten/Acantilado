@@ -5,15 +5,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.io.geojson.GeoJsonReader;
 import org.locationtech.jts.io.geojson.GeoJsonWriter;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "codigo_postal")
@@ -172,14 +173,6 @@ public class CodigoPostal {
         + '\''
         + ", codigoPostal='"
         + codigoPostal
-        + '\''
-        + ", geometryJson='"
-        + geometryJson
-        + '\''
-        + ", geometry="
-        + geometry
-        + ", ayuntamientos="
-        + ayuntamientos
         + '}';
   }
 }

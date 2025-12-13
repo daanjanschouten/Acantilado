@@ -3,13 +3,14 @@ package com.acantilado.core.amenity;
 import com.acantilado.core.amenity.fields.GoogleAmenityStatus;
 import com.acantilado.core.amenity.fields.OpeningHours;
 import jakarta.persistence.*;
-import java.time.Instant;
-import java.util.Objects;
-import java.util.Optional;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
+
+import java.time.Instant;
+import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 @Table(name = "google_amenity_snapshot")
@@ -41,11 +42,11 @@ public class GoogleAmenitySnapshot {
   private Integer userRatingCount;
 
   @Column(name = "first_seen", nullable = false, updatable = false)
-  @CreationTimestamp // Hibernate generates this
+  @CreationTimestamp
   private Instant firstSeen;
 
   @Column(name = "last_seen", nullable = false)
-  @UpdateTimestamp // Hibernate updates this automatically
+  @UpdateTimestamp
   private Instant lastSeen;
 
   // No-arg constructor for JPA
@@ -57,17 +58,6 @@ public class GoogleAmenitySnapshot {
     this.openingHours = requireNonNull(builder.openingHours, "openingHours");
     this.rating = builder.rating;
     this.userRatingCount = builder.userRatingCount;
-    this.firstSeen = requireNonNull(builder.firstSeen, "firstSeen");
-    this.lastSeen = requireNonNull(builder.lastSeen, "lastSeen");
-
-    validateTimeRange();
-  }
-
-  private void validateTimeRange() {
-    if (lastSeen.isBefore(firstSeen)) {
-      throw new IllegalArgumentException(
-          "lastSeen cannot be before firstSeen: " + lastSeen + " < " + firstSeen);
-    }
   }
 
   private static <T> T requireNonNull(T obj, String fieldName) {
@@ -153,23 +143,6 @@ public class GoogleAmenitySnapshot {
         && Objects.equals(this.rating, other.rating);
   }
 
-  public GoogleAmenitySnapshot withUpdatedMetadata(
-      Integer newUserRatingCount, Instant newLastSeen) {
-    return GoogleAmenitySnapshot.builder()
-        .placeId(this.placeId)
-        .status(this.status)
-        .openingHours(this.openingHours)
-        .rating(this.rating)
-        .userRatingCount(newUserRatingCount)
-        .firstSeen(this.firstSeen)
-        .lastSeen(newLastSeen)
-        .build();
-  }
-
-  public boolean hasChangedFrom(GoogleAmenitySnapshot previous) {
-    return !dataMatches(previous);
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -200,8 +173,6 @@ public class GoogleAmenitySnapshot {
     private OpeningHours openingHours;
     private Double rating;
     private Integer userRatingCount;
-    private Instant firstSeen;
-    private Instant lastSeen;
 
     public Builder placeId(String placeId) {
       this.placeId = placeId;
@@ -225,23 +196,6 @@ public class GoogleAmenitySnapshot {
 
     public Builder userRatingCount(Integer userRatingCount) {
       this.userRatingCount = userRatingCount;
-      return this;
-    }
-
-    public Builder firstSeen(Instant firstSeen) {
-      this.firstSeen = firstSeen;
-      return this;
-    }
-
-    public Builder lastSeen(Instant lastSeen) {
-      this.lastSeen = lastSeen;
-      return this;
-    }
-
-    public Builder seenNow() {
-      Instant now = Instant.now();
-      this.firstSeen = now;
-      this.lastSeen = now;
       return this;
     }
 
