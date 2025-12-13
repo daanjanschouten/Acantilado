@@ -6,10 +6,6 @@ import com.acantilado.core.administrative.IdealistaLocationMapping;
 import com.acantilado.core.administrative.IdealistaLocationMappingDAO;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import org.locationtech.jts.geom.Point;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -17,104 +13,107 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
+import org.locationtech.jts.geom.Point;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ExistingLocationEstablisher {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExistingLocationEstablisher.class);
-    private static final double MAX_ACCEPTABLE_DISTANCE_DEGREES = 0.005;
+  private static final Logger LOGGER = LoggerFactory.getLogger(ExistingLocationEstablisher.class);
+  private static final double MAX_ACCEPTABLE_DISTANCE_DEGREES = 0.005;
 
-    private final AyuntamientoDAO ayuntamientoDAO;
-    private final IdealistaLocationMappingDAO mappingDAO;
-    private final BiFunction<Ayuntamiento, Point, AcantiladoLocation> locationProducer;
+  private final AyuntamientoDAO ayuntamientoDAO;
+  private final IdealistaLocationMappingDAO mappingDAO;
+  private final BiFunction<Ayuntamiento, Point, AcantiladoLocation> locationProducer;
 
-    private final Cache<String, List<IdealistaLocationMapping>> mappingCache;
-    private final Cache<String, Ayuntamiento> ayuntamientoCache;
+  private final Cache<String, List<IdealistaLocationMapping>> mappingCache;
+  private final Cache<String, Ayuntamiento> ayuntamientoCache;
 
-    public ExistingLocationEstablisher(
-            AyuntamientoDAO ayuntamientoDAO,
-            IdealistaLocationMappingDAO mappingDAO,
-            BiFunction<Ayuntamiento, Point, AcantiladoLocation> locationProducer) {
-        this.ayuntamientoDAO = ayuntamientoDAO;
-        this.mappingDAO = mappingDAO;
-        this.locationProducer = locationProducer;
+  public ExistingLocationEstablisher(
+      AyuntamientoDAO ayuntamientoDAO,
+      IdealistaLocationMappingDAO mappingDAO,
+      BiFunction<Ayuntamiento, Point, AcantiladoLocation> locationProducer) {
+    this.ayuntamientoDAO = ayuntamientoDAO;
+    this.mappingDAO = mappingDAO;
+    this.locationProducer = locationProducer;
 
-        this.mappingCache = Caffeine.newBuilder()
-                .maximumSize(100)
-                .expireAfterWrite(10, TimeUnit.MINUTES)
-                .build();
+    this.mappingCache =
+        Caffeine.newBuilder().maximumSize(100).expireAfterWrite(10, TimeUnit.MINUTES).build();
 
-        this.ayuntamientoCache = Caffeine.newBuilder()
-                .maximumSize(100)
-                .expireAfterWrite(15, TimeUnit.MINUTES)
-                .build();
+    this.ayuntamientoCache =
+        Caffeine.newBuilder().maximumSize(100).expireAfterWrite(15, TimeUnit.MINUTES).build();
+  }
+
+  protected AcantiladoLocation establish(String locationId, Point locationPoint) {
+    return locationProducer.apply(establishAyuntamiento(locationId, locationPoint), locationPoint);
+  }
+
+  private Ayuntamiento establishAyuntamiento(String locationId, Point locationPoint) {
+    List<IdealistaLocationMapping> mappingsForLocationId =
+        mappingCache.get(locationId, mappingDAO::findByIdealistaLocationId);
+
+    if (mappingsForLocationId.isEmpty()) {
+      LOGGER.error("No mapping found for location ID {}. Reseed", locationId);
+      throw new IllegalStateException();
     }
 
-    protected AcantiladoLocation establish(String locationId, Point locationPoint) {
-        return locationProducer.apply(
-                establishAyuntamiento(locationId, locationPoint),
-                locationPoint
-        );
+    if (mappingsForLocationId.size() > 1) {
+      Set<String> ayuntamientoIds =
+          mappingsForLocationId.stream()
+              .map(IdealistaLocationMapping::getAcantiladoAyuntamientoId)
+              .collect(Collectors.toSet());
+
+      return selectFromAyuntamientos(ayuntamientoIds, locationId, locationPoint);
     }
 
-    private Ayuntamiento establishAyuntamiento(String locationId, Point locationPoint) {
-        List<IdealistaLocationMapping> mappingsForLocationId = mappingCache.get(
-                locationId,
-                mappingDAO::findByIdealistaLocationId
-        );
+    String ayuntamientoId = mappingsForLocationId.get(0).getAcantiladoAyuntamientoId();
 
-        if (mappingsForLocationId.isEmpty()) {
-            LOGGER.error("No mapping found for location ID {}. Reseed", locationId);
-            throw new IllegalStateException();
-        }
+    return ayuntamientoCache.get(
+        ayuntamientoId, key -> ayuntamientoDAO.findById(key).orElseThrow());
+  }
 
-        if (mappingsForLocationId.size() > 1) {
-            Set<String> ayuntamientoIds = mappingsForLocationId
-                    .stream()
-                    .map(IdealistaLocationMapping::getAcantiladoAyuntamientoId)
-                    .collect(Collectors.toSet());
+  private Ayuntamiento selectFromAyuntamientos(
+      Set<String> ayuntamientoIds, String locationId, Point locationPoint) {
+    Set<Ayuntamiento> ayuntamientos =
+        ayuntamientoIds.stream()
+            .map(
+                id -> ayuntamientoCache.get(id, key -> ayuntamientoDAO.findById(key).orElseThrow()))
+            .collect(Collectors.toSet());
 
-            return selectFromAyuntamientos(ayuntamientoIds, locationId, locationPoint);
-        }
+    Optional<Ayuntamiento> maybeAyuntamiento =
+        ayuntamientos.stream().filter(a -> a.getGeometry().contains(locationPoint)).findFirst();
 
-        String ayuntamientoId = mappingsForLocationId.get(0).getAcantiladoAyuntamientoId();
-
-        return ayuntamientoCache.get(ayuntamientoId, key ->
-                ayuntamientoDAO.findById(key).orElseThrow()
-        );
+    if (maybeAyuntamiento.isPresent()) {
+      return maybeAyuntamiento.get();
     }
 
-    private Ayuntamiento selectFromAyuntamientos(Set<String> ayuntamientoIds, String locationId, Point locationPoint) {
-        Set<Ayuntamiento> ayuntamientos = ayuntamientoIds.stream()
-                .map(id -> ayuntamientoCache.get(id, key ->
-                        ayuntamientoDAO.findById(key).orElseThrow()))
-                .collect(Collectors.toSet());
+    Optional<Ayuntamiento> maybeClosestAyuntamiento =
+        ayuntamientos.stream()
+            .min(Comparator.comparingDouble(a -> a.getGeometry().distance(locationPoint)));
 
-        Optional<Ayuntamiento> maybeAyuntamiento = ayuntamientos.stream()
-                .filter(a -> a.getGeometry().contains(locationPoint))
-                .findFirst();
+    if (maybeClosestAyuntamiento.isPresent()) {
+      Ayuntamiento closest = maybeClosestAyuntamiento.get();
+      double distance = closest.getGeometry().distance(locationPoint);
 
-        if (maybeAyuntamiento.isPresent()) {
-            return maybeAyuntamiento.get();
-        }
-
-        Optional<Ayuntamiento> maybeClosestAyuntamiento = ayuntamientos.stream()
-                .min(Comparator.comparingDouble(a -> a.getGeometry().distance(locationPoint)));
-
-        if (maybeClosestAyuntamiento.isPresent()) {
-            Ayuntamiento closest = maybeClosestAyuntamiento.get();
-            double distance = closest.getGeometry().distance(locationPoint);
-
-            if (distance < MAX_ACCEPTABLE_DISTANCE_DEGREES) {
-                LOGGER.debug("Point slightly outside polygon for location {}. Using closest ayuntamiento {} (distance: {})",
-                        locationId, closest.getName(), distance);
-            } else {
-                LOGGER.error("Point {} very far from any mapped ayuntamiento for location {}. " +
-                                "Using closest ayuntamiento {} but distance is {} degrees (~{}km). " +
-                                "Reseed this location ID.",
-                        locationId, locationPoint, closest.getName(), distance, (int)(distance * 111));
-            }
-            return closest;
-        }
-
-        throw new IllegalStateException("No ayuntamientos found for location " + locationId);
+      if (distance < MAX_ACCEPTABLE_DISTANCE_DEGREES) {
+        LOGGER.debug(
+            "Point slightly outside polygon for location {}. Using closest ayuntamiento {} (distance: {})",
+            locationId,
+            closest.getName(),
+            distance);
+      } else {
+        LOGGER.error(
+            "Point {} very far from any mapped ayuntamiento for location {}. "
+                + "Using closest ayuntamiento {} but distance is {} degrees (~{}km). "
+                + "Reseed this location ID.",
+            locationId,
+            locationPoint,
+            closest.getName(),
+            distance,
+            (int) (distance * 111));
+      }
+      return closest;
     }
+
+    throw new IllegalStateException("No ayuntamientos found for location " + locationId);
+  }
 }

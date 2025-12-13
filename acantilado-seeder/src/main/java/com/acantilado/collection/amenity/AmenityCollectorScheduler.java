@@ -1,10 +1,7 @@
 package com.acantilado.collection.amenity;
 
-import com.acantilado.core.amenity.fields.AcantiladoAmenityType;
+import com.acantilado.core.amenity.fields.GoogleAmenityCategory;
 import io.dropwizard.lifecycle.Managed;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -12,95 +9,111 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AmenityCollectorScheduler implements Managed {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AmenityCollectorScheduler.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AmenityCollectorScheduler.class);
 
-    private final ScheduledExecutorService scheduler;
-    private final AmenityCollectorServiceFactory collectorServiceFactory;
-    private final AmenityCollectorConfig config;
-    private final Set<AmenityProvinceCollectorService> provinceCollectorServices = new HashSet<>();
+  private final ScheduledExecutorService scheduler;
+  private final AmenityCollectorServiceFactory collectorServiceFactory;
+  private final AmenityCollectorConfig config;
+  private final Set<AmenityProvinceCollectorService> provinceCollectorServices = new HashSet<>();
 
-    public AmenityCollectorScheduler(AmenityCollectorServiceFactory factory, AmenityCollectorConfig config) {
-        this.collectorServiceFactory = factory;
-        this.config = config;
-        this.scheduler = Executors.newScheduledThreadPool(config.getThreadPoolSize());
+  public AmenityCollectorScheduler(
+      AmenityCollectorServiceFactory factory, AmenityCollectorConfig config) {
+    this.collectorServiceFactory = factory;
+    this.config = config;
+    this.scheduler = Executors.newScheduledThreadPool(config.getThreadPoolSize());
+  }
+
+  @Override
+  public void start() {
+    if (!config.isEnabled()) {
+      LOGGER.info("Amenity collector is disabled, skipping startup");
+      return;
     }
 
-    @Override
-    public void start() {
-        if (!config.isEnabled()) {
-            LOGGER.info("Amenity collector is disabled, skipping startup");
-            return;
-        }
+    LOGGER.info(
+        "Starting amenity collector for provinces: {} with chains: {}",
+        config.getProvinces(),
+        config.getSearchCategories());
 
-        LOGGER.info("Starting amenity collector for provinces: {} with chains: {}",
-                config.getProvinces(),
-                config.getSearchCategories());
+    scheduler.scheduleAtFixedRate(
+        this::collectAmenities,
+        config.getInitialDelay().toSeconds(),
+        config.getCollectionInterval().toSeconds(),
+        TimeUnit.SECONDS);
+  }
 
-        scheduler.scheduleAtFixedRate(
-                this::collectAmenities,
-                config.getInitialDelay().toSeconds(),
-                config.getCollectionInterval().toSeconds(),
-                TimeUnit.SECONDS
-        );
+  @Override
+  public void stop() throws Exception {
+    LOGGER.info("Stopping amenity collector");
+
+    scheduler.shutdown();
+    provinceCollectorServices.forEach(AmenityProvinceCollectorService::shutdownExecutor);
+
+    if (!scheduler.awaitTermination(10, TimeUnit.SECONDS)) {
+      LOGGER.warn("Scheduler did not terminate gracefully, forcing shutdown");
+      scheduler.shutdownNow();
     }
+  }
 
-    @Override
-    public void stop() throws Exception {
-        LOGGER.info("Stopping amenity collector");
+  private void collectAmenities() {
+    Set<String> provinceIds = config.getProvinces();
+    Set<GoogleAmenityCategory> searchCategories =
+        parseSearchCategories(config.getSearchCategories());
 
-        scheduler.shutdown();
-        provinceCollectorServices.forEach(AmenityProvinceCollectorService::shutdownExecutor);
+    provinceIds.forEach(
+        provinceId -> {
+          AmenityProvinceCollectorService collectorService =
+              collectorServiceFactory.getCollectorService(provinceId);
+          provinceCollectorServices.add(collectorService);
 
-        if (!scheduler.awaitTermination(10, TimeUnit.SECONDS)) {
-            LOGGER.warn("Scheduler did not terminate gracefully, forcing shutdown");
-            scheduler.shutdownNow();
-        }
-    }
-
-    private void collectAmenities() {
-        Set<String> provinceIds = config.getProvinces();
-        Set<AcantiladoAmenityType> amenityChains = parseSearchCategories(config.getSearchCategories());
-
-        provinceIds.forEach(provinceId -> {
-            AmenityProvinceCollectorService collectorService =
-                    collectorServiceFactory.getCollectorService(provinceId);
-            provinceCollectorServices.add(collectorService);
-
-            amenityChains.forEach(amenityType -> {
+          searchCategories.forEach(
+              searchCategory -> {
                 try {
-                    LOGGER.info("Starting collection for province {} and amenity type {}",
-                            provinceId, amenityType);
+                  LOGGER.info(
+                      "Starting collection for province {} and amenity type {}",
+                      provinceId,
+                      searchCategory);
 
-                    if (collectorService.collectAmenitiesForProvince()) {
-                        LOGGER.info("Completed scheduled amenity collection for province {} and type {}",
-                                provinceId, amenityType);
-                    } else {
-                        LOGGER.error("Partial completion of scheduled amenity collection for province {} and type {}",
-                                provinceId, amenityType);
-                    }
+                  if (collectorService.collectAmenitiesForProvince(searchCategory)) {
+                    LOGGER.info(
+                        "Completed scheduled amenity collection for province {} and type {}",
+                        provinceId,
+                        searchCategory);
+                  } else {
+                    LOGGER.error(
+                        "Partial completion of scheduled amenity collection for province {} and type {}",
+                        provinceId,
+                        searchCategory);
+                  }
                 } catch (Exception e) {
-                    LOGGER.error("Error during collection for province {} and type {}",
-                            provinceId, amenityType, e);
+                  LOGGER.error(
+                      "Error during collection for province {} and type {}",
+                      provinceId,
+                      searchCategory,
+                      e);
                 }
-            });
+              });
 
-            provinceCollectorServices.remove(collectorService);
+          provinceCollectorServices.remove(collectorService);
         });
-    }
+  }
 
-    private Set<AcantiladoAmenityType> parseSearchCategories(Set<String> categoryStrings) {
-        return categoryStrings.stream()
-                .map(categoryString -> {
-                    try {
-                        return AcantiladoAmenityType.valueOf(categoryString.toUpperCase());
-                    } catch (IllegalArgumentException e) {
-                        LOGGER.error("Invalid amenity chain: {}, skipping", categoryString);
-                        return null;
-                    }
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toSet());
-    }
+  private Set<GoogleAmenityCategory> parseSearchCategories(Set<String> categoryStrings) {
+    return categoryStrings.stream()
+        .map(
+            categoryString -> {
+              try {
+                return GoogleAmenityCategory.valueOf(categoryString.toUpperCase());
+              } catch (IllegalArgumentException e) {
+                LOGGER.error("Invalid amenity chain: {}, skipping", categoryString);
+                return null;
+              }
+            })
+        .filter(Objects::nonNull)
+        .collect(Collectors.toSet());
+  }
 }

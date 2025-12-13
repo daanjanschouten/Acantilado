@@ -1,0 +1,511 @@
+[ {
+  "idealistaLocationId" : "0-EU-ES-36-06-004-007",
+  "idealistaMunicipalityName" : "Campo Lameiro",
+  "acantiladoAyuntamientoId" : "36007",
+  "acantiladoMunicipalityName" : "Campo Lameiro"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-004-046",
+  "idealistaMunicipalityName" : "Ribadumia",
+  "acantiladoAyuntamientoId" : "36028",
+  "acantiladoMunicipalityName" : "Meis"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-003-045",
+  "idealistaMunicipalityName" : "Redondela",
+  "acantiladoAyuntamientoId" : "36045",
+  "acantiladoMunicipalityName" : "Redondela"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-004-025",
+  "idealistaMunicipalityName" : "A Lama",
+  "acantiladoAyuntamientoId" : "36025",
+  "acantiladoMunicipalityName" : "A Lama"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-003-620",
+  "idealistaMunicipalityName" : "Mourente",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-001-014",
+  "idealistaMunicipalityName" : "Crecente",
+  "acantiladoAyuntamientoId" : "36014",
+  "acantiladoMunicipalityName" : "Crecente"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-07-003-029",
+  "idealistaMunicipalityName" : "Moaña",
+  "acantiladoAyuntamientoId" : "36058",
+  "acantiladoMunicipalityName" : "Vilaboa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-004-039",
+  "idealistaMunicipalityName" : "O Porriño",
+  "acantiladoAyuntamientoId" : "36039",
+  "acantiladoMunicipalityName" : "O Porriño"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-002-042",
+  "idealistaMunicipalityName" : "Ponteareas",
+  "acantiladoAyuntamientoId" : "36042",
+  "acantiladoMunicipalityName" : "Ponteareas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-007-037",
+  "idealistaMunicipalityName" : "Pazos de Borbén",
+  "acantiladoAyuntamientoId" : "36037",
+  "acantiladoMunicipalityName" : "Pazos de Borbén"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-004-606",
+  "idealistaMunicipalityName" : "Atios (Santa Eulalia P.)",
+  "acantiladoAyuntamientoId" : "36039",
+  "acantiladoMunicipalityName" : "O Porriño"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-006-002",
+  "idealistaMunicipalityName" : "Barro",
+  "acantiladoAyuntamientoId" : "36002",
+  "acantiladoMunicipalityName" : "Barro"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-003-006",
+  "idealistaMunicipalityName" : "Cambados",
+  "acantiladoAyuntamientoId" : "36006",
+  "acantiladoMunicipalityName" : "Cambados"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-09-001-018",
+  "idealistaMunicipalityName" : "Forcarei",
+  "acantiladoAyuntamientoId" : "36018",
+  "acantiladoMunicipalityName" : "Forcarei"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-05-001-032",
+  "idealistaMunicipalityName" : "Moraña",
+  "acantiladoAyuntamientoId" : "36032",
+  "acantiladoMunicipalityName" : "Moraña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-005-035",
+  "idealistaMunicipalityName" : "Nigran",
+  "acantiladoAyuntamientoId" : "36021",
+  "acantiladoMunicipalityName" : "Gondomar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-002-003",
+  "idealistaMunicipalityName" : "Baiona",
+  "acantiladoAyuntamientoId" : "36003",
+  "acantiladoMunicipalityName" : "Baiona"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-001-060",
+  "idealistaMunicipalityName" : "Vilagarcía de Arousa",
+  "acantiladoAyuntamientoId" : "36060",
+  "acantiladoMunicipalityName" : "Vilagarcía de Arousa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-004-902",
+  "idealistaMunicipalityName" : "Cerdedo-Cotobade",
+  "acantiladoAyuntamientoId" : "36902",
+  "acantiladoMunicipalityName" : "Cerdedo-Cotobade"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-004-046",
+  "idealistaMunicipalityName" : "Ribadumia",
+  "acantiladoAyuntamientoId" : "36046",
+  "acantiladoMunicipalityName" : "Ribadumia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-006-002",
+  "idealistaMunicipalityName" : "Barro",
+  "acantiladoAyuntamientoId" : "36040",
+  "acantiladoMunicipalityName" : "Portas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-004-046",
+  "idealistaMunicipalityName" : "Ribadumia",
+  "acantiladoAyuntamientoId" : "36006",
+  "acantiladoMunicipalityName" : "Cambados"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-08-001-052",
+  "idealistaMunicipalityName" : "Silleda",
+  "acantiladoAyuntamientoId" : "36052",
+  "acantiladoMunicipalityName" : "Silleda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-002-051",
+  "idealistaMunicipalityName" : "Sanxenxo",
+  "acantiladoAyuntamientoId" : "36051",
+  "acantiladoMunicipalityName" : "Sanxenxo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-07-004-026",
+  "idealistaMunicipalityName" : "Marin",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-03-002-036",
+  "idealistaMunicipalityName" : "Oia",
+  "acantiladoAyuntamientoId" : "36048",
+  "acantiladoMunicipalityName" : "O Rosal"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-007-053",
+  "idealistaMunicipalityName" : "Soutomaior",
+  "acantiladoAyuntamientoId" : "36053",
+  "acantiladoMunicipalityName" : "Soutomaior"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-03-002-036",
+  "idealistaMunicipalityName" : "Oia",
+  "acantiladoAyuntamientoId" : "36036",
+  "acantiladoMunicipalityName" : "Oia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-03-001-048",
+  "idealistaMunicipalityName" : "O Rosal",
+  "acantiladoAyuntamientoId" : "36023",
+  "acantiladoMunicipalityName" : "A Guarda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-05-001-005",
+  "idealistaMunicipalityName" : "Caldas de Reis",
+  "acantiladoAyuntamientoId" : "36005",
+  "acantiladoMunicipalityName" : "Caldas de Reis"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-003-619",
+  "idealistaMunicipalityName" : "Santo André de Xeve",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-004-025",
+  "idealistaMunicipalityName" : "A Lama",
+  "acantiladoAyuntamientoId" : "36902",
+  "acantiladoMunicipalityName" : "Cerdedo-Cotobade"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-003-618",
+  "idealistaMunicipalityName" : "Santa María de Xeve",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-003-617",
+  "idealistaMunicipalityName" : "Verducido",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-003-061",
+  "idealistaMunicipalityName" : "Vilanova de Arousa",
+  "acantiladoAyuntamientoId" : "36061",
+  "acantiladoMunicipalityName" : "Vilanova de Arousa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-003-901",
+  "idealistaMunicipalityName" : "Illa de Arousa",
+  "acantiladoAyuntamientoId" : "36901",
+  "acantiladoMunicipalityName" : "A Illa de Arousa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-005-035",
+  "idealistaMunicipalityName" : "Nigran",
+  "acantiladoAyuntamientoId" : "36003",
+  "acantiladoMunicipalityName" : "Baiona"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-002-003",
+  "idealistaMunicipalityName" : "Baiona",
+  "acantiladoAyuntamientoId" : "36021",
+  "acantiladoMunicipalityName" : "Gondomar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-003-061",
+  "idealistaMunicipalityName" : "Vilanova de Arousa",
+  "acantiladoAyuntamientoId" : "36006",
+  "acantiladoMunicipalityName" : "Cambados"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-001-050",
+  "idealistaMunicipalityName" : "Salvaterra de Miño",
+  "acantiladoAyuntamientoId" : "36049",
+  "acantiladoMunicipalityName" : "Salceda de Caselas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-001-057",
+  "idealistaMunicipalityName" : "Vigo",
+  "acantiladoAyuntamientoId" : "36035",
+  "acantiladoMunicipalityName" : "Nigrán"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-05-001-010",
+  "idealistaMunicipalityName" : "Catoira",
+  "acantiladoAyuntamientoId" : "36010",
+  "acantiladoMunicipalityName" : "Catoira"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-005-035",
+  "idealistaMunicipalityName" : "Nigran",
+  "acantiladoAyuntamientoId" : "36035",
+  "acantiladoMunicipalityName" : "Nigrán"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-05-001-044",
+  "idealistaMunicipalityName" : "Pontecesures",
+  "acantiladoAyuntamientoId" : "36056",
+  "acantiladoMunicipalityName" : "Valga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-004-027",
+  "idealistaMunicipalityName" : "Meaño",
+  "acantiladoAyuntamientoId" : "36027",
+  "acantiladoMunicipalityName" : "Meaño"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-03-001-023",
+  "idealistaMunicipalityName" : "A Guarda",
+  "acantiladoAyuntamientoId" : "36023",
+  "acantiladoMunicipalityName" : "A Guarda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-008-033",
+  "idealistaMunicipalityName" : "Mos",
+  "acantiladoAyuntamientoId" : "36039",
+  "acantiladoMunicipalityName" : "O Porriño"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-001-034",
+  "idealistaMunicipalityName" : "As Neves",
+  "acantiladoAyuntamientoId" : "36034",
+  "acantiladoMunicipalityName" : "As Neves"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-05-001-040",
+  "idealistaMunicipalityName" : "Portas",
+  "acantiladoAyuntamientoId" : "36061",
+  "acantiladoMunicipalityName" : "Vilanova de Arousa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-003-019",
+  "idealistaMunicipalityName" : "Fornelos",
+  "acantiladoAyuntamientoId" : "36019",
+  "acantiladoMunicipalityName" : "Fornelos de Montes"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-003-627",
+  "idealistaMunicipalityName" : "Ponte Sampaio",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-005-022",
+  "idealistaMunicipalityName" : "O Grove",
+  "acantiladoAyuntamientoId" : "36022",
+  "acantiladoMunicipalityName" : "O Grove"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-08-001-059",
+  "idealistaMunicipalityName" : "Vila de Cruces",
+  "acantiladoAyuntamientoId" : "36059",
+  "acantiladoMunicipalityName" : "Vila de Cruces"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-004-028",
+  "idealistaMunicipalityName" : "Meis",
+  "acantiladoAyuntamientoId" : "36028",
+  "acantiladoMunicipalityName" : "Meis"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-003-614",
+  "idealistaMunicipalityName" : "Alba",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-001-060",
+  "idealistaMunicipalityName" : "Vilagarcía de Arousa",
+  "acantiladoAyuntamientoId" : "36061",
+  "acantiladoMunicipalityName" : "Vilanova de Arousa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-003-613",
+  "idealistaMunicipalityName" : "Campañó",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-008-033",
+  "idealistaMunicipalityName" : "Mos",
+  "acantiladoAyuntamientoId" : "36033",
+  "acantiladoMunicipalityName" : "Mos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-003-624",
+  "idealistaMunicipalityName" : "Salcedo",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-003-009",
+  "idealistaMunicipalityName" : "A Cañiza",
+  "acantiladoAyuntamientoId" : "36009",
+  "acantiladoMunicipalityName" : "A Cañiza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-08-001-020",
+  "idealistaMunicipalityName" : "Agolada",
+  "acantiladoAyuntamientoId" : "36020",
+  "acantiladoMunicipalityName" : "Agolada"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-05-001-044",
+  "idealistaMunicipalityName" : "Pontecesures",
+  "acantiladoAyuntamientoId" : "36044",
+  "acantiladoMunicipalityName" : "Pontecesures"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-001-034",
+  "idealistaMunicipalityName" : "As Neves",
+  "acantiladoAyuntamientoId" : "36050",
+  "acantiladoMunicipalityName" : "Salvaterra de Miño"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-05-001-056",
+  "idealistaMunicipalityName" : "Valga",
+  "acantiladoAyuntamientoId" : "36044",
+  "acantiladoMunicipalityName" : "Pontecesures"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-08-001-016",
+  "idealistaMunicipalityName" : "Dozon",
+  "acantiladoAyuntamientoId" : "36016",
+  "acantiladoMunicipalityName" : "Dozón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-002-030",
+  "idealistaMunicipalityName" : "Mondariz",
+  "acantiladoAyuntamientoId" : "36031",
+  "acantiladoMunicipalityName" : "Mondariz-Balneario"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-002-030",
+  "idealistaMunicipalityName" : "Mondariz",
+  "acantiladoAyuntamientoId" : "36030",
+  "acantiladoMunicipalityName" : "Mondariz"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-07-002-004",
+  "idealistaMunicipalityName" : "Bueu",
+  "acantiladoAyuntamientoId" : "36026",
+  "acantiladoMunicipalityName" : "Marín"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-001-041",
+  "idealistaMunicipalityName" : "Poio",
+  "acantiladoAyuntamientoId" : "36041",
+  "acantiladoMunicipalityName" : "Poio"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-09-001-017",
+  "idealistaMunicipalityName" : "A Estrada",
+  "acantiladoAyuntamientoId" : "36017",
+  "acantiladoMunicipalityName" : "A Estrada"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-07-002-004",
+  "idealistaMunicipalityName" : "Bueu",
+  "acantiladoAyuntamientoId" : "36004",
+  "acantiladoMunicipalityName" : "Bueu"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-04-002-051",
+  "idealistaMunicipalityName" : "Sanxenxo",
+  "acantiladoAyuntamientoId" : "36027",
+  "acantiladoMunicipalityName" : "Meaño"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-005-058",
+  "idealistaMunicipalityName" : "Vilaboa",
+  "acantiladoAyuntamientoId" : "36058",
+  "acantiladoMunicipalityName" : "Vilaboa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-07-001-008",
+  "idealistaMunicipalityName" : "Cangas",
+  "acantiladoAyuntamientoId" : "36008",
+  "acantiladoMunicipalityName" : "Cangas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-07-003-029",
+  "idealistaMunicipalityName" : "Moaña",
+  "acantiladoAyuntamientoId" : "36029",
+  "acantiladoMunicipalityName" : "Moaña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-07-004-026",
+  "idealistaMunicipalityName" : "Marin",
+  "acantiladoAyuntamientoId" : "36026",
+  "acantiladoMunicipalityName" : "Marín"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-05-001-015",
+  "idealistaMunicipalityName" : "Cuntis",
+  "acantiladoAyuntamientoId" : "36015",
+  "acantiladoMunicipalityName" : "Cuntis"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-08-001-047",
+  "idealistaMunicipalityName" : "Rodeiro",
+  "acantiladoAyuntamientoId" : "36047",
+  "acantiladoMunicipalityName" : "Rodeiro"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-05-001-040",
+  "idealistaMunicipalityName" : "Portas",
+  "acantiladoAyuntamientoId" : "36040",
+  "acantiladoMunicipalityName" : "Portas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-001-057",
+  "idealistaMunicipalityName" : "Vigo",
+  "acantiladoAyuntamientoId" : "36057",
+  "acantiladoMunicipalityName" : "Vigo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-004-043",
+  "idealistaMunicipalityName" : "Ponte-Caldelas",
+  "acantiladoAyuntamientoId" : "36043",
+  "acantiladoMunicipalityName" : "Ponte Caldelas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-002-031",
+  "idealistaMunicipalityName" : "Mondariz-Balneario",
+  "acantiladoAyuntamientoId" : "36031",
+  "acantiladoMunicipalityName" : "Mondariz-Balneario"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-003-013",
+  "idealistaMunicipalityName" : "O Covelo",
+  "acantiladoAyuntamientoId" : "36013",
+  "acantiladoMunicipalityName" : "Covelo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-003-622",
+  "idealistaMunicipalityName" : "Marcón",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-001-050",
+  "idealistaMunicipalityName" : "Salvaterra de Miño",
+  "acantiladoAyuntamientoId" : "36050",
+  "acantiladoMunicipalityName" : "Salvaterra de Miño"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-03-004-055",
+  "idealistaMunicipalityName" : "Tui",
+  "acantiladoAyuntamientoId" : "36055",
+  "acantiladoMunicipalityName" : "Tui"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-03-003-054",
+  "idealistaMunicipalityName" : "Tomiño",
+  "acantiladoAyuntamientoId" : "36054",
+  "acantiladoMunicipalityName" : "Tomiño"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-03-004-055",
+  "idealistaMunicipalityName" : "Tui",
+  "acantiladoAyuntamientoId" : "36049",
+  "acantiladoMunicipalityName" : "Salceda de Caselas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-001-001",
+  "idealistaMunicipalityName" : "Arbo",
+  "acantiladoAyuntamientoId" : "36001",
+  "acantiladoMunicipalityName" : "Arbo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-02-002-031",
+  "idealistaMunicipalityName" : "Mondariz-Balneario",
+  "acantiladoAyuntamientoId" : "36030",
+  "acantiladoMunicipalityName" : "Mondariz"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-006-021",
+  "idealistaMunicipalityName" : "Gondomar",
+  "acantiladoAyuntamientoId" : "36021",
+  "acantiladoMunicipalityName" : "Gondomar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-002-038",
+  "idealistaMunicipalityName" : "Pontevedra",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-004-039",
+  "idealistaMunicipalityName" : "O Porriño",
+  "acantiladoAyuntamientoId" : "36033",
+  "acantiladoMunicipalityName" : "Mos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-003-615",
+  "idealistaMunicipalityName" : "Cerponzóns",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-03-001-048",
+  "idealistaMunicipalityName" : "O Rosal",
+  "acantiladoAyuntamientoId" : "36048",
+  "acantiladoMunicipalityName" : "O Rosal"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-08-001-024",
+  "idealistaMunicipalityName" : "Lalin",
+  "acantiladoAyuntamientoId" : "36024",
+  "acantiladoMunicipalityName" : "Lalín"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-05-001-056",
+  "idealistaMunicipalityName" : "Valga",
+  "acantiladoAyuntamientoId" : "36056",
+  "acantiladoMunicipalityName" : "Valga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-004-049",
+  "idealistaMunicipalityName" : "Salceda de Caselas",
+  "acantiladoAyuntamientoId" : "36049",
+  "acantiladoMunicipalityName" : "Salceda de Caselas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-002-602",
+  "idealistaMunicipalityName" : "Vincios (Santa Marina P.)",
+  "acantiladoAyuntamientoId" : "36021",
+  "acantiladoMunicipalityName" : "Gondomar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-002-038",
+  "idealistaMunicipalityName" : "Pontevedra",
+  "acantiladoAyuntamientoId" : "36026",
+  "acantiladoMunicipalityName" : "Marín"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-01-004-049",
+  "idealistaMunicipalityName" : "Salceda de Caselas",
+  "acantiladoAyuntamientoId" : "36039",
+  "acantiladoMunicipalityName" : "O Porriño"
+}, {
+  "idealistaLocationId" : "0-EU-ES-36-06-003-621",
+  "idealistaMunicipalityName" : "Bora",
+  "acantiladoAyuntamientoId" : "36038",
+  "acantiladoMunicipalityName" : "Pontevedra"
+} ]

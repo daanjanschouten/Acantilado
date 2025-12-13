@@ -29,6 +29,11 @@
   "acantiladoAyuntamientoId" : "25039",
   "acantiladoMunicipalityName" : "Baix Pallars"
 }, {
+  "idealistaLocationId" : "0-EU-ES-25-10-003-643",
+  "idealistaMunicipalityName" : "Montgarri",
+  "acantiladoAyuntamientoId" : "25025",
+  "acantiladoMunicipalityName" : "Naut Aran"
+}, {
   "idealistaLocationId" : "0-EU-ES-25-07-003-608",
   "idealistaMunicipalityName" : "Butsènit",
   "acantiladoAyuntamientoId" : "25120",
@@ -143,6 +148,11 @@
   "idealistaMunicipalityName" : "Lleida",
   "acantiladoAyuntamientoId" : "25120",
   "acantiladoMunicipalityName" : "Lleida"
+}, {
+  "idealistaLocationId" : "0-EU-ES-25-10-002-637",
+  "idealistaMunicipalityName" : "Vilac",
+  "acantiladoAyuntamientoId" : "25243",
+  "acantiladoMunicipalityName" : "Vielha e Mijaran"
 }, {
   "idealistaLocationId" : "0-EU-ES-25-03-001-092",
   "idealistaMunicipalityName" : "La Floresta",
@@ -494,6 +504,11 @@
   "acantiladoAyuntamientoId" : "25068",
   "acantiladoMunicipalityName" : "Castellnou de Seana"
 }, {
+  "idealistaLocationId" : "0-EU-ES-25-10-001-647",
+  "idealistaMunicipalityName" : "Pontaut",
+  "acantiladoAyuntamientoId" : "25045",
+  "acantiladoMunicipalityName" : "Bausen"
+}, {
   "idealistaLocationId" : "0-EU-ES-25-09-001-176",
   "idealistaMunicipalityName" : "Preixana",
   "acantiladoAyuntamientoId" : "25176",
@@ -564,11 +579,6 @@
   "acantiladoAyuntamientoId" : "25243",
   "acantiladoMunicipalityName" : "Vielha e Mijaran"
 }, {
-  "idealistaLocationId" : "0-EU-ES-25-07-004-023",
-  "idealistaMunicipalityName" : "Alpicat",
-  "acantiladoAyuntamientoId" : "25120",
-  "acantiladoMunicipalityName" : "Lleida"
-}, {
   "idealistaLocationId" : "0-EU-ES-25-03-001-073",
   "idealistaMunicipalityName" : "Cerviá de les Garrigues",
   "acantiladoAyuntamientoId" : "25073",
@@ -583,11 +593,6 @@
   "idealistaMunicipalityName" : "Alás i Cerc",
   "acantiladoAyuntamientoId" : "25005",
   "acantiladoMunicipalityName" : "Alàs i Cerc"
-}, {
-  "idealistaLocationId" : "0-EU-ES-25-05-001-024",
-  "idealistaMunicipalityName" : "Alt Aneu",
-  "acantiladoAyuntamientoId" : "25024",
-  "acantiladoMunicipalityName" : "Alt Àneu"
 }, {
   "idealistaLocationId" : "0-EU-ES-25-09-001-050",
   "idealistaMunicipalityName" : "Bellpuig",
@@ -613,11 +618,6 @@
   "idealistaMunicipalityName" : "Algerri",
   "acantiladoAyuntamientoId" : "25015",
   "acantiladoMunicipalityName" : "Algerri"
-}, {
-  "idealistaLocationId" : "0-EU-ES-25-01-001-239",
-  "idealistaMunicipalityName" : "Les Valls de Valira",
-  "acantiladoAyuntamientoId" : "25203",
-  "acantiladoMunicipalityName" : "La Seu d'Urgell"
 }, {
   "idealistaLocationId" : "0-EU-ES-25-03-001-009",
   "idealistaMunicipalityName" : "L'Albi",
@@ -794,20 +794,10 @@
   "acantiladoAyuntamientoId" : "25014",
   "acantiladoMunicipalityName" : "Alfés"
 }, {
-  "idealistaLocationId" : "0-EU-ES-25-01-001-203",
-  "idealistaMunicipalityName" : "La Seu d'Urgell",
-  "acantiladoAyuntamientoId" : "25239",
-  "acantiladoMunicipalityName" : "Les Valls de Valira"
-}, {
   "idealistaLocationId" : "0-EU-ES-25-11-001-650",
   "idealistaMunicipalityName" : "Pla de l'Ermita",
   "acantiladoAyuntamientoId" : "25043",
   "acantiladoMunicipalityName" : "La Vall de Boí"
-}, {
-  "idealistaLocationId" : "0-EU-ES-25-09-001-050",
-  "idealistaMunicipalityName" : "Bellpuig",
-  "acantiladoAyuntamientoId" : "25046",
-  "acantiladoMunicipalityName" : "Belianes"
 }, {
   "idealistaLocationId" : "0-EU-ES-25-10-002-630",
   "idealistaMunicipalityName" : "Casarilh",
@@ -874,11 +864,6 @@
   "acantiladoAyuntamientoId" : "25098",
   "acantiladoMunicipalityName" : "Gavet de la Conca"
 }, {
-  "idealistaLocationId" : "0-EU-ES-25-07-005-053",
-  "idealistaMunicipalityName" : "Benavent de Segriá",
-  "acantiladoAyuntamientoId" : "25251",
-  "acantiladoMunicipalityName" : "Vilanova de Segrià"
-}, {
   "idealistaLocationId" : "0-EU-ES-25-10-003-642",
   "idealistaMunicipalityName" : "Gesa",
   "acantiladoAyuntamientoId" : "25025",
@@ -903,11 +888,6 @@
   "idealistaMunicipalityName" : "Almacelles",
   "acantiladoAyuntamientoId" : "25019",
   "acantiladoMunicipalityName" : "Almacelles"
-}, {
-  "idealistaLocationId" : "0-EU-ES-25-08-001-163",
-  "idealistaMunicipalityName" : "La Coma i la Pedra",
-  "acantiladoAyuntamientoId" : "25111",
-  "acantiladoMunicipalityName" : "Guixers"
 }, {
   "idealistaLocationId" : "0-EU-ES-25-04-001-164",
   "idealistaMunicipalityName" : "Penelles",
@@ -944,11 +924,6 @@
   "acantiladoAyuntamientoId" : "25063",
   "acantiladoMunicipalityName" : "Canejan"
 }, {
-  "idealistaLocationId" : "0-EU-ES-25-07-003-232",
-  "idealistaMunicipalityName" : "Torres de Segre",
-  "acantiladoAyuntamientoId" : "25232",
-  "acantiladoMunicipalityName" : "Torres de Segre"
-}, {
   "idealistaLocationId" : "0-EU-ES-25-04-001-042",
   "idealistaMunicipalityName" : "La Baronia de Rialb",
   "acantiladoAyuntamientoId" : "25042",
@@ -973,16 +948,6 @@
   "idealistaMunicipalityName" : "Bausen",
   "acantiladoAyuntamientoId" : "25045",
   "acantiladoMunicipalityName" : "Bausen"
-}, {
-  "idealistaLocationId" : "0-EU-ES-25-07-002-189",
-  "idealistaMunicipalityName" : "Rossello",
-  "acantiladoAyuntamientoId" : "25251",
-  "acantiladoMunicipalityName" : "Vilanova de Segrià"
-}, {
-  "idealistaLocationId" : "0-EU-ES-25-07-003-007",
-  "idealistaMunicipalityName" : "Albatárrec",
-  "acantiladoAyuntamientoId" : "25007",
-  "acantiladoMunicipalityName" : "Albatàrrec"
 }, {
   "idealistaLocationId" : "0-EU-ES-25-07-002-233",
   "idealistaMunicipalityName" : "Torre-Serona",
@@ -1099,11 +1064,6 @@
   "acantiladoAyuntamientoId" : "25209",
   "acantiladoMunicipalityName" : "Sort"
 }, {
-  "idealistaLocationId" : "0-EU-ES-25-12-003-099",
-  "idealistaMunicipalityName" : "Golmés",
-  "acantiladoAyuntamientoId" : "25099",
-  "acantiladoMunicipalityName" : "Golmés"
-}, {
   "idealistaLocationId" : "0-EU-ES-25-05-001-087",
   "idealistaMunicipalityName" : "Esterri de Cardós",
   "acantiladoAyuntamientoId" : "25087",
@@ -1219,11 +1179,6 @@
   "acantiladoAyuntamientoId" : "25126",
   "acantiladoMunicipalityName" : "Llavorsí"
 }, {
-  "idealistaLocationId" : "0-EU-ES-25-09-001-242",
-  "idealistaMunicipalityName" : "Verdu",
-  "acantiladoAyuntamientoId" : "25176",
-  "acantiladoMunicipalityName" : "Preixana"
-}, {
   "idealistaLocationId" : "0-EU-ES-25-09-001-074",
   "idealistaMunicipalityName" : "Ciutadilla",
   "acantiladoAyuntamientoId" : "25074",
@@ -1264,11 +1219,6 @@
   "acantiladoAyuntamientoId" : "25101",
   "acantiladoMunicipalityName" : "la Granadella"
 }, {
-  "idealistaLocationId" : "0-EU-ES-25-09-003-096",
-  "idealistaMunicipalityName" : "La Fuliola",
-  "acantiladoAyuntamientoId" : "25096",
-  "acantiladoMunicipalityName" : "La Fuliola"
-}, {
   "idealistaLocationId" : "0-EU-ES-25-04-001-112",
   "idealistaMunicipalityName" : "Ivars de Noguera",
   "acantiladoAyuntamientoId" : "25112",
@@ -1278,11 +1228,6 @@
   "idealistaMunicipalityName" : "Naut Aran",
   "acantiladoAyuntamientoId" : "25025",
   "acantiladoMunicipalityName" : "Naut Aran"
-}, {
-  "idealistaLocationId" : "0-EU-ES-25-07-002-609",
-  "idealistaMunicipalityName" : "Gualda",
-  "acantiladoAyuntamientoId" : "25120",
-  "acantiladoMunicipalityName" : "Lleida"
 }, {
   "idealistaLocationId" : "0-EU-ES-25-09-002-027",
   "idealistaMunicipalityName" : "Anglesola",
@@ -1369,11 +1314,6 @@
   "acantiladoAyuntamientoId" : "25249",
   "acantiladoMunicipalityName" : "Vilanova de l'Aguda"
 }, {
-  "idealistaLocationId" : "0-EU-ES-25-10-001-031",
-  "idealistaMunicipalityName" : "Arres",
-  "acantiladoAyuntamientoId" : "25059",
-  "acantiladoMunicipalityName" : "Bossòst"
-}, {
   "idealistaLocationId" : "0-EU-ES-25-12-001-168",
   "idealistaMunicipalityName" : "El Poal",
   "acantiladoAyuntamientoId" : "25168",
@@ -1403,11 +1343,6 @@
   "idealistaMunicipalityName" : "Montcorbau",
   "acantiladoAyuntamientoId" : "25243",
   "acantiladoMunicipalityName" : "Vielha e Mijaran"
-}, {
-  "idealistaLocationId" : "0-EU-ES-25-07-002-016",
-  "idealistaMunicipalityName" : "Alguaire",
-  "acantiladoAyuntamientoId" : "25016",
-  "acantiladoMunicipalityName" : "Alguaire"
 }, {
   "idealistaLocationId" : "0-EU-ES-25-10-003-638",
   "idealistaMunicipalityName" : "Arties",

@@ -1,7 +1,7 @@
 package com.acantilado.collection.administration;
 
 public abstract class CollectorService {
-    public abstract boolean isSeedingNecessary();
+  public abstract boolean isSeedingNecessary();
 
-    public abstract void seed();
+  public abstract void seed();
 }

@@ -1,0 +1,566 @@
+[ {
+  "idealistaLocationId" : "0-EU-ES-33-04-008-003",
+  "idealistaMunicipalityName" : "Amieva",
+  "acantiladoAyuntamientoId" : "33003",
+  "acantiladoMunicipalityName" : "Amieva"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-005-062",
+  "idealistaMunicipalityName" : "Santa Eulalia de Oscos",
+  "acantiladoAyuntamientoId" : "33062",
+  "acantiladoMunicipalityName" : "Santa Eulalia de Oscos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-007-052",
+  "idealistaMunicipalityName" : "Proaza",
+  "acantiladoAyuntamientoId" : "33052",
+  "acantiladoMunicipalityName" : "Proaza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-05-004-015",
+  "idealistaMunicipalityName" : "Caso",
+  "acantiladoAyuntamientoId" : "33015",
+  "acantiladoMunicipalityName" : "Caso"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-006-019",
+  "idealistaMunicipalityName" : "Colunga",
+  "acantiladoAyuntamientoId" : "33019",
+  "acantiladoMunicipalityName" : "Colunga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-003-026",
+  "idealistaMunicipalityName" : "Grado",
+  "acantiladoAyuntamientoId" : "33026",
+  "acantiladoMunicipalityName" : "Grado"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-03-001-024",
+  "idealistaMunicipalityName" : "Gijón",
+  "acantiladoAyuntamientoId" : "33024",
+  "acantiladoMunicipalityName" : "Gijón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-007-057",
+  "idealistaMunicipalityName" : "Ribera de Arriba",
+  "acantiladoAyuntamientoId" : "33057",
+  "acantiladoMunicipalityName" : "Ribera de Arriba"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-007-038",
+  "idealistaMunicipalityName" : "Morcín",
+  "acantiladoAyuntamientoId" : "33038",
+  "acantiladoMunicipalityName" : "Morcín"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-08-001-022",
+  "idealistaMunicipalityName" : "Degaña",
+  "acantiladoAyuntamientoId" : "33022",
+  "acantiladoMunicipalityName" : "Degaña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-08-001-028",
+  "idealistaMunicipalityName" : "Ibias",
+  "acantiladoAyuntamientoId" : "33028",
+  "acantiladoMunicipalityName" : "Ibias"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-003-012",
+  "idealistaMunicipalityName" : "Cangas de Onís",
+  "acantiladoAyuntamientoId" : "33045",
+  "acantiladoMunicipalityName" : "Parres"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-006-010",
+  "idealistaMunicipalityName" : "Candamo",
+  "acantiladoAyuntamientoId" : "33051",
+  "acantiladoMunicipalityName" : "Pravia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-009-008",
+  "idealistaMunicipalityName" : "Cabrales",
+  "acantiladoAyuntamientoId" : "33008",
+  "acantiladoMunicipalityName" : "Cabrales"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-06-001-037",
+  "idealistaMunicipalityName" : "Mieres del Camino",
+  "acantiladoAyuntamientoId" : "33031",
+  "acantiladoMunicipalityName" : "Langreo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-003-039",
+  "idealistaMunicipalityName" : "Muros de Nalón",
+  "acantiladoAyuntamientoId" : "33039",
+  "acantiladoMunicipalityName" : "Muros de Nalón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-001-044",
+  "idealistaMunicipalityName" : "Oviedo",
+  "acantiladoAyuntamientoId" : "33054",
+  "acantiladoMunicipalityName" : "Las Regueras"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-003-005",
+  "idealistaMunicipalityName" : "Belmonte de Miranda",
+  "acantiladoAyuntamientoId" : "33005",
+  "acantiladoMunicipalityName" : "Belmonte de Miranda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-002-023",
+  "idealistaMunicipalityName" : "El Franco",
+  "acantiladoAyuntamientoId" : "33023",
+  "acantiladoMunicipalityName" : "El Franco"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-002-051",
+  "idealistaMunicipalityName" : "Pravia",
+  "acantiladoAyuntamientoId" : "33051",
+  "acantiladoMunicipalityName" : "Pravia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-001-044",
+  "idealistaMunicipalityName" : "Oviedo",
+  "acantiladoAyuntamientoId" : "33044",
+  "acantiladoMunicipalityName" : "Oviedo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-010-046",
+  "idealistaMunicipalityName" : "Peñamellera Alta",
+  "acantiladoAyuntamientoId" : "33046",
+  "acantiladoMunicipalityName" : "Peñamellera Alta"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-005-065",
+  "idealistaMunicipalityName" : "Sariego",
+  "acantiladoAyuntamientoId" : "33065",
+  "acantiladoMunicipalityName" : "Sariego"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-005-009",
+  "idealistaMunicipalityName" : "Cabranes",
+  "acantiladoAyuntamientoId" : "33009",
+  "acantiladoMunicipalityName" : "Cabranes"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-004-017",
+  "idealistaMunicipalityName" : "Castropol",
+  "acantiladoAyuntamientoId" : "33017",
+  "acantiladoMunicipalityName" : "Castropol"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-003-043",
+  "idealistaMunicipalityName" : "Onís",
+  "acantiladoAyuntamientoId" : "33043",
+  "acantiladoMunicipalityName" : "Onís"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-005-077",
+  "idealistaMunicipalityName" : "Villayón",
+  "acantiladoAyuntamientoId" : "33077",
+  "acantiladoMunicipalityName" : "Villayón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-005-027",
+  "idealistaMunicipalityName" : "Grandas de Salime",
+  "acantiladoAyuntamientoId" : "33027",
+  "acantiladoMunicipalityName" : "Grandas de Salime"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-006-010",
+  "idealistaMunicipalityName" : "Candamo",
+  "acantiladoAyuntamientoId" : "33010",
+  "acantiladoMunicipalityName" : "Candamo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-007-068",
+  "idealistaMunicipalityName" : "Somiedo",
+  "acantiladoAyuntamientoId" : "33068",
+  "acantiladoMunicipalityName" : "Somiedo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-001-004",
+  "idealistaMunicipalityName" : "Avilés",
+  "acantiladoAyuntamientoId" : "33020",
+  "acantiladoMunicipalityName" : "Corvera de Asturias"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-007-045",
+  "idealistaMunicipalityName" : "Parres",
+  "acantiladoAyuntamientoId" : "33049",
+  "acantiladoMunicipalityName" : "Piloña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-007-064",
+  "idealistaMunicipalityName" : "Santo Adriano",
+  "acantiladoAyuntamientoId" : "33064",
+  "acantiladoMunicipalityName" : "Santo Adriano"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-002-066",
+  "idealistaMunicipalityName" : "Siero",
+  "acantiladoAyuntamientoId" : "33042",
+  "acantiladoMunicipalityName" : "Noreña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-004-070",
+  "idealistaMunicipalityName" : "Tapia de Casariego",
+  "acantiladoAyuntamientoId" : "33070",
+  "acantiladoMunicipalityName" : "Tapia de Casariego"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-003-678",
+  "idealistaMunicipalityName" : "San Juan de la Arena",
+  "acantiladoAyuntamientoId" : "33069",
+  "acantiladoMunicipalityName" : "Soto del Barco"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-006-035",
+  "idealistaMunicipalityName" : "Llanera",
+  "acantiladoAyuntamientoId" : "33035",
+  "acantiladoMunicipalityName" : "Llanera"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-05-002-032",
+  "idealistaMunicipalityName" : "Laviana",
+  "acantiladoAyuntamientoId" : "33032",
+  "acantiladoMunicipalityName" : "Laviana"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-003-059",
+  "idealistaMunicipalityName" : "Salas",
+  "acantiladoAyuntamientoId" : "33059",
+  "acantiladoMunicipalityName" : "Salas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-002-041",
+  "idealistaMunicipalityName" : "Navia",
+  "acantiladoAyuntamientoId" : "33018",
+  "acantiladoMunicipalityName" : "Coaña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-001-004",
+  "idealistaMunicipalityName" : "Avilés",
+  "acantiladoAyuntamientoId" : "33004",
+  "acantiladoMunicipalityName" : "Avilés"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-003-074",
+  "idealistaMunicipalityName" : "Vegadeo",
+  "acantiladoAyuntamientoId" : "33074",
+  "acantiladoMunicipalityName" : "Vegadeo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-005-061",
+  "idealistaMunicipalityName" : "San Martín de Oscos",
+  "acantiladoAyuntamientoId" : "33061",
+  "acantiladoMunicipalityName" : "San Martín de Oscos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-002-049",
+  "idealistaMunicipalityName" : "Piloña",
+  "acantiladoAyuntamientoId" : "33049",
+  "acantiladoMunicipalityName" : "Piloña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-03-002-076",
+  "idealistaMunicipalityName" : "Villaviciosa",
+  "acantiladoAyuntamientoId" : "33019",
+  "acantiladoMunicipalityName" : "Colunga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-002-066",
+  "idealistaMunicipalityName" : "Siero",
+  "acantiladoAyuntamientoId" : "33066",
+  "acantiladoMunicipalityName" : "Siero"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-002-066",
+  "idealistaMunicipalityName" : "Siero",
+  "acantiladoAyuntamientoId" : "33044",
+  "acantiladoMunicipalityName" : "Oviedo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-03-003-014",
+  "idealistaMunicipalityName" : "Carreño",
+  "acantiladoAyuntamientoId" : "33014",
+  "acantiladoMunicipalityName" : "Carreño"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-007-045",
+  "idealistaMunicipalityName" : "Parres",
+  "acantiladoAyuntamientoId" : "33012",
+  "acantiladoMunicipalityName" : "Cangas de Onís"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-003-071",
+  "idealistaMunicipalityName" : "Taramundi",
+  "acantiladoAyuntamientoId" : "33071",
+  "acantiladoMunicipalityName" : "Taramundi"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-005-075",
+  "idealistaMunicipalityName" : "Villanueva de Oscos",
+  "acantiladoAyuntamientoId" : "33075",
+  "acantiladoMunicipalityName" : "Villanueva de Oscos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-003-069",
+  "idealistaMunicipalityName" : "Soto del Barco",
+  "acantiladoAyuntamientoId" : "33069",
+  "acantiladoMunicipalityName" : "Soto del Barco"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-007-045",
+  "idealistaMunicipalityName" : "Parres",
+  "acantiladoAyuntamientoId" : "33003",
+  "acantiladoMunicipalityName" : "Amieva"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-05-001-031",
+  "idealistaMunicipalityName" : "Langreo",
+  "acantiladoAyuntamientoId" : "33037",
+  "acantiladoMunicipalityName" : "Mieres"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-05-001-031",
+  "idealistaMunicipalityName" : "Langreo",
+  "acantiladoAyuntamientoId" : "33031",
+  "acantiladoMunicipalityName" : "Langreo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-006-010",
+  "idealistaMunicipalityName" : "Candamo",
+  "acantiladoAyuntamientoId" : "33030",
+  "acantiladoMunicipalityName" : "Illas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-006-686",
+  "idealistaMunicipalityName" : "Lastres",
+  "acantiladoAyuntamientoId" : "33019",
+  "acantiladoMunicipalityName" : "Colunga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-008-050",
+  "idealistaMunicipalityName" : "Ponga",
+  "acantiladoAyuntamientoId" : "33050",
+  "acantiladoMunicipalityName" : "Ponga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-007-058",
+  "idealistaMunicipalityName" : "Riosa",
+  "acantiladoAyuntamientoId" : "33058",
+  "acantiladoMunicipalityName" : "Riosa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-003-026",
+  "idealistaMunicipalityName" : "Grado",
+  "acantiladoAyuntamientoId" : "33010",
+  "acantiladoMunicipalityName" : "Candamo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-005-029",
+  "idealistaMunicipalityName" : "Illano",
+  "acantiladoAyuntamientoId" : "33029",
+  "acantiladoMunicipalityName" : "Illano"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-005-614",
+  "idealistaMunicipalityName" : "La Franca",
+  "acantiladoAyuntamientoId" : "33055",
+  "acantiladoMunicipalityName" : "Ribadedeva"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-003-063",
+  "idealistaMunicipalityName" : "San Tirso de Abres",
+  "acantiladoAyuntamientoId" : "33063",
+  "acantiladoMunicipalityName" : "San Tirso de Abres"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-010-047",
+  "idealistaMunicipalityName" : "Peñamellera Baja",
+  "acantiladoAyuntamientoId" : "33047",
+  "acantiladoMunicipalityName" : "Peñamellera Baja"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-06-001-037",
+  "idealistaMunicipalityName" : "Mieres del Camino",
+  "acantiladoAyuntamientoId" : "33037",
+  "acantiladoMunicipalityName" : "Mieres"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-06-002-002",
+  "idealistaMunicipalityName" : "Aller",
+  "acantiladoAyuntamientoId" : "33002",
+  "acantiladoMunicipalityName" : "Aller"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-06-003-033",
+  "idealistaMunicipalityName" : "Lena",
+  "acantiladoAyuntamientoId" : "33033",
+  "acantiladoMunicipalityName" : "Lena"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-007-072",
+  "idealistaMunicipalityName" : "Teverga",
+  "acantiladoAyuntamientoId" : "33072",
+  "acantiladoMunicipalityName" : "Teverga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-001-036",
+  "idealistaMunicipalityName" : "Llanes",
+  "acantiladoAyuntamientoId" : "33056",
+  "acantiladoMunicipalityName" : "Ribadesella"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-002-609",
+  "idealistaMunicipalityName" : "Infiesto",
+  "acantiladoAyuntamientoId" : "33049",
+  "acantiladoMunicipalityName" : "Piloña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-004-042",
+  "idealistaMunicipalityName" : "Noreña",
+  "acantiladoAyuntamientoId" : "33042",
+  "acantiladoMunicipalityName" : "Noreña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-007-057",
+  "idealistaMunicipalityName" : "Ribera de Arriba",
+  "acantiladoAyuntamientoId" : "33044",
+  "acantiladoMunicipalityName" : "Oviedo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-007-670",
+  "idealistaMunicipalityName" : "Arriondas",
+  "acantiladoAyuntamientoId" : "33045",
+  "acantiladoMunicipalityName" : "Parres"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-002-049",
+  "idealistaMunicipalityName" : "Piloña",
+  "acantiladoAyuntamientoId" : "33015",
+  "acantiladoMunicipalityName" : "Caso"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-007-053",
+  "idealistaMunicipalityName" : "Quirós",
+  "acantiladoAyuntamientoId" : "33053",
+  "acantiladoMunicipalityName" : "Quirós"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-08-001-073",
+  "idealistaMunicipalityName" : "Tineo",
+  "acantiladoAyuntamientoId" : "33073",
+  "acantiladoMunicipalityName" : "Tineo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-005-025",
+  "idealistaMunicipalityName" : "Gozón",
+  "acantiladoAyuntamientoId" : "33004",
+  "acantiladoMunicipalityName" : "Avilés"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-005-040",
+  "idealistaMunicipalityName" : "Nava",
+  "acantiladoAyuntamientoId" : "33040",
+  "acantiladoMunicipalityName" : "Nava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-006-035",
+  "idealistaMunicipalityName" : "Llanera",
+  "acantiladoAyuntamientoId" : "33024",
+  "acantiladoMunicipalityName" : "Gijón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-002-018",
+  "idealistaMunicipalityName" : "Coaña",
+  "acantiladoAyuntamientoId" : "33018",
+  "acantiladoMunicipalityName" : "Coaña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-05-003-060",
+  "idealistaMunicipalityName" : "San Martín del Rey Aurelio",
+  "acantiladoAyuntamientoId" : "33060",
+  "acantiladoMunicipalityName" : "San Martín del Rey Aurelio"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-007-045",
+  "idealistaMunicipalityName" : "Parres",
+  "acantiladoAyuntamientoId" : "33045",
+  "acantiladoMunicipalityName" : "Parres"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-005-025",
+  "idealistaMunicipalityName" : "Gozón",
+  "acantiladoAyuntamientoId" : "33025",
+  "acantiladoMunicipalityName" : "Gozón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-03-002-076",
+  "idealistaMunicipalityName" : "Villaviciosa",
+  "acantiladoAyuntamientoId" : "33076",
+  "acantiladoMunicipalityName" : "Villaviciosa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-03-001-024",
+  "idealistaMunicipalityName" : "Gijón",
+  "acantiladoAyuntamientoId" : "33066",
+  "acantiladoMunicipalityName" : "Siero"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-007-021",
+  "idealistaMunicipalityName" : "Cudillero",
+  "acantiladoAyuntamientoId" : "33021",
+  "acantiladoMunicipalityName" : "Cudillero"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-005-006",
+  "idealistaMunicipalityName" : "Bimenes",
+  "acantiladoAyuntamientoId" : "33006",
+  "acantiladoMunicipalityName" : "Bimenes"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-005-055",
+  "idealistaMunicipalityName" : "Ribadedeva",
+  "acantiladoAyuntamientoId" : "33055",
+  "acantiladoMunicipalityName" : "Ribadedeva"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-001-044",
+  "idealistaMunicipalityName" : "Oviedo",
+  "acantiladoAyuntamientoId" : "33057",
+  "acantiladoMunicipalityName" : "Ribera de Arriba"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-003-607",
+  "idealistaMunicipalityName" : "San esteban",
+  "acantiladoAyuntamientoId" : "33039",
+  "acantiladoMunicipalityName" : "Muros de Nalón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-05-003-060",
+  "idealistaMunicipalityName" : "San Martín del Rey Aurelio",
+  "acantiladoAyuntamientoId" : "33031",
+  "acantiladoMunicipalityName" : "Langreo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-004-056",
+  "idealistaMunicipalityName" : "Ribadesella",
+  "acantiladoAyuntamientoId" : "33056",
+  "acantiladoMunicipalityName" : "Ribadesella"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-001-036",
+  "idealistaMunicipalityName" : "Llanes",
+  "acantiladoAyuntamientoId" : "33036",
+  "acantiladoMunicipalityName" : "Llanes"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-006-020",
+  "idealistaMunicipalityName" : "Corvera de Asturias",
+  "acantiladoAyuntamientoId" : "33020",
+  "acantiladoMunicipalityName" : "Corvera de Asturias"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-004-016",
+  "idealistaMunicipalityName" : "Castrillon",
+  "acantiladoAyuntamientoId" : "33004",
+  "acantiladoMunicipalityName" : "Avilés"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-002-018",
+  "idealistaMunicipalityName" : "Coaña",
+  "acantiladoAyuntamientoId" : "33041",
+  "acantiladoMunicipalityName" : "Navia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-003-026",
+  "idealistaMunicipalityName" : "Grado",
+  "acantiladoAyuntamientoId" : "33078",
+  "acantiladoMunicipalityName" : "Yernes y Tameza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-007-021",
+  "idealistaMunicipalityName" : "Cudillero",
+  "acantiladoAyuntamientoId" : "33039",
+  "acantiladoMunicipalityName" : "Muros de Nalón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-05-004-067",
+  "idealistaMunicipalityName" : "Sobrescobio",
+  "acantiladoAyuntamientoId" : "33067",
+  "acantiladoMunicipalityName" : "Sobrescobio"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-002-041",
+  "idealistaMunicipalityName" : "Navia",
+  "acantiladoAyuntamientoId" : "33041",
+  "acantiladoMunicipalityName" : "Navia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-001-034",
+  "idealistaMunicipalityName" : "Luarca - Valdés",
+  "acantiladoAyuntamientoId" : "33034",
+  "acantiladoMunicipalityName" : "Valdés"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-002-049",
+  "idealistaMunicipalityName" : "Piloña",
+  "acantiladoAyuntamientoId" : "33045",
+  "acantiladoMunicipalityName" : "Parres"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-006-030",
+  "idealistaMunicipalityName" : "Illas",
+  "acantiladoAyuntamientoId" : "33030",
+  "acantiladoMunicipalityName" : "Illas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-003-054",
+  "idealistaMunicipalityName" : "Las Regueras",
+  "acantiladoAyuntamientoId" : "33054",
+  "acantiladoMunicipalityName" : "Las Regueras"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-003-012",
+  "idealistaMunicipalityName" : "Cangas de Onís",
+  "acantiladoAyuntamientoId" : "33012",
+  "acantiladoMunicipalityName" : "Cangas de Onís"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-005-006",
+  "idealistaMunicipalityName" : "Bimenes",
+  "acantiladoAyuntamientoId" : "33066",
+  "acantiladoMunicipalityName" : "Siero"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-02-004-016",
+  "idealistaMunicipalityName" : "Castrillon",
+  "acantiladoAyuntamientoId" : "33016",
+  "acantiladoMunicipalityName" : "Castrillón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-07-003-078",
+  "idealistaMunicipalityName" : "Yernes y Tameza",
+  "acantiladoAyuntamientoId" : "33078",
+  "acantiladoMunicipalityName" : "Yernes y Tameza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-005-007",
+  "idealistaMunicipalityName" : "Boal",
+  "acantiladoAyuntamientoId" : "33007",
+  "acantiladoMunicipalityName" : "Boal"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-01-005-048",
+  "idealistaMunicipalityName" : "Pesoz",
+  "acantiladoAyuntamientoId" : "33048",
+  "acantiladoMunicipalityName" : "Pesoz"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-04-006-013",
+  "idealistaMunicipalityName" : "Caravia",
+  "acantiladoAyuntamientoId" : "33013",
+  "acantiladoMunicipalityName" : "Caravia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-08-001-001",
+  "idealistaMunicipalityName" : "Allande",
+  "acantiladoAyuntamientoId" : "33001",
+  "acantiladoMunicipalityName" : "Allande"
+}, {
+  "idealistaLocationId" : "0-EU-ES-33-08-001-011",
+  "idealistaMunicipalityName" : "Cangas de Narcea",
+  "acantiladoAyuntamientoId" : "33011",
+  "acantiladoMunicipalityName" : "Cangas del Narcea"
+} ]

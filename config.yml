@@ -30,13 +30,12 @@ collector:
     collectionInterval: 7d
     threadPoolSize: 10
     provinces: []
-    searchCategories: ["supermarket"]
+    searchCategories: ["PHARMACY"]
   idealistaCollector:
     enabled: true
     collectionInterval: 1d
     threadPoolSize: 1
-    provinces: [25]
-    # Could not create mappings for 3 location IDs: [0-EU-ES-25-10-002-637, 0-EU-ES-25-10-003-643, 0-EU-ES-25-10-001-647]
+    provinces: [31]
     propertyTypes:
       - HOMES
 

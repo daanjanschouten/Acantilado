@@ -4,323 +4,493 @@ import com.acantilado.core.idealista.IdealistaContactInformation;
 import com.acantilado.core.idealista.priceRecords.IdealistaPropertyPriceRecord;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "idealista_property")
-@NamedQueries(
-        {
-                @NamedQuery(
-                        name = "com.schouten.core.properties.idealista.IdealistaProperty.findAll",
-                        query = "SELECT p FROM IdealistaProperty p"
-                ),
-                @NamedQuery(
-                        name = "com.schouten.core.properties.idealista.IdealistaProperty.findByMunicipality",
-                        query = "SELECT p FROM IdealistaProperty p WHERE p.municipality = :municipality"
-                ),
-                @NamedQuery(
-                        name = "com.schouten.core.properties.idealista.IdealistaProperty.findByPropertyCode",
-                        query = "SELECT p FROM IdealistaProperty p WHERE p.propertyCode = :propertyCode"
-                )
-        }
-)
-public class IdealistaProperty extends IdealistaRealEstate<IdealistaPropertyPriceRecord>  {
+@NamedQueries({
+  @NamedQuery(
+      name = "com.schouten.core.properties.idealista.IdealistaProperty.findAll",
+      query = "SELECT p FROM IdealistaProperty p"),
+  @NamedQuery(
+      name = "com.schouten.core.properties.idealista.IdealistaProperty.findByMunicipality",
+      query = "SELECT p FROM IdealistaProperty p WHERE p.municipality = :municipality"),
+  @NamedQuery(
+      name = "com.schouten.core.properties.idealista.IdealistaProperty.findByPropertyCode",
+      query = "SELECT p FROM IdealistaProperty p WHERE p.propertyCode = :propertyCode")
+})
+public class IdealistaProperty extends IdealistaRealEstate<IdealistaPropertyPriceRecord> {
 
-    @Id
-    @Column(name = "property_code")
-    private Long propertyCode;
+  @Id
+  @Column(name = "property_code")
+  private Long propertyCode;
 
-    @Column(name = "operation", nullable = false)
-    private String operation;
+  @Column(name = "operation", nullable = false)
+  private String operation;
 
-    @Column(name = "property_type")
-    private String propertyType;
+  @Column(name = "property_type")
+  private String propertyType;
 
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
+  @Column(name = "description", columnDefinition = "TEXT")
+  private String description;
 
-    @Column(name = "size")
-    private Long size;
+  @Column(name = "size")
+  private Long size;
 
-    @Column(name = "sub_typology")
-    private String subTypology;
+  @Column(name = "sub_typology")
+  private String subTypology;
 
-    @Column(name = "address")
-    private String address;
+  @Column(name = "address")
+  private String address;
 
-    @Column(name = "municipality", nullable = false)
-    private String municipality;
+  @Column(name = "municipality", nullable = false)
+  private String municipality;
 
-    @Column(name = "location_id")
-    private String locationId;
+  @Column(name = "location_id")
+  private String locationId;
 
-    @Column(name = "acantilado_location_id", nullable = false)
-    private String acantiladoLocationId;
+  @Column(name = "acantilado_location_id", nullable = false)
+  private String acantiladoLocationId;
 
-    @Column(name = "latitude", nullable = false)
-    private Double latitude;
+  @Column(name = "latitude", nullable = false)
+  private Double latitude;
 
-    @Column(name = "longitude", nullable = false)
-    private Double longitude;
+  @Column(name = "longitude", nullable = false)
+  private Double longitude;
 
-    @Column(name = "status")
-    private String status;
+  @Column(name = "status")
+  private String status;
 
-    @Column(name = "new_development")
-    private Boolean newDevelopment;
+  @Column(name = "new_development")
+  private Boolean newDevelopment;
 
-    @Column(name = "new_property")
-    private Boolean newProperty;
+  @Column(name = "new_property")
+  private Boolean newProperty;
 
-    // Property-specific fields
-    @Column(name = "rooms")
-    private Integer rooms;
+  // Property-specific fields
+  @Column(name = "rooms")
+  private Integer rooms;
 
-    @Column(name = "bathrooms")
-    private Integer bathrooms;
+  @Column(name = "bathrooms")
+  private Integer bathrooms;
 
-    @Column(name = "floor")
-    private String floor;
+  @Column(name = "floor")
+  private String floor;
 
-    @Column(name = "has_lift")
-    private Boolean hasLift;
+  @Column(name = "has_lift")
+  private Boolean hasLift;
 
-    @Column(name = "has_parking_space")
-    private Boolean hasParkingSpace;
+  @Column(name = "has_parking_space")
+  private Boolean hasParkingSpace;
 
-    @Column(name = "parking_included_in_price")
-    private Boolean parkingIncludedInPrice;
+  @Column(name = "parking_included_in_price")
+  private Boolean parkingIncludedInPrice;
 
-    @Column(name = "has_terrace")
-    private Boolean hasTerrace;
+  @Column(name = "has_terrace")
+  private Boolean hasTerrace;
 
-    @Column(name = "has_garden")
-    private Boolean hasGarden;
+  @Column(name = "has_garden")
+  private Boolean hasGarden;
 
-    @Column(name = "has_pool")
-    private Boolean hasPool;
+  @Column(name = "has_pool")
+  private Boolean hasPool;
 
-    @Column(name = "has_air_conditioning")
-    private Boolean hasAirConditioning;
+  @Column(name = "has_air_conditioning")
+  private Boolean hasAirConditioning;
 
-    @Column(name = "has_box_room")
-    private Boolean hasBoxRoom;
+  @Column(name = "has_box_room")
+  private Boolean hasBoxRoom;
 
-    @Column(name = "energy_certificate")
-    private String energyCertificate;
+  @Column(name = "energy_certificate")
+  private String energyCertificate;
 
-    @Column(name = "first_seen", nullable = false)
-    private Long firstSeen;
+  @Column(name = "first_seen", nullable = false)
+  private Long firstSeen;
 
-    @Column(name = "last_seen", nullable = false)
-    private Long lastSeen;
+  @Column(name = "last_seen", nullable = false)
+  private Long lastSeen;
 
-    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @OrderBy("recordedAt DESC")
-    private List<IdealistaPropertyPriceRecord> priceRecords = new ArrayList<>();
+  @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OrderBy("recordedAt DESC")
+  private List<IdealistaPropertyPriceRecord> priceRecords = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contact_phone_number", referencedColumnName = "id")
-    private IdealistaContactInformation contactInfo;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "contact_phone_number", referencedColumnName = "id")
+  private IdealistaContactInformation contactInfo;
 
-    public IdealistaProperty() {}
+  public IdealistaProperty() {}
 
-    public IdealistaProperty(long propertyCode, String operation, String description,
-                             long size, String subTypology,
-                             String address, IdealistaContactInformation contactInformation, String municipality, String locationId,
-                             Double latitude, Double longitude, long firstSeen, long lastSeen) {
-        this.propertyCode = propertyCode;
-        this.operation = operation;
-        this.description = description;
-        this.size = size;
-        this.subTypology = subTypology;
-        this.address = address;
-        this.contactInfo = contactInformation;
-        this.municipality = municipality;
-        this.locationId = locationId;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.firstSeen = firstSeen;
-        this.lastSeen = lastSeen;
+  public IdealistaProperty(
+      long propertyCode,
+      String operation,
+      String description,
+      long size,
+      String subTypology,
+      String address,
+      IdealistaContactInformation contactInformation,
+      String municipality,
+      String locationId,
+      Double latitude,
+      Double longitude,
+      long firstSeen,
+      long lastSeen) {
+    this.propertyCode = propertyCode;
+    this.operation = operation;
+    this.description = description;
+    this.size = size;
+    this.subTypology = subTypology;
+    this.address = address;
+    this.contactInfo = contactInformation;
+    this.municipality = municipality;
+    this.locationId = locationId;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.firstSeen = firstSeen;
+    this.lastSeen = lastSeen;
+  }
+
+  public static IdealistaProperty constructFromJson(JsonNode jsonNode) {
+    IdealistaRealEstateBase base = IdealistaRealEstate.construct(jsonNode);
+
+    IdealistaProperty property =
+        new IdealistaProperty(
+            base.propertyCode(),
+            base.operation(),
+            base.description(),
+            base.size(),
+            base.subTypology(),
+            base.address(),
+            base.contactInformation(),
+            base.municipality(),
+            base.locationId(),
+            base.latitude(),
+            base.longitude(),
+            base.firstSeen(),
+            base.lastSeen());
+
+    property.setPropertyType(jsonNode.get("propertyType").textValue());
+    property.setStatus(getTextValue(jsonNode, "status"));
+    property.setNewDevelopment(getBooleanValue(jsonNode, "newDevelopment"));
+    property.setNewProperty(getBooleanValue(jsonNode, "newProperty"));
+
+    property.setRooms(getIntValue(jsonNode, "rooms"));
+    property.setBathrooms(getIntValue(jsonNode, "bathrooms"));
+    property.setFloor(getTextValue(jsonNode, "floor"));
+
+    JsonNode features = jsonNode.get("features");
+    if (!Objects.isNull(features)) {
+      property.setHasPool(getBooleanValue(features, "hasSwimmingPool"));
+      property.setHasTerrace(getBooleanValue(features, "hasTerrace"));
+      property.setHasAirConditioning(getBooleanValue(features, "hasAirConditioning"));
+      property.setHasBoxRoom(getBooleanValue(features, "hasBoxRoom"));
+      property.setHasGarden(getBooleanValue(features, "hasGarden"));
     }
 
-    public static IdealistaProperty constructFromJson(JsonNode jsonNode) {
-        IdealistaRealEstateBase base = IdealistaRealEstate.construct(jsonNode);
-
-        IdealistaProperty property = new IdealistaProperty(
-                base.propertyCode(),
-                base.operation(),
-                base.description(),
-                base.size(),
-                base.subTypology(),
-                base.address(),
-                base.contactInformation(),
-                base.municipality(),
-                base.locationId(),
-                base.latitude(),
-                base.longitude(),
-                base.firstSeen(),
-                base.lastSeen());
-
-        property.setPropertyType(jsonNode.get("propertyType").textValue());
-        property.setStatus(getTextValue(jsonNode, "status"));
-        property.setNewDevelopment(getBooleanValue(jsonNode, "newDevelopment"));
-        property.setNewProperty(getBooleanValue(jsonNode, "newProperty"));
-
-        property.setRooms(getIntValue(jsonNode, "rooms"));
-        property.setBathrooms(getIntValue(jsonNode, "bathrooms"));
-        property.setFloor(getTextValue(jsonNode, "floor"));
-
-        JsonNode features = jsonNode.get("features");
-        if (!Objects.isNull(features)) {
-            property.setHasPool(getBooleanValue(features, "hasSwimmingPool"));
-            property.setHasTerrace(getBooleanValue(features, "hasTerrace"));
-            property.setHasAirConditioning(getBooleanValue(features, "hasAirConditioning"));
-            property.setHasBoxRoom(getBooleanValue(features, "hasBoxRoom"));
-            property.setHasGarden(getBooleanValue(features, "hasGarden"));
-        }
-
-        JsonNode parkingSpace = jsonNode.get("parkingSpace");
-        if (!Objects.isNull(parkingSpace)) {
-            property.setHasParkingSpace(getBooleanValue(parkingSpace, "hasParkingSpace"));
-            property.setParkingIncludedInPrice(getBooleanValue(parkingSpace, "isParkingSpaceIncludedInPrice"));
-        }
-
-        property.setHasLift(getBooleanValue(jsonNode, "hasLift"));
-        property.setEnergyCertificate(getTextValue(jsonNode, "energyCertificate"));
-
-        IdealistaPropertyPriceRecord priceRecord = new IdealistaPropertyPriceRecord(
-                base.propertyCode(),
-                jsonNode.get("price").longValue(),
-                base.firstSeen());
-        priceRecord.setProperty(property);
-        property.getPriceRecords().add(priceRecord);
-
-        return property;
+    JsonNode parkingSpace = jsonNode.get("parkingSpace");
+    if (!Objects.isNull(parkingSpace)) {
+      property.setHasParkingSpace(getBooleanValue(parkingSpace, "hasParkingSpace"));
+      property.setParkingIncludedInPrice(
+          getBooleanValue(parkingSpace, "isParkingSpaceIncludedInPrice"));
     }
 
-    // Getters and Setters
-    public Long getPropertyCode() { return propertyCode; }
-    public void setPropertyCode(Long propertyCode) { this.propertyCode = propertyCode; }
+    property.setHasLift(getBooleanValue(jsonNode, "hasLift"));
+    property.setEnergyCertificate(getTextValue(jsonNode, "energyCertificate"));
 
-    public String getOperation() { return operation; }
-    public void setOperation(String operation) { this.operation = operation; }
+    IdealistaPropertyPriceRecord priceRecord =
+        new IdealistaPropertyPriceRecord(
+            base.propertyCode(), jsonNode.get("price").longValue(), base.firstSeen());
+    priceRecord.setProperty(property);
+    property.getPriceRecords().add(priceRecord);
 
-    public String getPropertyType() { return propertyType; }
-    public void setPropertyType(String propertyType) { this.propertyType = propertyType; }
+    return property;
+  }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+  // Getters and Setters
+  public Long getPropertyCode() {
+    return propertyCode;
+  }
 
-    public Long getSize() { return size; }
-    public void setSize(Long size) { this.size = size; }
+  public void setPropertyCode(Long propertyCode) {
+    this.propertyCode = propertyCode;
+  }
 
-    public String getSubTypology() { return subTypology; }
-    public void setSubTypology(String subTypology) { this.subTypology = subTypology; }
+  public String getOperation() {
+    return operation;
+  }
 
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+  public void setOperation(String operation) {
+    this.operation = operation;
+  }
 
-    public String getMunicipality() { return municipality; }
-    public void setMunicipality(String municipality) { this.municipality = municipality; }
+  public String getPropertyType() {
+    return propertyType;
+  }
 
-    public String getLocationId() { return locationId; }
-    public void setLocationId(String locationId) { this.locationId = locationId; }
+  public void setPropertyType(String propertyType) {
+    this.propertyType = propertyType;
+  }
 
-    public String getAcantiladoLocationId() { return acantiladoLocationId; }
-    public void setAcantiladoLocationId(String locationId) { this.acantiladoLocationId = locationId; }
+  public String getDescription() {
+    return description;
+  }
 
-    public Double getLatitude() { return latitude; }
-    public void setLatitude(Double latitude) { this.latitude = latitude; }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public Double getLongitude() { return longitude; }
-    public void setLongitude(Double longitude) { this.longitude = longitude; }
+  public Long getSize() {
+    return size;
+  }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+  public void setSize(Long size) {
+    this.size = size;
+  }
 
-    public Boolean getNewDevelopment() { return newDevelopment; }
-    public void setNewDevelopment(Boolean newDevelopment) { this.newDevelopment = newDevelopment; }
+  public String getSubTypology() {
+    return subTypology;
+  }
 
-    public Boolean getNewProperty() { return newProperty; }
-    public void setNewProperty(Boolean newProperty) { this.newProperty = newProperty; }
+  public void setSubTypology(String subTypology) {
+    this.subTypology = subTypology;
+  }
 
-    public Integer getRooms() { return rooms; }
-    public void setRooms(Integer rooms) { this.rooms = rooms; }
+  public String getAddress() {
+    return address;
+  }
 
-    public Integer getBathrooms() { return bathrooms; }
-    public void setBathrooms(Integer bathrooms) { this.bathrooms = bathrooms; }
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-    public String getFloor() { return floor; }
-    public void setFloor(String floor) { this.floor = floor; }
+  public String getMunicipality() {
+    return municipality;
+  }
 
-    public Boolean getHasLift() { return hasLift; }
-    public void setHasLift(Boolean hasLift) { this.hasLift = hasLift; }
+  public void setMunicipality(String municipality) {
+    this.municipality = municipality;
+  }
 
-    public Boolean getHasParkingSpace() { return hasParkingSpace; }
-    public void setHasParkingSpace(Boolean hasParkingSpace) { this.hasParkingSpace = hasParkingSpace; }
+  public String getLocationId() {
+    return locationId;
+  }
 
-    public Boolean getParkingIncludedInPrice() { return parkingIncludedInPrice; }
-    public void setParkingIncludedInPrice(Boolean parkingIncludedInPrice) { this.parkingIncludedInPrice = parkingIncludedInPrice; }
+  public void setLocationId(String locationId) {
+    this.locationId = locationId;
+  }
 
-    public Boolean getHasTerrace() { return hasTerrace; }
-    public void setHasTerrace(Boolean hasTerrace) { this.hasTerrace = hasTerrace; }
+  public String getAcantiladoLocationId() {
+    return acantiladoLocationId;
+  }
 
-    public Boolean getHasGarden() { return hasGarden; }
-    public void setHasGarden(Boolean hasGarden) { this.hasGarden = hasGarden; }
+  public void setAcantiladoLocationId(String locationId) {
+    this.acantiladoLocationId = locationId;
+  }
 
-    public Boolean getHasPool() { return hasPool; }
-    public void setHasPool(Boolean hasPool) { this.hasPool = hasPool; }
+  public Double getLatitude() {
+    return latitude;
+  }
 
-    public Boolean getHasAirConditioning() { return hasAirConditioning; }
-    public void setHasAirConditioning(Boolean hasAirConditioning) { this.hasAirConditioning = hasAirConditioning; }
+  public void setLatitude(Double latitude) {
+    this.latitude = latitude;
+  }
 
-    public Boolean getHasBoxRoom() { return hasBoxRoom; }
-    public void setHasBoxRoom(Boolean hasBoxRoom) { this.hasBoxRoom = hasBoxRoom; }
+  public Double getLongitude() {
+    return longitude;
+  }
 
-    public String getEnergyCertificate() { return energyCertificate; }
-    public void setEnergyCertificate(String energyCertificate) { this.energyCertificate = energyCertificate; }
+  public void setLongitude(Double longitude) {
+    this.longitude = longitude;
+  }
 
-    public Long getFirstSeen() { return firstSeen; }
-    public void setFirstSeen(Long firstSeen) { this.firstSeen = firstSeen; }
+  public String getStatus() {
+    return status;
+  }
 
-    public Long getLastSeen() { return lastSeen; }
-    public void setLastSeen(Long lastSeen) { this.lastSeen = lastSeen; }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    public List<IdealistaPropertyPriceRecord> getPriceRecords() { return priceRecords; }
-    public void setPriceRecords(List<IdealistaPropertyPriceRecord> priceRecords) { this.priceRecords = priceRecords; }
+  public Boolean getNewDevelopment() {
+    return newDevelopment;
+  }
 
-    public IdealistaContactInformation getContactInfo() { return contactInfo; }
-    public void setContactInfo(IdealistaContactInformation contactInfo) { this.contactInfo = contactInfo; }
+  public void setNewDevelopment(Boolean newDevelopment) {
+    this.newDevelopment = newDevelopment;
+  }
 
-    @Override
-    public String toString() {
-        return "IdealistaProperty{" +
-                "propertyCode=" + propertyCode +
-                ", operation='" + operation + '\'' +
-                ", propertyType='" + propertyType + '\'' +
-                ", size=" + size +
-                ", municipality='" + municipality + '\'' +
-                ", rooms=" + rooms +
-                ", bathrooms=" + bathrooms +
-                '}';
-    }
+  public Boolean getNewProperty() {
+    return newProperty;
+  }
 
-    private static String getTextValue(JsonNode node, String fieldName) {
-        JsonNode field = node.get(fieldName);
-        return Objects.isNull(field) || field.isNull() ? null : field.textValue();
-    }
+  public void setNewProperty(Boolean newProperty) {
+    this.newProperty = newProperty;
+  }
 
-    private static Integer getIntValue(JsonNode node, String fieldName) {
-        JsonNode field = node.get(fieldName);
-        return Objects.isNull(field) || field.isNull() ? null : field.asInt();
-    }
+  public Integer getRooms() {
+    return rooms;
+  }
 
-    private static Boolean getBooleanValue(JsonNode node, String fieldName) {
-        JsonNode field = node.get(fieldName);
-        return Objects.isNull(field) || field.isNull() ? null : field.asBoolean();
-    }
+  public void setRooms(Integer rooms) {
+    this.rooms = rooms;
+  }
+
+  public Integer getBathrooms() {
+    return bathrooms;
+  }
+
+  public void setBathrooms(Integer bathrooms) {
+    this.bathrooms = bathrooms;
+  }
+
+  public String getFloor() {
+    return floor;
+  }
+
+  public void setFloor(String floor) {
+    this.floor = floor;
+  }
+
+  public Boolean getHasLift() {
+    return hasLift;
+  }
+
+  public void setHasLift(Boolean hasLift) {
+    this.hasLift = hasLift;
+  }
+
+  public Boolean getHasParkingSpace() {
+    return hasParkingSpace;
+  }
+
+  public void setHasParkingSpace(Boolean hasParkingSpace) {
+    this.hasParkingSpace = hasParkingSpace;
+  }
+
+  public Boolean getParkingIncludedInPrice() {
+    return parkingIncludedInPrice;
+  }
+
+  public void setParkingIncludedInPrice(Boolean parkingIncludedInPrice) {
+    this.parkingIncludedInPrice = parkingIncludedInPrice;
+  }
+
+  public Boolean getHasTerrace() {
+    return hasTerrace;
+  }
+
+  public void setHasTerrace(Boolean hasTerrace) {
+    this.hasTerrace = hasTerrace;
+  }
+
+  public Boolean getHasGarden() {
+    return hasGarden;
+  }
+
+  public void setHasGarden(Boolean hasGarden) {
+    this.hasGarden = hasGarden;
+  }
+
+  public Boolean getHasPool() {
+    return hasPool;
+  }
+
+  public void setHasPool(Boolean hasPool) {
+    this.hasPool = hasPool;
+  }
+
+  public Boolean getHasAirConditioning() {
+    return hasAirConditioning;
+  }
+
+  public void setHasAirConditioning(Boolean hasAirConditioning) {
+    this.hasAirConditioning = hasAirConditioning;
+  }
+
+  public Boolean getHasBoxRoom() {
+    return hasBoxRoom;
+  }
+
+  public void setHasBoxRoom(Boolean hasBoxRoom) {
+    this.hasBoxRoom = hasBoxRoom;
+  }
+
+  public String getEnergyCertificate() {
+    return energyCertificate;
+  }
+
+  public void setEnergyCertificate(String energyCertificate) {
+    this.energyCertificate = energyCertificate;
+  }
+
+  public Long getFirstSeen() {
+    return firstSeen;
+  }
+
+  public void setFirstSeen(Long firstSeen) {
+    this.firstSeen = firstSeen;
+  }
+
+  public Long getLastSeen() {
+    return lastSeen;
+  }
+
+  public void setLastSeen(Long lastSeen) {
+    this.lastSeen = lastSeen;
+  }
+
+  public List<IdealistaPropertyPriceRecord> getPriceRecords() {
+    return priceRecords;
+  }
+
+  public void setPriceRecords(List<IdealistaPropertyPriceRecord> priceRecords) {
+    this.priceRecords = priceRecords;
+  }
+
+  public IdealistaContactInformation getContactInfo() {
+    return contactInfo;
+  }
+
+  public void setContactInfo(IdealistaContactInformation contactInfo) {
+    this.contactInfo = contactInfo;
+  }
+
+  @Override
+  public String toString() {
+    return "IdealistaProperty{"
+        + "propertyCode="
+        + propertyCode
+        + ", operation='"
+        + operation
+        + '\''
+        + ", propertyType='"
+        + propertyType
+        + '\''
+        + ", size="
+        + size
+        + ", municipality='"
+        + municipality
+        + '\''
+        + ", rooms="
+        + rooms
+        + ", bathrooms="
+        + bathrooms
+        + '}';
+  }
+
+  private static String getTextValue(JsonNode node, String fieldName) {
+    JsonNode field = node.get(fieldName);
+    return Objects.isNull(field) || field.isNull() ? null : field.textValue();
+  }
+
+  private static Integer getIntValue(JsonNode node, String fieldName) {
+    JsonNode field = node.get(fieldName);
+    return Objects.isNull(field) || field.isNull() ? null : field.asInt();
+  }
+
+  private static Boolean getBooleanValue(JsonNode node, String fieldName) {
+    JsonNode field = node.get(fieldName);
+    return Objects.isNull(field) || field.isNull() ? null : field.asBoolean();
+  }
 }

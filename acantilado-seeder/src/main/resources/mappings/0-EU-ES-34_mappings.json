@@ -1,0 +1,956 @@
+[ {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-015",
+  "idealistaMunicipalityName" : "Arconada",
+  "acantiladoAyuntamientoId" : "34015",
+  "acantiladoMunicipalityName" : "Arconada"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-098",
+  "idealistaMunicipalityName" : "Magaz de Pisuerga",
+  "acantiladoAyuntamientoId" : "34098",
+  "acantiladoMunicipalityName" : "Magaz de Pisuerga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-005",
+  "idealistaMunicipalityName" : "Alar del Rey",
+  "acantiladoAyuntamientoId" : "34005",
+  "acantiladoMunicipalityName" : "Alar del Rey"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-066",
+  "idealistaMunicipalityName" : "Cubillas de Cerrato",
+  "acantiladoAyuntamientoId" : "34066",
+  "acantiladoMunicipalityName" : "Cubillas de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-202",
+  "idealistaMunicipalityName" : "Villabasta de Valdavia",
+  "acantiladoAyuntamientoId" : "34202",
+  "acantiladoMunicipalityName" : "Villabasta de Valdavia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-001-027",
+  "idealistaMunicipalityName" : "Barruelo de Santullan",
+  "acantiladoAyuntamientoId" : "34027",
+  "acantiladoMunicipalityName" : "Barruelo de Santullán"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-220",
+  "idealistaMunicipalityName" : "Villamartín de Campos",
+  "acantiladoAyuntamientoId" : "34220",
+  "acantiladoMunicipalityName" : "Villamartín de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-169",
+  "idealistaMunicipalityName" : "Santervás de la Vega",
+  "acantiladoAyuntamientoId" : "34169",
+  "acantiladoMunicipalityName" : "Santervás de la Vega"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-156",
+  "idealistaMunicipalityName" : "Riberos de la Cueza",
+  "acantiladoAyuntamientoId" : "34156",
+  "acantiladoMunicipalityName" : "Riberos de la Cueza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-106",
+  "idealistaMunicipalityName" : "Meneses de Campos",
+  "acantiladoAyuntamientoId" : "34106",
+  "acantiladoMunicipalityName" : "Meneses de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-124",
+  "idealistaMunicipalityName" : "Payo de Ojeda",
+  "acantiladoAyuntamientoId" : "34124",
+  "acantiladoMunicipalityName" : "Payo de Ojeda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-074",
+  "idealistaMunicipalityName" : "Fromista",
+  "acantiladoAyuntamientoId" : "34074",
+  "acantiladoMunicipalityName" : "Frómista"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-237",
+  "idealistaMunicipalityName" : "Villaumbrales",
+  "acantiladoAyuntamientoId" : "34237",
+  "acantiladoMunicipalityName" : "Villaumbrales"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-221",
+  "idealistaMunicipalityName" : "Villamediana",
+  "acantiladoAyuntamientoId" : "34221",
+  "acantiladoMunicipalityName" : "Villamediana"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-184",
+  "idealistaMunicipalityName" : "Torremormojón",
+  "acantiladoAyuntamientoId" : "34184",
+  "acantiladoMunicipalityName" : "Torremormojón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-083",
+  "idealistaMunicipalityName" : "Herrera de Pisuerga",
+  "acantiladoAyuntamientoId" : "34083",
+  "acantiladoMunicipalityName" : "Herrera de Pisuerga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-042",
+  "idealistaMunicipalityName" : "Calzada de los Molinos",
+  "acantiladoAyuntamientoId" : "34042",
+  "acantiladoMunicipalityName" : "Calzada de los Molinos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-001",
+  "idealistaMunicipalityName" : "Abarca de Campos",
+  "acantiladoAyuntamientoId" : "34001",
+  "acantiladoMunicipalityName" : "Abarca de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-096",
+  "idealistaMunicipalityName" : "Lomas",
+  "acantiladoAyuntamientoId" : "34096",
+  "acantiladoMunicipalityName" : "Lomas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-001-158",
+  "idealistaMunicipalityName" : "Salinas de Pisuerga",
+  "acantiladoAyuntamientoId" : "34158",
+  "acantiladoMunicipalityName" : "Salinas de Pisuerga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-131",
+  "idealistaMunicipalityName" : "Población de Arroyo",
+  "acantiladoAyuntamientoId" : "34131",
+  "acantiladoMunicipalityName" : "Población de Arroyo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-002-056",
+  "idealistaMunicipalityName" : "Cervera de Pisuerga",
+  "acantiladoAyuntamientoId" : "34056",
+  "acantiladoMunicipalityName" : "Cervera de Pisuerga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-182",
+  "idealistaMunicipalityName" : "Torquemada",
+  "acantiladoAyuntamientoId" : "34182",
+  "acantiladoMunicipalityName" : "Torquemada"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-023",
+  "idealistaMunicipalityName" : "Venta de Baños",
+  "acantiladoAyuntamientoId" : "34023",
+  "acantiladoMunicipalityName" : "Venta de Baños"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-112",
+  "idealistaMunicipalityName" : "Nogal de las Huertas",
+  "acantiladoAyuntamientoId" : "34112",
+  "acantiladoMunicipalityName" : "Nogal de las Huertas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-230",
+  "idealistaMunicipalityName" : "Villarmentero de Campos",
+  "acantiladoAyuntamientoId" : "34230",
+  "acantiladoMunicipalityName" : "Villarmentero de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-215",
+  "idealistaMunicipalityName" : "Villalcázar de Sirga",
+  "acantiladoAyuntamientoId" : "34215",
+  "acantiladoMunicipalityName" : "Villalcázar de Sirga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-232",
+  "idealistaMunicipalityName" : "Villarramiel",
+  "acantiladoAyuntamientoId" : "34232",
+  "acantiladoMunicipalityName" : "Villarramiel"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-902",
+  "idealistaMunicipalityName" : "Valle del Retortillo",
+  "acantiladoAyuntamientoId" : "34902",
+  "acantiladoMunicipalityName" : "Valle del Retortillo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-127",
+  "idealistaMunicipalityName" : "Perales",
+  "acantiladoAyuntamientoId" : "34127",
+  "acantiladoMunicipalityName" : "Perales"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-213",
+  "idealistaMunicipalityName" : "Villalaco",
+  "acantiladoAyuntamientoId" : "34213",
+  "acantiladoMunicipalityName" : "Villalaco"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-204",
+  "idealistaMunicipalityName" : "Villacidaler",
+  "acantiladoAyuntamientoId" : "34204",
+  "acantiladoMunicipalityName" : "Villacidaler"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-033",
+  "idealistaMunicipalityName" : "Boada de Campos",
+  "acantiladoAyuntamientoId" : "34033",
+  "acantiladoMunicipalityName" : "Boada de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-002-067",
+  "idealistaMunicipalityName" : "Dehesa de Montejo",
+  "acantiladoAyuntamientoId" : "34067",
+  "acantiladoMunicipalityName" : "Dehesa de Montejo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-136",
+  "idealistaMunicipalityName" : "Poza de la Vega",
+  "acantiladoAyuntamientoId" : "34136",
+  "acantiladoMunicipalityName" : "Poza de la Vega"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-045",
+  "idealistaMunicipalityName" : "Capillas",
+  "acantiladoAyuntamientoId" : "34045",
+  "acantiladoMunicipalityName" : "Capillas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-089",
+  "idealistaMunicipalityName" : "Itero de la Vega",
+  "acantiladoAyuntamientoId" : "34089",
+  "acantiladoMunicipalityName" : "Itero de la Vega"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-122",
+  "idealistaMunicipalityName" : "Páramo de Boedo",
+  "acantiladoAyuntamientoId" : "34122",
+  "acantiladoMunicipalityName" : "Páramo de Boedo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-073",
+  "idealistaMunicipalityName" : "Fresno del Río",
+  "acantiladoAyuntamientoId" : "34073",
+  "acantiladoMunicipalityName" : "Fresno del Río"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-052",
+  "idealistaMunicipalityName" : "Castrillo de Villavega",
+  "acantiladoAyuntamientoId" : "34052",
+  "acantiladoMunicipalityName" : "Castrillo de Villavega"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-029",
+  "idealistaMunicipalityName" : "Becerril de Campos",
+  "acantiladoAyuntamientoId" : "34029",
+  "acantiladoMunicipalityName" : "Becerril de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-028",
+  "idealistaMunicipalityName" : "Báscones de Ojeda",
+  "acantiladoAyuntamientoId" : "34028",
+  "acantiladoMunicipalityName" : "Báscones de Ojeda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-002-904",
+  "idealistaMunicipalityName" : "La Pernia",
+  "acantiladoAyuntamientoId" : "34904",
+  "acantiladoMunicipalityName" : "La Pernía"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-143",
+  "idealistaMunicipalityName" : "Quintanilla de Onsoña",
+  "acantiladoAyuntamientoId" : "34143",
+  "acantiladoMunicipalityName" : "Quintanilla de Onsoña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-076",
+  "idealistaMunicipalityName" : "Fuentes de Nava",
+  "acantiladoAyuntamientoId" : "34076",
+  "acantiladoMunicipalityName" : "Fuentes de Nava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-001-004",
+  "idealistaMunicipalityName" : "Aguilar de Campoo",
+  "acantiladoAyuntamientoId" : "34004",
+  "acantiladoMunicipalityName" : "Aguilar de Campoo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-133",
+  "idealistaMunicipalityName" : "Población de Cerrato",
+  "acantiladoAyuntamientoId" : "34133",
+  "acantiladoMunicipalityName" : "Población de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-072",
+  "idealistaMunicipalityName" : "Frechilla",
+  "acantiladoAyuntamientoId" : "34072",
+  "acantiladoMunicipalityName" : "Frechilla"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-031",
+  "idealistaMunicipalityName" : "Belmonte de Campos",
+  "acantiladoAyuntamientoId" : "34031",
+  "acantiladoMunicipalityName" : "Belmonte de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-181",
+  "idealistaMunicipalityName" : "Tariego",
+  "acantiladoAyuntamientoId" : "34181",
+  "acantiladoMunicipalityName" : "Tariego de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-196",
+  "idealistaMunicipalityName" : "Valle de Cerrato",
+  "acantiladoAyuntamientoId" : "34196",
+  "acantiladoMunicipalityName" : "Valle de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-217",
+  "idealistaMunicipalityName" : "Villalobón",
+  "acantiladoAyuntamientoId" : "34217",
+  "acantiladoMunicipalityName" : "Villalobón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-189",
+  "idealistaMunicipalityName" : "Valdeolmillos",
+  "acantiladoAyuntamientoId" : "34189",
+  "acantiladoMunicipalityName" : "Valdeolmillos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-001-110",
+  "idealistaMunicipalityName" : "Muda",
+  "acantiladoAyuntamientoId" : "34110",
+  "acantiladoMunicipalityName" : "Mudá"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-236",
+  "idealistaMunicipalityName" : "Villaturde",
+  "acantiladoAyuntamientoId" : "34236",
+  "acantiladoMunicipalityName" : "Villaturde"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-003-171",
+  "idealistaMunicipalityName" : "Santibañez de la Peña",
+  "acantiladoAyuntamientoId" : "34171",
+  "acantiladoMunicipalityName" : "Santibáñez de la Peña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-225",
+  "idealistaMunicipalityName" : "Villamuriel de Cerrato",
+  "acantiladoAyuntamientoId" : "34225",
+  "acantiladoMunicipalityName" : "Villamuriel de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-102",
+  "idealistaMunicipalityName" : "Mazariegos",
+  "acantiladoAyuntamientoId" : "34102",
+  "acantiladoMunicipalityName" : "Mazariegos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-114",
+  "idealistaMunicipalityName" : "Olmos de Ojeda",
+  "acantiladoAyuntamientoId" : "34114",
+  "acantiladoMunicipalityName" : "Olmos de Ojeda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-151",
+  "idealistaMunicipalityName" : "Respenda de la Peña",
+  "acantiladoAyuntamientoId" : "34151",
+  "acantiladoMunicipalityName" : "Respenda de la Peña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-081",
+  "idealistaMunicipalityName" : "Guaza de Campos",
+  "acantiladoAyuntamientoId" : "34081",
+  "acantiladoMunicipalityName" : "Guaza de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-035",
+  "idealistaMunicipalityName" : "Boadilla de Rioseco",
+  "acantiladoAyuntamientoId" : "34035",
+  "acantiladoMunicipalityName" : "Boadilla de Rioseco"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-238",
+  "idealistaMunicipalityName" : "Villaviudas",
+  "acantiladoAyuntamientoId" : "34238",
+  "acantiladoMunicipalityName" : "Villaviudas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-003-049",
+  "idealistaMunicipalityName" : "Castrejón de la Peña",
+  "acantiladoAyuntamientoId" : "34049",
+  "acantiladoMunicipalityName" : "Castrejón de la Peña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-003-080",
+  "idealistaMunicipalityName" : "Guardo",
+  "acantiladoAyuntamientoId" : "34080",
+  "acantiladoMunicipalityName" : "Guardo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-017",
+  "idealistaMunicipalityName" : "Astudillo",
+  "acantiladoAyuntamientoId" : "34017",
+  "acantiladoMunicipalityName" : "Astudillo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-024",
+  "idealistaMunicipalityName" : "Baquerín de Campos",
+  "acantiladoAyuntamientoId" : "34024",
+  "acantiladoMunicipalityName" : "Baquerín de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-003",
+  "idealistaMunicipalityName" : "Abia de las Torres",
+  "acantiladoAyuntamientoId" : "34003",
+  "acantiladoMunicipalityName" : "Abia de las Torres"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-206",
+  "idealistaMunicipalityName" : "Villada",
+  "acantiladoAyuntamientoId" : "34206",
+  "acantiladoMunicipalityName" : "Villada"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-001-160",
+  "idealistaMunicipalityName" : "San Cebrián de Mudá",
+  "acantiladoAyuntamientoId" : "34160",
+  "acantiladoMunicipalityName" : "San Cebrián de Mudá"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-234",
+  "idealistaMunicipalityName" : "Villasila de Valdavia",
+  "acantiladoAyuntamientoId" : "34234",
+  "acantiladoMunicipalityName" : "Villasila de Valdavia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-159",
+  "idealistaMunicipalityName" : "San Cebrián de Campos",
+  "acantiladoAyuntamientoId" : "34159",
+  "acantiladoMunicipalityName" : "San Cebrián de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-147",
+  "idealistaMunicipalityName" : "Renedo de la Vega",
+  "acantiladoAyuntamientoId" : "34147",
+  "acantiladoMunicipalityName" : "Renedo de la Vega"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-051",
+  "idealistaMunicipalityName" : "Castrillo de Onielo",
+  "acantiladoAyuntamientoId" : "34051",
+  "acantiladoMunicipalityName" : "Castrillo de Onielo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-001-120",
+  "idealistaMunicipalityName" : "Palencia",
+  "acantiladoAyuntamientoId" : "34120",
+  "acantiladoMunicipalityName" : "Palencia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-037",
+  "idealistaMunicipalityName" : "Buenavista de Valdavia",
+  "acantiladoAyuntamientoId" : "34037",
+  "acantiladoMunicipalityName" : "Buenavista de Valdavia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-086",
+  "idealistaMunicipalityName" : "Hontoria de Cerrato",
+  "acantiladoAyuntamientoId" : "34086",
+  "acantiladoMunicipalityName" : "Hontoria de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-053",
+  "idealistaMunicipalityName" : "Castromocho",
+  "acantiladoAyuntamientoId" : "34053",
+  "acantiladoMunicipalityName" : "Castromocho"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-094",
+  "idealistaMunicipalityName" : "Ledigos",
+  "acantiladoAyuntamientoId" : "34094",
+  "acantiladoMunicipalityName" : "Ledigos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-170",
+  "idealistaMunicipalityName" : "Santibáñez de Ecla",
+  "acantiladoAyuntamientoId" : "34170",
+  "acantiladoMunicipalityName" : "Santibáñez de Ecla"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-041",
+  "idealistaMunicipalityName" : "Calahorra de Boedo",
+  "acantiladoAyuntamientoId" : "34041",
+  "acantiladoMunicipalityName" : "Calahorra de Boedo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-077",
+  "idealistaMunicipalityName" : "Fuentes de Valdepero",
+  "acantiladoAyuntamientoId" : "34077",
+  "acantiladoMunicipalityName" : "Fuentes de Valdepero"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-079",
+  "idealistaMunicipalityName" : "Grijota",
+  "acantiladoAyuntamientoId" : "34079",
+  "acantiladoMunicipalityName" : "Grijota"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-116",
+  "idealistaMunicipalityName" : "Osornillo",
+  "acantiladoAyuntamientoId" : "34116",
+  "acantiladoMunicipalityName" : "Osornillo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-176",
+  "idealistaMunicipalityName" : "Sotobañado y Priorato",
+  "acantiladoAyuntamientoId" : "34176",
+  "acantiladoMunicipalityName" : "Sotobañado y Priorato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-177",
+  "idealistaMunicipalityName" : "Soto de Cerrato",
+  "acantiladoAyuntamientoId" : "34177",
+  "acantiladoMunicipalityName" : "Soto de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-047",
+  "idealistaMunicipalityName" : "Carrión de los Condes",
+  "acantiladoAyuntamientoId" : "34047",
+  "acantiladoMunicipalityName" : "Carrión de los Condes"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-121",
+  "idealistaMunicipalityName" : "Palenzuela",
+  "acantiladoAyuntamientoId" : "34121",
+  "acantiladoMunicipalityName" : "Palenzuela"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-068",
+  "idealistaMunicipalityName" : "Dehesa de Romanos",
+  "acantiladoAyuntamientoId" : "34068",
+  "acantiladoMunicipalityName" : "Dehesa de Romanos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-141",
+  "idealistaMunicipalityName" : "Quintana del Puente",
+  "acantiladoAyuntamientoId" : "34141",
+  "acantiladoMunicipalityName" : "Quintana del Puente"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-130",
+  "idealistaMunicipalityName" : "Piña de Campos",
+  "acantiladoAyuntamientoId" : "34130",
+  "acantiladoMunicipalityName" : "Piña de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-107",
+  "idealistaMunicipalityName" : "Micieces de Ojeda",
+  "acantiladoAyuntamientoId" : "34107",
+  "acantiladoMunicipalityName" : "Micieces de Ojeda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-058",
+  "idealistaMunicipalityName" : "Cevico Navero",
+  "acantiladoAyuntamientoId" : "34058",
+  "acantiladoMunicipalityName" : "Cevico Navero"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-129",
+  "idealistaMunicipalityName" : "Pino del Río",
+  "acantiladoAyuntamientoId" : "34129",
+  "acantiladoMunicipalityName" : "Pino del Río"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-109",
+  "idealistaMunicipalityName" : "Moratinos",
+  "acantiladoAyuntamientoId" : "34109",
+  "acantiladoMunicipalityName" : "Moratinos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-231",
+  "idealistaMunicipalityName" : "Villarrabé",
+  "acantiladoAyuntamientoId" : "34231",
+  "acantiladoMunicipalityName" : "Villarrabé"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-242",
+  "idealistaMunicipalityName" : "Villodrigo",
+  "acantiladoAyuntamientoId" : "34242",
+  "acantiladoMunicipalityName" : "Villodrigo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-019",
+  "idealistaMunicipalityName" : "Autillo de Campos",
+  "acantiladoAyuntamientoId" : "34019",
+  "acantiladoMunicipalityName" : "Autillo de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-241",
+  "idealistaMunicipalityName" : "Villodre",
+  "acantiladoAyuntamientoId" : "34241",
+  "acantiladoMunicipalityName" : "Villodre"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-093",
+  "idealistaMunicipalityName" : "La Vid de Ojeda",
+  "acantiladoAyuntamientoId" : "34093",
+  "acantiladoMunicipalityName" : "La Vid de Ojeda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-055",
+  "idealistaMunicipalityName" : "Cervatos de la Cueza",
+  "acantiladoAyuntamientoId" : "34055",
+  "acantiladoMunicipalityName" : "Cervatos de la Cueza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-140",
+  "idealistaMunicipalityName" : "La Puebla de Valdavia",
+  "acantiladoAyuntamientoId" : "34140",
+  "acantiladoMunicipalityName" : "La Puebla de Valdavia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-059",
+  "idealistaMunicipalityName" : "Cisneros",
+  "acantiladoAyuntamientoId" : "34059",
+  "acantiladoMunicipalityName" : "Cisneros"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-057",
+  "idealistaMunicipalityName" : "Cevico de la Torre",
+  "acantiladoAyuntamientoId" : "34057",
+  "acantiladoMunicipalityName" : "Cevico de la Torre"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-070",
+  "idealistaMunicipalityName" : "Espinosa de Cerrato",
+  "acantiladoAyuntamientoId" : "34070",
+  "acantiladoMunicipalityName" : "Espinosa de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-901",
+  "idealistaMunicipalityName" : "Osorno la Mayor",
+  "acantiladoAyuntamientoId" : "34901",
+  "acantiladoMunicipalityName" : "Osorno la Mayor"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-061",
+  "idealistaMunicipalityName" : "Collazos de Boedo",
+  "acantiladoAyuntamientoId" : "34061",
+  "acantiladoMunicipalityName" : "Collazos de Boedo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-222",
+  "idealistaMunicipalityName" : "Villameriel",
+  "acantiladoAyuntamientoId" : "34222",
+  "acantiladoMunicipalityName" : "Villameriel"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-152",
+  "idealistaMunicipalityName" : "Revenga de Campos",
+  "acantiladoAyuntamientoId" : "34152",
+  "acantiladoMunicipalityName" : "Revenga de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-174",
+  "idealistaMunicipalityName" : "Santoyo",
+  "acantiladoAyuntamientoId" : "34174",
+  "acantiladoMunicipalityName" : "Santoyo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-020",
+  "idealistaMunicipalityName" : "Ayuela",
+  "acantiladoAyuntamientoId" : "34020",
+  "acantiladoMunicipalityName" : "Ayuela"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-003-199",
+  "idealistaMunicipalityName" : "Velilla del Rio Carrion",
+  "acantiladoAyuntamientoId" : "34199",
+  "acantiladoMunicipalityName" : "Velilla del Río Carrión"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-046",
+  "idealistaMunicipalityName" : "Cardeñosa de Volpejera",
+  "acantiladoAyuntamientoId" : "34046",
+  "acantiladoMunicipalityName" : "Cardeñosa de Volpejera"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-009",
+  "idealistaMunicipalityName" : "Amayuelas de Arriba",
+  "acantiladoAyuntamientoId" : "34009",
+  "acantiladoMunicipalityName" : "Amayuelas de Arriba"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-245",
+  "idealistaMunicipalityName" : "Villota del Páramo",
+  "acantiladoAyuntamientoId" : "34245",
+  "acantiladoMunicipalityName" : "Villota del Páramo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-139",
+  "idealistaMunicipalityName" : "Prádanos de Ojeda",
+  "acantiladoAyuntamientoId" : "34139",
+  "acantiladoMunicipalityName" : "Prádanos de Ojeda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-091",
+  "idealistaMunicipalityName" : "Lagartos",
+  "acantiladoAyuntamientoId" : "34091",
+  "acantiladoMunicipalityName" : "Lagartos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-179",
+  "idealistaMunicipalityName" : "Tabanera de Valdavia",
+  "acantiladoAyuntamientoId" : "34179",
+  "acantiladoMunicipalityName" : "Tabanera de Valdavia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-211",
+  "idealistaMunicipalityName" : "Villaherreros",
+  "acantiladoAyuntamientoId" : "34211",
+  "acantiladoMunicipalityName" : "Villaherreros"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-154",
+  "idealistaMunicipalityName" : "Revilla de Collazos",
+  "acantiladoAyuntamientoId" : "34154",
+  "acantiladoMunicipalityName" : "Revilla de Collazos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-088",
+  "idealistaMunicipalityName" : "Husillos",
+  "acantiladoAyuntamientoId" : "34088",
+  "acantiladoMunicipalityName" : "Husillos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-132",
+  "idealistaMunicipalityName" : "Población de Campos",
+  "acantiladoAyuntamientoId" : "34132",
+  "acantiladoMunicipalityName" : "Población de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-022",
+  "idealistaMunicipalityName" : "Baltanás",
+  "acantiladoAyuntamientoId" : "34022",
+  "acantiladoMunicipalityName" : "Baltanás"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-243",
+  "idealistaMunicipalityName" : "Villoldo",
+  "acantiladoAyuntamientoId" : "34243",
+  "acantiladoMunicipalityName" : "Villoldo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-006",
+  "idealistaMunicipalityName" : "Alba de Cerrato",
+  "acantiladoAyuntamientoId" : "34006",
+  "acantiladoMunicipalityName" : "Alba de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-161",
+  "idealistaMunicipalityName" : "San Cristóbal de Boedo",
+  "acantiladoAyuntamientoId" : "34161",
+  "acantiladoMunicipalityName" : "San Cristóbal de Boedo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-167",
+  "idealistaMunicipalityName" : "Santa Cecilia del Alcor",
+  "acantiladoAyuntamientoId" : "34167",
+  "acantiladoMunicipalityName" : "Santa Cecilia del Alcor"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-233",
+  "idealistaMunicipalityName" : "Villasarracino",
+  "acantiladoAyuntamientoId" : "34233",
+  "acantiladoMunicipalityName" : "Villasarracino"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-082",
+  "idealistaMunicipalityName" : "Hérmedes de Cerrato",
+  "acantiladoAyuntamientoId" : "34082",
+  "acantiladoMunicipalityName" : "Hérmedes de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-050",
+  "idealistaMunicipalityName" : "Castrillo de Don Juan",
+  "acantiladoAyuntamientoId" : "34050",
+  "acantiladoMunicipalityName" : "Castrillo de Don Juan"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-123",
+  "idealistaMunicipalityName" : "Paredes de Nava",
+  "acantiladoAyuntamientoId" : "34123",
+  "acantiladoMunicipalityName" : "Paredes de Nava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-108",
+  "idealistaMunicipalityName" : "Monzón de Campos",
+  "acantiladoAyuntamientoId" : "34108",
+  "acantiladoMunicipalityName" : "Monzón de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-227",
+  "idealistaMunicipalityName" : "Villanueva del Rebollar",
+  "acantiladoAyuntamientoId" : "34227",
+  "acantiladoMunicipalityName" : "Villanueva del Rebollar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-208",
+  "idealistaMunicipalityName" : "Villaeles de Valdavia",
+  "acantiladoAyuntamientoId" : "34208",
+  "acantiladoMunicipalityName" : "Villaeles de Valdavia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-186",
+  "idealistaMunicipalityName" : "Valbuena de Pisuerga",
+  "acantiladoAyuntamientoId" : "34186",
+  "acantiladoMunicipalityName" : "Valbuena de Pisuerga"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-146",
+  "idealistaMunicipalityName" : "Reinoso de Cerrato",
+  "acantiladoAyuntamientoId" : "34146",
+  "acantiladoMunicipalityName" : "Reinoso de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-216",
+  "idealistaMunicipalityName" : "Villalcón",
+  "acantiladoAyuntamientoId" : "34216",
+  "acantiladoMunicipalityName" : "Villalcón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-125",
+  "idealistaMunicipalityName" : "Pedraza de Campos",
+  "acantiladoAyuntamientoId" : "34125",
+  "acantiladoMunicipalityName" : "Pedraza de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-034",
+  "idealistaMunicipalityName" : "Boadilla del Camino",
+  "acantiladoAyuntamientoId" : "34034",
+  "acantiladoMunicipalityName" : "Boadilla del Camino"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-001-036",
+  "idealistaMunicipalityName" : "Brañosera",
+  "acantiladoAyuntamientoId" : "34036",
+  "acantiladoMunicipalityName" : "Brañosera"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-071",
+  "idealistaMunicipalityName" : "Espinosa de Villagonzalo",
+  "acantiladoAyuntamientoId" : "34071",
+  "acantiladoMunicipalityName" : "Espinosa de Villagonzalo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-018",
+  "idealistaMunicipalityName" : "Autilla del Pino",
+  "acantiladoAyuntamientoId" : "34018",
+  "acantiladoMunicipalityName" : "Autilla del Pino"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-190",
+  "idealistaMunicipalityName" : "Valderrábano",
+  "acantiladoAyuntamientoId" : "34190",
+  "acantiladoMunicipalityName" : "Valderrábano"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-126",
+  "idealistaMunicipalityName" : "Pedrosa de la Vega",
+  "acantiladoAyuntamientoId" : "34126",
+  "acantiladoMunicipalityName" : "Pedrosa de la Vega"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-240",
+  "idealistaMunicipalityName" : "Villerías de Campos",
+  "acantiladoAyuntamientoId" : "34240",
+  "acantiladoMunicipalityName" : "Villerías de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-025",
+  "idealistaMunicipalityName" : "Bárcena de Campos",
+  "acantiladoAyuntamientoId" : "34025",
+  "acantiladoMunicipalityName" : "Bárcena de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-069",
+  "idealistaMunicipalityName" : "Dueñas",
+  "acantiladoAyuntamientoId" : "34069",
+  "acantiladoMunicipalityName" : "Dueñas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-100",
+  "idealistaMunicipalityName" : "Mantinos",
+  "acantiladoAyuntamientoId" : "34100",
+  "acantiladoMunicipalityName" : "Mantinos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-137",
+  "idealistaMunicipalityName" : "Pozo de Urama",
+  "acantiladoAyuntamientoId" : "34137",
+  "acantiladoMunicipalityName" : "Pozo de Urama"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-218",
+  "idealistaMunicipalityName" : "Villaluenga de la Vega",
+  "acantiladoAyuntamientoId" : "34218",
+  "acantiladoMunicipalityName" : "Villaluenga de la Vega"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-201",
+  "idealistaMunicipalityName" : "Vertavillo",
+  "acantiladoAyuntamientoId" : "34201",
+  "acantiladoMunicipalityName" : "Vertavillo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-246",
+  "idealistaMunicipalityName" : "Villovieco",
+  "acantiladoAyuntamientoId" : "34246",
+  "acantiladoMunicipalityName" : "Villovieco"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-178",
+  "idealistaMunicipalityName" : "Tabanera de Cerrato",
+  "acantiladoAyuntamientoId" : "34178",
+  "acantiladoMunicipalityName" : "Tabanera de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-001-032",
+  "idealistaMunicipalityName" : "Berzosilla",
+  "acantiladoAyuntamientoId" : "34032",
+  "acantiladoMunicipalityName" : "Berzosilla"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-165",
+  "idealistaMunicipalityName" : "San Román de la Cuba",
+  "acantiladoAyuntamientoId" : "34165",
+  "acantiladoMunicipalityName" : "San Román de la Cuba"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-214",
+  "idealistaMunicipalityName" : "Villalba de Guardo",
+  "acantiladoAyuntamientoId" : "34214",
+  "acantiladoMunicipalityName" : "Villalba de Guardo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-001-135",
+  "idealistaMunicipalityName" : "Pomar de Valdivia",
+  "acantiladoAyuntamientoId" : "34135",
+  "acantiladoMunicipalityName" : "Pomar de Valdivia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-149",
+  "idealistaMunicipalityName" : "Requena de Campos",
+  "acantiladoAyuntamientoId" : "34149",
+  "acantiladoMunicipalityName" : "Requena de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-101",
+  "idealistaMunicipalityName" : "Marcilla de Campos",
+  "acantiladoAyuntamientoId" : "34101",
+  "acantiladoMunicipalityName" : "Marcilla de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-062",
+  "idealistaMunicipalityName" : "Congosto de Valdavia",
+  "acantiladoAyuntamientoId" : "34062",
+  "acantiladoMunicipalityName" : "Congosto de Valdavia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-104",
+  "idealistaMunicipalityName" : "Melgar de Yuso",
+  "acantiladoAyuntamientoId" : "34104",
+  "acantiladoMunicipalityName" : "Melgar de Yuso"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-903",
+  "idealistaMunicipalityName" : "Loma de Ucieza",
+  "acantiladoAyuntamientoId" : "34903",
+  "acantiladoMunicipalityName" : "Loma de Ucieza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-003-185",
+  "idealistaMunicipalityName" : "Triollo",
+  "acantiladoAyuntamientoId" : "34185",
+  "acantiladoMunicipalityName" : "Triollo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-048",
+  "idealistaMunicipalityName" : "Castil de Vela",
+  "acantiladoAyuntamientoId" : "34048",
+  "acantiladoMunicipalityName" : "Castil de Vela"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-038",
+  "idealistaMunicipalityName" : "Bustillo de la Vega",
+  "acantiladoAyuntamientoId" : "34038",
+  "acantiladoMunicipalityName" : "Bustillo de la Vega"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-103",
+  "idealistaMunicipalityName" : "Mazuecos de Valdeginate",
+  "acantiladoAyuntamientoId" : "34103",
+  "acantiladoMunicipalityName" : "Mazuecos de Valdeginate"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-03-002-134",
+  "idealistaMunicipalityName" : "Polentinos",
+  "acantiladoAyuntamientoId" : "34134",
+  "acantiladoMunicipalityName" : "Polentinos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-002-010",
+  "idealistaMunicipalityName" : "Ampudia",
+  "acantiladoAyuntamientoId" : "34010",
+  "acantiladoMunicipalityName" : "Ampudia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-228",
+  "idealistaMunicipalityName" : "Villanuño de Valdavia",
+  "acantiladoAyuntamientoId" : "34228",
+  "acantiladoMunicipalityName" : "Villanuño de Valdavia"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-155",
+  "idealistaMunicipalityName" : "Ribas de Campos",
+  "acantiladoAyuntamientoId" : "34155",
+  "acantiladoMunicipalityName" : "Ribas de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-180",
+  "idealistaMunicipalityName" : "Támara de Campos",
+  "acantiladoAyuntamientoId" : "34180",
+  "acantiladoMunicipalityName" : "Támara de Campos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-229",
+  "idealistaMunicipalityName" : "Villaprovedo",
+  "acantiladoAyuntamientoId" : "34229",
+  "acantiladoMunicipalityName" : "Villaprovedo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-060",
+  "idealistaMunicipalityName" : "Cobos de Cerrato",
+  "acantiladoAyuntamientoId" : "34060",
+  "acantiladoMunicipalityName" : "Cobos de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-092",
+  "idealistaMunicipalityName" : "Lantadilla",
+  "acantiladoAyuntamientoId" : "34092",
+  "acantiladoMunicipalityName" : "Lantadilla"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-011",
+  "idealistaMunicipalityName" : "Amusco",
+  "acantiladoAyuntamientoId" : "34011",
+  "acantiladoMunicipalityName" : "Amusco"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-157",
+  "idealistaMunicipalityName" : "Saldaña",
+  "acantiladoAyuntamientoId" : "34157",
+  "acantiladoMunicipalityName" : "Saldaña"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-039",
+  "idealistaMunicipalityName" : "Bustillo del Páramo de Carrión",
+  "acantiladoAyuntamientoId" : "34039",
+  "acantiladoMunicipalityName" : "Bustillo del Páramo de Carrión"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-003-205",
+  "idealistaMunicipalityName" : "Villaconancio",
+  "acantiladoAyuntamientoId" : "34205",
+  "acantiladoMunicipalityName" : "Villaconancio"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-224",
+  "idealistaMunicipalityName" : "Villamuera de la Cueza",
+  "acantiladoAyuntamientoId" : "34224",
+  "acantiladoMunicipalityName" : "Villamuera de la Cueza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-087",
+  "idealistaMunicipalityName" : "Hornillos de Cerrato",
+  "acantiladoAyuntamientoId" : "34087",
+  "acantiladoMunicipalityName" : "Hornillos de Cerrato"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-223",
+  "idealistaMunicipalityName" : "Villamoronta",
+  "acantiladoAyuntamientoId" : "34223",
+  "acantiladoMunicipalityName" : "Villamoronta"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-168",
+  "idealistaMunicipalityName" : "Santa Cruz de Boedo",
+  "acantiladoAyuntamientoId" : "34168",
+  "acantiladoMunicipalityName" : "Santa Cruz de Boedo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-113",
+  "idealistaMunicipalityName" : "Olea de Boedo",
+  "acantiladoAyuntamientoId" : "34113",
+  "acantiladoMunicipalityName" : "Olea de Boedo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-084",
+  "idealistaMunicipalityName" : "Herrera de Valdecañas",
+  "acantiladoAyuntamientoId" : "34084",
+  "acantiladoMunicipalityName" : "Herrera de Valdecañas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-012",
+  "idealistaMunicipalityName" : "Antigüedad",
+  "acantiladoAyuntamientoId" : "34012",
+  "acantiladoMunicipalityName" : "Antigüedad"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-005-099",
+  "idealistaMunicipalityName" : "Manquillos",
+  "acantiladoAyuntamientoId" : "34099",
+  "acantiladoMunicipalityName" : "Manquillos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-192",
+  "idealistaMunicipalityName" : "Valde-Ucieza",
+  "acantiladoAyuntamientoId" : "34192",
+  "acantiladoMunicipalityName" : "Valde-Ucieza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-063",
+  "idealistaMunicipalityName" : "Cordovilla la Real",
+  "acantiladoAyuntamientoId" : "34063",
+  "acantiladoMunicipalityName" : "Cordovilla la Real"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-175",
+  "idealistaMunicipalityName" : "La Serna",
+  "acantiladoAyuntamientoId" : "34175",
+  "acantiladoMunicipalityName" : "La Serna"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-01-004-210",
+  "idealistaMunicipalityName" : "Villahán",
+  "acantiladoAyuntamientoId" : "34210",
+  "acantiladoMunicipalityName" : "Villahán"
+}, {
+  "idealistaLocationId" : "0-EU-ES-34-02-001-163",
+  "idealistaMunicipalityName" : "San Mamés de Campos",
+  "acantiladoAyuntamientoId" : "34163",
+  "acantiladoMunicipalityName" : "San Mamés de Campos"
+} ]

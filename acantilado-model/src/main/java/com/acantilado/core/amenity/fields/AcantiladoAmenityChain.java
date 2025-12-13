@@ -1,31 +1,28 @@
 package com.acantilado.core.amenity.fields;
 
 public enum AcantiladoAmenityChain {
-    // Supermarkets
-    CARREFOUR(AcantiladoAmenityType.SUPERMARKET),
-    ALCAMPO(AcantiladoAmenityType.SUPERMARKET),
-    DIA(AcantiladoAmenityType.SUPERMARKET),
-    MERCADONA(AcantiladoAmenityType.SUPERMARKET),
-    LIDL(AcantiladoAmenityType.SUPERMARKET),
-    ALDI(AcantiladoAmenityType.SUPERMARKET),
+  CARREFOUR(GoogleAmenityCategory.SUPERMARKET),
+  ALCAMPO(GoogleAmenityCategory.SUPERMARKET),
+  DIA(GoogleAmenityCategory.SUPERMARKET),
+  MERCADONA(GoogleAmenityCategory.SUPERMARKET),
+  LIDL(GoogleAmenityCategory.SUPERMARKET),
+  ALDI(GoogleAmenityCategory.SUPERMARKET),
+  AHORRAMAS(GoogleAmenityCategory.SUPERMARKET),
+  COVIRAN(GoogleAmenityCategory.SUPERMARKET),
+  SUPERCOR(GoogleAmenityCategory.SUPERMARKET),
 
-    // Banks (major Spanish ones)
-    BBVA(AcantiladoAmenityType.BANK),
-    SANTANDER(AcantiladoAmenityType.BANK),
-    CAIXABANK(AcantiladoAmenityType.BANK),
-    SABADELL(AcantiladoAmenityType.BANK),
+  BBVA(GoogleAmenityCategory.BANK),
+  SANTANDER(GoogleAmenityCategory.BANK),
+  CAIXABANK(GoogleAmenityCategory.BANK),
+  SABADELL(GoogleAmenityCategory.BANK);
 
-    // Gas Stations
-    CEPSA(AcantiladoAmenityType.GAS_STATION),
-    REPSOL(AcantiladoAmenityType.GAS_STATION);
+  private final GoogleAmenityCategory amenityType;
 
-    private final AcantiladoAmenityType amenityType;
+  AcantiladoAmenityChain(GoogleAmenityCategory amenityType) {
+    this.amenityType = amenityType;
+  }
 
-    AcantiladoAmenityChain(AcantiladoAmenityType amenityType) {
-        this.amenityType = amenityType;
-    }
-
-    public AcantiladoAmenityType getAmenityType() {
-        return amenityType;
-    }
+  public GoogleAmenityCategory getAmenityType() {
+    return amenityType;
+  }
 }
