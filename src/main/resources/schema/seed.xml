@@ -516,6 +516,9 @@
                 <constraints nullable="true"/>
             </column>
             <column name="chain" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="google_category" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="created_at" type="TIMESTAMP">

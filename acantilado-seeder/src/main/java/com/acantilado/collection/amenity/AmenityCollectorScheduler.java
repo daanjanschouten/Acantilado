@@ -1,11 +1,12 @@
 package com.acantilado.collection.amenity;
 
-import com.acantilado.core.amenity.fields.AcantiladoAmenityChain;
+import com.acantilado.core.amenity.fields.AcantiladoAmenityType;
 import io.dropwizard.lifecycle.Managed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -35,7 +36,7 @@ public class AmenityCollectorScheduler implements Managed {
 
         LOGGER.info("Starting amenity collector for provinces: {} with chains: {}",
                 config.getProvinces(),
-                config.getAmenityChains());
+                config.getSearchCategories());
 
         scheduler.scheduleAtFixedRate(
                 this::collectAmenities,
@@ -60,30 +61,28 @@ public class AmenityCollectorScheduler implements Managed {
 
     private void collectAmenities() {
         Set<String> provinceIds = config.getProvinces();
-
-
-        Set<AcantiladoAmenityChain> amenityChains = parseAmenityChains(config.getAmenityChains());
+        Set<AcantiladoAmenityType> amenityChains = parseSearchCategories(config.getSearchCategories());
 
         provinceIds.forEach(provinceId -> {
             AmenityProvinceCollectorService collectorService =
                     collectorServiceFactory.getCollectorService(provinceId);
             provinceCollectorServices.add(collectorService);
 
-            amenityChains.forEach(chain -> {
+            amenityChains.forEach(amenityType -> {
                 try {
-                    LOGGER.info("Starting collection for province {} and amenity chain {}",
-                            provinceId, chain);
+                    LOGGER.info("Starting collection for province {} and amenity type {}",
+                            provinceId, amenityType);
 
                     if (collectorService.collectAmenitiesForProvince()) {
-                        LOGGER.info("Completed scheduled amenity collection for province {} and chain {}",
-                                provinceId, chain);
+                        LOGGER.info("Completed scheduled amenity collection for province {} and type {}",
+                                provinceId, amenityType);
                     } else {
-                        LOGGER.error("Partial completion of scheduled amenity collection for province {}",
-                                provinceId);
+                        LOGGER.error("Partial completion of scheduled amenity collection for province {} and type {}",
+                                provinceId, amenityType);
                     }
                 } catch (Exception e) {
-                    LOGGER.error("Error during collection for province {} and chain {}",
-                            provinceId, chain, e);
+                    LOGGER.error("Error during collection for province {} and type {}",
+                            provinceId, amenityType, e);
                 }
             });
 
@@ -91,17 +90,17 @@ public class AmenityCollectorScheduler implements Managed {
         });
     }
 
-    private Set<AcantiladoAmenityChain> parseAmenityChains(Set<String> chainStrings) {
-        return chainStrings.stream()
-                .map(chainString -> {
+    private Set<AcantiladoAmenityType> parseSearchCategories(Set<String> categoryStrings) {
+        return categoryStrings.stream()
+                .map(categoryString -> {
                     try {
-                        return AcantiladoAmenityChain.valueOf(chainString.toUpperCase());
+                        return AcantiladoAmenityType.valueOf(categoryString.toUpperCase());
                     } catch (IllegalArgumentException e) {
-                        LOGGER.error("Invalid amenity chain: {}, skipping", chainString);
+                        LOGGER.error("Invalid amenity chain: {}, skipping", categoryString);
                         return null;
                     }
                 })
-                .filter(chain -> chain != null)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
     }
 }

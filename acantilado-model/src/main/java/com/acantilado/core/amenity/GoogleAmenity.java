@@ -37,8 +37,11 @@ public class GoogleAmenity {
     private String acantiladoLocationId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "chain", length = 100, nullable = false)
+    @Column(name = "chain", length = 100, nullable = true)
     private AcantiladoAmenityChain chain;
+
+    @Column(name = "google_category", length = 100, nullable = false)
+    private String googleCategory;
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
@@ -55,6 +58,7 @@ public class GoogleAmenity {
         this.latitude = builder.latitude;
         this.longitude = builder.longitude;
         this.chain = requireNonNull(builder.chain, "chain");
+        this.googleCategory = requireNonNull(builder.googleCategory, "googleCategory");
         this.createdAt = builder.createdAt != null ? builder.createdAt : Instant.now();
         this.previousPlaceId = builder.previousPlaceId;
 
@@ -83,6 +87,7 @@ public class GoogleAmenity {
     public double getLatitude() { return latitude; }
     public double getLongitude() { return longitude; }
     public AcantiladoAmenityChain getChain() { return chain; }
+    public String getGoogleCategory() { return googleCategory; }
     public AcantiladoAmenityType getType() { return chain.getAmenityType(); }
     public Instant getCreatedAt() { return createdAt; }
     public String getPreviousPlaceId() { return previousPlaceId; }
@@ -108,6 +113,8 @@ public class GoogleAmenity {
     public void setChain(AcantiladoAmenityChain chain) {
         this.chain = chain;
     }
+
+    public void setGoogleCategory(String googleCategory) { this.googleCategory = googleCategory; }
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
@@ -148,6 +155,7 @@ public class GoogleAmenity {
         private double latitude;
         private double longitude;
         private AcantiladoAmenityChain chain;
+        private String googleCategory;
         private Instant createdAt;
         private String previousPlaceId;
         private String acantiladoLocationId;
@@ -174,6 +182,11 @@ public class GoogleAmenity {
 
         public Builder chain(AcantiladoAmenityChain chain) {
             this.chain = chain;
+            return this;
+        }
+
+        public Builder category(String googleCategory) {
+            this.googleCategory = googleCategory;
             return this;
         }
 

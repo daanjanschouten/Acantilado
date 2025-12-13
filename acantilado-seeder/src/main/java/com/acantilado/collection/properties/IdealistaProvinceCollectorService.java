@@ -25,8 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -189,29 +187,24 @@ public final class IdealistaProvinceCollectorService {
         locationEstablisher.setBootstrapMode(false);
 
         Set<String> missing = getLocationIdsMissingFromMappings();
+        Set<String> stillMissing = new HashSet<>();
         LOGGER.info("Proceeding to extract ayuntamiento codes from {} remaining location IDs", missing.size());
 
         RetryableBatchedExecutor.executeRunnableInSessionWithTransaction(sessionFactory, () ->
-                missing.forEach(missingLocationId -> {
-                    String ayuntamientoId = AcantiladoLocation.getAyuntamientoFromNormalizedLocationId(missingLocationId);
-                    Optional<Ayuntamiento> maybeAyuntamiento = ayuntamientoDAO.findById(ayuntamientoId);
-
-                    if (maybeAyuntamiento.isEmpty()) {
-                        return;
-                    }
-
-                    Ayuntamiento ayuntamiento = maybeAyuntamiento.get();
-                    IdealistaLocationMapping mapping = new IdealistaLocationMapping(
-                            missingLocationId,
-                            ayuntamiento.getName(),
-                            ayuntamiento.getId(),
-                            ayuntamiento.getName());
-                    LOGGER.info("Established mapping {} from a missing location ID", mapping);
-                    locationEstablisher.storeMapping(mapping);
+                missing.forEach(missingLocation -> {
+                    ayuntamientoDAO.findById(
+                                    AcantiladoLocation.getAyuntamientoFromNormalizedLocationId(missingLocation))
+                            .ifPresentOrElse(a -> {
+                                IdealistaLocationMapping mapping = new IdealistaLocationMapping(
+                                        missingLocation,
+                                        a.getName(),
+                                        a.getId(),
+                                        a.getName());
+                                LOGGER.info("Established mapping {} from a missing location ID", mapping);
+                                locationEstablisher.storeMapping(mapping);
+                            }, () -> stillMissing.add(missingLocation));
                 }));
 
-
-        Set<String> stillMissing = getLocationIdsMissingFromMappings();
         if (!stillMissing.isEmpty()) {
             LOGGER.warn("Could not create mappings for {} location IDs: {}",
                     stillMissing.size(), stillMissing);
@@ -359,27 +352,14 @@ public final class IdealistaProvinceCollectorService {
      * Get the set of ayuntamiento IDs that don't have mappings yet
      */
     private Set<String> getAyuntamientoIdsMissingFromMappings() {
-        Set<String> allAyuntamientoIds = ayuntamientosForProvince
+        Set<String> missingIds = ayuntamientosForProvince
                 .stream()
                 .map(Ayuntamiento::getId)
                 .collect(Collectors.toSet());
 
-        // Get ALL mappings for this province's ayuntamientos
         // Don't filter by location IDs - we want to find mappings created by name-based searches too
-        Set<String> mappedAyuntamientoIds = ayuntamientosForProvince
-                .stream()
-                .map(Ayuntamiento::getId)
-                .filter(ayuntamientoId -> {
-                    List<IdealistaLocationMapping> mappings = executeCallableInSessionWithoutTransaction(
-                            sessionFactory,
-                            () -> mappingDAO.findByAyuntamientoId(ayuntamientoId)
-                    );
-                    return !mappings.isEmpty();
-                })
-                .collect(Collectors.toSet());
-
-        Set<String> missingIds = new HashSet<>(allAyuntamientoIds);
-        missingIds.removeAll(mappedAyuntamientoIds);
+        missingIds.removeAll(
+                ProvinceCollectionUtils.getMappedAyuntamientos(sessionFactory, mappingDAO, ayuntamientosForProvince));
 
         return missingIds;
     }
@@ -393,7 +373,7 @@ public final class IdealistaProvinceCollectorService {
             Set<IdealistaSearchRequest> searchRequests,
             ApifyCollector<IdealistaSearchRequest, T> collector,
             int retryCount) {
-        if (retryCount > 3) {
+        if (retryCount > 2) {
             LOGGER.info("Giving up on {} remaining requests after 3 retries", searchRequests.size());
             return true;
         }

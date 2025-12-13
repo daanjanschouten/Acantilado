@@ -14,13 +14,10 @@ public class AmenityCollectorConfig {
     private Set<Integer> provinces = new HashSet<>(Set.of());
 
     @NotNull
-    private Set<String> amenityChains = new HashSet<>(Set.of("CARREFOUR"));
+    private Set<String> searchCategories = new HashSet<>(Set.of());
 
     @NotNull
     private Duration collectionInterval = Duration.hours(6);
-
-    @NotNull
-    private Set<String> amenityTypes = Set.of();
 
     @Min(1)
     private int threadPoolSize = 10;
@@ -38,13 +35,13 @@ public class AmenityCollectorConfig {
     }
 
     @JsonProperty
-    public Set<String> getAmenityChains() {
-        return amenityChains;
+    public Set<String> getSearchCategories() {
+        return searchCategories;
     }
 
     @JsonProperty
-    public void setAmenityChains(Set<String> amenityChains) {
-        this.amenityChains = amenityChains;
+    public void setSearchCategories(Set<String> searchCategories) {
+        this.searchCategories = searchCategories;
     }
 
     @JsonProperty
@@ -80,13 +77,5 @@ public class AmenityCollectorConfig {
     @JsonProperty
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public Set<String> getAmenityTypes() {
-        return amenityTypes;
-    }
-
-    public void setAmenityTypes(Set<String> amenityTypes) {
-        this.amenityTypes = amenityTypes;
     }
 }

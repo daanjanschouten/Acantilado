@@ -54,7 +54,7 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
 
     @Override
     protected int getRetryCount() {
-        return 50;
+        return 10;
     }
 
     @Override
@@ -67,12 +67,9 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
         try {
             String name = jsonNode.get("title").asText();
             String placeId = jsonNode.get("placeId").asText();
+            String categoryName = jsonNode.get("categoryName").asText();
 
-            Optional<AcantiladoAmenityChain> chain = determineChain(name);
-            if (chain.isEmpty()) {
-                LOGGER.warn("No chain found for name {}", name);
-                return Optional.empty();
-            }
+            Optional<AcantiladoAmenityChain> maybeChain = determineChain(name);
 
             JsonNode locationNode = jsonNode.get("location");
             double latitude = locationNode.get("lat").asDouble();
@@ -87,7 +84,7 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
 
             Integer userRatingCount = jsonNode.get("reviewsCount").asInt();
 
-            Coordinate coordinate = new Coordinate(latitude, longitude);
+            Coordinate coordinate = new Coordinate(longitude, latitude);
             AcantiladoLocation location = locationEstablisher.establishForLocation(
                     GEOMETRY_FACTORY.createPoint(coordinate));
 
@@ -96,7 +93,8 @@ public class GoogleAmenityCollector extends ApifyCollector<GoogleAmenitySearchRe
                     .name(name)
                     .latitude(latitude)
                     .longitude(longitude)
-                    .chain(chain.get())
+                    .chain(maybeChain.orElse(null))
+                    .category(categoryName)
                     .createdAt(Instant.now())
                     .acantiladoLocationId(location.getIdentifier())
                     .build();

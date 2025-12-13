@@ -1,0 +1,521 @@
+[ {
+  "idealistaLocationId" : "0-EU-ES-23-01-005-086",
+  "idealistaMunicipalityName" : "Torredelcampo",
+  "acantiladoAyuntamientoId" : "23086",
+  "acantiladoMunicipalityName" : "Torredelcampo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-06-001-060",
+  "idealistaMunicipalityName" : "Martos",
+  "acantiladoAyuntamientoId" : "23060",
+  "acantiladoMunicipalityName" : "Martos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-06-003-002",
+  "idealistaMunicipalityName" : "Alcalá la Real",
+  "acantiladoAyuntamientoId" : "23003",
+  "acantiladoMunicipalityName" : "Alcaudete"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-002-077",
+  "idealistaMunicipalityName" : "Santiago de Calatrava",
+  "acantiladoAyuntamientoId" : "23077",
+  "acantiladoMunicipalityName" : "Santiago de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-002-064",
+  "idealistaMunicipalityName" : "Noalejo",
+  "acantiladoAyuntamientoId" : "23019",
+  "acantiladoMunicipalityName" : "Campillo de Arenas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-04-001-045",
+  "idealistaMunicipalityName" : "Huesa",
+  "acantiladoAyuntamientoId" : "23045",
+  "acantiladoMunicipalityName" : "Huesa"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-001-085",
+  "idealistaMunicipalityName" : "Torreblascopedro",
+  "acantiladoAyuntamientoId" : "23085",
+  "acantiladoMunicipalityName" : "Torreblascopedro"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-004-063",
+  "idealistaMunicipalityName" : "Navas de San Juan",
+  "acantiladoAyuntamientoId" : "23063",
+  "acantiladoMunicipalityName" : "Navas de San Juan"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-004-062",
+  "idealistaMunicipalityName" : "Montizon",
+  "acantiladoAyuntamientoId" : "23062",
+  "acantiladoMunicipalityName" : "Montizón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-101",
+  "idealistaMunicipalityName" : "Villarrodrigo",
+  "acantiladoAyuntamientoId" : "23101",
+  "acantiladoMunicipalityName" : "Villarrodrigo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-003-054",
+  "idealistaMunicipalityName" : "Larva",
+  "acantiladoAyuntamientoId" : "23054",
+  "acantiladoMunicipalityName" : "Larva"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-905",
+  "idealistaMunicipalityName" : "Arroyo del Ojanco",
+  "acantiladoAyuntamientoId" : "23905",
+  "acantiladoMunicipalityName" : "Arroyo del Ojanco"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-002-901",
+  "idealistaMunicipalityName" : "Carcheles",
+  "acantiladoAyuntamientoId" : "23901",
+  "acantiladoMunicipalityName" : "Cárcheles"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-001-057",
+  "idealistaMunicipalityName" : "Lupion",
+  "acantiladoAyuntamientoId" : "23057",
+  "acantiladoMunicipalityName" : "Lupión"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-003-903",
+  "idealistaMunicipalityName" : "Villatorres",
+  "acantiladoAyuntamientoId" : "23903",
+  "acantiladoMunicipalityName" : "Villatorres"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-003-035",
+  "idealistaMunicipalityName" : "Fuerte del Rey",
+  "acantiladoAyuntamientoId" : "23035",
+  "acantiladoMunicipalityName" : "Fuerte del Rey"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-002-056",
+  "idealistaMunicipalityName" : "Lopera",
+  "acantiladoAyuntamientoId" : "23056",
+  "acantiladoMunicipalityName" : "Lopera"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-001-052",
+  "idealistaMunicipalityName" : "Jimena",
+  "acantiladoAyuntamientoId" : "23052",
+  "acantiladoMunicipalityName" : "Jimena"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-004-079",
+  "idealistaMunicipalityName" : "Santisteban del Puerto",
+  "acantiladoAyuntamientoId" : "23079",
+  "acantiladoMunicipalityName" : "Santisteban del Puerto"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-001-058",
+  "idealistaMunicipalityName" : "Mancha Real",
+  "acantiladoAyuntamientoId" : "23058",
+  "acantiladoMunicipalityName" : "Mancha Real"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-04-001-042",
+  "idealistaMunicipalityName" : "Hinojares",
+  "acantiladoAyuntamientoId" : "23042",
+  "acantiladoMunicipalityName" : "Hinojares"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-001-090",
+  "idealistaMunicipalityName" : "Torres",
+  "acantiladoAyuntamientoId" : "23090",
+  "acantiladoMunicipalityName" : "Torres"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-002-024",
+  "idealistaMunicipalityName" : "La Carolina",
+  "acantiladoAyuntamientoId" : "23024",
+  "acantiladoMunicipalityName" : "La Carolina"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-002-076",
+  "idealistaMunicipalityName" : "Santa Elena",
+  "acantiladoAyuntamientoId" : "23076",
+  "acantiladoMunicipalityName" : "Santa Elena"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-002-075",
+  "idealistaMunicipalityName" : "Sabiote",
+  "acantiladoAyuntamientoId" : "23075",
+  "acantiladoMunicipalityName" : "Sabiote"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-002-088",
+  "idealistaMunicipalityName" : "Torreperogil",
+  "acantiladoAyuntamientoId" : "23088",
+  "acantiladoMunicipalityName" : "Torreperogil"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-003-096",
+  "idealistaMunicipalityName" : "Villanueva de la Reina",
+  "acantiladoAyuntamientoId" : "23096",
+  "acantiladoMunicipalityName" : "Villanueva de la Reina"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-002-038",
+  "idealistaMunicipalityName" : "La Guardia de Jaén",
+  "acantiladoAyuntamientoId" : "23050",
+  "acantiladoMunicipalityName" : "Jaén"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-004-094",
+  "idealistaMunicipalityName" : "Vilches",
+  "acantiladoAyuntamientoId" : "23094",
+  "acantiladoMunicipalityName" : "Vilches"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-003-040",
+  "idealistaMunicipalityName" : "Higuera de Arjona",
+  "acantiladoAyuntamientoId" : "23040",
+  "acantiladoMunicipalityName" : "Lahiguera"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-002-018",
+  "idealistaMunicipalityName" : "Cambil",
+  "acantiladoAyuntamientoId" : "23018",
+  "acantiladoMunicipalityName" : "Cambil"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-003-039",
+  "idealistaMunicipalityName" : "Guarroman",
+  "acantiladoAyuntamientoId" : "23039",
+  "acantiladoMunicipalityName" : "Guarromán"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-003-097",
+  "idealistaMunicipalityName" : "Villanueva del Arzobispo",
+  "acantiladoAyuntamientoId" : "23097",
+  "acantiladoMunicipalityName" : "Villanueva del Arzobispo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-002-038",
+  "idealistaMunicipalityName" : "La Guardia de Jaén",
+  "acantiladoAyuntamientoId" : "23038",
+  "acantiladoMunicipalityName" : "La Guardia de Jaén"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-06-003-033",
+  "idealistaMunicipalityName" : "Frailes",
+  "acantiladoAyuntamientoId" : "23033",
+  "acantiladoMunicipalityName" : "Frailes"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-002-059",
+  "idealistaMunicipalityName" : "Marmolejo",
+  "acantiladoAyuntamientoId" : "23059",
+  "acantiladoMunicipalityName" : "Marmolejo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-016",
+  "idealistaMunicipalityName" : "Benatae",
+  "acantiladoAyuntamientoId" : "23016",
+  "acantiladoMunicipalityName" : "Benatae"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-06-002-093",
+  "idealistaMunicipalityName" : "Valdepeñas de Jaén",
+  "acantiladoAyuntamientoId" : "23093",
+  "acantiladoMunicipalityName" : "Valdepeñas de Jaén"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-001-055",
+  "idealistaMunicipalityName" : "Linares",
+  "acantiladoAyuntamientoId" : "23055",
+  "acantiladoMunicipalityName" : "Linares"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-003-032",
+  "idealistaMunicipalityName" : "Espeluy",
+  "acantiladoAyuntamientoId" : "23032",
+  "acantiladoMunicipalityName" : "Espeluy"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-071",
+  "idealistaMunicipalityName" : "Puente de Génave",
+  "acantiladoAyuntamientoId" : "23071",
+  "acantiladoMunicipalityName" : "Puente de Génave"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-001-005",
+  "idealistaMunicipalityName" : "Andújar",
+  "acantiladoAyuntamientoId" : "23005",
+  "acantiladoMunicipalityName" : "Andújar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-07-001-050",
+  "idealistaMunicipalityName" : "Jaén",
+  "acantiladoAyuntamientoId" : "23038",
+  "acantiladoMunicipalityName" : "La Guardia de Jaén"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-002-067",
+  "idealistaMunicipalityName" : "Pegalajar",
+  "acantiladoAyuntamientoId" : "23067",
+  "acantiladoMunicipalityName" : "Pegalajar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-091",
+  "idealistaMunicipalityName" : "Torres de Albanchez",
+  "acantiladoAyuntamientoId" : "23091",
+  "acantiladoMunicipalityName" : "Torres de Albánchez"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-002-064",
+  "idealistaMunicipalityName" : "Noalejo",
+  "acantiladoAyuntamientoId" : "23064",
+  "acantiladoMunicipalityName" : "Noalejo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-002-031",
+  "idealistaMunicipalityName" : "Escañuela",
+  "acantiladoAyuntamientoId" : "23031",
+  "acantiladoMunicipalityName" : "Escañuela"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-001-084",
+  "idealistaMunicipalityName" : "Sorihuela del Guadalimar",
+  "acantiladoAyuntamientoId" : "23084",
+  "acantiladoMunicipalityName" : "Sorihuela del Guadalimar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-002-075",
+  "idealistaMunicipalityName" : "Sabiote",
+  "acantiladoAyuntamientoId" : "23088",
+  "acantiladoMunicipalityName" : "Torreperogil"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-043",
+  "idealistaMunicipalityName" : "Hornos",
+  "acantiladoAyuntamientoId" : "23043",
+  "acantiladoMunicipalityName" : "Hornos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-002-041",
+  "idealistaMunicipalityName" : "Higuera de Calatrava",
+  "acantiladoAyuntamientoId" : "23041",
+  "acantiladoMunicipalityName" : "Higuera de Calatrava"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-04-001-066",
+  "idealistaMunicipalityName" : "Peal de Becerro",
+  "acantiladoAyuntamientoId" : "23066",
+  "acantiladoMunicipalityName" : "Peal de Becerro"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-003-044",
+  "idealistaMunicipalityName" : "Huelma",
+  "acantiladoAyuntamientoId" : "23044",
+  "acantiladoMunicipalityName" : "Huelma"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-06-003-026",
+  "idealistaMunicipalityName" : "Castillo de Locubin",
+  "acantiladoAyuntamientoId" : "23026",
+  "acantiladoMunicipalityName" : "Castillo de Locubín"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-004-008",
+  "idealistaMunicipalityName" : "Arquillos",
+  "acantiladoAyuntamientoId" : "23008",
+  "acantiladoMunicipalityName" : "Arquillos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-04-001-073",
+  "idealistaMunicipalityName" : "Quesada",
+  "acantiladoAyuntamientoId" : "23073",
+  "acantiladoMunicipalityName" : "Quesada"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-003-015",
+  "idealistaMunicipalityName" : "Bélmez de la Moraleda",
+  "acantiladoAyuntamientoId" : "23015",
+  "acantiladoMunicipalityName" : "Bélmez de la Moraleda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-065",
+  "idealistaMunicipalityName" : "Orcera",
+  "acantiladoAyuntamientoId" : "23065",
+  "acantiladoMunicipalityName" : "Orcera"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-07-001-050",
+  "idealistaMunicipalityName" : "Jaén",
+  "acantiladoAyuntamientoId" : "23050",
+  "acantiladoMunicipalityName" : "Jaén"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-003-048",
+  "idealistaMunicipalityName" : "Iznatoraf",
+  "acantiladoAyuntamientoId" : "23048",
+  "acantiladoMunicipalityName" : "Iznatoraf"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-003-017",
+  "idealistaMunicipalityName" : "Cabra de Santo Cristo",
+  "acantiladoAyuntamientoId" : "23017",
+  "acantiladoMunicipalityName" : "Cabra del Santo Cristo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-002-007",
+  "idealistaMunicipalityName" : "Arjonilla",
+  "acantiladoAyuntamientoId" : "23007",
+  "acantiladoMunicipalityName" : "Arjonilla"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-003-902",
+  "idealistaMunicipalityName" : "Bedmar y Garcíez",
+  "acantiladoAyuntamientoId" : "23902",
+  "acantiladoMunicipalityName" : "Bedmar y Garcíez"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-004-051",
+  "idealistaMunicipalityName" : "Jamilena",
+  "acantiladoAyuntamientoId" : "23051",
+  "acantiladoMunicipalityName" : "Jamilena"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-002-011",
+  "idealistaMunicipalityName" : "Baños de la Encina",
+  "acantiladoAyuntamientoId" : "23011",
+  "acantiladoMunicipalityName" : "Baños de la Encina"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-081",
+  "idealistaMunicipalityName" : "Segura de la Sierra",
+  "acantiladoAyuntamientoId" : "23081",
+  "acantiladoMunicipalityName" : "Segura de la Sierra"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-04-001-070",
+  "idealistaMunicipalityName" : "Pozo Alcon",
+  "acantiladoAyuntamientoId" : "23070",
+  "acantiladoMunicipalityName" : "Pozo Alcón"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-037",
+  "idealistaMunicipalityName" : "Génave",
+  "acantiladoAyuntamientoId" : "23037",
+  "acantiladoMunicipalityName" : "Génave"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-06-003-002",
+  "idealistaMunicipalityName" : "Alcalá la Real",
+  "acantiladoAyuntamientoId" : "23002",
+  "acantiladoMunicipalityName" : "Alcalá la Real"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-002-069",
+  "idealistaMunicipalityName" : "Porcuna",
+  "acantiladoAyuntamientoId" : "23069",
+  "acantiladoMunicipalityName" : "Porcuna"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-001-014",
+  "idealistaMunicipalityName" : "Begijar",
+  "acantiladoAyuntamientoId" : "23014",
+  "acantiladoMunicipalityName" : "Begíjar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-001-074",
+  "idealistaMunicipalityName" : "Rus",
+  "acantiladoAyuntamientoId" : "23074",
+  "acantiladoMunicipalityName" : "Rus"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-04-001-080",
+  "idealistaMunicipalityName" : "Santo Tomé",
+  "acantiladoAyuntamientoId" : "23080",
+  "acantiladoMunicipalityName" : "Santo Tomé"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-004-087",
+  "idealistaMunicipalityName" : "Torredonjimeno",
+  "acantiladoAyuntamientoId" : "23087",
+  "acantiladoMunicipalityName" : "Torredonjimeno"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-001-009",
+  "idealistaMunicipalityName" : "Baeza",
+  "acantiladoAyuntamientoId" : "23009",
+  "acantiladoMunicipalityName" : "Baeza"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-003-095",
+  "idealistaMunicipalityName" : "Villacarrillo",
+  "acantiladoAyuntamientoId" : "23095",
+  "acantiladoMunicipalityName" : "Villacarrillo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-06-002-099",
+  "idealistaMunicipalityName" : "Los Villares",
+  "acantiladoAyuntamientoId" : "23099",
+  "acantiladoMunicipalityName" : "Los Villares"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-001-001",
+  "idealistaMunicipalityName" : "Albanchez de Mágina",
+  "acantiladoAyuntamientoId" : "23001",
+  "acantiladoMunicipalityName" : "Albanchez de Mágina"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-003-049",
+  "idealistaMunicipalityName" : "Jabalquinto",
+  "acantiladoAyuntamientoId" : "23049",
+  "acantiladoMunicipalityName" : "Jabalquinto"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-003-061",
+  "idealistaMunicipalityName" : "Mengíbar",
+  "acantiladoAyuntamientoId" : "23061",
+  "acantiladoMunicipalityName" : "Mengíbar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-06-001-003",
+  "idealistaMunicipalityName" : "Alcaudete",
+  "acantiladoAyuntamientoId" : "23003",
+  "acantiladoMunicipalityName" : "Alcaudete"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-012",
+  "idealistaMunicipalityName" : "Beas de Segura",
+  "acantiladoAyuntamientoId" : "23012",
+  "acantiladoMunicipalityName" : "Beas de Segura"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-005-098",
+  "idealistaMunicipalityName" : "Villardompardo",
+  "acantiladoAyuntamientoId" : "23098",
+  "acantiladoMunicipalityName" : "Villardompardo"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-002-019",
+  "idealistaMunicipalityName" : "Campillo de Arenas",
+  "acantiladoAyuntamientoId" : "23019",
+  "acantiladoMunicipalityName" : "Campillo de Arenas"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-004-029",
+  "idealistaMunicipalityName" : "Chiclana de Segura",
+  "acantiladoAyuntamientoId" : "23029",
+  "acantiladoMunicipalityName" : "Chiclana de Segura"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-002-006",
+  "idealistaMunicipalityName" : "Arjona",
+  "acantiladoAyuntamientoId" : "23006",
+  "acantiladoMunicipalityName" : "Arjona"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-072",
+  "idealistaMunicipalityName" : "La Puerta de Segura",
+  "acantiladoAyuntamientoId" : "23072",
+  "acantiladoMunicipalityName" : "La Puerta de Segura"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-05-003-053",
+  "idealistaMunicipalityName" : "Jodar",
+  "acantiladoAyuntamientoId" : "23053",
+  "acantiladoMunicipalityName" : "Jódar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-002-021",
+  "idealistaMunicipalityName" : "Carboneros",
+  "acantiladoAyuntamientoId" : "23021",
+  "acantiladoMunicipalityName" : "Carboneros"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-082",
+  "idealistaMunicipalityName" : "Siles",
+  "acantiladoAyuntamientoId" : "23082",
+  "acantiladoMunicipalityName" : "Siles"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-001-046",
+  "idealistaMunicipalityName" : "Ibros",
+  "acantiladoAyuntamientoId" : "23046",
+  "acantiladoMunicipalityName" : "Ibros"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-001-020",
+  "idealistaMunicipalityName" : "Canena",
+  "acantiladoAyuntamientoId" : "23020",
+  "acantiladoMunicipalityName" : "Canena"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-04-001-030",
+  "idealistaMunicipalityName" : "Chilluévar",
+  "acantiladoAyuntamientoId" : "23030",
+  "acantiladoMunicipalityName" : "Chilluévar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-004-025",
+  "idealistaMunicipalityName" : "Castellar",
+  "acantiladoAyuntamientoId" : "23025",
+  "acantiladoMunicipalityName" : "Castellar"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-002-092",
+  "idealistaMunicipalityName" : "Ubeda",
+  "acantiladoAyuntamientoId" : "23092",
+  "acantiladoMunicipalityName" : "Úbeda"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-003-010",
+  "idealistaMunicipalityName" : "Bailén",
+  "acantiladoAyuntamientoId" : "23010",
+  "acantiladoMunicipalityName" : "Bailén"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-02-004-004",
+  "idealistaMunicipalityName" : "Aldeaquemada",
+  "acantiladoAyuntamientoId" : "23004",
+  "acantiladoMunicipalityName" : "Aldeaquemada"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-04-001-028",
+  "idealistaMunicipalityName" : "Cazorla",
+  "acantiladoAyuntamientoId" : "23028",
+  "acantiladoMunicipalityName" : "Cazorla"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-06-001-034",
+  "idealistaMunicipalityName" : "Fuensanta de Martos",
+  "acantiladoAyuntamientoId" : "23034",
+  "acantiladoMunicipalityName" : "Fuensanta de Martos"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-04-001-047",
+  "idealistaMunicipalityName" : "La Iruela",
+  "acantiladoAyuntamientoId" : "23047",
+  "acantiladoMunicipalityName" : "La Iruela"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-003-027",
+  "idealistaMunicipalityName" : "Cazalilla",
+  "acantiladoAyuntamientoId" : "23027",
+  "acantiladoMunicipalityName" : "Cazalilla"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-01-003-061",
+  "idealistaMunicipalityName" : "Mengíbar",
+  "acantiladoAyuntamientoId" : "23032",
+  "acantiladoMunicipalityName" : "Espeluy"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-03-001-904",
+  "idealistaMunicipalityName" : "Santiago-Pontones",
+  "acantiladoAyuntamientoId" : "23904",
+  "acantiladoMunicipalityName" : "Santiago-Pontones"
+}, {
+  "idealistaLocationId" : "0-EU-ES-23-08-001-009",
+  "idealistaMunicipalityName" : "Baeza",
+  "acantiladoAyuntamientoId" : "23074",
+  "acantiladoMunicipalityName" : "Rus"
+} ]

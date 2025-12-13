@@ -5,7 +5,7 @@ import com.acantilado.collection.location.AcantiladoLocationEstablisher;
 import com.acantilado.core.administrative.*;
 import com.acantilado.core.amenity.GoogleAmenityDAO;
 import com.acantilado.core.amenity.GoogleAmenitySnapshotDAO;
-import com.acantilado.core.amenity.fields.AcantiladoAmenityChain;
+import com.acantilado.core.amenity.fields.AcantiladoAmenityType;
 import com.acantilado.utils.ProvinceCollectionUtils;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class AmenityProvinceCollectorService {
         this.provinceToCollectFor = ProvinceCollectionUtils.getProvinceFromId(
                 sessionFactory, provinciaDAO, provinceId);
         this.postcodeIdsForProvince = ProvinceCollectionUtils.getPostcodeIdsForProvince(
-                sessionFactory, provinciaDAO, ayuntamientoDAO, provinceId);
+                sessionFactory, ayuntamientoDAO, provinceId);
 
         Set<Ayuntamiento> ayuntamientosForProvince = ProvinceCollectionUtils.getAyuntamientosForProvince(
                 sessionFactory, ayuntamientoDAO, provinceToCollectFor);
@@ -77,7 +77,7 @@ public class AmenityProvinceCollectorService {
         Set<GoogleAmenitySearchRequest> searchRequests = postcodeIdsForProvince
                 .stream()
                 .map(postcode ->
-                    new GoogleAmenitySearchRequest(postcode, AcantiladoAmenityChain.CARREFOUR)
+                    new GoogleAmenitySearchRequest(postcode, AcantiladoAmenityType.SUPERMARKET)
                 )
                 .collect(Collectors.toSet());
 

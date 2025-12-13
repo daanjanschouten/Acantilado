@@ -1,7 +1,7 @@
 package com.acantilado.collection.amenity;
 
 import com.acantilado.collection.utils.RequestBodyData;
-import com.acantilado.core.amenity.fields.AcantiladoAmenityChain;
+import com.acantilado.core.amenity.fields.AcantiladoAmenityType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -82,9 +82,9 @@ public class GoogleAmenitySearchRequest implements RequestBodyData {
     @JsonProperty("allPlacesNoSearchAction")
     private final String allPlacesNoSearchAction = "";
 
-    public GoogleAmenitySearchRequest(String postcode, AcantiladoAmenityChain chain) {
+    public GoogleAmenitySearchRequest(String postcode, AcantiladoAmenityType amenityType) {
         this.locationQuery = String.format("ES %s", postcode);
-        this.searchStringsArray = List.of(chain.name().toLowerCase(Locale.ROOT));
+        this.searchStringsArray = List.of(amenityType.getSearchTerm().toLowerCase(Locale.ROOT));
     }
 
     public String getLocationQuery() {

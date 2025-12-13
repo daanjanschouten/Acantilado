@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import static com.acantilado.utils.RetryableBatchedExecutor.executeCallableInSessionWithoutTransaction;
 
 public class ProvinceCollectionUtils {
+
     public static Provincia getProvinceFromId(
             SessionFactory sessionFactory, ProvinciaDAO provinciaDAO, String provinceId) {
         return executeCallableInSessionWithoutTransaction(sessionFactory, () -> {
@@ -30,14 +31,22 @@ public class ProvinceCollectionUtils {
                         .collect(Collectors.groupingBy(IdealistaLocationMapping::getIdealistaLocationId)));
     }
 
-    public static Map<String, List<IdealistaLocationMapping>> getMappingsByAyuntamientoIds(
-            SessionFactory sessionFactory, IdealistaLocationMappingDAO mappingDAO, Set<String> idealistaLocationIdsForProvince) {
-        return executeCallableInSessionWithoutTransaction(sessionFactory,
-                () -> mappingDAO.findAll()
-                        .stream()
-                        .filter(mapped ->
-                                idealistaLocationIdsForProvince.contains(mapped.getIdealistaLocationId()))
-                        .collect(Collectors.groupingBy(IdealistaLocationMapping::getAcantiladoAyuntamientoId)));
+    public static Set<String> getMappedAyuntamientos(
+            SessionFactory sessionFactory,
+            IdealistaLocationMappingDAO mappingDAO,
+            Set<Ayuntamiento> ayuntamientos) {
+
+        return ayuntamientos
+                .stream()
+                .map(Ayuntamiento::getId)
+                .filter(ayuntamientoId -> {
+                    List<IdealistaLocationMapping> mappings = executeCallableInSessionWithoutTransaction(
+                            sessionFactory,
+                            () -> mappingDAO.findByAyuntamientoId(ayuntamientoId)
+                    );
+                    return !mappings.isEmpty();
+                })
+                .collect(Collectors.toSet());
     }
 
     public static Set<Ayuntamiento> getAyuntamientosForProvince(
@@ -70,23 +79,14 @@ public class ProvinceCollectionUtils {
     }
 
     public static Set<String> getPostcodeIdsForProvince(
-            SessionFactory sessionFactory,
-            ProvinciaDAO provinciaDAO,
-            AyuntamientoDAO ayuntamientoDAO,
-            String provinceName) {
-        return executeCallableInSessionWithoutTransaction(sessionFactory, () -> {
-            List<Provincia> provincias = provinciaDAO.findByName(provinceName);
-            if (provincias.size() != 1) {
-                throw new RuntimeException("More than 1 or 0 provinces found for province " + provinceName);
-            }
-
-            return ayuntamientoDAO.findByProvinceId(provincias.get(0).getId())
+            SessionFactory sessionFactory, AyuntamientoDAO ayuntamientoDAO, String provinceId) {
+        return executeCallableInSessionWithoutTransaction(sessionFactory, () ->
+                ayuntamientoDAO.findByProvinceId(provinceId)
                     .stream()
                     .filter(a -> !a.getId().startsWith("53"))
                     .flatMap(a -> a.getCodigosPostales().stream())
                     .map(CodigoPostal::getCodigoPostal)
-                    .collect(Collectors.toSet());
-        });
+                    .collect(Collectors.toSet()));
     }
 
     public static Set<Barrio> getBarriosForProvince(SessionFactory sessionFactory, BarrioDAO barrioDAO, Provincia provincia) {
