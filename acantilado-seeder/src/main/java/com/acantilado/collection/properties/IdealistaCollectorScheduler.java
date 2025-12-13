@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -25,7 +26,7 @@ public class IdealistaCollectorScheduler implements Managed {
             IdealistaCollectorConfig config) {
         this.collectorServiceFactory = collectorServiceFactory;
         this.config = config;
-        this.scheduler = Executors.newScheduledThreadPool(config.getSchedulerThreadPoolSize());
+        this.scheduler = Executors.newScheduledThreadPool(config.getThreadPoolSize());
     }
 
     @Override
@@ -54,37 +55,37 @@ public class IdealistaCollectorScheduler implements Managed {
         scheduler.shutdown();
         provinceCollectorServices.forEach(IdealistaProvinceCollectorService::shutdownExecutor);
 
-        if (!scheduler.awaitTermination(config.getShutdownTimeout().toSeconds(), TimeUnit.SECONDS)) {
+        if (!scheduler.awaitTermination(10, TimeUnit.SECONDS)) {
             LOGGER.warn("Scheduler did not terminate gracefully, forcing shutdown");
             scheduler.shutdownNow();
         }
     }
 
     private void collectProperties() {
-        Set<String> provinces = config.getProvinces();
+        Set<String> provinceIds = config.getProvinces();
         Set<IdealistaPropertyType> propertyTypes = parsePropertyTypes(config.getPropertyTypes());
 
-        provinces.forEach(provinceName -> {
+        provinceIds.forEach(provinceId -> {
             IdealistaProvinceCollectorService collectorService =
-                    collectorServiceFactory.getCollectorService(provinceName);
+                    collectorServiceFactory.getCollectorService(provinceId);
             provinceCollectorServices.add(collectorService);
 
             propertyTypes.forEach(propertyType -> {
                 try {
                     LOGGER.info("Starting collection for province {} and property type {}",
-                            provinceName, propertyType);
+                            provinceId, propertyType);
 
                     if (collectorService.collectRealEstateForProvince(propertyType)) {
                         LOGGER.info("Completed scheduled real estate collection for province {} and property type {}",
-                                provinceName,
+                                provinceId,
                                 propertyType);
                     } else {
                         LOGGER.error("Partial completion of scheduled real estate collection for province {}",
-                                provinceName);
+                                provinceId);
                     }
                 } catch (Exception e) {
                     LOGGER.error("Error during collection for province {} and property type {}",
-                            provinceName, propertyType, e);
+                            provinceId, propertyType, e);
                 }
             });
             provinceCollectorServices.remove(collectorService);
@@ -101,7 +102,7 @@ public class IdealistaCollectorScheduler implements Managed {
                         return null;
                     }
                 })
-                .filter(type -> type != null)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
     }
 }

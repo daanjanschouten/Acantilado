@@ -5,14 +5,14 @@ import io.dropwizard.lifecycle.Managed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class AdministrativeCollectorScheduler implements Managed {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdministrativeCollectorScheduler.class);
 
-    private final ScheduledExecutorService scheduler;
+    private final ExecutorService scheduler;
     private final GeographicCollectorService collectorService;
     private final AdministrativeCollectorConfig config;
 
@@ -21,7 +21,7 @@ public class AdministrativeCollectorScheduler implements Managed {
             AdministrativeCollectorConfig config) {
         this.collectorService = collectorService;
         this.config = config;
-        this.scheduler = Executors.newScheduledThreadPool(config.getThreadPoolSize());
+        this.scheduler = Executors.newSingleThreadExecutor();
     }
 
     @Override
@@ -37,11 +37,7 @@ public class AdministrativeCollectorScheduler implements Managed {
         }
 
         LOGGER.info("Starting administrative collection");
-        scheduler.schedule(
-                this::seedAndScheduleRecurring,
-                config.getInitialDelay().toSeconds(),
-                TimeUnit.SECONDS
-        );
+        scheduler.submit(this::seed);
     }
 
     @Override
@@ -50,17 +46,9 @@ public class AdministrativeCollectorScheduler implements Managed {
 
         scheduler.shutdown();
 
-        if (!scheduler.awaitTermination(config.getShutdownTimeout().toSeconds(), TimeUnit.SECONDS)) {
+        if (!scheduler.awaitTermination(10, TimeUnit.SECONDS)) {
             LOGGER.warn("Scheduler did not terminate gracefully, forcing shutdown");
             scheduler.shutdownNow();
-        }
-    }
-
-    private void seedAndScheduleRecurring() {
-        try {
-            seed();
-        } catch (Exception e) {
-            LOGGER.error("Error during initial administrative data seeding", e);
         }
     }
 

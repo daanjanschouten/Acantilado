@@ -12,14 +12,11 @@ import java.util.stream.Collectors;
 import static com.acantilado.utils.RetryableBatchedExecutor.executeCallableInSessionWithoutTransaction;
 
 public class ProvinceCollectionUtils {
-    public static Provincia getProvinceFromName(
-            SessionFactory sessionFactory, ProvinciaDAO provinciaDAO, String provinceName) {
+    public static Provincia getProvinceFromId(
+            SessionFactory sessionFactory, ProvinciaDAO provinciaDAO, String provinceId) {
         return executeCallableInSessionWithoutTransaction(sessionFactory, () -> {
-            List<Provincia> provincias = provinciaDAO.findByName(provinceName);
-            if (provincias.size() != 1) {
-                throw new RuntimeException("More than 1 or 0 provinces found for province " + provinceName);
-            }
-            return provincias.get(0);
+            Optional<Provincia> provincia = provinciaDAO.findById(provinceId);
+            return provincia.orElseThrow();
         });
     }
 

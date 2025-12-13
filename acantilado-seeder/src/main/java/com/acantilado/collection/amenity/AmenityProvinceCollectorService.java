@@ -28,7 +28,7 @@ public class AmenityProvinceCollectorService {
     private final Set<String> postcodeIdsForProvince;
 
     public AmenityProvinceCollectorService(
-            String provinceName,
+            String provinceId,
             GoogleAmenityDAO amenityDAO,
             GoogleAmenitySnapshotDAO snapshotDAO,
             SessionFactory sessionFactory,
@@ -37,10 +37,10 @@ public class AmenityProvinceCollectorService {
             AyuntamientoDAO ayuntamientoDAO,
             BarrioDAO barrioDAO,
             IdealistaLocationMappingDAO mappingDAO) {
-        this.provinceToCollectFor = ProvinceCollectionUtils.getProvinceFromName(
-                sessionFactory, provinciaDAO, provinceName);
+        this.provinceToCollectFor = ProvinceCollectionUtils.getProvinceFromId(
+                sessionFactory, provinciaDAO, provinceId);
         this.postcodeIdsForProvince = ProvinceCollectionUtils.getPostcodeIdsForProvince(
-                sessionFactory, provinciaDAO, ayuntamientoDAO, provinceName);
+                sessionFactory, provinciaDAO, ayuntamientoDAO, provinceId);
 
         Set<Ayuntamiento> ayuntamientosForProvince = ProvinceCollectionUtils.getAyuntamientosForProvince(
                 sessionFactory, ayuntamientoDAO, provinceToCollectFor);

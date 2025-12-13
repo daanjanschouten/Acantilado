@@ -1,5 +1,6 @@
 package com.acantilado.collection.amenity;
 
+import com.acantilado.collection.CollectorConfiguration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.util.Duration;
 import jakarta.validation.constraints.Min;
@@ -10,35 +11,29 @@ import java.util.Set;
 
 public class AmenityCollectorConfig {
     @NotNull
-    private Set<String> provinces = new HashSet<>(Set.of());
+    private Set<Integer> provinces = new HashSet<>(Set.of());
 
     @NotNull
     private Set<String> amenityChains = new HashSet<>(Set.of("CARREFOUR"));
 
     @NotNull
-    private Duration initialDelay = Duration.seconds(10);
-
-    @NotNull
     private Duration collectionInterval = Duration.hours(6);
 
-    @Min(1)
-    private int schedulerThreadPoolSize = 1;
-
-    @Min(1)
-    private int collectorThreadPoolSize = 10;
-
     @NotNull
-    private Duration shutdownTimeout = Duration.seconds(10);
+    private Set<String> amenityTypes = Set.of();
+
+    @Min(1)
+    private int threadPoolSize = 10;
 
     private boolean enabled = true;
 
     @JsonProperty
     public Set<String> getProvinces() {
-        return provinces;
+        return CollectorConfiguration.getProvinces(provinces);
     }
 
     @JsonProperty
-    public void setProvinces(Set<String> provinces) {
+    public void setProvinces(Set<Integer> provinces) {
         this.provinces = provinces;
     }
 
@@ -54,12 +49,7 @@ public class AmenityCollectorConfig {
 
     @JsonProperty
     public Duration getInitialDelay() {
-        return initialDelay;
-    }
-
-    @JsonProperty
-    public void setInitialDelay(Duration initialDelay) {
-        this.initialDelay = initialDelay;
+        return CollectorConfiguration.getInitialDelay();
     }
 
     @JsonProperty
@@ -73,33 +63,13 @@ public class AmenityCollectorConfig {
     }
 
     @JsonProperty
-    public int getSchedulerThreadPoolSize() {
-        return schedulerThreadPoolSize;
+    public int getThreadPoolSize() {
+        return threadPoolSize;
     }
 
     @JsonProperty
-    public void setSchedulerThreadPoolSize(int schedulerThreadPoolSize) {
-        this.schedulerThreadPoolSize = schedulerThreadPoolSize;
-    }
-
-    @JsonProperty
-    public int getCollectorThreadPoolSize() {
-        return collectorThreadPoolSize;
-    }
-
-    @JsonProperty
-    public void setCollectorThreadPoolSize(int collectorThreadPoolSize) {
-        this.collectorThreadPoolSize = collectorThreadPoolSize;
-    }
-
-    @JsonProperty
-    public Duration getShutdownTimeout() {
-        return shutdownTimeout;
-    }
-
-    @JsonProperty
-    public void setShutdownTimeout(Duration shutdownTimeout) {
-        this.shutdownTimeout = shutdownTimeout;
+    public void setThreadPoolSize(int ThreadPoolSize) {
+        this.threadPoolSize = ThreadPoolSize;
     }
 
     @JsonProperty
@@ -110,5 +80,13 @@ public class AmenityCollectorConfig {
     @JsonProperty
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Set<String> getAmenityTypes() {
+        return amenityTypes;
+    }
+
+    public void setAmenityTypes(Set<String> amenityTypes) {
+        this.amenityTypes = amenityTypes;
     }
 }

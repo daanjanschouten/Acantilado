@@ -20,12 +20,10 @@ public class AmenityCollectorScheduler implements Managed {
     private final AmenityCollectorConfig config;
     private final Set<AmenityProvinceCollectorService> provinceCollectorServices = new HashSet<>();
 
-    public AmenityCollectorScheduler(
-            AmenityCollectorServiceFactory collectorServiceFactory,
-            AmenityCollectorConfig config) {
-        this.collectorServiceFactory = collectorServiceFactory;
+    public AmenityCollectorScheduler(AmenityCollectorServiceFactory factory, AmenityCollectorConfig config) {
+        this.collectorServiceFactory = factory;
         this.config = config;
-        this.scheduler = Executors.newScheduledThreadPool(config.getSchedulerThreadPoolSize());
+        this.scheduler = Executors.newScheduledThreadPool(config.getThreadPoolSize());
     }
 
     @Override
@@ -54,36 +52,38 @@ public class AmenityCollectorScheduler implements Managed {
         scheduler.shutdown();
         provinceCollectorServices.forEach(AmenityProvinceCollectorService::shutdownExecutor);
 
-        if (!scheduler.awaitTermination(config.getShutdownTimeout().toSeconds(), TimeUnit.SECONDS)) {
+        if (!scheduler.awaitTermination(10, TimeUnit.SECONDS)) {
             LOGGER.warn("Scheduler did not terminate gracefully, forcing shutdown");
             scheduler.shutdownNow();
         }
     }
 
     private void collectAmenities() {
-        Set<String> provinces = config.getProvinces();
+        Set<String> provinceIds = config.getProvinces();
+
+
         Set<AcantiladoAmenityChain> amenityChains = parseAmenityChains(config.getAmenityChains());
 
-        provinces.forEach(provinceName -> {
+        provinceIds.forEach(provinceId -> {
             AmenityProvinceCollectorService collectorService =
-                    collectorServiceFactory.getCollectorService(provinceName);
+                    collectorServiceFactory.getCollectorService(provinceId);
             provinceCollectorServices.add(collectorService);
 
             amenityChains.forEach(chain -> {
                 try {
                     LOGGER.info("Starting collection for province {} and amenity chain {}",
-                            provinceName, chain);
+                            provinceId, chain);
 
                     if (collectorService.collectAmenitiesForProvince()) {
                         LOGGER.info("Completed scheduled amenity collection for province {} and chain {}",
-                                provinceName, chain);
+                                provinceId, chain);
                     } else {
                         LOGGER.error("Partial completion of scheduled amenity collection for province {}",
-                                provinceName);
+                                provinceId);
                     }
                 } catch (Exception e) {
                     LOGGER.error("Error during collection for province {} and chain {}",
-                            provinceName, chain, e);
+                            provinceId, chain, e);
                 }
             });
 

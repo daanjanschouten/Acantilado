@@ -178,7 +178,7 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         environment.lifecycle().manage(
                 new AdministrativeCollectorScheduler(
                         geographicCollectorService,
-                        configuration.getAdministrativeCollector()));
+                        configuration.getCollectorConfiguration().getAdministrativeCollector()));
 
         // Properties
         environment.jersey().register(new IdealistaRealEstateResource(
@@ -190,10 +190,10 @@ public class AcantiladoApplication extends Application<AcantiladoConfiguration> 
         environment.lifecycle().manage(
                 new IdealistaCollectorScheduler(
                         collectorServiceFactory,
-                        configuration.getIdealistaCollector()));
+                        configuration.getCollectorConfiguration().getIdealistaCollector()));
         environment.lifecycle().manage(
                 new AmenityCollectorScheduler(
                         amenityServiceFactory,
-                        configuration.getAmenityCollector()));
+                        configuration.getCollectorConfiguration().getAmenityCollector()));
     }
 }

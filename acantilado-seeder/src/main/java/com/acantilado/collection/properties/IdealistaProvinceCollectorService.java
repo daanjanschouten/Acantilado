@@ -56,7 +56,7 @@ public final class IdealistaProvinceCollectorService {
     private final Set<Ayuntamiento> ayuntamientosForProvince;
 
     public IdealistaProvinceCollectorService(
-            String provinceName,
+            String provinceId,
             IdealistaContactInformationDAO contactDAO,
             IdealistaPropertyDAO propertyDAO,
             IdealistaTerrainDAO terrainDAO,
@@ -73,8 +73,8 @@ public final class IdealistaProvinceCollectorService {
 
         this.sessionFactory = sessionFactory;
 
-        this.provinceToCollectFor = ProvinceCollectionUtils.getProvinceFromName(
-                sessionFactory, provinciaDAO, provinceName);
+        this.provinceToCollectFor = ProvinceCollectionUtils.getProvinceFromId(
+                sessionFactory, provinciaDAO, provinceId);
         this.ayuntamientosForProvince = ProvinceCollectionUtils.getAyuntamientosForProvince(
                 sessionFactory, ayuntamientoDAO, provinceToCollectFor);
 
